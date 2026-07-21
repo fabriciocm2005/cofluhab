@@ -3,6 +3,8 @@ Views para integração CEF SIWFC
 Gerenciamento de envios, retornos e automação
 """
 
+from __future__ import annotations
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponse, FileResponse, Http404
 from django.contrib import messages
