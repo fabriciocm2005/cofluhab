@@ -2,6 +2,8 @@
 
 ## Preparar para deploy Railway
 
+Substitua `your-username` pelo seu usuário real do GitHub antes de executar os comandos.
+
 ```bash
 git init
 git add .
