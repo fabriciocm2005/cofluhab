@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - COFLUHAB</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        h1 {
+            margin: 0 0 8px;
+            font-size: 22px;
+        }
+        p {
+            margin: 0 0 20px;
+            color: #6b7280;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            border: 0;
+            border-radius: 8px;
+            background: #1d4ed8;
+            color: #fff;
+            padding: 11px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .error {
+            margin-bottom: 12px;
+            color: #b91c1c;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Entrar no Sistema</h1>
+        <p>Use usuário e senha para acessar o COFLUHAB.</p>
+
+        {% if form.errors %}
+            <div class="error">Usuário ou senha inválidos.</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_username">Usuário</label>
+            <input id="id_username" type="text" name="username" autocomplete="username" required>
+
+            <label for="id_password">Senha</label>
+            <input id="id_password" type="password" name="password" autocomplete="current-password" required>
+
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
