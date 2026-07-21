@@ -6,9 +6,8 @@ cmds = ["pip install -r requirements.txt"]
 
 [phases.build]
 cmds = [
-  "python manage.py collectstatic --noinput",
-  "python manage.py migrate --noinput"
+  "python manage.py collectstatic --noinput"
 ]
 
 [start]
-cmd = "gunicorn cofluhab.wsgi --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
+cmd = "python manage.py migrate --noinput && gunicorn cofluhab.wsgi --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
