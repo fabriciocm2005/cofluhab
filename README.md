@@ -2,8 +2,8 @@
 
 ## Preparar para deploy Railway
 
-Substitua `your-username` pelo seu usuário real do GitHub antes de executar os comandos.
-Se você já clonou o repositório, pule o `git init` e o `git remote add origin ...` (o `origin` já existe).
+Substitua **todas** as ocorrências de `your-username` pelo seu usuário real do GitHub antes de executar os comandos.
+Se você já clonou o repositório, pule o `git init` e o `git remote add origin ...` (o `origin` já existe). Execute `git add .` e `git commit ...` apenas se houver mudanças para versionar.
 
 ```bash
 git init
