@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste AI Agents - COFLUHAB</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .agent-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        
+        .agent-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            color: white;
+        }
+        
+        .resultado {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            color: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Teste de AI Agents</h1>
+        <p class="subtitle">Sistema CrewAI para validação e análise automatizada</p>
+        
+        {% if not crewai_disponivel %}
+        <div class="agent-card" style="border-left-color: #f39c12; background: #fff3cd;">
+            <h3 style="color: #f39c12;">⚠️ Instalação em Andamento</h3>
+            <p>O CrewAI está sendo instalado. Por favor, aguarde alguns minutos e recarregue esta página.</p>
+            <p><strong>Status:</strong> Baixando pacotes necessários...</p>
+            <button class="btn btn-primary" onclick="location.reload()">🔄 Recarregar Página</button>
+        </div>
+        {% else %}
+        <div class="agent-card" style="border-left-color: #27ae60; background: #d4edda;">
+            <h3 style="color: #27ae60;">✅ Sistema Pronto</h3>
+            <p>CrewAI está instalado e funcionando!</p>
+        </div>
+        {% endif %}
+        
+        <div class="agent-card">
+            <h3>👨‍💻 Agentes Disponíveis</h3>
+            <ul>
+                <li><strong>QA Engineer:</strong> Valida arquivos CEF (FH1, RCV)</li>
+                <li><strong>Backend Engineer:</strong> Corrige bugs e problemas</li>
+                <li><strong>Data Analyst:</strong> Analisa contratos e FCVS</li>
+                <li><strong>Compliance Officer:</strong> Garante conformidade legal</li>
+            </ul>
+        </div>
+        
+        <h2>🧪 Testes Disponíveis</h2>
+        
+        <div style="margin: 20px 0;">
+            <button class="btn btn-primary" onclick="testarSimples()">
+                🚀 Teste Simples (QA + Backend)
+            </button>
+            
+            <button class="btn btn-success" onclick="mostrarFormularioValidacao()">
+                📄 Validar Arquivo CEF
+            </button>
+        </div>
+        
+        <div id="formulario-validacao" style="display: none; margin-top: 20px;">
+            <h3>Validar Arquivo CEF</h3>
+            <p>Cole o conteúdo do arquivo abaixo:</p>
+            <textarea id="conteudo-arquivo" placeholder="Cole o conteúdo do arquivo FH1 ou RCV aqui..."></textarea>
+            <br><br>
+            <select id="tipo-arquivo" style="padding: 10px; margin-right: 10px;">
+                <option value="FH1">FH1 - Habilitação</option>
+                <option value="RCV">RCV - Comprovação</option>
+            </select>
+            <button class="btn btn-primary" onclick="validarArquivo()">
+                Validar com AI
+            </button>
+        </div>
+        
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>🤖 Agentes AI trabalhando...</p>
+        </div>
+        
+        <div id="resultado" class="resultado" style="display: none;"></div>
+        
+        <a href="/integracao-cef/" class="back-link">← Voltar para Integração CEF</a>
+    </div>
+    
+    <script>
+        function mostrarLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('resultado').style.display = 'none';
+        }
+        
+        function mostrarResultado(texto) {
+            document.getElementById('loading').style.display = 'none';
+            const divResultado = document.getElementById('resultado');
+            divResultado.style.display = 'block';
+            divResultado.textContent = texto;
+        }
+        
+        function mostrarFormularioValidacao() {
+            const form = document.getElementById('formulario-validacao');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        async function testarSimples() {
+            mostrarLoading();
+            
+            try {
+                const formData = new FormData();
+                formData.append('tipo', 'simples');
+                
+                const response = await fetch('/ai-agents/test/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.sucesso) {
+                    mostrarResultado('✅ TESTE CONCLUÍDO\n\n' + data.resultado);
+                } else {
+                    mostrarResultado('❌ ERRO\n\n' + (data.erro || 'Erro desconhecido'));
+                }
+            } catch (error) {
+                mostrarResultado('❌ ERRO DE CONEXÃO\n\n' + error.message);
+            }
+        }
+        
+        async function validarArquivo() {
+            const conteudo = document.getElementById('conteudo-arquivo').value;
+            const tipoArquivo = document.getElementById('tipo-arquivo').value;
+            
+            if (!conteudo.trim()) {
+                alert('Por favor, cole o conteúdo do arquivo');
+                return;
+            }
+            
+            mostrarLoading();
+            
+            try {
+                const formData = new FormData();
+                formData.append('tipo', 'validar_arquivo');
+                formData.append('conteudo', conteudo);
+                formData.append('tipo_arquivo', tipoArquivo);
+                
+                const response = await fetch('/ai-agents/test/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                let resultado = '📊 RESULTADO DA VALIDAÇÃO\n\n';
+                resultado += data.aprovado ? '✅ ARQUIVO APROVADO\n\n' : '❌ ARQUIVO REPROVADO\n\n';
+                resultado += data.resultado || data.erro;
+                
+                mostrarResultado(resultado);
+            } catch (error) {
+                mostrarResultado('❌ ERRO DE CONEXÃO\n\n' + error.message);
+            }
+        }
+        
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>

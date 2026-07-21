@@ -1,0 +1,59 @@
+LAYOUT M460301
+================================================================================
+
+
+=== PÁGINA 1 ===
+
+RELAÇÃO DE CONTRATOS NOVADOS COM IRREGULARIDADE NO CADMUT
+ACUMULATIVO
+Seq Campo Tipo Tam Observação
+01 GIFUS de Análise Cha 02 03 – GIFUS/SA
+04 – GIFUS/BR
+05 – GIFUS/FO
+08 – GIFUS/GO
+11 – GIFUS/BH
+12 – GIFUS/BE
+14 – GIFUS/CT
+15 – GIFUS/RE
+18 – GIFUS/PO
+19 – GIFUS/RJ
+20 – GIFUS/FL
+21 – GIFUS/SP
+02 Agente Origem Num 05
+03 Agente Cessionário Num 05
+04 Agente Cedente Num 05
+05 Contrato Cha 13
+06 Hipoteca Num 01
+07 Data do Contrato Date 10 DD-MM-AAAA
+08 Município (CADMUT) Num 04
+09 Data Evento (CADMUT) Date 10 DD-MM-AAAA
+10 Data Posicionamento da Date 10 DD-MM-AAAA
+Novação VA1/VAF2
+11 Valor Saldo VAF1/VA2 Num 13 (99999999999,99)
+Vencido (11v2)
+12 Valor Saldo VAF1/VAF2 Num 13 (99999999999,99)
+Vincendo
+(11v2)
+13 Data Posicionamento da Date 10 DD-MM-AAAA
+Novação VA3
+14 Valor Saldo VAF3 Num 13 (99999999999,99)
+(11v2)
+15 Data Posicionamento da Date 10 DD-MM-AAAA
+Novação VAF4
+16 Valor Saldo VAF4 Num 13 (99999999999,99)
+(11v2)
+17 Percentual de Cobertura Num 05 (999,99)
+(3v2)
+18 Situação de Cha 02 01 – Indício de Multiplicidade
+Multiplicidade e Sinistro 02 – Indício de Sinistro SIT
+03- Multiplicidade Caracterizada
+04- Sinistro Caracterizado SIT
+06 - Indício de Sinistro Parcial (SIP)
+08 - Sinistro Parcial Caracterizado (SIP)
+10 – Indicio Sinistro DFI
+12 – Sinistro DFI Caracterizado
+19 Apresentação da Date 10 DD-MM-AAAA
+Contestação
+20 Prazo final para Date 10 DD-MM-AAAA
+Contestação
+1

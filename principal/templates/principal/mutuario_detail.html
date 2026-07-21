@@ -1,0 +1,72 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}{% if mutuario %}Mutuário - {{ mutuario.nome }}{% else %}Não encontrado{% endif %}{% endblock %}
+
+{% block content %}
+    {% if mutuario %}
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0;">Mutuário: {{ mutuario.nome }} ({{ mutuario.codigo }})</h2>
+            <a href="{% url 'mutuario_editar' mutuario.codigo %}" style="padding: 10px 20px; background: #1976d2; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">
+                ✏️ Editar Cadastro
+            </a>
+        </div>
+        <ul>
+            <li><strong>CPF:</strong> {{ mutuario.cpf|default:"-" }}</li>
+            <li><strong>Identidade:</strong> {{ mutuario.ident|default:"-" }}</li>
+            <li><strong>Órgão Expedidor:</strong> {{ mutuario.orgao|default:"-" }}</li>
+            <li><strong>Data de Nascimento:</strong> {{ mutuario.dtnasc|date:"d/m/Y"|default:"-" }}</li>
+            <li><strong>Renda:</strong> R$ {{ mutuario.renda|floatformat:2|default:"0.00" }}</li>
+            <li><strong>Complemento Renda:</strong> R$ {{ mutuario.crenda|floatformat:2|default:"0.00" }}</li>
+        </ul>
+
+        <h3>Contato</h3>
+        <ul>
+            <li><strong>📞 Telefone:</strong> {{ mutuario.telefone|default:"-" }}</li>
+            <li><strong>✉️ E-mail:</strong> {{ mutuario.email|default:"-" }}</li>
+        </ul>
+
+        <h3>Endereço</h3>
+        <ul>
+            <li><strong>Logradouro:</strong> {{ mutuario.endereco|default:"-" }}, {{ mutuario.numero|default:"S/N" }}</li>
+            <li><strong>Complemento:</strong> {{ mutuario.compl|default:"-" }}</li>
+            <li><strong>Bairro:</strong> {{ mutuario.bairro|default:"-" }}</li>
+            <li><strong>Cidade:</strong> {{ mutuario.cidade|default:"-" }}</li>
+            <li><strong>Estado (UF):</strong> {{ mutuario.uf|default:"-" }}</li>
+            <li><strong>CEP:</strong> {{ mutuario.cep|default:"-" }}</li>
+        </ul>
+
+        <h3>Imóvel</h3>
+        <ul>
+            <li><strong>Conjunto:</strong> {{ mutuario.conjunto|default:"-" }}</li>
+            <li><strong>Conjunto Seg:</strong> {{ mutuario.conjseg|default:"-" }}</li>
+            <li><strong>Código Imóvel:</strong> {{ mutuario.codimovel|default:"-" }}</li>
+            <li><strong>Tipo de Imóvel:</strong> {{ mutuario.tipoimovel|default:"-" }}</li>
+        </ul>
+
+        <h3>Endereço vinculado (melhor match)</h3>
+        {% if endereco_match %}
+            <p>{{ endereco_match.endereco }}, {{ endereco_match.numero }} - {{ endereco_match.bairro }} - {{ endereco_match.cidade }} / {{ endereco_match.uf }} - CEP: {{ endereco_match.cep }}</p>
+        {% else %}
+            <p>Nenhum endereço correspondente encontrado automaticamente.</p>
+        {% endif %}
+
+        <h3>Contratos Vinculados</h3>
+        {% if contratos %}
+            <ul>
+                {% for contrato in contratos %}
+                    <li>
+                        <a href="{% url 'contrato_detail' contrato.pk %}">
+                            Contrato {{ contrato.codigo }} - Conjunto {{ contrato.conjunto }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhum contrato vinculado a este mutuário.</p>
+        {% endif %}
+
+    {% else %}
+        <h2>Mutuário não encontrado</h2>
+        <p>Verifique o código informado.</p>
+    {% endif %}
+{% endblock %}

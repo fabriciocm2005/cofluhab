@@ -1,0 +1,191 @@
+
+================================================================================
+--- PÁGINA 1 de 4 ---
+================================================================================
+
+1 – CADMUT0 - Cadastramento de Contratos.
+1.1 – Layout
+. TIPO DE MOVIMENTO = 11 (onze)
+. NOME DO ARQUIVO : M99999.TXT onde M = Fixo e 99999 = Matrícula do Agente
+• REGISTRO 1 => HEADER (180 bytes)
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES.
+01 Tipo-Mov Num 02 Preencher com 11(onze)
+02 Tipo-de-Registro Num 01 Obrigatório e igual a 1 (um)
+03 Matrícula-Agente Num 05 Obrigatório
+04 Data-Criação-Arquivo Num 08 aaaammdd Obrigatório
+05 Procedência-do-Arquivo Num 02 Conforme Tabela
+06 Classe-do-Agente Num 02 Preencher com 99
+07 VAGO Num 160 Preencher com 9 (noves)
+• REGISTRO 2 => MOVIMENTO (180 bytes)
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES.
+01 Tipo-Mov Num 02 Preencher com 11(onze)
+02 Tipo-de-Registro Num 01 Obrigatório e igual a 2 (dois)
+03 Matrícula-Agente Num 05 Obrigatório
+04 Número-Contrato Alfan 13 Obrigatório
+05 Grau-Hipoteca Num 1 Obrigatório
+06 Tipo-Mutuário Num 2 Automático pelo Sistema
+(01- Principal)
+07 Nome-Mutuário Alfan 40 Obrigatório
+08 Seguradora
+Código-Seguradora Num 03
+DV-Seguradora Num 01
+Região Num 02
+09 CPF/DV-do-Mutuário
+Número-CPF Num 09
+DV-CPF Num 02
+10 Identidade-Mutuário Alfan 17
+11 Dt-nascimento-mutuário Num 08 aaaammdd
+12 Dt-do-Contrato Num 08 aaaammdd Obrigatório
+13 Situação-do-contrato Num 01 Obrigatório. 1-Ativo, 2-Inativo
+14 Tipo-Operação Num 01 Obrigatório.
+0 FDS-MCMV
+1 COM COBERTURA DO FCVS
+2 SEM COBERTURA DO FCVS
+3 PSH S/ DESC FGTS
+4 PSH C/ DESC FGTS
+5 COM DESC FGTS
+6 PRO-MORADIA
+7 CONT C/ REC FDS
+8 PAR-ARRENDAM.
+9 PAR-AQ.DIR.MCMV
+15 Tipo-Evento Alfan 03 Obrigatório
+16 Data-Evento Num 08 aaaammdd Obrigatório
+17 Endereço-Imóvel Alfan 40 Obrigatório
+18 UF-Imóvel Alfa 02 Obrigatório
+19 Código-Município/DV- Obrigatório
+Imóvel
+Codigo-Municipio Num 04
+DV-Município Num 01
+20 VAGO Num 06 Preencher com 9 (noves)
+
+================================================================================
+--- PÁGINA 2 de 4 ---
+================================================================================
+
+• REGISTRO 9 => TRAILER (180 bytes)
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES.
+01 Tipo-Mov Num 02 Preencher com 11(onze)
+02 Tipo de Registro Num 01 Obrigatório e igual a 9 (nove)
+03 Matrícula Agente Num 05 Obrigatório
+04 Qtd. Contratos Num 07 Obrigatório
+05 VAGO Num 165 Preencher com 9 (noves)
+2 – CADMUT1 - Acerto de Contratos em Crítica.
+2.1 – Layout
+. TIPO DE MOVIMENTO = 12 (doze)
+. NOME DO ARQUIVO : MCAD1.TXT onde M = Fixo e 99999 = Matrícula do Agente
+• REGISTRO 3 => HEADER (200 bytes)
+SEQ. NOME DO CAMPO TIPO TAM. FORMATO OBSERVAÇÕES
+01 Tipo-Mov Num 02 Preencher com 12(doze)
+02 Tipo-de-Registro Num 01 Obrigatório e igual a 3(três)
+03 Matrícula-Agente Num 05 Obrigatório
+04 Data-Criação-Arquivo Num 08 aaaammdd Obrigatório
+05 Procedência-do-Arquivo Num 02 Conforme Tabela
+06 Classe-do-Agente Num 02 Preencher com 99
+07 VAGO Num 180 Preenchido com 9 (noves)
+• REGISTRO 4 => MOVIMENTO (200 bytes)
+SEQ. NOME DO CAMPO TIPO TAM. OBSERVAÇÕES
+01 Tipo-Mov Num 02 Preencher com 12(doze)
+02 Tipo-de-Registro Num 01 Obrigatório e igual 4(quatro)
+03 Matrícula-Agente Num 05 Obrigatório
+04 Número-Contrato Alfanum 13 Obrigatório
+05 Grau-Hipoteca Num 01 Obrigatório
+06 Tipo-Mutuário Num 02 Automático pelo sistema ( 01 – Principal)
+07 Nome-Mutuário Alfanum 40 Obrigatório
+08 Seguradora/Região
+Código-Seguradora Num 03 Conforme tabela
+DV-Seguradora Num 01
+Região Num 02
+09 CPF/DV-do-Mutuário
+Número-CPF Num 09
+DV-CPF Num 02
+10 Identidade-mutuário Alfanum 17
+11 Dt-nascimento-mutuário Num 08
+12 Dt-do-Contrato Num 08 Obrigatório
+13 Situação-do-contrato Num 01 Obrigatório. 1-Ativo, 2-Inativo
+14 Tipo-Operação Num 01 Obrigatório.
+0 FDS-MCMV
+1 COM COBERTURA DO FCVS
+2 SEM COBERTURA DO FCVS
+
+================================================================================
+--- PÁGINA 3 de 4 ---
+================================================================================
+
+• REGISTRO 4 => MOVIMENTO (200 bytes)
+SEQ. NOME DO CAMPO TIPO TAM. OBSERVAÇÕES
+3 PSH S/ DESC FGTS
+4 PSH C/ DESC FGTS
+5 COM DESC FGTS
+6 PRO-MORADIA
+7 CONT C/ REC FDS
+8 PAR-ARRENDAM.
+9 PAR-AQ.DIR.MCMV
+15 Tipo-Evento Alfanum 03 Obrigatório
+16 Data-Evento Num 08 Obrigatório
+17 Endereço-Imóvel Alfanum 40 Obrigatório
+18 UF-Imóvel Alfa 02 Obrigatório
+19 Codigo-Municipio/DV-Imóvel Obrigatório
+Codigo-Municipio Num 04
+DV-Município Num 01
+20 M1 Num 01 AGENTE inválido
+21 M2 Num 01 CONTRATO com caractere especial
+CONTRATO não informado
+22 M3 Num 01 HIPOTECA fora do intervalo
+23 M4 Num 01 TIPO Mutuário < 0 ou = brancos
+24 M5 Num 01 1-Seg.pos. nome = branco ou .(ponto)
+2-Nome inválido(caracteres especiais)
+3-Nome inválido(apenas um nome)
+4-Nome inválido(3 letras iguais juntas)
+25 M6 Num 01 SEGURADORA ou REGIÃO inválida
+26 M7 Num 01 CPF não criticado
+27 M10 Num 01 DV CPF não criticado
+28 M8 Num 01 IDENTIDADE não criticada
+29 M9 Num 01 DT NASC inválida:
+DD <01 OR> 31 = INVÁLIDO
+MM <01 OR> 12 = INVÁLIDO
+AA <1890 OR> YEAR(DATE) = INVÁLIDO
+30 C4 Num 01 Data de assinatura inválida.
+Para TIPO OPERAÇÃO = 3 ou 4 (PSH sem
+cobertura), Dt_do_Contrato tem que ser
+Maior que 30/04/2002.
+31 C5 Num 01 SITUAÇÃO INVÁLIDA(diferente de 1 ou 2)
+32 C6 Num 01 Obrigatório.
+0 FDS-MCMV
+1 COM COBERTURA DO FCVS
+2 SEM COBERTURA DO FCVS
+3 PSH S/ DESC FGTS
+4 PSH C/ DESC FGTS
+5 COM DESC FGTS
+6 PRO-MORADIA
+7 CONT C/ REC FDS
+8 PAR-ARRENDAM.
+9 PAR-AQ.DIR.MCMV
+33 C7 Num 01 1-Ev.diferente de SET p/ sit. Contrato = 1
+2-Evento em branco
+3-Evento não cadastrado
+34 C8 Num 01 1-Data de evento inválida:
+DD <01 OR> 31 = INVÁLIDO
+MM <01 OR> 12 = INVÁLIDO
+AA <1900 OR> YEAR(DATE) = INVÁLIDO
+2-Data evento inválida p/evento SET
+35 C9 Num 01 Endereço em branco
+36 C10 Num 01 UF inválida
+37 C11 Num 01 1-Município inválido(não cadastrado)
+2-Município não pertence a UF
+
+================================================================================
+--- PÁGINA 4 de 4 ---
+================================================================================
+
+• REGISTRO 4 => MOVIMENTO (200 bytes)
+SEQ. NOME DO CAMPO TIPO TAM. OBSERVAÇÕES
+38 STATUS Num 01 0 = SEM ERRO
+1 = COM ERRO
+39 VAGO NUM 07 Preencher com 9 (noves)
+• REGISTRO 8 => TRAILER (200 bytes)
+SEQ. NOME DO CAMPO TIPO TAM. OBSERVAÇÕES
+01 Tipo-Mov Num 02 Preencher com 12(doze)
+02 Tipo-de-Registro Num 01 Obrigatório e igual a 8(oito)
+03 Matrícula-Agente Num 05 Obrigatório
+04 Qtd. Contratos Num 07 Obrigatório
+07 VAGO Num 185 Preencher com 9 (noves)

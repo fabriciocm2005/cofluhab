@@ -1,0 +1,19 @@
+/* principal/static/principal/style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6; /* Cor de fundo suave */
+    color: #333;
+    padding: 20px;
+}
+
+h1 {
+    color: #092e20; /* Cor escura do Django/verde */
+    border-bottom: 2px solid #6ddcbe; /* Sublinhado para destacar */
+    padding-bottom: 10px;
+}
+
+ul {
+    list-style: none; /* Remove bolinhas da lista */
+    padding-left: 0;
+}

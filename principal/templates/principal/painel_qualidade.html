@@ -1,0 +1,127 @@
+{% extends "principal/base.html" %}
+{% block title %}Painel de Qualidade — Contratos{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+  <h4 class="mb-3">📊 Painel de Qualidade — Contratos</h4>
+
+  <!-- Estatísticas gerais -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-2">
+      <div class="card text-center border-secondary">
+        <div class="card-body py-2">
+          <div class="fs-4 fw-bold">{{ stats.total }}</div>
+          <small class="text-muted">Total</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="card text-center border-success">
+        <div class="card-body py-2">
+          <div class="fs-4 fw-bold text-success">{{ stats.otimos }}</div>
+          <small class="text-muted">Ótimos ≥90</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="card text-center border-primary">
+        <div class="card-body py-2">
+          <div class="fs-4 fw-bold text-primary">{{ stats.bons }}</div>
+          <small class="text-muted">Bons 75-89</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="card text-center border-warning">
+        <div class="card-body py-2">
+          <div class="fs-4 fw-bold text-warning">{{ stats.atencao }}</div>
+          <small class="text-muted">Atenção 50-74</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="card text-center border-danger">
+        <div class="card-body py-2">
+          <div class="fs-4 fw-bold text-danger">{{ stats.criticos }}</div>
+          <small class="text-muted">Críticos &lt;50</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2">
+      <div class="card text-center border-info">
+        <div class="card-body py-2">
+          <div class="fs-4 fw-bold text-info">{{ stats.prontos_fh1 }}</div>
+          <small class="text-muted">Prontos FH1</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela de contratos -->
+  <div class="card">
+    <div class="card-header">
+      Lista de contratos — ordenada por score (piores primeiro)
+    </div>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Contrato</th>
+            <th>Conjunto</th>
+            <th class="text-center">Score</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Erros</th>
+            <th class="text-center">Avisos</th>
+            <th class="text-center">CADMUT</th>
+            <th class="text-center">FH1</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in resultados %}
+          <tr>
+            <td>
+              <a href="{% url 'contrato_detail' r.contrato.pk %}">{{ r.contrato.codigo }}</a>
+            </td>
+            <td>{{ r.contrato.conjunto|default:"—" }}</td>
+            <td class="text-center">
+              <span class="fw-bold text-{{ r.status_css }}">{{ r.score }}</span>
+            </td>
+            <td class="text-center">
+              <span class="badge bg-{{ r.status_css }}">{{ r.status_label }}</span>
+            </td>
+            <td class="text-center">
+              {% if r.n_erros > 0 %}
+              <span class="badge bg-danger">{{ r.n_erros }}</span>
+              {% else %}
+              <span class="text-success">✓</span>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              {% if r.n_avisos > 0 %}
+              <span class="badge bg-warning text-dark">{{ r.n_avisos }}</span>
+              {% else %}
+              <span class="text-success">✓</span>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              {% if r.prontidao_cadmut %}✅{% else %}❌{% endif %}
+            </td>
+            <td class="text-center">
+              {% if r.prontidao_fh1 %}✅{% else %}❌{% endif %}
+            </td>
+            <td>
+              <a href="{% url 'inspecionar_contrato' r.contrato.pk %}" class="btn btn-xs btn-outline-primary btn-sm">
+                🔍 Inspecionar
+              </a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="9" class="text-center text-muted py-3">Nenhum contrato cadastrado.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+LAYOUT CADMUT ESPELHO
+================================================================================
+
+
+=== PÁGINA 1 ===
+
+LEIAUTE - ESPELHO CADMUT
+Seq Campo Tipo Tam Observação
+01 Agente Num 05
+02 Contrato Cha 13
+03 Hipoteca Cha 01
+04 Nome Mutuario Cha 40
+05 CPF do mutuário Cha 09
+06 DV do CPF Cha 02
+07 Situação do Num 01 1 – Ativo
+contrato 2 – Inativo.
+08 Indicativo de Num 01 1 – Com Cobertura
+cobertura no 2 – Sem Cobertura
+FCVS 3 – P.S.H
+09 Situação de Cha 01 1 – Incorporado e Qualificado.
+cadastramento 2 – Incorporado e não Qualificado.
+3 – Em crítica
+10 Situação Cha 01 0- Sem multiplicidade
+Multiplicidade 1- Com Indicio de multiplicidade
+2- Multiplicidade Descaracterizada
+3- Multiplicidade caracterizada
+11 Situação Sinistro Cha 02 0- Sem sinistro
+1- Com indicio de sinistro
+2- Sinistro total descaracterizado
+3- Sinistro total caracterizado
+4- Indicio de sinistro parcial
+5- Sinistro parcial descaracterizado
+6- Sinistro parcial caracterizado
+7- Indicio de sinistro DFI
+8- Sinistro DFI descaracterizado
+9- Sinistro DFI caracterizado
+10- Indicio de sinistro PLD
+11- Sinistro PLD descaracterizado
+12- Sinistro PLD caracterizado
+13- Indicio de sinistro LIQ
+14- Sinistro LIQ descaracterizado
+15- Sinistro LIQ caracterizado
+12 Procedência Num 01 1-Sifcvs
+2-Sifcvs crítica
+3-Caixa
+4-Delphos
+5-Hecopart
+6-Agente Financeiros
+7-FVS
+8-Aliança
+9-Bradesco
+1

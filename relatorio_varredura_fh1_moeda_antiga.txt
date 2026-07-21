@@ -1,0 +1,32 @@
+Total contratos suspeitos (base < 1994 e com fator de conversao): 219
+Top 30 maiores saldos brutos:
+770 | base=1993-05-30 | bruto=115626992.55 | real=42.05 | fator=2750000 | inflado=SIM
+6518 | base=1993-03-30 | bruto=105675427.42 | real=38.43 | fator=2750000 | inflado=SIM
+5933 | base=1993-02-28 | bruto=95275121.58 | real=34.65 | fator=2750000 | inflado=SIM
+4138 | base=1993-02-15 | bruto=79567210.70 | real=28.93 | fator=2750000 | inflado=SIM
+7177 | base=1993-05-30 | bruto=73638758.76 | real=26.78 | fator=2750000 | inflado=SIM
+6176 | base=1992-11-30 | bruto=54737156.08 | real=19.90 | fator=2750000 | inflado=SIM
+496 | base=1985-10-30 | bruto=29187558.03 | real=0.00 | fator=2750000000000 | inflado=SIM
+6181 | base=1992-08-30 | bruto=28673212.64 | real=10.43 | fator=2750000 | inflado=SIM
+6058 | base=1992-07-30 | bruto=28591024.42 | real=10.40 | fator=2750000 | inflado=SIM
+7207 | base=1992-11-30 | bruto=21814382.52 | real=7.93 | fator=2750000 | inflado=SIM
+336 | base=1986-02-28 | bruto=16731619.81 | real=0.01 | fator=2750000000 | inflado=SIM
+7561 | base=1993-01-15 | bruto=10189922.74 | real=3.71 | fator=2750000 | inflado=SIM
+6585 | base=1992-01-30 | bruto=7759239.94 | real=2.82 | fator=2750000 | inflado=SIM
+5395 | base=1992-01-30 | bruto=6797456.03 | real=2.47 | fator=2750000 | inflado=SIM
+414 | base=1985-12-15 | bruto=5569138.47 | real=0.00 | fator=2750000000000 | inflado=SIM
+626 | base=1992-06-30 | bruto=5535863.47 | real=2.01 | fator=2750000 | inflado=SIM
+1363 | base=1994-05-30 | bruto=4354795.45 | real=1583.56 | fator=2750 | inflado=SIM
+6163 | base=1991-10-30 | bruto=4183697.26 | real=1.52 | fator=2750000 | inflado=SIM
+334 | base=1994-04-30 | bruto=3871139.38 | real=1407.69 | fator=2750 | inflado=SIM
+1275 | base=1992-06-30 | bruto=3166957.04 | real=1.15 | fator=2750000 | inflado=SIM
+6178 | base=1988-12-30 | bruto=3113305.69 | real=0.00 | fator=2750000000 | inflado=SIM
+7544 | base=1992-07-15 | bruto=3094298.07 | real=1.13 | fator=2750000 | inflado=SIM
+6177 | base=1988-12-30 | bruto=2947576.63 | real=0.00 | fator=2750000000 | inflado=SIM
+6471 | base=1991-07-30 | bruto=2859481.45 | real=1.04 | fator=2750000 | inflado=SIM
+362 | base=1992-07-15 | bruto=2821100.46 | real=1.03 | fator=2750000 | inflado=SIM
+5096 | base=1994-01-30 | bruto=2803767.23 | real=1019.55 | fator=2750 | inflado=SIM
+6913 | base=1994-01-30 | bruto=2802482.50 | real=1019.08 | fator=2750 | inflado=SIM
+6139 | base=1991-08-30 | bruto=2795061.43 | real=1.02 | fator=2750000 | inflado=SIM
+5097 | base=1991-09-30 | bruto=2751654.58 | real=1.00 | fator=2750000 | inflado=SIM
+6219 | base=1994-01-30 | bruto=2641164.47 | real=960.42 | fator=2750 | inflado=SIM

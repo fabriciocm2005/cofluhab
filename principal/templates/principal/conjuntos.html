@@ -1,0 +1,35 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Conjuntos - CoFluhab{% endblock %}
+
+{% block content %}
+    <h2>Conjuntos Habitacionais</h2>
+    <p><strong>Total de Conjuntos:</strong> {{ conjuntos|length }}</p>
+    
+    {% if conjuntos %}
+        <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+            <thead style="background-color: #092e20; color: white;">
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Contrato</th>
+                    <th>Qtd Contratos</th>
+                    <th>Qtd Mutuários</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for c in conjuntos %}
+                <tr style="{% cycle 'background-color: #f9f9f9;' 'background-color: #ffffff;' %}">
+                    <td style="text-align: center;"><strong>{{ c.conjunto }}</strong></td>
+                    <td>{{ c.nome }}</td>
+                    <td style="text-align: center;">{{ c.contrato }}</td>
+                    <td style="text-align: center;"><strong>{{ c.qtd_contratos }}</strong></td>
+                    <td style="text-align: center;">{{ c.qtd_mutuarios }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum conjunto cadastrado.</p>
+    {% endif %}
+{% endblock %}

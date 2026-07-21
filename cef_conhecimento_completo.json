@@ -1,0 +1,1585 @@
+{
+  "data_analise": "2026-01-23",
+  "fichas_envio": {
+    "REGISTRO => HEADER – PARA TODOS OS TIPO": {
+      "descricao": "• REGISTRO => HEADER – PARA TODOS OS TIPOS DE MOVIMENTOS (POSIÇÃO 424",
+      "campos": [],
+      "tamanho_registro": 0,
+      "observacoes": []
+    },
+    "RCV": {
+      "descricao": "DIFERENCIA O TIPO DE MOVIMENTO – Exceto para os movimentos de RCV e RNV",
+      "campos": [],
+      "tamanho_registro": 0,
+      "observacoes": []
+    },
+    "RNV": {
+      "descricao": "DIFERENCIA O TIPO DE MOVIMENTO – Exceto para os movimentos de RCV e RNV",
+      "campos": [
+        {
+          "definicao": "01 UFS NUM  2  1-2 Código da UFS"
+        },
+        {
+          "definicao": "02 MAT.AG.FINANC  NUM  6 3-8 Matrícula do Agente Financeiro/DV"
+        },
+        {
+          "definicao": "03 CONSTANTE  NUM  14 9-22 ZEROS"
+        },
+        {
+          "definicao": "05 CONSTANTE  NUM  9 24-32 ZEROS"
+        },
+        {
+          "definicao": "14 FILLER  - 6 425-430 BRANCOS"
+        }
+      ],
+      "tamanho_registro": 0,
+      "observacoes": []
+    },
+    "FH1": {
+      "descricao": "• TIPO DE MOVIMENTO = I - FH1 – Ficha para Habilitação ao FCVS",
+      "campos": [
+        {
+          "definicao": "01 . UFS  01 a 02  2 NUM"
+        },
+        {
+          "definicao": "02 . MAT. AG. FINANC. /DV  03 a 08  6 NUM"
+        },
+        {
+          "definicao": "03 . N.º CONTRATO DO MUT. NO AGENTE  09 a 21  13 ALFA"
+        },
+        {
+          "definicao": "04 . HIPOTECA  22 1 NUM"
+        },
+        {
+          "definicao": "06 SEQUENCIAL  24 a 25  2 NUM  0"
+        },
+        {
+          "definicao": "07 CONSTANTE  26 1 NUM  0"
+        },
+        {
+          "definicao": "08 NOME DO MUT. PRINCIPAL  27 a 66  40 ALFA"
+        },
+        {
+          "definicao": "10 . CPF/CI  68 a 84  17 ALFA"
+        },
+        {
+          "definicao": "11 DATA DE NASCIMENTO  85 a 90  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "12 CODIGO DO MUNICÍPIO  91 a 95  5 NUM"
+        },
+        {
+          "definicao": "13 UF   96 a 97  2    ALFA"
+        },
+        {
+          "definicao": "14 ENDEREÇO DO IMÓVEL    98 a 135  38 ALFA"
+        },
+        {
+          "definicao": "15 DATA DO CONTRATO  136 a 141  6 NUM  ( DDMMAA)"
+        },
+        {
+          "definicao": "16 VALOR DA GARANTIA  142 a 153  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "17 IM 154 a 155  2 NUM"
+        },
+        {
+          "definicao": "18 DATA DA LEGISLAÇÃO  156 a 161  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "19 VALOR FINANCIAMENTO CONTRATADO  162 a 173  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "20 VALOR FINANC. PADRÃO FCVS  174 a 185  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "21 CÓDIGO DA CATEG. PROFISSIONAL  186 a 190  5 ALFA"
+        },
+        {
+          "definicao": "22 . SEGURO  DE CRÉDITO  191 1 ALFA"
+        },
+        {
+          "definicao": "23 . CARÊNCIA  NO 1O VENCIMENTO  192 1 ALFA"
+        },
+        {
+          "definicao": "24 . SEGURO DFI POR LOTES URBANIZADOS  193 1 ALFA"
+        },
+        {
+          "definicao": "25 . CRÉDITOS ADQUIRIDOS PELA CAIXA COM"
+        },
+        {
+          "definicao": "RECURSOS DO PROER  194 1 ALFA"
+        },
+        {
+          "definicao": "26 . VAGO  195 1 ALFA  Não preencher"
+        },
+        {
+          "definicao": "27 PRAZO CONTRATADO  196 a 198  3 NUM"
+        },
+        {
+          "definicao": "28 TAXA JUROS CONTRATADO  199 a 204  6 NUM  2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "29 CES CONTRATUAL  205 a 208  5 NUM"
+        },
+        {
+          "definicao": "30 . PLANO  209 a  211 3 ALFA"
+        },
+        {
+          "definicao": "33 . RR 214 a 215  2 NUM"
+        },
+        {
+          "definicao": "34 . INDEX  216 a 218  3 ALFA"
+        },
+        {
+          "definicao": "35 PRAZO FCVS  219 a 221  3 NUM"
+        },
+        {
+          "definicao": "36 TAXA JUROS PARA FCVS  222 a 227  6 NUM  2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "37 CES PARA FCVS  228 a 231  4 NUM  1 INT. e 3 DEC."
+        },
+        {
+          "definicao": "38 . PLANO  232 a 234  3 ALFA"
+        },
+        {
+          "definicao": "41 . RR 237 a 238  2 NUM"
+        },
+        {
+          "definicao": "42 . INDEX  239 a 241  3 ALFA"
+        },
+        {
+          "definicao": "43 DATA SALDO CONSTRUÇÃO  242 a 247  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "44 SALDO DEVEDOR  248 a 259  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "45 1o VENCIMENTO  260 a 265  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "46 SEGURO CREDITO / MIP / DFI  266 a 273  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "47 VALOR DA PRESTAÇÃO  274 a 283  10 NUM  8 INT. e 2 DEC."
+        },
+        {
+          "definicao": "49 TCA/TAC  284 a 291  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "50 FCVS MENSAL  292 a 299  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "51 RAZÃO ACRES/ DECRES.  300 a 307  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "52 TIPO EVENTO  308 a 310  3 ALFA"
+        },
+        {
+          "definicao": "53 DATA DO EVENTO  311 a 316  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "54 OR/CO  317 a 318  2 NUM"
+        },
+        {
+          "definicao": "07 CONSTANTE  26 1 NUM  0"
+        },
+        {
+          "definicao": "08 NOME DO MUT. PRINCIPAL  27 a 66  40 ALFA"
+        },
+        {
+          "definicao": "10 . CPF/CI  68 a 84  17 ALFA"
+        },
+        {
+          "definicao": "11 DATA DE NASCIMENTO  85 a 90  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "12 CODIGO DO MUNICÍPIO  91 a 95  5 NUM"
+        },
+        {
+          "definicao": "13 UF   96 a 97  2    ALFA"
+        },
+        {
+          "definicao": "14 ENDEREÇO DO IMÓVEL    98 a 135  38 ALFA"
+        },
+        {
+          "definicao": "15 DATA DO CONTRATO  136 a 141  6 NUM  ( DDMMAA)"
+        },
+        {
+          "definicao": "16 VALOR DA GARANTIA  142 a 153  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "17 IM 154 a 155  2 NUM"
+        },
+        {
+          "definicao": "18 DATA DA LEGISLAÇÃO  156 a 161  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "19 VALOR FINANCIAMENTO CONTRATADO  162 a 173  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "20 VALOR FINANC. PADRÃO FCVS  174 a 185  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "21 CÓDIGO DA CATEG. PROFISSIONAL  186 a 190  5 ALFA"
+        },
+        {
+          "definicao": "22 . SEGURO  DE CRÉDITO  191 1 ALFA"
+        },
+        {
+          "definicao": "23 . CARÊNCIA  NO 1O VENCIMENTO  192 1 ALFA"
+        },
+        {
+          "definicao": "24 . SEGURO DFI POR LOTES URBANIZADOS  193 1 ALFA"
+        },
+        {
+          "definicao": "25 . CRÉDITOS ADQUIRIDOS PELA CAIXA COM"
+        },
+        {
+          "definicao": "RECURSOS DO PROER  194 1 ALFA"
+        },
+        {
+          "definicao": "26 . VAGO  195 1 ALFA  Não preencher"
+        },
+        {
+          "definicao": "27 PRAZO CONTRATADO  196 a 198  3 NUM"
+        },
+        {
+          "definicao": "28 TAXA JUROS CONTRATADO  199 a 204  6 NUM  2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "29 CES CONTRATUAL  205 a 208  5 NUM"
+        },
+        {
+          "definicao": "30 . PLANO  209 a  211 3 ALFA"
+        },
+        {
+          "definicao": "33 . RR 214 a 215  2 NUM"
+        },
+        {
+          "definicao": "34 . INDEX  216 a 218  3 ALFA"
+        },
+        {
+          "definicao": "35 PRAZO FCVS  219 a 221  3 NUM"
+        },
+        {
+          "definicao": "36 TAXA JUROS PARA FCVS  222 a 227  6 NUM  2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "37 CES PARA FCVS  228 a 231  4 NUM  1 INT. e 3 DEC."
+        },
+        {
+          "definicao": "38 . PLANO  232 a 234  3 ALFA"
+        },
+        {
+          "definicao": "41 . RR 237 a 238  2 NUM"
+        },
+        {
+          "definicao": "42 . INDEX  239 a 241  3 ALFA"
+        },
+        {
+          "definicao": "43 DATA SALDO CONSTRUÇÃO  242 a 247  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "44 SALDO DEVEDOR  248 a 259  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "45 1o VENCIMENTO  260 a 265  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "46 SEGURO CREDITO / MIP / DFI  266 a 273  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "47 VALOR DA PRESTAÇÃO  274 a 283  10 NUM  8 INT. e 2 DEC."
+        },
+        {
+          "definicao": "49 TCA/TAC  284 a 291  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "50 FCVS MENSAL  292 a 299  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "51 RAZÃO ACRES/ DECRES.  300 a 307  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "52 TIPO EVENTO  308 a 310  3 ALFA"
+        },
+        {
+          "definicao": "53 DATA DO EVENTO  311 a 316  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "54 OR/CO  317 a 318  2 NUM"
+        },
+        {
+          "definicao": "55 % CAIXA  319 a 322  4 NUM  100"
+        },
+        {
+          "definicao": "10 . CPF/CI  68 a 84  17 ALFA"
+        },
+        {
+          "definicao": "11 DATA DE NASCIMENTO  85 a 90  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "12 CODIGO DO MUNICÍPIO  91 a 95  5 NUM"
+        },
+        {
+          "definicao": "13 UF   96 a 97  2    ALFA"
+        },
+        {
+          "definicao": "14 ENDEREÇO DO IMÓVEL    98 a 135  38 ALFA"
+        },
+        {
+          "definicao": "15 DATA DO CONTRATO  136 a 141  6 NUM  ( DDMMAA)"
+        },
+        {
+          "definicao": "16 VALOR DA GARANTIA  142 a 153  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "17 IM 154 a 155  2 NUM"
+        },
+        {
+          "definicao": "18 DATA DA LEGISLAÇÃO  156 a 161  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "19 VALOR FINANCIAMENTO CONTRATADO  162 a 173  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "20 VALOR FINANC. PADRÃO FCVS  174 a 185  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "21 CÓDIGO DA CATEG. PROFISSIONAL  186 a 190  5 ALFA"
+        },
+        {
+          "definicao": "22 . SEGURO  DE CRÉDITO  191 1 ALFA"
+        },
+        {
+          "definicao": "23 . CARÊNCIA  NO 1O VENCIMENTO  192 1 ALFA"
+        },
+        {
+          "definicao": "24 . SEGURO DFI POR LOTES URBANIZADOS  193 1 ALFA"
+        },
+        {
+          "definicao": "25 . CRÉDITOS ADQUIRIDOS PELA CAIXA COM"
+        },
+        {
+          "definicao": "RECURSOS DO PROER  194 1 ALFA"
+        },
+        {
+          "definicao": "26 . VAGO  195 1 ALFA  Não preencher"
+        },
+        {
+          "definicao": "27 PRAZO CONTRATADO  196 a 198  3 NUM"
+        },
+        {
+          "definicao": "28 TAXA JUROS CONTRATADO  199 a 204  6 NUM  2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "29 CES CONTRATUAL  205 a 208  5 NUM"
+        },
+        {
+          "definicao": "30 . PLANO  209 a  211 3 ALFA"
+        },
+        {
+          "definicao": "33 . RR 214 a 215  2 NUM"
+        },
+        {
+          "definicao": "34 . INDEX  216 a 218  3 ALFA"
+        },
+        {
+          "definicao": "35 PRAZO FCVS  219 a 221  3 NUM"
+        },
+        {
+          "definicao": "36 TAXA JUROS PARA FCVS  222 a 227  6 NUM  2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "37 CES PARA FCVS  228 a 231  4 NUM  1 INT. e 3 DEC."
+        },
+        {
+          "definicao": "38 . PLANO  232 a 234  3 ALFA"
+        },
+        {
+          "definicao": "41 . RR 237 a 238  2 NUM"
+        },
+        {
+          "definicao": "42 . INDEX  239 a 241  3 ALFA"
+        },
+        {
+          "definicao": "43 DATA SALDO CONSTRUÇÃO  242 a 247  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "44 SALDO DEVEDOR  248 a 259  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "45 1o VENCIMENTO  260 a 265  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "46 SEGURO CREDITO / MIP / DFI  266 a 273  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "47 VALOR DA PRESTAÇÃO  274 a 283  10 NUM  8 INT. e 2 DEC."
+        },
+        {
+          "definicao": "49 TCA/TAC  284 a 291  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "50 FCVS MENSAL  292 a 299  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "51 RAZÃO ACRES/ DECRES.  300 a 307  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "52 TIPO EVENTO  308 a 310  3 ALFA"
+        },
+        {
+          "definicao": "53 DATA DO EVENTO  311 a 316  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "54 OR/CO  317 a 318  2 NUM"
+        },
+        {
+          "definicao": "55 % CAIXA  319 a 322  4 NUM  100"
+        },
+        {
+          "definicao": "56 N.º CONTR. EMPR. CAIXA  323 a 340  18 NUM"
+        },
+        {
+          "definicao": "57 TAXA JUROS EVENTO  341 a 346  6 NUM     2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "10 . CPF/CI  68 a 84  17 ALFA"
+        },
+        {
+          "definicao": "11 DATA DE NASCIMENTO  85 a 90  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "12 CODIGO DO MUNICÍPIO  91 a 95  5 NUM"
+        },
+        {
+          "definicao": "13 UF   96 a 97  2    ALFA"
+        },
+        {
+          "definicao": "14 ENDEREÇO DO IMÓVEL    98 a 135  38 ALFA"
+        },
+        {
+          "definicao": "15 DATA DO CONTRATO  136 a 141  6 NUM  ( DDMMAA)"
+        },
+        {
+          "definicao": "16 VALOR DA GARANTIA  142 a 153  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "17 IM 154 a 155  2 NUM"
+        },
+        {
+          "definicao": "18 DATA DA LEGISLAÇÃO  156 a 161  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "19 VALOR FINANCIAMENTO CONTRATADO  162 a 173  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "20 VALOR FINANC. PADRÃO FCVS  174 a 185  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "21 CÓDIGO DA CATEG. PROFISSIONAL  186 a 190  5 ALFA"
+        },
+        {
+          "definicao": "22 . SEGURO  DE CRÉDITO  191 1 ALFA"
+        },
+        {
+          "definicao": "23 . CARÊNCIA  NO 1O VENCIMENTO  192 1 ALFA"
+        },
+        {
+          "definicao": "24 . SEGURO DFI POR LOTES URBANIZADOS  193 1 ALFA"
+        },
+        {
+          "definicao": "25 . CRÉDITOS ADQUIRIDOS PELA CAIXA COM"
+        },
+        {
+          "definicao": "RECURSOS DO PROER  194 1 ALFA"
+        },
+        {
+          "definicao": "26 . VAGO  195 1 ALFA  Não preencher"
+        },
+        {
+          "definicao": "27 PRAZO CONTRATADO  196 a 198  3 NUM"
+        },
+        {
+          "definicao": "28 TAXA JUROS CONTRATADO  199 a 204  6 NUM  2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "29 CES CONTRATUAL  205 a 208  5 NUM"
+        },
+        {
+          "definicao": "30 . PLANO  209 a  211 3 ALFA"
+        },
+        {
+          "definicao": "33 . RR 214 a 215  2 NUM"
+        },
+        {
+          "definicao": "34 . INDEX  216 a 218  3 ALFA"
+        },
+        {
+          "definicao": "35 PRAZO FCVS  219 a 221  3 NUM"
+        },
+        {
+          "definicao": "36 TAXA JUROS PARA FCVS  222 a 227  6 NUM  2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "37 CES PARA FCVS  228 a 231  4 NUM  1 INT. e 3 DEC."
+        },
+        {
+          "definicao": "38 . PLANO  232 a 234  3 ALFA"
+        },
+        {
+          "definicao": "41 . RR 237 a 238  2 NUM"
+        },
+        {
+          "definicao": "42 . INDEX  239 a 241  3 ALFA"
+        },
+        {
+          "definicao": "43 DATA SALDO CONSTRUÇÃO  242 a 247  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "44 SALDO DEVEDOR  248 a 259  12 NUM  10 INT. e 2 DEC."
+        },
+        {
+          "definicao": "45 1o VENCIMENTO  260 a 265  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "46 SEGURO CREDITO / MIP / DFI  266 a 273  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "47 VALOR DA PRESTAÇÃO  274 a 283  10 NUM  8 INT. e 2 DEC."
+        },
+        {
+          "definicao": "49 TCA/TAC  284 a 291  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "50 FCVS MENSAL  292 a 299  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "51 RAZÃO ACRES/ DECRES.  300 a 307  8 NUM  6 INT. e 2 DEC."
+        },
+        {
+          "definicao": "52 TIPO EVENTO  308 a 310  3 ALFA"
+        },
+        {
+          "definicao": "53 DATA DO EVENTO  311 a 316  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "54 OR/CO  317 a 318  2 NUM"
+        },
+        {
+          "definicao": "55 % CAIXA  319 a 322  4 NUM  100"
+        },
+        {
+          "definicao": "56 N.º CONTR. EMPR. CAIXA  323 a 340  18 NUM"
+        },
+        {
+          "definicao": "57 TAXA JUROS EVENTO  341 a 346  6 NUM     2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "58 VAF1 Þ VALOR BÁSICO  347 a 360  14 NUM  12 INT. e 2 DEC."
+        },
+        {
+          "definicao": "53 DATA DO EVENTO  311 a 316  6 NUM  (DDMMAA)"
+        },
+        {
+          "definicao": "54 OR/CO  317 a 318  2 NUM"
+        },
+        {
+          "definicao": "55 % CAIXA  319 a 322  4 NUM  100"
+        },
+        {
+          "definicao": "56 N.º CONTR. EMPR. CAIXA  323 a 340  18 NUM"
+        },
+        {
+          "definicao": "57 TAXA JUROS EVENTO  341 a 346  6 NUM     2 INT. e 4 DEC."
+        },
+        {
+          "definicao": "58 VAF1 Þ VALOR BÁSICO  347 a 360  14 NUM  12 INT. e 2 DEC."
+        },
+        {
+          "definicao": "59 VAF2 Þ VALOR COMPLEMENTAR  361 a 374  14 NUM  12 INT. e 2 DEC."
+        },
+        {
+          "definicao": "60 VAF3 Þ VALOR RESIDUAL  375 a 388  14 NUM  12 INT. e 2 DEC."
+        },
+        {
+          "definicao": "61 JUROS CALCULADOS PELO AGENTE"
+        },
+        {
+          "definicao": "FINANCEIRO  389 a 402  14 NUM"
+        },
+        {
+          "definicao": "62 DEBITO/CRÉDITO  403 1 ALFA  D ou C"
+        },
+        {
+          "definicao": "63 QUANTIDADE DE  ALTERAÇÕES  404 a 405  2 NUM"
+        },
+        {
+          "definicao": "64 . UFS  406 a 407  2 NUM  Código da UFS"
+        },
+        {
+          "definicao": "65 . MAT. AG. FINANC.  408 a 413  6 NUM  Matrícula do Agente Financeiro"
+        },
+        {
+          "definicao": "66 . DATA GERAÇÃO  414 a 419  6 NUM  Data geração do lote (DDMMAA)"
+        },
+        {
+          "definicao": "67 . NÚMERO  420 a 422  3 NUM  Número do lote"
+        },
+        {
+          "definicao": "68 . FORMA DE ENVIO  423 1 ALFA  = S (FCVS 2000)"
+        },
+        {
+          "definicao": "69 . TIPO MOVIMENTO  424 1 ALFA   I"
+        },
+        {
+          "definicao": "70 FILLER  425 a 430  6 - BRANCOS"
+        },
+        {
+          "definicao": "70 FILLER  425 a 430  6 - BRANCOS"
+        }
+      ],
+      "tamanho_registro": 0,
+      "observacoes": []
+    },
+    "FH2": {
+      "descricao": "• TIPO DE MOVIMENTO = I - FH2 e FH3 para  Habilitação ao FCVS",
+      "campos": [],
+      "tamanho_registro": 0,
+      "observacoes": []
+    },
+    "FH3": {
+      "descricao": "• TIPO DE MOVIMENTO = I - FH2 e FH3 para  Habilitação ao FCVS",
+      "campos": [
+        {
+          "definicao": "02 MAT. AG. FINANC. /DV  NUM  6"
+        },
+        {
+          "definicao": "03 N.º CONTR. DO MUT. NO AGENTE  ALFA  13"
+        },
+        {
+          "definicao": "06 SEQUENCIAL  NUM  2"
+        },
+        {
+          "definicao": "07 CONSTANTE  NUM  1  ZERO"
+        },
+        {
+          "definicao": "08 COD ALTERAÇÃO  NUM  3"
+        },
+        {
+          "definicao": "09 DATA DA ALTERAÇÃO  NUM  6 DDMMAA"
+        },
+        {
+          "definicao": "10 PRESTAÇÃO ALTERADA  NUM  4 MMAA"
+        },
+        {
+          "definicao": "12 TAXA JUROS / ÍNDICE  ALFA  8  VER PREENCHIMENTO DESTE CAMPO NO ITEM 2.3 (FH2)"
+        },
+        {
+          "definicao": "13 CÓDIGO DA CATEGORIA  ALFA  5"
+        },
+        {
+          "definicao": "14 VALOR DA ALTERAÇÃO  NUM  12  10 INT. E 2 DEC."
+        },
+        {
+          "definicao": "20 FILLER   - 328  BRANCOS"
+        },
+        {
+          "definicao": "21 IDENTIFICAÇÃO DO LOTE      Duplic..."
+        },
+        {
+          "definicao": "07 CONSTANTE  NUM  1  ZERO"
+        },
+        {
+          "definicao": "08 COD ALTERAÇÃO  NUM  3"
+        },
+        {
+          "definicao": "09 DATA DA ALTERAÇÃO  NUM  6 DDMMAA"
+        },
+        {
+          "definicao": "10 PRESTAÇÃO ALTERADA  NUM  4 MMAA"
+        },
+        {
+          "definicao": "12 TAXA JUROS / ÍNDICE  ALFA  8  VER PREENCHIMENTO DESTE CAMPO NO ITEM 2.3 (FH2)"
+        },
+        {
+          "definicao": "13 CÓDIGO DA CATEGORIA  ALFA  5"
+        },
+        {
+          "definicao": "14 VALOR DA ALTERAÇÃO  NUM  12  10 INT. E 2 DEC."
+        },
+        {
+          "definicao": "20 FILLER   - 328  BRANCOS"
+        },
+        {
+          "definicao": "21 IDENTIFICAÇÃO DO LOTE      Duplic..."
+        },
+        {
+          "definicao": "13 CÓDIGO DA CATEGORIA  ALFA  5"
+        },
+        {
+          "definicao": "14 VALOR DA ALTERAÇÃO  NUM  12  10 INT. E 2 DEC."
+        },
+        {
+          "definicao": "20 FILLER   - 328  BRANCOS"
+        },
+        {
+          "definicao": "21 IDENTIFICAÇÃO DO LOTE      Duplic..."
+        }
+      ],
+      "tamanho_registro": 0,
+      "observacoes": []
+    },
+    "TIPOS_MOVIMENTO": {
+      "descricao": "Posição 424 diferencia o tipo de movimento",
+      "codigos": [
+        "• REGISTRO => HEADER – PARA TODOS OS TIPOS DE MOVIMENTOS (POSIÇÃO 424",
+        "01 UFS NUM  2  1-2 Código da UFS",
+        "02 MAT.AG.FINANC  NUM  6 3-8 Matrícula do Agente Financeiro/DV",
+        "03 CONSTANTE  NUM  14 9-22 ZEROS",
+        "04 TIPO DE REGISTRO  NUM  1 23 0",
+        "05 CONSTANTE  NUM  9 24-32 ZEROS",
+        "06 QTD DOCTOS  NUM  5 33-37 Qtde de registros gravados no Arquivo.",
+        "07 FILLER  - 368 38-405 BRANCOS",
+        "08 UFS NUM  2 406-407 Código da UFS",
+        "09 MAT. AG. FINANC.  NUM  6 408-413 Matrícula do Agente Financeiro",
+        "10 DATA GERAÇÃO  NUM  6 414-419 Data da geração do lote (DDMMAA).",
+        "11 NÚMERO  NUM  3 420-422 Número do lote",
+        "12 FORMA DE ENVIO  ALFA  1 423 S (FCVS 2000)",
+        "13 TIPO MOVIMENTO  ALFA  1 424 Tipo de movimento do lote  (I, J, K,P, R S, G, U, V, F, B)",
+        "14 FILLER  - 6 425-430 BRANCOS",
+        "• TIPO DE MOVIMENTO = I - FH1 – Ficha para Habilitação ao FCVS",
+        "01 . UFS  01 a 02  2 NUM",
+        "02 . MAT. AG. FINANC. /DV  03 a 08  6 NUM",
+        "03 . N.º CONTRATO DO MUT. NO AGENTE  09 a 21  13 ALFA",
+        "04 . HIPOTECA  22 1 NUM",
+        "01 UFS NUM  2  1-2 Código da UFS",
+        "02 MAT.AG.FINANC  NUM  6 3-8 Matrícula do Agente Financeiro/DV",
+        "03 CONSTANTE  NUM  14 9-22 ZEROS",
+        "04 TIPO DE REGISTRO  NUM  1 23 0",
+        "05 CONSTANTE  NUM  9 24-32 ZEROS",
+        "06 QTD DOCTOS  NUM  5 33-37 Qtde de registros gravados no Arquivo.",
+        "07 FILLER  - 368 38-405 BRANCOS",
+        "08 UFS NUM  2 406-407 Código da UFS",
+        "09 MAT. AG. FINANC.  NUM  6 408-413 Matrícula do Agente Financeiro",
+        "10 DATA GERAÇÃO  NUM  6 414-419 Data da geração do lote (DDMMAA).",
+        "11 NÚMERO  NUM  3 420-422 Número do lote",
+        "12 FORMA DE ENVIO  ALFA  1 423 S (FCVS 2000)",
+        "13 TIPO MOVIMENTO  ALFA  1 424 Tipo de movimento do lote  (I, J, K,P, R S, G, U, V, F, B)",
+        "14 FILLER  - 6 425-430 BRANCOS",
+        "• TIPO DE MOVIMENTO = I - FH1 – Ficha para Habilitação ao FCVS",
+        "01 . UFS  01 a 02  2 NUM",
+        "02 . MAT. AG. FINANC. /DV  03 a 08  6 NUM",
+        "03 . N.º CONTRATO DO MUT. NO AGENTE  09 a 21  13 ALFA",
+        "04 . HIPOTECA  22 1 NUM",
+        "05 TIPO DE REGISTRO  23 1 NUM  1",
+        "13 TIPO MOVIMENTO  ALFA  1 424 Tipo de movimento do lote  (I, J, K,P, R S, G, U, V, F, B)",
+        "14 FILLER  - 6 425-430 BRANCOS",
+        "• TIPO DE MOVIMENTO = I - FH1 – Ficha para Habilitação ao FCVS",
+        "01 . UFS  01 a 02  2 NUM",
+        "02 . MAT. AG. FINANC. /DV  03 a 08  6 NUM",
+        "03 . N.º CONTRATO DO MUT. NO AGENTE  09 a 21  13 ALFA",
+        "04 . HIPOTECA  22 1 NUM",
+        "05 TIPO DE REGISTRO  23 1 NUM  1",
+        "06 SEQUENCIAL  24 a 25  2 NUM  0",
+        "07 CONSTANTE  26 1 NUM  0",
+        "08 NOME DO MUT. PRINCIPAL  27 a 66  40 ALFA",
+        "09 . TIPO  67 1 NUM",
+        "10 . CPF/CI  68 a 84  17 ALFA",
+        "11 DATA DE NASCIMENTO  85 a 90  6 NUM  (DDMMAA)",
+        "12 CODIGO DO MUNICÍPIO  91 a 95  5 NUM",
+        "13 UF   96 a 97  2    ALFA",
+        "14 ENDEREÇO DO IMÓVEL    98 a 135  38 ALFA",
+        "15 DATA DO CONTRATO  136 a 141  6 NUM  ( DDMMAA)",
+        "16 VALOR DA GARANTIA  142 a 153  12 NUM  10 INT. e 2 DEC.",
+        "17 IM 154 a 155  2 NUM",
+        "18 DATA DA LEGISLAÇÃO  156 a 161  6 NUM  (DDMMAA)",
+        "19 VALOR FINANCIAMENTO CONTRATADO  162 a 173  12 NUM  10 INT. e 2 DEC.",
+        "20 VALOR FINANC. PADRÃO FCVS  174 a 185  12 NUM  10 INT. e 2 DEC.",
+        "21 CÓDIGO DA CATEG. PROFISSIONAL  186 a 190  5 ALFA",
+        "22 . SEGURO  DE CRÉDITO  191 1 ALFA",
+        "• TIPO DE MOVIMENTO = I - FH1 – Ficha para Habilitação ao FCVS",
+        "01 . UFS  01 a 02  2 NUM",
+        "02 . MAT. AG. FINANC. /DV  03 a 08  6 NUM",
+        "03 . N.º CONTRATO DO MUT. NO AGENTE  09 a 21  13 ALFA",
+        "04 . HIPOTECA  22 1 NUM",
+        "05 TIPO DE REGISTRO  23 1 NUM  1",
+        "06 SEQUENCIAL  24 a 25  2 NUM  0",
+        "07 CONSTANTE  26 1 NUM  0",
+        "08 NOME DO MUT. PRINCIPAL  27 a 66  40 ALFA",
+        "09 . TIPO  67 1 NUM",
+        "10 . CPF/CI  68 a 84  17 ALFA",
+        "11 DATA DE NASCIMENTO  85 a 90  6 NUM  (DDMMAA)",
+        "12 CODIGO DO MUNICÍPIO  91 a 95  5 NUM",
+        "13 UF   96 a 97  2    ALFA",
+        "14 ENDEREÇO DO IMÓVEL    98 a 135  38 ALFA",
+        "15 DATA DO CONTRATO  136 a 141  6 NUM  ( DDMMAA)",
+        "16 VALOR DA GARANTIA  142 a 153  12 NUM  10 INT. e 2 DEC.",
+        "17 IM 154 a 155  2 NUM",
+        "18 DATA DA LEGISLAÇÃO  156 a 161  6 NUM  (DDMMAA)",
+        "19 VALOR FINANCIAMENTO CONTRATADO  162 a 173  12 NUM  10 INT. e 2 DEC.",
+        "20 VALOR FINANC. PADRÃO FCVS  174 a 185  12 NUM  10 INT. e 2 DEC.",
+        "21 CÓDIGO DA CATEG. PROFISSIONAL  186 a 190  5 ALFA",
+        "22 . SEGURO  DE CRÉDITO  191 1 ALFA",
+        "23 . CARÊNCIA  NO 1O VENCIMENTO  192 1 ALFA",
+        "24 . SEGURO DFI POR LOTES URBANIZADOS  193 1 ALFA",
+        "25 . CRÉDITOS ADQUIRIDOS PELA CAIXA COM",
+        "RECURSOS DO PROER  194 1 ALFA",
+        "69 . TIPO MOVIMENTO  424 1 ALFA   I",
+        "70 FILLER  425 a 430  6 - BRANCOS",
+        "• TIPO DE MOVIMENTO = I - FH2 e FH3 para  Habilitação ao FCVS",
+        "01 UFS NUM  2",
+        "02 MAT. AG. FINANC. /DV  NUM  6",
+        "03 N.º CONTR. DO MUT. NO AGENTE  ALFA  13",
+        "04 HIPOTECA  NUM  1",
+        "05 TIPO DE REGISTRO  NUM  1  2",
+        "06 SEQUENCIAL  NUM  2",
+        "07 CONSTANTE  NUM  1  ZERO",
+        "08 COD ALTERAÇÃO  NUM  3",
+        "09 DATA DA ALTERAÇÃO  NUM  6 DDMMAA",
+        "10 PRESTAÇÃO ALTERADA  NUM  4 MMAA",
+        "11 PRAZO  NUM  3",
+        "12 TAXA JUROS / ÍNDICE  ALFA  8  VER PREENCHIMENTO DESTE CAMPO NO ITEM 2.3 (FH2)",
+        "13 CÓDIGO DA CATEGORIA  ALFA  5",
+        "14 VALOR DA ALTERAÇÃO  NUM  12  10 INT. E 2 DEC.",
+        "15 PLANO  ALFA  3",
+        "16 ST NUM  1",
+        "17 RJ ALFA  1",
+        "18 RR NUM  2",
+        "29 INDEX  ALFA  3",
+        "20 FILLER   - 328  BRANCOS",
+        "21 IDENTIFICAÇÃO DO LOTE      Duplic...",
+        "• TIPO DE MOVIMENTO = I - FH2 e FH3 para  Habilitação ao FCVS",
+        "01 UFS NUM  2",
+        "02 MAT. AG. FINANC. /DV  NUM  6",
+        "03 N.º CONTR. DO MUT. NO AGENTE  ALFA  13",
+        "04 HIPOTECA  NUM  1",
+        "05 TIPO DE REGISTRO  NUM  1  2",
+        "06 SEQUENCIAL  NUM  2",
+        "07 CONSTANTE  NUM  1  ZERO",
+        "08 COD ALTERAÇÃO  NUM  3",
+        "09 DATA DA ALTERAÇÃO  NUM  6 DDMMAA",
+        "10 PRESTAÇÃO ALTERADA  NUM  4 MMAA",
+        "11 PRAZO  NUM  3",
+        "12 TAXA JUROS / ÍNDICE  ALFA  8  VER PREENCHIMENTO DESTE CAMPO NO ITEM 2.3 (FH2)",
+        "13 CÓDIGO DA CATEGORIA  ALFA  5",
+        "14 VALOR DA ALTERAÇÃO  NUM  12  10 INT. E 2 DEC.",
+        "15 PLANO  ALFA  3",
+        "16 ST NUM  1",
+        "17 RJ ALFA  1",
+        "18 RR NUM  2",
+        "29 INDEX  ALFA  3",
+        "20 FILLER   - 328  BRANCOS",
+        "21 IDENTIFICAÇÃO DO LOTE      Duplic..."
+      ]
+    },
+    "CADMUT": {
+      "descricao": "Cadastro de Mutuários",
+      "campos": [
+        ". NOME DO ARQUIVO : M99999.TXT  onde    M = Fixo  e   99999  = Matrícula do Agente",
+        "• REGISTRO 1 => HEADER   (180 bytes )",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇ ÕES.",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 1 (um)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  160  Preencher com 9 (noves)",
+        "• REGISTRO 2 => MOVIMENTO (180 bytes )",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES.",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 2 (dois)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇ ÕES.",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 1 (um)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  160  Preencher com 9 (noves)",
+        "• REGISTRO 2 => MOVIMENTO (180 bytes )",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES.",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 2 (dois)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 1 (um)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  160  Preencher com 9 (noves)",
+        "• REGISTRO 2 => MOVIMENTO (180 bytes )",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES.",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 2 (dois)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "13 Situação -do-contrato  Num  01  Obrigatório. 1-Ativo, 2-Inativo",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 1 (um)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  160  Preencher com 9 (noves)",
+        "• REGISTRO 2 => MOVIMENTO (180 bytes )",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES.",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 2 (dois)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "13 Situação -do-contrato  Num  01  Obrigatório. 1-Ativo, 2-Inativo",
+        "14 Tipo-Operação  Num  01  Obrigatório.",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  160  Preencher com 9 (noves)",
+        "• REGISTRO 2 => MOVIMENTO (180 bytes )",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES.",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 2 (dois)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "13 Situação -do-contrato  Num  01  Obrigatório. 1-Ativo, 2-Inativo",
+        "14 Tipo-Operação  Num  01  Obrigatório.",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES.",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 2 (dois)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "13 Situação -do-contrato  Num  01  Obrigatório. 1-Ativo, 2-Inativo",
+        "14 Tipo-Operação  Num  01  Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBER TURA  DO FCVS",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 2 (dois)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "13 Situação -do-contrato  Num  01  Obrigatório. 1-Ativo, 2-Inativo",
+        "14 Tipo-Operação  Num  01  Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBER TURA  DO FCVS",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 2 (dois)",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "13 Situação -do-contrato  Num  01  Obrigatório. 1-Ativo, 2-Inativo",
+        "14 Tipo-Operação  Num  01  Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBER TURA  DO FCVS",
+        "03 Matrícula -Agente  Num  05  Obrigatório",
+        "04 Número -Contrato  Alfan  13  Obrigatório",
+        "05 Grau -Hipoteca  Num  1  Obrigatório",
+        "06 Tipo-Mutuário  Num  2  Automático pelo Sistema",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "13 Situação -do-contrato  Num  01  Obrigatório. 1-Ativo, 2-Inativo",
+        "14 Tipo-Operação  Num  01  Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBER TURA  DO FCVS",
+        "15 Tipo-Evento  Alfan  03  Obrigatório",
+        "07 Nome -Mutuário  Alfan  40  Obrigatório",
+        "Código -Seguradora  Num  03",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -Mutuário  Alfan  17",
+        "11 Dt-nascimento -mutuário  Num  08 aaaammdd",
+        "12 Dt-do-Contrato  Num  08 aaaam mdd Obrigatório",
+        "13 Situação -do-contrato  Num  01  Obrigatório. 1-Ativo, 2-Inativo",
+        "14 Tipo-Operação  Num  01  Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBER TURA  DO FCVS",
+        "15 Tipo-Evento  Alfan  03  Obrigatório",
+        "16 Data -Evento  Num  08 aaaammdd  Obrigatório",
+        "17 Endereço -Imóvel  Alfan  40  Obrigatório",
+        "18 UF-Imóvel  Alfa 02  Obrigatório",
+        "19 Código-Munic ípio/DV -",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBER TURA  DO FCVS",
+        "15 Tipo-Evento  Alfan  03  Obrigatório",
+        "16 Data -Evento  Num  08 aaaammdd  Obrigatório",
+        "17 Endereço -Imóvel  Alfan  40  Obrigatório",
+        "18 UF-Imóvel  Alfa 02  Obrigatório",
+        "19 Código-Munic ípio/DV -",
+        "Imóvel     Obrigatório",
+        "Codigo -Municipio  Num  04",
+        "DV-Município  Num  01",
+        "20 VAGO  Num  06  Preencher com 9 (noves)",
+        "• REGISTRO 9 => TRAILER  (180 bytes)",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES .",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo de Registro  Num  01  Obrigatório e igual a 9 (nove)",
+        "03 Matrícula  Agente  Num  05  Obrigatório",
+        "04 Qtd. Contratos  Num  07  Obrigatório",
+        "05 VAGO  Num  165  Preencher com 9 (noves)",
+        "16 Data -Evento  Num  08 aaaammdd  Obrigatório",
+        "17 Endereço -Imóvel  Alfan  40  Obrigatório",
+        "18 UF-Imóvel  Alfa 02  Obrigatório",
+        "19 Código-Munic ípio/DV -",
+        "Imóvel     Obrigatório",
+        "Codigo -Municipio  Num  04",
+        "DV-Município  Num  01",
+        "20 VAGO  Num  06  Preencher com 9 (noves)",
+        "• REGISTRO 9 => TRAILER  (180 bytes)",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES .",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo de Registro  Num  01  Obrigatório e igual a 9 (nove)",
+        "03 Matrícula  Agente  Num  05  Obrigatório",
+        "04 Qtd. Contratos  Num  07  Obrigatório",
+        "05 VAGO  Num  165  Preencher com 9 (noves)",
+        "2 –  CADMUT 1 - Acerto  de Contratos  em Crítica .",
+        ". TIPO DE MOVIMENTO  = 12 (doze)",
+        ". NOME DO ARQUIVO : MCAD1 .TXT  onde    M = Fixo  e   99999  = Matrícula do Agente",
+        "• REGISTRO 3 => HEADER        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  FORMATO  OBSERVA ÇÕES",
+        "SEQ  NOME DO CAMPO  TIPO  TAM  FORMATO  OBSERVAÇÕES .",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo de Registro  Num  01  Obrigatório e igual a 9 (nove)",
+        "03 Matrícula  Agente  Num  05  Obrigatório",
+        "04 Qtd. Contratos  Num  07  Obrigatório",
+        "05 VAGO  Num  165  Preencher com 9 (noves)",
+        "2 –  CADMUT 1 - Acerto  de Contratos  em Crítica .",
+        ". TIPO DE MOVIMENTO  = 12 (doze)",
+        ". NOME DO ARQUIVO : MCAD1 .TXT  onde    M = Fixo  e   99999  = Matrícula do Agente",
+        "• REGISTRO 3 => HEADER        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  FORMATO  OBSERVA ÇÕES",
+        "01 Tipo-Mov Num  02  Preencher com 12(doze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 3(três)",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02  Preencher com 11(onze)",
+        "02 Tipo de Registro  Num  01  Obrigatório e igual a 9 (nove)",
+        "03 Matrícula  Agente  Num  05  Obrigatório",
+        "04 Qtd. Contratos  Num  07  Obrigatório",
+        "05 VAGO  Num  165  Preencher com 9 (noves)",
+        "2 –  CADMUT 1 - Acerto  de Contratos  em Crítica .",
+        ". TIPO DE MOVIMENTO  = 12 (doze)",
+        ". NOME DO ARQUIVO : MCAD1 .TXT  onde    M = Fixo  e   99999  = Matrícula do Agente",
+        "• REGISTRO 3 => HEADER        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  FORMATO  OBSERVA ÇÕES",
+        "01 Tipo-Mov Num  02  Preencher com 12(doze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 3(três)",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo de Registro  Num  01  Obrigatório e igual a 9 (nove)",
+        "03 Matrícula  Agente  Num  05  Obrigatório",
+        "04 Qtd. Contratos  Num  07  Obrigatório",
+        "05 VAGO  Num  165  Preencher com 9 (noves)",
+        "2 –  CADMUT 1 - Acerto  de Contratos  em Crítica .",
+        ". TIPO DE MOVIMENTO  = 12 (doze)",
+        ". NOME DO ARQUIVO : MCAD1 .TXT  onde    M = Fixo  e   99999  = Matrícula do Agente",
+        "• REGISTRO 3 => HEADER        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  FORMATO  OBSERVA ÇÕES",
+        "01 Tipo-Mov Num  02  Preencher com 12(doze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 3(três)",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula  Agente  Num  05  Obrigatório",
+        "04 Qtd. Contratos  Num  07  Obrigatório",
+        "05 VAGO  Num  165  Preencher com 9 (noves)",
+        "2 –  CADMUT 1 - Acerto  de Contratos  em Crítica .",
+        ". TIPO DE MOVIMENTO  = 12 (doze)",
+        ". NOME DO ARQUIVO : MCAD1 .TXT  onde    M = Fixo  e   99999  = Matrícula do Agente",
+        "• REGISTRO 3 => HEADER        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  FORMATO  OBSERVA ÇÕES",
+        "01 Tipo-Mov Num  02  Preencher com 12(doze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 3(três)",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        ". NOME DO ARQUIVO : MCAD1 .TXT  onde    M = Fixo  e   99999  = Matrícula do Agente",
+        "• REGISTRO 3 => HEADER        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  FORMATO  OBSERVA ÇÕES",
+        "01 Tipo-Mov Num  02  Preencher com 12(doze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 3(três)",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  FORMATO  OBSERVA ÇÕES",
+        "01 Tipo-Mov Num  02  Preencher com 12(doze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 3(três)",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "01 Tipo-Mov Num  02  Preencher com 12(doze)",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 3(três)",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "14 Tipo-Operação  Num  01 Obrigatório.",
+        "02 Tipo-de-Registro  Num  01  Obrigatório e igual a 3(três)",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "14 Tipo-Operação  Num  01 Obrigatório.",
+        "03 Matrícula-Agente  Num  05  Obrigatório",
+        "04 Data -Criação -Arquivo  Num  08 aaaammdd  Obrigatório",
+        "05 Procedência -do-Arquivo  Num  02  Conforme Tabela",
+        "06 Classe -do-Agente  Num  02  Preencher com 99",
+        "07 VAGO  Num  180  Preenchido com 9 (noves)",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "14 Tipo-Operação  Num  01 Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "14 Tipo-Operação  Num  01 Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBERTURA  DO FCVS",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "01 Tipo-Mov Num  02 Preencher com 12(doze)",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "14 Tipo-Operação  Num  01 Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBERTURA  DO FCVS",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "02 Tipo-de-Registr o Num  01 Obrigatório  e igual 4(quatro)",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "14 Tipo-Operação  Num  01 Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBERTURA  DO FCVS",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "03 Matrícula -Agente  Num  05 Obrigatório",
+        "04 Número -Contrato  Alfanum  13 Obrigatório",
+        "05 Grau -Hipoteca  Num  01 Obrigatório",
+        "06 Tipo-Mutuário  Num  02 Automático  pelo sistema ( 01 – Principal)",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "14 Tipo-Operação  Num  01 Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBERTURA  DO FCVS",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "07 Nome -Mutuário  Alfanum  40 Obrigatório",
+        "08 Segur adora/Região",
+        "Código -Seguradora  Num  03 Conforme tabela",
+        "DV-Seguradora  Num  01",
+        "09 CPF/DV -do-Mutuário",
+        "10 Identidade -mutuário  Alfanum  17",
+        "11 Dt-nascimento -mutuário  Num  08",
+        "12 Dt-do-Contrato  Num 08 Obrigatório",
+        "13 Situação -do-contrato  Num  01 Obrigatório. 1 -Ativo, 2 -Inativo",
+        "14 Tipo-Operação  Num  01 Obrigatório.",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBERTURA  DO FCVS",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "15 Tipo-Evento  Alfanum  03 Obrigatório",
+        "16 Data -Evento  Num  08 Obrigatório",
+        "17 Endere ço-Imóvel Alfanum  40 Obrigatório",
+        "18 UF-Imóvel  Alfa 02 Obrigatório",
+        "1 COM COBERTURA  DO FCVS",
+        "2 SEM COBERTURA  DO FCVS",
+        "• REGISTRO 4 => MOVIMENTO        (200 bytes )",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "15 Tipo-Evento  Alfanum  03 Obrigatório",
+        "16 Data -Evento  Num  08 Obrigatório",
+        "17 Endere ço-Imóvel Alfanum  40 Obrigatório",
+        "18 UF-Imóvel  Alfa 02 Obrigatório",
+        "19 Codigo -Municipio/D V-Imóvel    Obrigatório",
+        "Codigo -Municipio  Num  04",
+        "DV-Município  Num  01",
+        "20 M1 Num  01 AGENTE inválido",
+        "21 M2 Num  01 CONTRATO com caractere  especial",
+        "CONTRATO não informado",
+        "22 M3 Num  01 HIPOTECA fora do intervalo",
+        "23 M4 Num  01 TIPO Mutuário < 0  ou = brancos",
+        "24 M5 Num  01 1-Seg.pos. nome = branco ou .(ponto)",
+        "2-Nome inválido(caracteres especiais)",
+        "3-Nome inválido(apenas um nome)",
+        "4-Nome inválido(3 letras iguais juntas)",
+        "25 M6 Num  01 SEGURADORA ou REGIÃO  inválida",
+        "SEQ.  NOME DO CAMPO  TIPO  TAM.  OBSERVAÇÕES",
+        "15 Tipo-Evento  Alfanum  03 Obrigatório",
+        "16 Data -Evento  Num  08 Obrigatório",
+        "17 Endere ço-Imóvel Alfanum  40 Obrigatório",
+        "18 UF-Imóvel  Alfa 02 Obrigatório",
+        "19 Codigo -Municipio/D V-Imóvel    Obrigatório",
+        "Codigo -Municipio  Num  04",
+        "DV-Município  Num  01",
+        "20 M1 Num  01 AGENTE inválido",
+        "21 M2 Num  01 CONTRATO com caractere  especial",
+        "CONTRATO não informado",
+        "22 M3 Num  01 HIPOTECA fora do intervalo",
+        "23 M4 Num  01 TIPO Mutuário < 0  ou = brancos",
+        "24 M5 Num  01 1-Seg.pos. nome = branco ou .(ponto)",
+        "2-Nome inválido(caracteres especiais)",
+        "3-Nome inválido(apenas um nome)",
+        "4-Nome inválido(3 letras iguais juntas)",
+        "25 M6 Num  01 SEGURADORA ou REGIÃO  inválida",
+        "26 M7 Num  01 CPF não criticado",
+        "[Truncado para análise inicial]",
+        "15 Tipo-Evento  Alfanum  03 Obrigatório",
+        "16 Data -Evento  Num  08 Obrigatório",
+        "17 Endere ço-Imóvel Alfanum  40 Obrigatório",
+        "18 UF-Imóvel  Alfa 02 Obrigatório",
+        "19 Codigo -Municipio/D V-Imóvel    Obrigatório",
+        "Codigo -Municipio  Num  04",
+        "DV-Município  Num  01",
+        "20 M1 Num  01 AGENTE inválido",
+        "21 M2 Num  01 CONTRATO com caractere  especial",
+        "CONTRATO não informado",
+        "22 M3 Num  01 HIPOTECA fora do intervalo",
+        "23 M4 Num  01 TIPO Mutuário < 0  ou = brancos",
+        "24 M5 Num  01 1-Seg.pos. nome = branco ou .(ponto)",
+        "2-Nome inválido(caracteres especiais)",
+        "3-Nome inválido(apenas um nome)",
+        "4-Nome inválido(3 letras iguais juntas)",
+        "25 M6 Num  01 SEGURADORA ou REGIÃO  inválida",
+        "26 M7 Num  01 CPF não criticado",
+        "[Truncado para análise inicial]",
+        "16 Data -Evento  Num  08 Obrigatório",
+        "17 Endere ço-Imóvel Alfanum  40 Obrigatório",
+        "18 UF-Imóvel  Alfa 02 Obrigatório",
+        "19 Codigo -Municipio/D V-Imóvel    Obrigatório",
+        "Codigo -Municipio  Num  04",
+        "DV-Município  Num  01",
+        "20 M1 Num  01 AGENTE inválido",
+        "21 M2 Num  01 CONTRATO com caractere  especial",
+        "CONTRATO não informado",
+        "22 M3 Num  01 HIPOTECA fora do intervalo",
+        "23 M4 Num  01 TIPO Mutuário < 0  ou = brancos",
+        "24 M5 Num  01 1-Seg.pos. nome = branco ou .(ponto)",
+        "2-Nome inválido(caracteres especiais)",
+        "3-Nome inválido(apenas um nome)",
+        "4-Nome inválido(3 letras iguais juntas)",
+        "25 M6 Num  01 SEGURADORA ou REGIÃO  inválida",
+        "26 M7 Num  01 CPF não criticado",
+        "[Truncado para análise inicial]",
+        "24 M5 Num  01 1-Seg.pos. nome = branco ou .(ponto)",
+        "2-Nome inválido(caracteres especiais)",
+        "3-Nome inválido(apenas um nome)",
+        "4-Nome inválido(3 letras iguais juntas)",
+        "25 M6 Num  01 SEGURADORA ou REGIÃO  inválida",
+        "26 M7 Num  01 CPF não criticado",
+        "[Truncado para análise inicial]"
+      ],
+      "tipos_registro": []
+    }
+  },
+  "fichas_retorno": {},
+  "codigos_interpretacao": {
+    "1": {
+      "descricao": "(1) A partir de 28.11.68 (SBPE) o valor do financiamento pode ser convertido em UPC  e não  mais",
+      "categoria": "validacao",
+      "detalhes": [
+        "em SM,  na propor ção de 1 SM = 4 UPC, devendo s er informado no FH1 Condição Especial q ue será",
+        "justificada pela RC 35/68. Portanto, se  o Agente Financeiro informar IM = Condição  Especial  no período",
+        "de 28.11.68 até 31.12.68, o SIFCVS verificará  o limite  do valor de financi amento em UPC  do valor de",
+        "financiamento em UPC (limite = 2.000 UPC)."
+      ]
+    },
+    "2": {
+      "descricao": "Neste período era previsto o elasteci mento de prazo (Planos \"A\" e \"C\") que obrig atoriamente  não",
+      "categoria": "validacao",
+      "detalhes": [
+        "poderia exceder a 30 anos."
+      ]
+    },
+    "3": {
+      "descricao": "O prazo máxi mo de contratação d o Plano MI L é 30 anos",
+      "categoria": "validacao",
+      "detalhes": [
+        "TABELA 3                                                                                                                          ANEXO II",
+        "DE 27.11.68 ATÉ 22.10.69 (RD 55/68)",
+        "Financiamentos c/Recursos do F GTS e outros Fundos",
+        "VALOR DE FINANCIAMENTO  TAXA M ÁXIMA PRAZO DE RETORNO",
+        "EM UPC  % a.a.  EM ANOS",
+        "Até 100  4,0 20",
+        "Acima de 100 até 160  5,0 20",
+        "Acima de 160 até 220  6,0 20",
+        "Acima  de 2...",
+        "[Truncado para análise inicial]"
+      ]
+    },
+    "4": {
+      "descricao": "facultado  a utilização do SIMC;",
+      "categoria": "validacao",
+      "detalhes": []
+    },
+    "5": {
+      "descricao": "facultado  a utilização do SIMC.",
+      "categoria": "validacao",
+      "detalhes": []
+    },
+    "6": {
+      "descricao": "aos c ontratos do PCM assinados no período de 13.03.81 a 03.08.81, com va lor de financiament o acima de",
+      "categoria": "validacao",
+      "detalhes": [
+        "3.500 UPC e até 5.000 UPC, aplicam -se os sistemas de amortização p revistos para operações de valor unitário",
+        "de 3. 500 UPC.",
+        "(*) a partir de 07.04.89 é facultado, na contratação, a utilização do sistema de amortização  SÉRIE EM GRADIENTE",
+        "– SG, dec orrente de contratos de promes sa de compra e venda firmados até 15.01 .89 entre  Agente",
+        "Promotor e mutuário final. – vide subitem 1.4.2.5.2 do Roteiro de Análise .",
+        "ANEXO II - FAIXA DE FINANCIAMENTO/TAXA/PRAZO",
+        "TABELA 1                                                                                                                    ANEXO II",
+        "DE 02.03.66 ATÉ 25.06.67 (Ins trução 05/66, Lei 4380/64)",
+        "Financiamento s SBPE e c/Recursos do FGTS e outros Fundos",
+        "VALOR DE FINANCIAM ENTO  TAXA MÁXIMA  PRAZO DE RET ORNO",
+        "EM SM  % a.a.  EM ANOS",
+        "Até 75  10,0  20"
+      ]
+    }
+  },
+  "processos": {
+    "portal_web": {
+      "url": "https://www.siwfc.caixa.gov.br/",
+      "login": {
+        "etapa1": "Inserir CPF",
+        "etapa2": "Validação por e-mail",
+        "etapa3": "Inserir senha"
+      },
+      "modulos": [
+        "2 Navegação no SIWFC  – Módulo Envio de Dossiê"
+      ]
+    }
+  },
+  "validacoes": {
+    "procedimentos": [
+      "em SM,  na propor ção de 1 SM = 4 UPC, devendo s er informado no FH1 Condição Especial q ue será"
+    ]
+  }
+}

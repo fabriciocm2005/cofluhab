@@ -1,0 +1,193 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Gerar Ficha CEF{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>🔧 Gerar Ficha CEF</h2>
+            <p class="text-muted">Seleção inteligente e geração de fichas para a CEF</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Informações do Contrato -->
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">📋 Contrato {{ contrato.codigo }}</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Mutuário:</th>
+                            <td>{{ mutuario.nome|default:"Não informado" }}</td>
+                        </tr>
+                        <tr>
+                            <th>CPF:</th>
+                            <td>{{ mutuario.cpf|default:"Não informado" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Data Contrato:</th>
+                            <td>{{ contrato.data_contrato|date:"d/m/Y"|default:"Não informado" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Valor Financiado:</th>
+                            <td>R$ {{ contrato.valor_financiado|floatformat:2|default:"0,00" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prazo:</th>
+                            <td>{{ contrato.prazo|default:"0" }} meses</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Histórico de Envios -->
+            {% if historico_envios %}
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">📜 Histórico de Envios</h6>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for envio in historico_envios %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ envio.tipo_ficha }}</strong>
+                                    <br>
+                                    <small class="text-muted">{{ envio.criado_em|date:"d/m/Y H:i" }}</small>
+                                </div>
+                                <span class="badge badge-{% if envio.status == 'ACEITO' %}success{% elif envio.status == 'REJEITADO' %}danger{% else %}warning{% endif %}">
+                                    {{ envio.status }}
+                                </span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Recomendação Inteligente -->
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">🤖 Seleção Inteligente</h5>
+                </div>
+                <div class="card-body">
+                    {% if ficha_recomendada %}
+                        <div class="alert alert-info">
+                            <h5 class="alert-heading">📄 Ficha Recomendada: {{ ficha_recomendada }}</h5>
+                            <p class="mb-0">{{ motivo }}</p>
+                        </div>
+                        
+                        {% if pre_requisitos %}
+                        <div class="mb-3">
+                            <h6>✅ Pré-requisitos:</h6>
+                            <ul class="mb-0">
+                                {% for req in pre_requisitos %}
+                                    <li>{{ req }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        {% if validacoes_pendentes %}
+                        <div class="alert alert-warning">
+                            <h6>⚠️ Validações Pendentes:</h6>
+                            <ul class="mb-0">
+                                {% for validacao in validacoes_pendentes %}
+                                    <li>{{ validacao }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        {% if fichas_complementares %}
+                        <div class="mb-3">
+                            <h6>📎 Fichas Complementares:</h6>
+                            <div class="d-flex flex-wrap">
+                                {% for ficha in fichas_complementares %}
+                                    <span class="badge badge-secondary mr-2 mb-2">{{ ficha }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Formulário de Geração -->
+                        {% if pode_enviar %}
+                        <form method="post" class="mt-3">
+                            {% csrf_token %}
+                            <input type="hidden" name="tipo_ficha" value="{{ ficha_recomendada }}">
+                            <button type="submit" class="btn btn-success btn-block btn-lg">
+                                <i class="fas fa-download"></i> Gerar e Baixar Ficha
+                            </button>
+                        </form>
+                        {% else %}
+                        <div class="alert alert-danger mt-3">
+                            <strong>❌ Não é possível gerar ficha no momento</strong>
+                            <br>
+                            Resolva as validações pendentes primeiro.
+                        </div>
+                        {% endif %}
+                        
+                    {% else %}
+                        <div class="alert alert-warning">
+                            <strong>⚠️ Não foi possível determinar ficha recomendada</strong>
+                            <br>
+                            Verifique se o contrato possui todas as informações necessárias.
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Erros de Validação -->
+                    {% if erros_validacao %}
+                    <div class="alert alert-warning mt-3">
+                        <h6>⚠️ Avisos de Validação:</h6>
+                        <ul class="mb-0">
+                            {% for erro in erros_validacao %}
+                                <li>
+                                    <strong>{{ erro.campo }}:</strong> {{ erro.mensagem }}
+                                    {% if erro.codigo %}
+                                        <small class="text-muted">({{ erro.codigo }})</small>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Ações Adicionais -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">🔧 Ações</h6>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'envios_cef' %}" class="btn btn-secondary btn-block">
+                        <i class="fas fa-arrow-left"></i> Voltar para Envios
+                    </a>
+                    <a href="{% url 'validar_ficha_cef' %}" class="btn btn-info btn-block mt-2">
+                        <i class="fas fa-check"></i> Validar Ficha Existente
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

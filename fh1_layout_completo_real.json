@@ -1,0 +1,375 @@
+{
+  "tamanho_total": 424,
+  "campos_documentados": [
+    {
+      "inicio": 1,
+      "fim": 2,
+      "nome": "UFS",
+      "tam": 2,
+      "valor_real": "19"
+    },
+    {
+      "inicio": 3,
+      "fim": 8,
+      "nome": "MAT_AG_FINANC_DV",
+      "tam": 6,
+      "valor_real": "000442"
+    },
+    {
+      "inicio": 9,
+      "fim": 21,
+      "nome": "NUMERO_CONTRATO",
+      "tam": 13,
+      "valor_real": "6000         "
+    },
+    {
+      "inicio": 22,
+      "fim": 22,
+      "nome": "HIPOTECA",
+      "tam": 1,
+      "valor_real": "1"
+    },
+    {
+      "inicio": 23,
+      "fim": 24,
+      "nome": "SEQUENCIAL",
+      "tam": 2,
+      "valor_real": "10"
+    },
+    {
+      "inicio": 25,
+      "fim": 25,
+      "nome": "CONSTANTE",
+      "tam": 1,
+      "valor_real": "0"
+    },
+    {
+      "inicio": 26,
+      "fim": 65,
+      "nome": "NOME_MUTUARIO",
+      "tam": 40,
+      "valor_real": "0ALDEMIR PEREIRA DA SILVA               "
+    },
+    {
+      "inicio": 66,
+      "fim": 76,
+      "nome": "CPF_CI",
+      "tam": 11,
+      "valor_real": " 1358971987"
+    },
+    {
+      "inicio": 77,
+      "fim": 82,
+      "nome": "DATA_NASCIMENTO",
+      "tam": 6,
+      "valor_real": "72    "
+    },
+    {
+      "inicio": 83,
+      "fim": 87,
+      "nome": "CODIGO_MUNICIPIO",
+      "tam": 5,
+      "valor_real": "  160"
+    },
+    {
+      "inicio": 88,
+      "fim": 89,
+      "nome": "UF",
+      "tam": 2,
+      "valor_real": "85"
+    },
+    {
+      "inicio": 90,
+      "fim": 127,
+      "nome": "ENDERECO_IMOVEL",
+      "tam": 38,
+      "valor_real": "200000RJETR DO CASSOROTIBA            "
+    },
+    {
+      "inicio": 128,
+      "fim": 133,
+      "nome": "DATA_CONTRATO",
+      "tam": 6,
+      "valor_real": "      "
+    },
+    {
+      "inicio": 134,
+      "fim": 145,
+      "nome": "VALOR_FINANC_CONTRATADO",
+      "tam": 12,
+      "valor_real": "  3010840000"
+    },
+    {
+      "inicio": 146,
+      "fim": 148,
+      "nome": "PRAZO_CONTRATADO",
+      "tam": 3,
+      "valor_real": "000"
+    },
+    {
+      "inicio": 149,
+      "fim": 152,
+      "nome": "TAXA_JUROS_CONTRATADO",
+      "tam": 4,
+      "valor_real": "0000"
+    },
+    {
+      "inicio": 153,
+      "fim": 158,
+      "nome": "PRIMEIRO_VENCIMENTO",
+      "tam": 6,
+      "valor_real": "000301"
+    },
+    {
+      "inicio": 159,
+      "fim": 170,
+      "nome": "VALOR_FINANC_FCVS",
+      "tam": 12,
+      "valor_real": "084001621233"
+    },
+    {
+      "inicio": 171,
+      "fim": 173,
+      "nome": "PRAZO_FCVS",
+      "tam": 3,
+      "valor_real": "978"
+    },
+    {
+      "inicio": 174,
+      "fim": 177,
+      "nome": "TAXA_JUROS_FCVS",
+      "tam": 4,
+      "valor_real": "0016"
+    },
+    {
+      "inicio": 178,
+      "fim": 180,
+      "nome": "PLANO",
+      "tam": 3,
+      "valor_real": "212"
+    },
+    {
+      "inicio": 181,
+      "fim": 182,
+      "nome": "RR",
+      "tam": 2,
+      "valor_real": "33"
+    },
+    {
+      "inicio": 183,
+      "fim": 185,
+      "nome": "INDEX",
+      "tam": 3,
+      "valor_real": "978"
+    },
+    {
+      "inicio": 186,
+      "fim": 190,
+      "nome": "COD_CATEG_PROFISSIONAL",
+      "tam": 5,
+      "valor_real": "     "
+    },
+    {
+      "inicio": 191,
+      "fim": 192,
+      "nome": "PR",
+      "tam": 2,
+      "valor_real": "NN"
+    }
+  ],
+  "campos_extras": [
+    {
+      "inicio": 193,
+      "fim": 194,
+      "nome": "CAMPO_EXTRA_01",
+      "tam": 2,
+      "valor_real": "NN",
+      "obs": "Repete final PR"
+    },
+    {
+      "inicio": 195,
+      "fim": 206,
+      "nome": "CAMPO_EXTRA_02",
+      "tam": 12,
+      "valor_real": " 00000000000",
+      "obs": "Valor numérico com espaços"
+    },
+    {
+      "inicio": 207,
+      "fim": 209,
+      "nome": "CAMPO_EXTRA_03",
+      "tam": 3,
+      "valor_real": "00 ",
+      "obs": "Espaços + 0"
+    },
+    {
+      "inicio": 210,
+      "fim": 211,
+      "nome": "CAMPO_EXTRA_04",
+      "tam": 2,
+      "valor_real": "  ",
+      "obs": "00"
+    },
+    {
+      "inicio": 212,
+      "fim": 214,
+      "nome": "CAMPO_EXTRA_05_SAC",
+      "tam": 3,
+      "valor_real": "0 0",
+      "obs": "Sistema amortização"
+    },
+    {
+      "inicio": 215,
+      "fim": 226,
+      "nome": "CAMPO_EXTRA_06",
+      "tam": 12,
+      "valor_real": "0SAC00000000",
+      "obs": "Valor numérico"
+    },
+    {
+      "inicio": 227,
+      "fim": 229,
+      "nome": "CAMPO_EXTRA_07",
+      "tam": 3,
+      "valor_real": "000",
+      "obs": "Espaços + número"
+    },
+    {
+      "inicio": 230,
+      "fim": 231,
+      "nome": "CAMPO_EXTRA_08",
+      "tam": 2,
+      "valor_real": "00",
+      "obs": "00"
+    },
+    {
+      "inicio": 232,
+      "fim": 234,
+      "nome": "CAMPO_EXTRA_09_SAC",
+      "tam": 3,
+      "valor_real": "   ",
+      "obs": "Sistema amortização repetido"
+    },
+    {
+      "inicio": 235,
+      "fim": 240,
+      "nome": "DATA_EXTRA_01",
+      "tam": 6,
+      "valor_real": "0 00SA",
+      "obs": "Data formato MMAAAA"
+    },
+    {
+      "inicio": 241,
+      "fim": 252,
+      "nome": "VALOR_EXTRA_01",
+      "tam": 12,
+      "valor_real": "C30108400162",
+      "obs": "Valor numérico"
+    },
+    {
+      "inicio": 253,
+      "fim": 258,
+      "nome": "DATA_EXTRA_02",
+      "tam": 6,
+      "valor_real": "123397",
+      "obs": "Data formato MMAAAA"
+    },
+    {
+      "inicio": 259,
+      "fim": 270,
+      "nome": "VALOR_EXTRA_02",
+      "tam": 12,
+      "valor_real": "830118400000",
+      "obs": "Valor numérico"
+    },
+    {
+      "inicio": 271,
+      "fim": 282,
+      "nome": "VALOR_EXTRA_03",
+      "tam": 12,
+      "valor_real": "000001823315",
+      "obs": "Valor numérico"
+    },
+    {
+      "inicio": 283,
+      "fim": 312,
+      "nome": "RESERVADO_01",
+      "tam": 30,
+      "valor_real": "4000000000000000000000000   00",
+      "obs": "Zeros - reservado"
+    },
+    {
+      "inicio": 313,
+      "fim": 315,
+      "nome": "CAMPO_EXTRA_10",
+      "tam": 3,
+      "valor_real": "000",
+      "obs": "Espaços"
+    },
+    {
+      "inicio": 316,
+      "fim": 325,
+      "nome": "VALOR_EXTRA_04",
+      "tam": 10,
+      "valor_real": "0000100000",
+      "obs": "Valor numérico"
+    },
+    {
+      "inicio": 326,
+      "fim": 395,
+      "nome": "RESERVADO_02",
+      "tam": 70,
+      "valor_real": "0000000000000000000000000000000000000000000000000000000000000000000000",
+      "obs": "Zeros - grande campo reservado"
+    },
+    {
+      "inicio": 396,
+      "fim": 405,
+      "nome": "CAMPO_EXTRA_11",
+      "tam": 10,
+      "valor_real": "6531742D00",
+      "obs": "Valor específico"
+    },
+    {
+      "inicio": 406,
+      "fim": 406,
+      "nome": "FLAG_01",
+      "tam": 1,
+      "valor_real": "1",
+      "obs": "Flag D"
+    },
+    {
+      "inicio": 407,
+      "fim": 409,
+      "nome": "CAMPO_EXTRA_12",
+      "tam": 3,
+      "valor_real": "900",
+      "obs": "Código"
+    },
+    {
+      "inicio": 410,
+      "fim": 415,
+      "nome": "CAMPO_EXTRA_13",
+      "tam": 6,
+      "valor_real": "044212",
+      "obs": "Matrícula novamente?"
+    },
+    {
+      "inicio": 416,
+      "fim": 424,
+      "nome": "CAMPO_EXTRA_14",
+      "tam": 9,
+      "valor_real": "0226224SI",
+      "obs": "Data + código"
+    },
+    {
+      "inicio": 425,
+      "fim": 426,
+      "nome": "FLAG_FINAL",
+      "tam": 2,
+      "valor_real": "I",
+      "obs": "SI - flag final"
+    }
+  ],
+  "exemplo_real": "190004426000         11000ALDEMIR PEREIRA DA SILVA                135897198772      16085200000RJETR DO CASSOROTIBA                    30108400000000000000301084001621233978001621233978     NNNN 0000000000000   0 00SAC0000000000000   0 00SAC301084001621233978301184000000000018233154000000000000000000000000   00000000010000000000000000000000000000000000000000000000000000000000000000000000000006531742D0019000442120226224SI"
+}

@@ -1,0 +1,107 @@
+# 📚 CEF - Fichas e Códigos Completos
+
+**Gerado automaticamente pelo CEF Integration Bot**
+
+**Data da análise**: 2026-01-23
+
+---
+
+## 📤 FICHAS DE ENVIO
+
+### REGISTRO => HEADER – PARA TODOS OS TIPO
+
+**Descrição**: • REGISTRO => HEADER – PARA TODOS OS TIPOS DE MOVIMENTOS (POSIÇÃO 424
+
+### RCV
+
+**Descrição**: DIFERENCIA O TIPO DE MOVIMENTO – Exceto para os movimentos de RCV e RNV
+
+### RNV
+
+**Descrição**: DIFERENCIA O TIPO DE MOVIMENTO – Exceto para os movimentos de RCV e RNV
+
+**Campos identificados**: 5
+
+```
+01 UFS NUM  2  1-2 Código da UFS
+02 MAT.AG.FINANC  NUM  6 3-8 Matrícula do Agente Financeiro/DV
+03 CONSTANTE  NUM  14 9-22 ZEROS
+05 CONSTANTE  NUM  9 24-32 ZEROS
+14 FILLER  - 6 425-430 BRANCOS
+```
+
+### FH1
+
+**Descrição**: • TIPO DE MOVIMENTO = I - FH1 – Ficha para Habilitação ao FCVS
+
+**Campos identificados**: 201
+
+```
+01 . UFS  01 a 02  2 NUM
+02 . MAT. AG. FINANC. /DV  03 a 08  6 NUM
+03 . N.º CONTRATO DO MUT. NO AGENTE  09 a 21  13 ALFA
+04 . HIPOTECA  22 1 NUM
+06 SEQUENCIAL  24 a 25  2 NUM  0
+07 CONSTANTE  26 1 NUM  0
+08 NOME DO MUT. PRINCIPAL  27 a 66  40 ALFA
+10 . CPF/CI  68 a 84  17 ALFA
+11 DATA DE NASCIMENTO  85 a 90  6 NUM  (DDMMAA)
+12 CODIGO DO MUNICÍPIO  91 a 95  5 NUM
+13 UF   96 a 97  2    ALFA
+14 ENDEREÇO DO IMÓVEL    98 a 135  38 ALFA
+15 DATA DO CONTRATO  136 a 141  6 NUM  ( DDMMAA)
+16 VALOR DA GARANTIA  142 a 153  12 NUM  10 INT. e 2 DEC.
+17 IM 154 a 155  2 NUM
+18 DATA DA LEGISLAÇÃO  156 a 161  6 NUM  (DDMMAA)
+19 VALOR FINANCIAMENTO CONTRATADO  162 a 173  12 NUM  10 INT. e 2 DEC.
+20 VALOR FINANC. PADRÃO FCVS  174 a 185  12 NUM  10 INT. e 2 DEC.
+21 CÓDIGO DA CATEG. PROFISSIONAL  186 a 190  5 ALFA
+22 . SEGURO  DE CRÉDITO  191 1 ALFA
+... e mais 181 campos
+```
+
+### FH2
+
+**Descrição**: • TIPO DE MOVIMENTO = I - FH2 e FH3 para  Habilitação ao FCVS
+
+### FH3
+
+**Descrição**: • TIPO DE MOVIMENTO = I - FH2 e FH3 para  Habilitação ao FCVS
+
+**Campos identificados**: 25
+
+```
+02 MAT. AG. FINANC. /DV  NUM  6
+03 N.º CONTR. DO MUT. NO AGENTE  ALFA  13
+06 SEQUENCIAL  NUM  2
+07 CONSTANTE  NUM  1  ZERO
+08 COD ALTERAÇÃO  NUM  3
+09 DATA DA ALTERAÇÃO  NUM  6 DDMMAA
+10 PRESTAÇÃO ALTERADA  NUM  4 MMAA
+12 TAXA JUROS / ÍNDICE  ALFA  8  VER PREENCHIMENTO DESTE CAMPO NO ITEM 2.3 (FH2)
+13 CÓDIGO DA CATEGORIA  ALFA  5
+14 VALOR DA ALTERAÇÃO  NUM  12  10 INT. E 2 DEC.
+20 FILLER   - 328  BRANCOS
+21 IDENTIFICAÇÃO DO LOTE      Duplic...
+07 CONSTANTE  NUM  1  ZERO
+08 COD ALTERAÇÃO  NUM  3
+09 DATA DA ALTERAÇÃO  NUM  6 DDMMAA
+10 PRESTAÇÃO ALTERADA  NUM  4 MMAA
+12 TAXA JUROS / ÍNDICE  ALFA  8  VER PREENCHIMENTO DESTE CAMPO NO ITEM 2.3 (FH2)
+13 CÓDIGO DA CATEGORIA  ALFA  5
+14 VALOR DA ALTERAÇÃO  NUM  12  10 INT. E 2 DEC.
+20 FILLER   - 328  BRANCOS
+... e mais 5 campos
+```
+
+### TIPOS_MOVIMENTO
+
+**Descrição**: Posição 424 diferencia o tipo de movimento
+
+### CADMUT
+
+**Descrição**: Cadastro de Mutuários
+
+**Campos identificados**: 617
+
+```

@@ -1,0 +1,56 @@
+<!-- templates/principal/relatorio_fh1.html -->
+<style>
+    .fh1-box { border: 2px solid #000; padding: 15px; font-family: Arial, sans-serif; width: 800px; margin: auto; }
+    .header { text-align: center; font-weight: bold; border-bottom: 2px solid #000; margin-bottom: 10px; }
+    .row { display: flex; border-bottom: 1px solid #ccc; padding: 5px 0; }
+    .label { font-weight: bold; width: 200px; font-size: 12px; }
+    .value { flex-grow: 1; font-size: 14px; }
+    .highlight { background-color: #f0f0f0; font-weight: bold; }
+</style>
+
+<div class="fh1-box">
+    <div class="header">
+        FICHA PARA HABILITAÇÃO AO FCVS - FORMULÁRIO FH1<br>
+        SISTEMA FINANCEIRO DE HABITAÇÃO - SFH
+    </div>
+    
+    <div class="row">
+        <div class="label">AGENTE FINANCEIRO:</div>
+        <div class="value">{{ agente_financeiro }}</div>
+    </div>
+
+    <div class="row">
+        <div class="label">NOME DO MUTUÁRIO:</div>
+        <div class="value"><strong>{{ mutuario.nome }}</strong></div>
+    </div>
+
+    <div class="row">
+        <div class="label">CPF:</div>
+        <div class="value">{{ mutuario.cpf }}</div>
+    </div>
+
+    <div class="row">
+        <div class="label">Nº DO CONTRATO:</div>
+        <div class="value">{{ contrato.codigo }}</div>
+    </div>
+
+    <div class="row">
+        <div class="label">DATA DO CONTRATO:</div>
+        <div class="value">{{ contrato.data_contrato|date:"d/m/Y" }}</div>
+    </div>
+
+    <div class="row highlight">
+        <div class="label">SALDO RESIDUAL (FCVS):</div>
+        <div class="value">R$ {{ fcvs_residual|floatformat:2 }}</div>
+    </div>
+
+    <div class="row">
+        <div class="label">SALDO DEVEDOR FINAL:</div>
+        <div class="value">R$ {{ contrato.saldo_atual|floatformat:2 }}</div>
+    </div>
+
+    <div style="margin-top: 50px; text-align: center;">
+        _______________________________________________________<br>
+        Assinatura do Responsável - {{ agente_financeiro }}
+    </div>
+</div>

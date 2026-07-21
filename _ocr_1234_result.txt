@@ -1,0 +1,18 @@
+START
+METODO=pypdf
+DOC_TYPE=contrato
+Q={'score': 20, 'status': 'baixa', 'faltando_criticos': ['nome', 'data_contrato'], 'faltando_importantes': ['conjunto', 'bairro', 'cidade', 'prazo', 'sa', 'tx_juros']}
+SAVE=True|Contrato stermosemqueestSredigidoO atualizado com sucesso
+CONTRATO=('1234', '', 'SIT', 'BNH', 'None', 'None', '', 'None', None, '', '')
+MUTUARIO=None
+PARCELAS=0
+SCORE=18
+CADMUT=False
+FH1=False
+ERROS=8|[ItemQualidade(nivel='ERRO', categoria='Contrato', campo='conjunto', mensagem='Conjunto habitacional não informado', sugestao='Campo obrigatório para CADMUT'), ItemQualidade(nivel='ERRO', categoria='Contrato', campo='data_contrato', mensagem='Data de assinatura do contrato ausente', sugestao='Obrigatório para CADMUT e FH1'), ItemQualidade(nivel='ERRO', categoria='Contrato', campo='data_primeiro_venc', mensagem='1º vencimento ausente', sugestao='Obrigatório para campo PRIMEIRO_VENCIMENTO do FH1'), ItemQualidade(nivel='ERRO', categoria='Contrato', campo='sa', mensagem='Sistema de amortização não informado (SAC/PRICE/SACRE)', sugestao='Obrigatório para FH1'), ItemQualidade(nivel='ERRO', categoria='Contrato', campo='tx_juros', mensagem='Taxa de juros ausente', sugestao='Obrigatório para FH1'), ItemQualidade(nivel='ERRO', categoria='Contrato', campo='prazo', mensagem='Prazo do contrato ausente', sugestao='Obrigatório para FH1 (PRAZO_CONTRATADO)'), ItemQualidade(nivel='ERRO', categoria='Mutuário', campo='endereco', mensagem='Endereço do imóvel ausente', sugestao='Obrigatório Endereço-Imóvel CADMUT/FH1'), ItemQualidade(nivel='ERRO', categoria='Evolução Financeira', campo='parcelas', mensagem='Contrato sem parcelas cadastradas', sugestao='Importe o arquivo de evolução financeira (MOVMUT/TXT) ou cadastre as parcelas')]
+EXCEPTION
+Traceback (most recent call last):
+  File "C:\Users\fabri\cofluhab\cofluhab\_run_ocr_1234.py", line 37, in <module>
+    out.append(f"ALERTAS={len(rel.alertas)}|{rel.alertas}")
+                              ^^^^^^^^^^^
+AttributeError: 'RelatorioQualidade' object has no attribute 'alertas'

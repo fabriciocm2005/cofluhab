@@ -1,0 +1,333 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Processar P3026 - Posição da Carteira{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>📋 Arquivo P3026 - Posição da Carteira Homologada</h2>
+            <p class="text-muted">Processamento do arquivo de posição da carteira recebido da CEF</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Formulário de Upload -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">📤 Upload do Arquivo P3026</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="arquivo">Arquivo P3026 (.txt):</label>
+                            <input type="file" name="arquivo" id="arquivo" class="form-control-file" accept=".txt" required>
+                            <small class="form-text text-muted">
+                                Arquivo de posição da carteira recebido do portal SIWFC
+                            </small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="atualizar_status" name="atualizar_status">
+                                <label class="custom-control-label" for="atualizar_status">
+                                    Atualizar status dos contratos automaticamente
+                                </label>
+                            </div>
+                            <small class="form-text text-muted">
+                                Se marcado, o sistema atualizará as observações dos contratos com base no P3026
+                            </small>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-cogs"></i> Processar Arquivo
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Informações -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0">ℹ️ Sobre o P3026</h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2"><strong>O arquivo P3026 contém:</strong></p>
+                    <ul class="small">
+                        <li>Situação atual de cada contrato</li>
+                        <li>Valores homologados FCVS</li>
+                        <li>Saldos devedores</li>
+                        <li>Datas de habilitação</li>
+                        <li>Protocolo CEF</li>
+                        <li>Códigos de crítica (se rejeitado)</li>
+                    </ul>
+                    
+                    <p class="mb-2 mt-3"><strong>Situações possíveis:</strong></p>
+                    <ul class="small mb-0">
+                        <li><span class="badge badge-success">H</span> - Habilitado</li>
+                        <li><span class="badge badge-warning">P</span> - Pendente</li>
+                        <li><span class="badge badge-danger">R</span> - Rejeitado</li>
+                        <li><span class="badge badge-secondary">C</span> - Cancelado</li>
+                        <li><span class="badge badge-info">Q</span> - Quitado</li>
+                        <li><span class="badge badge-dark">S</span> - Suspenso</li>
+                        <li><span class="badge badge-primary">A</span> - Em Análise</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Resultados do Processamento -->
+        <div class="col-md-8">
+            {% if resultado %}
+            
+            <!-- Informações do Arquivo -->
+            <div class="card mb-3">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">📄 Informações do Arquivo</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Nome:</strong> {{ resultado.arquivo.nome }}</p>
+                            <p class="mb-1"><strong>Data Geração:</strong> {{ resultado.arquivo.data_geracao|date:"d/m/Y" }}</p>
+                            <p class="mb-0"><strong>Hora:</strong> {{ resultado.arquivo.hora_geracao }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-1"><strong>Código Agente:</strong> {{ resultado.arquivo.codigo_agente }}</p>
+                            <p class="mb-0"><strong>Total Contratos:</strong> {{ resultado.resumo.total_contratos }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resumo por Situação -->
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">📊 Resumo por Situação</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <h3 class="text-success">{{ resultado.resumo.habilitados }}</h3>
+                            <p class="text-muted">Habilitados</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-warning">{{ resultado.resumo.pendentes }}</h3>
+                            <p class="text-muted">Pendentes</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-danger">{{ resultado.resumo.rejeitados }}</h3>
+                            <p class="text-muted">Rejeitados</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-info">{{ resultado.resumo.com_critica }}</h3>
+                            <p class="text-muted">Com Crítica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Valores -->
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">💰 Valores Consolidados</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Habilitados:</h4>
+                            <p class="mb-1">
+                                <strong>Valor FCVS:</strong> 
+                                R$ {{ resultado.valores.valor_fcvs_habilitado|floatformat:2 }}
+                            </p>
+                            <p class="mb-0">
+                                <strong>Saldo Devedor:</strong> 
+                                R$ {{ resultado.valores.saldo_devedor_habilitado|floatformat:2 }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Total Geral:</h4>
+                            <p class="mb-1">
+                                <strong>Valor FCVS:</strong> 
+                                R$ {{ resultado.valores.valor_fcvs_total|floatformat:2 }}
+                            </p>
+                            <p class="mb-0">
+                                <strong>Saldo Devedor:</strong> 
+                                R$ {{ resultado.valores.saldo_devedor_total|floatformat:2 }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contratos Habilitados -->
+            {% if resultado.contratos_habilitados %}
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">✅ Contratos Habilitados (primeiros 10)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Contrato</th>
+                                    <th>CPF</th>
+                                    <th>Nome</th>
+                                    <th>Valor FCVS</th>
+                                    <th>Saldo Devedor</th>
+                                    <th>Protocolo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contrato in resultado.contratos_habilitados %}
+                                <tr>
+                                    <td><strong>{{ contrato.codigo }}</strong></td>
+                                    <td>{{ contrato.cpf }}</td>
+                                    <td>{{ contrato.nome }}</td>
+                                    <td>R$ {{ contrato.valor_fcvs|floatformat:2 }}</td>
+                                    <td>R$ {{ contrato.saldo_devedor|floatformat:2 }}</td>
+                                    <td><small>{{ contrato.protocolo }}</small></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Contratos Rejeitados -->
+            {% if resultado.contratos_rejeitados %}
+            <div class="card mb-3">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">❌ Contratos Rejeitados (primeiros 10)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Contrato</th>
+                                    <th>Nome</th>
+                                    <th>Código Crítica</th>
+                                    <th>Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contrato in resultado.contratos_rejeitados %}
+                                <tr>
+                                    <td><strong>{{ contrato.codigo }}</strong></td>
+                                    <td>{{ contrato.nome }}</td>
+                                    <td><code>{{ contrato.codigo_critica }}</code></td>
+                                    <td><small>{{ contrato.observacoes|truncatewords:10 }}</small></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Divergências -->
+            {% if divergencias %}
+            <div class="card mb-3">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">⚠️ Divergências Encontradas ({{ divergencias|length }})</h5>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="divergenciasAccordion">
+                        {% for div in divergencias %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{ forloop.counter }}">
+                                <h6 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}">
+                                        <strong>{{ div.contrato }}</strong> - {{ div.nome }}
+                                    </button>
+                                </h6>
+                            </div>
+                            <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" data-parent="#divergenciasAccordion">
+                                <div class="card-body">
+                                    <ul class="mb-0">
+                                        {% for detalhe in div.detalhes %}
+                                            <li>{{ detalhe }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Erros -->
+            {% if erros %}
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">❌ Erros no Processamento</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-0">
+                        {% for erro in erros %}
+                            <li>{{ erro }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% else %}
+            <!-- Estado Inicial -->
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-file-alt fa-5x text-muted mb-3"></i>
+                    <h4 class="text-muted">Nenhum arquivo P3026 processado ainda</h4>
+                    <p class="text-muted">Faça upload de um arquivo P3026 para visualizar a posição da carteira</p>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>📋 O que é o P3026?</h5>
+                            <p class="text-left small">
+                                O arquivo P3026 é o retorno oficial da CEF que informa a situação
+                                de cada contrato na carteira FCVS. Ele é disponibilizado periodicamente
+                                no portal SIWFC e contém informações atualizadas sobre habilitações,
+                                pendências e rejeições.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>🔍 Como usar?</h5>
+                            <ol class="text-left small">
+                                <li>Acesse o portal SIWFC</li>
+                                <li>Baixe o arquivo P3026 mais recente</li>
+                                <li>Faça upload aqui</li>
+                                <li>Marque "atualizar status" se desejar</li>
+                                <li>Analise os resultados e divergências</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

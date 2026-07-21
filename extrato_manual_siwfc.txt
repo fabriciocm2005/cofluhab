@@ -1,0 +1,152 @@
+
+📄 PDF: Manual_SIWFC_MAR_2025.pdf
+📊 Total de páginas: 17
+📖 Páginas analisadas: 17
+
+GECVS  
+ GN Administração do FCVS e DPVAT  
+SISTEMA DE 
+DIGITALIZAÇÃO 
+DE DOSSIÊS DO 
+FCVS  
+SIWFC  
+Março /2025 
+   
+Tutorial para cadastramento inicial, acesso ao SIWFC e navegação no Sistema  
+ 
+ 
+1 Acesso  
+ 
+1.1 Liberação do acesso  
+ 
+A autorização de acesso é efetuada pela Administradora do FCVS, por meio do SIAHA web, para usuários 
+vinculados aos Agentes Financeiros que possuem contratos com previsão de cobertura do FCVS.  
+ 
+1.2 Endereço  
+ 
+O acesso ao sistema será realizado através do ende reço eletrônico: https://www.siwfc.caixa.gov.br/  
+ 
+1.3 Login  
+ 
+A tela do Sistema exibe a opção de efetuar login por meio do CPF do usuário e senha, para usuário com 
+autorização de acesso aos Sistemas da CAIXA ou, realizar o cadastramento, se tratar de um novo usuário.  
+ 
+Para efetuar login  na tela de acesso, o usuário já cadastrado deverá preencher seus dados no campo “CPF”  
+(vide Figura 1)  e clicar no botão “Próximo”  para informar a senha.  
+ 
+Figura 1  
+ 
+Após inserção dos dados do CPF e antes de solicitar a senha, o sistema fará uma validação de login  através 
+do e-mail cadastrado pelo usuário no primeiro acesso.  
+Um código de acesso será enviado para o e -mail ao clicar no botão “Receber código”  (vide Figura 2).   
+                      
+Figura 2  
+ 
+• Caso não reconheça o e -mail cadastrado, o usuário deverá clicar no botão “Não reconheço ou tenho 
+acesso a esse contato” e seguir as instruções.  
+ 
+ 
+ 
+ 
+
+O usuário irá inserir o código recebido no campo “Código”  e clic ar no botão “Enviar”  (vide Figura 3) 
+      
+Figura 3  
+ 
+*Caso não receba o código de validação, o usuário deverá clicar no botão “Não recebi o código de validação” 
+e seguir as instruções.  
+Feita a validação, o usuário irá informar a senha cadastrada no campo “Senha”  (vide Figura 4).  
+ 
+Figura 4  
+ 
+*Caso não se lembre da senha, o usuário deverá clicar no botão “Recuperar Senha”.  
+ 
+Realizado o login, será exibida a tela principal  do SIWFC contendo, no cabeçalho, o nome usuário 
+autenticado e CPF (vide Figura 5).   
+                                                                                                                          
+ 
+Figura 5  
+ 
+  *Caso queira  sair do sistema, o usuário deverá clicar no botão “Sair” e o sistema retornará à tela de acesso.  
+                            
+    
+                                                                                                          
+
+1.3.1  Cadastro Inicial  
+ 
+Para acesso ao sistema pela primeira vez, o usuário deverá clicar na opção “Cadastre -se” (vide Figura 6).  
+Figura 6  
+ 
+Na etapa 1, o usuário deverá inserir um número válido de CPF (Cadastro de Pessoa Física) com 11 dígitos 
+no campo “CPF”  e clicar no botão “Próximo”  (vide Figura 7).  
+Figura 7  
+ 
+Na Etapa 2, o usuário deverá informar o nome completo no campo “Nome completo”  e clicar no botão 
+“Próximo”  (vide Figura 8).  
+Figura 8  
+
+Na Etapa 3, o usuário deverá preencher a data de nascimento em formato DD/MM/AAAA no campo “Data 
+de Nascimento”  e clicar n o botão “Próximo”  (vide Figura 9).  
+Figura 9  
+ 
+Na Etapa 4, o usuário deverá informar um endereço eletrônico válido (e -mail) no campo “E-mail” , confirmar 
+o mesmo e -mail no campo seguinte e clicar no botão “Próximo”  (vide Figura 10).  
+Figura 10  
+ 
+Na Etapa 5, o usuário deverá cadastrar uma senha numérica de acesso no campo “Senha” , confirmar esta 
+mesma senha no campo seguinte conforme às regras especificadas e clicar no botão “Cadastre -se” para 
+finalizar o cadastro (vide Figura 11) . Pronto! Agora o usuário poderá acessar o SIWFC.  
+Figura 11  
+ 
+ 
+ 
+ 
+ 
+ 
+
+2 Navegação no SIWFC  – Módulo Envio de Dossiê  
+ 
+2.1 Acesso ao Sistema:  
+ 
+Ao acessar o Sistema, o usuário terá permissão para envio de arquivos dos Agentes Financeiros liberados 
+para o seu CPF.  
+ 
+ 
+Tela inicial  
+ 
+2.2 Seleção de dossiê a ser remetido:  
+ 
+O usuário poderá encaminhar documentações relativas solicitação de análise do CADMUT, Contratos 
+Novados com Irregularidade no CADMUT, Documentação Complementar/Resposta de Ofício, 
+Documentação Inicial, Reapresentação, Pedido de Recurso/Reanálise, Remontagem e Validação da 
+Operação.  
+ 
+ 
+ 
+OBS: Caso o dossiê se refira a um contrato habilitado por outro Agente Financeiro e que posteriormente foi 
+transferido para a sua titularidade, clicar em Transfer ência de titularidade e, em seguida, selecionar a 
+matrícula do Agente originador do crédito.  
+ 
+ 
+
+2.3 Remessa do Dossiê   
+ 
+O usuário irá selecionar a matrícula do Agente Financeiro e cadastrar a identificação do contrato a que se 
+refere a documentação:  
+ 
+ 
+ 
+OBS: A identificação do contrato é a cadastrada no SICVS, ou no CADMUT (se Dossiê CADMUT)  
+ 
+   
+ 
+ 
+ 
+
+Para incluir a documentação:  
+- Clicar em Incluir Documentação;  
+- Selecionar o tipo de documento a ser encaminhado;  
+- Buscar o arquivo (tipo pdf, sem caractere especial, sem parênteses) a ser transmitido;  
+- Clicar em carregar. Após efetuar a carga, o documento ficará no status “CARREGANDO...
+
+[Truncado para análise inicial]

@@ -1,0 +1,298 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Contratos - CoFluhab{% endblock %}
+
+{% block content %}
+<style>
+    .search-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .search-title {
+        color: white;
+        font-size: 24px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    .search-filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .filter-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+        font-size: 13px;
+    }
+    .filter-group input {
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+    .filter-group input:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+    .search-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        justify-content: center;
+    }
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-search {
+        background: #4caf50;
+        color: white;
+    }
+    .btn-search:hover {
+        background: #45a049;
+        transform: translateY(-2px);
+    }
+    .btn-clear {
+        background: #f44336;
+        color: white;
+    }
+    .btn-clear:hover {
+        background: #da190b;
+        transform: translateY(-2px);
+    }
+    .results-info {
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        border-left: 4px solid #2196F3;
+    }
+    .results-info strong {
+        color: #1976d2;
+    }
+    .contratos-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .contratos-table th {
+        background: linear-gradient(to bottom, #1976d2, #1565c0);
+        color: white;
+        padding: 12px 8px;
+        text-align: left;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+    .contratos-table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid #eee;
+        font-size: 13px;
+    }
+    .contratos-table tbody tr:hover {
+        background: #f5f5f5;
+        cursor: pointer;
+    }
+    .contratos-table a {
+        color: #1976d2;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .contratos-table a:hover {
+        text-decoration: underline;
+    }
+    .sem-cadastro {
+        color: #999;
+        font-style: italic;
+    }
+    .saldo-alto {
+        color: #d32f2f;
+        font-weight: bold;
+    }
+    .saldo-baixo {
+        color: #2e7d32;
+        font-weight: bold;
+    }
+    .info-note {
+        background: #fff3cd;
+        padding: 12px;
+        border-radius: 6px;
+        margin-top: 15px;
+        border-left: 4px solid #ff9800;
+        font-size: 12px;
+        color: #856404;
+    }
+</style>
+
+<div class="search-container">
+    <h2 class="search-title">🔍 Pesquisar Contratos</h2>
+    <form method="GET" action="{% url 'contratos' %}">
+        <div class="search-filters">
+            <div class="filter-group">
+                <label for="codigo">Código do Contrato:</label>
+                <input type="text" id="codigo" name="codigo" value="{{ busca_codigo }}" placeholder="Ex: 006333">
+            </div>
+            <div class="filter-group">
+                <label for="conjunto">Conjunto:</label>
+                <input type="text" id="conjunto" name="conjunto" value="{{ busca_conjunto }}" placeholder="Ex: 010">
+            </div>
+            <div class="filter-group">
+                <label for="q">Busca Geral (Nome/Código):</label>
+                <input type="text" id="q" name="q" value="{{ busca }}" placeholder="Nome do mutuário...">
+            </div>
+        </div>
+        <div class="search-actions">
+            <button type="submit" class="btn btn-search">🔎 Buscar</button>
+            <a href="{% url 'contratos' %}" class="btn btn-clear">🗑️ Limpar Filtros</a>
+        </div>
+    </form>
+</div>
+
+<div class="results-info">
+    <strong>📊 Resultados:</strong> Exibindo {{ contratos|length }} de {{ total_filtrado }} contratos
+    {% if page_obj %}
+    | <strong>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</strong>
+    {% endif %}
+    {% if busca or busca_codigo or busca_conjunto %}
+    | <strong>Filtros ativos:</strong>
+    {% if busca_codigo %}<span style="background: #2196F3; color: white; padding: 3px 8px; border-radius: 3px; margin-left: 5px;">Código: {{ busca_codigo }}</span>{% endif %}
+    {% if busca_conjunto %}<span style="background: #4caf50; color: white; padding: 3px 8px; border-radius: 3px; margin-left: 5px;">Conjunto: {{ busca_conjunto }}</span>{% endif %}
+    {% if busca %}<span style="background: #ff9800; color: white; padding: 3px 8px; border-radius: 3px; margin-left: 5px;">Busca: {{ busca }}</span>{% endif %}
+    {% endif %}
+</div>
+
+{% if contratos %}
+    <table class="contratos-table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Conjunto</th>
+                <th>Ocorrência</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th style="text-align: center;">Total Parcelas</th>
+                <th style="text-align: right;">Saldo Devedor</th>
+                <th style="text-align: center;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contrato in contratos %}
+            <tr>
+                <td><strong>{{ contrato.codigo }}</strong></td>
+                <td>
+                    {% if contrato.mutuario_nome %}
+                        {{ contrato.mutuario_nome }}
+                    {% else %}
+                        <span class="sem-cadastro">(sem cadastro)</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if contrato.mutuario_cpf %}
+                        {{ contrato.mutuario_cpf }}
+                    {% else %}
+                        <span style="color: #999;">-</span>
+                    {% endif %}
+                </td>
+                <td>{{ contrato.conjunto }}</td>
+                <td><span style="background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 3px; font-size: 0.85em;">{{ contrato.ocorrencia|default:"-" }}</span></td>
+                <td>
+                    {% if contrato.mutuario_endereco %}
+                        {{ contrato.mutuario_endereco }}, {{ contrato.mutuario_numero|default:"S/N" }}
+                    {% else %}
+                        <span style="color: #999;">-</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if contrato.mutuario_cidade %}
+                        {{ contrato.mutuario_cidade }}
+                    {% else %}
+                        <span style="color: #999;">-</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: center;">{{ contrato.total_parcelas }}</td>
+                <td style="text-align: right;">
+                    {% if contrato.saldo_atual > 50000 %}
+                        <span class="saldo-alto">R$ {{ contrato.saldo_atual|floatformat:2 }}</span>
+                    {% elif contrato.saldo_atual < 1000 %}
+                        <span class="saldo-baixo">R$ {{ contrato.saldo_atual|floatformat:2 }}</span>
+                    {% else %}
+                        R$ {{ contrato.saldo_atual|floatformat:2 }}
+                    {% endif %}
+                </td>
+                <td style="text-align: center;">
+                    <a href="{% url 'contrato_detail' contrato.pk %}" style="background: #1976d2; color: white; padding: 5px 12px; border-radius: 4px; text-decoration: none; font-size: 12px;">Ver Detalhes</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Paginação -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div style="margin: 30px 0; display: flex; justify-content: center; align-items: center; gap: 10px;">
+        {% if page_obj.has_previous %}
+            <a href="?pagina=1{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}{% if busca %}&q={{ busca }}{% endif %}" 
+               style="padding: 10px 15px; background: #1976d2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                « Primeira
+            </a>
+            <a href="?pagina={{ page_obj.previous_page_number }}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}{% if busca %}&q={{ busca }}{% endif %}" 
+               style="padding: 10px 15px; background: #1976d2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                ‹ Anterior
+            </a>
+        {% endif %}
+        
+        <span style="padding: 10px 20px; background: #f5f5f5; border-radius: 5px; font-weight: bold;">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+        
+        {% if page_obj.has_next %}
+            <a href="?pagina={{ page_obj.next_page_number }}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}{% if busca %}&q={{ busca }}{% endif %}" 
+               style="padding: 10px 15px; background: #1976d2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                Próxima ›
+            </a>
+            <a href="?pagina={{ page_obj.paginator.num_pages }}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}{% if busca %}&q={{ busca }}{% endif %}" 
+               style="padding: 10px 15px; background: #1976d2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                Última »
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <div class="info-note">
+        <strong>💡 Dica:</strong> Use os filtros para busca específica por código ou conjunto. A busca geral procura pelo nome do mutuário.
+        <br>
+        <strong>📝 Nota:</strong> Contratos com <em>(sem cadastro)</em> não possuem mutuário correspondente no sistema (normal para contratos cancelados ou transferidos).
+    </div>
+{% else %}
+    <div style="background: #fff3cd; padding: 20px; border-radius: 6px; text-align: center; border-left: 4px solid #ff9800;">
+        <p style="margin: 0; font-size: 16px;">⚠️ Nenhum contrato encontrado com os filtros aplicados.</p>
+    </div>
+{% endif %}
+
+<p style="margin-top: 25px; text-align: center;">
+    <a href="{% url 'index' %}" style="color: #1976d2; text-decoration: none; font-weight: bold;">← Voltar ao Início</a>
+</p>
+{% endblock %}

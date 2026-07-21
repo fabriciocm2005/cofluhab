@@ -1,0 +1,439 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Upload de Contrato PDF - OCR{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">
+                <i class="fas fa-file-pdf"></i> Cadastrar Contrato via OCR
+            </h2>
+            
+            {% if sucesso %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>✓ Sucesso!</strong> {{ mensagem }}
+                    {% if dry_run %}
+                        <small class="d-block mt-2">Este foi um teste (dry-run). Nenhum dado foi salvo.</small>
+                    {% endif %}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                
+                {% if dados_extraidos %}
+                    <div class="card mt-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">Dados Extraídos do PDF</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if dados_extraidos.ocr_quality %}
+                            <div class="alert {% if dados_extraidos.ocr_quality.status == 'alta' %}alert-success{% elif dados_extraidos.ocr_quality.status == 'media' %}alert-warning{% else %}alert-danger{% endif %}">
+                                <strong>Qualidade OCR:</strong> {{ dados_extraidos.ocr_quality.status|upper }}
+                                | score {{ dados_extraidos.ocr_quality.score }}/100
+                                {% if dados_extraidos.ocr_quality.faltando_criticos %}
+                                    <div><small>Críticos faltando: {{ dados_extraidos.ocr_quality.faltando_criticos|join:", " }}</small></div>
+                                {% endif %}
+                                {% if dados_extraidos.ocr_quality.faltando_importantes %}
+                                    <div><small>Importantes faltando: {{ dados_extraidos.ocr_quality.faltando_importantes|join:", " }}</small></div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+
+                            {% if ocr_hibrido %}
+                            <div class="alert {% if ocr_hibrido.status == 'alta' %}alert-success{% elif ocr_hibrido.status == 'media' %}alert-warning{% else %}alert-danger{% endif %}">
+                                <strong>OCR Híbrido:</strong> {{ ocr_hibrido.status|upper }}
+                                | score {{ ocr_hibrido.score }}/100
+                                | {{ ocr_hibrido.qtd_auto }} automáticos
+                                | {{ ocr_hibrido.qtd_revisar }} para revisar
+                            </div>
+
+                            {% if ocr_hibrido.recuperados %}
+                            <div class="card border-success mb-3">
+                                <div class="card-header bg-success-subtle">
+                                    <strong>Campos Recuperados Automaticamente</strong>
+                                </div>
+                                <div class="card-body py-2">
+                                    <ul class="mb-0">
+                                        {% for campo, valor in ocr_hibrido.recuperados.items %}
+                                        <li><strong>{{ campo }}:</strong> {{ valor }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if ocr_hibrido.campos_revisar %}
+                            <div class="card border-warning mb-3">
+                                <div class="card-header bg-warning-subtle">
+                                    <strong>Revisão Rápida Necessária</strong>
+                                    <small class="text-muted">(somente campos com baixa confiança)</small>
+                                </div>
+                                <div class="card-body py-2">
+                                    <ul class="mb-0">
+                                        {% for item in ocr_hibrido.campos_revisar %}
+                                        <li>
+                                            <strong>{{ item.campo }}:</strong>
+                                            {% if item.valor %}{{ item.valor }}{% else %}<em>vazio</em>{% endif %}
+                                            <span class="text-muted">- {{ item.motivo }} (conf: {{ item.confianca }})</span>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+
+                            <!-- Dados do Contrato -->
+                            <div class="mb-4">
+                                <h6 class="text-primary">📄 Dados do Contrato</h6>
+                                <dl class="row ms-2">
+                                    {% if dados_extraidos.codigo %}
+                                        <dt class="col-sm-4">Código:</dt>
+                                        <dd class="col-sm-8"><strong>{{ dados_extraidos.codigo }}</strong></dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.data_contrato %}
+                                        <dt class="col-sm-4">Data:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.data_contrato|date:"d/m/Y" }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.conjunto %}
+                                        <dt class="col-sm-4">Conjunto:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.conjunto }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.ocorrencia %}
+                                        <dt class="col-sm-4">Ocorrência (CADMUT):</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.ocorrencia }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.prazo %}
+                                        <dt class="col-sm-4">Prazo:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.prazo }} meses</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.prazo_fcvs %}
+                                        <dt class="col-sm-4">Prazo FCVS:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.prazo_fcvs }} meses</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.sa %}
+                                        <dt class="col-sm-4">Sistema Amortização:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.sa }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.tx_juros %}
+                                        <dt class="col-sm-4">Taxa Juros:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.tx_juros }}%</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.data_primeiro_venc %}
+                                        <dt class="col-sm-4">1º Vencimento:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.data_primeiro_venc|date:"d/m/Y" }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.cat_prof %}
+                                        <dt class="col-sm-4">Categoria Profissional:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.cat_prof }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.pr %}
+                                        <dt class="col-sm-4">Programa (PR):</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.pr }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.tipo_operacao %}
+                                        <dt class="col-sm-4">Tipo Operação FCVS:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.tipo_operacao }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.situacao_contrato %}
+                                        <dt class="col-sm-4">Situação:</dt>
+                                        <dd class="col-sm-8">{% if dados_extraidos.situacao_contrato == "1" %}Ativo{% else %}Inativo{% endif %}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.vlprop %}
+                                        <dt class="col-sm-4">Valor Imóvel:</dt>
+                                        <dd class="col-sm-8">R$ {{ dados_extraidos.vlprop|floatformat:2 }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.vlfinanc %}
+                                        <dt class="col-sm-4">Valor Financiado:</dt>
+                                        <dd class="col-sm-8">R$ {{ dados_extraidos.vlfinanc|floatformat:2 }}</dd>
+                                    {% endif %}
+                                </dl>
+                            </div>
+                            
+                            <!-- Dados do Imóvel/Endereço -->
+                            <div class="mb-4">
+                                <h6 class="text-primary">🏠 Endereço do Imóvel</h6>
+                                <dl class="row ms-2">
+                                    {% if dados_extraidos.codimovel %}
+                                        <dt class="col-sm-4">Cód. Imóvel:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.codimovel }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.tipoimovel %}
+                                        <dt class="col-sm-4">Tipo Imóvel:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.tipoimovel }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.endereco %}
+                                        <dt class="col-sm-4">Endereço:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.endereco }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.numero %}
+                                        <dt class="col-sm-4">Número:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.numero }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.compl %}
+                                        <dt class="col-sm-4">Complemento:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.compl }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.bairro %}
+                                        <dt class="col-sm-4">Bairro:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.bairro }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.cidade %}
+                                        <dt class="col-sm-4">Cidade:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.cidade }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.uf %}
+                                        <dt class="col-sm-4">UF:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.uf }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.cep %}
+                                        <dt class="col-sm-4">CEP:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.cep }}</dd>
+                                    {% endif %}
+                                </dl>
+                            </div>
+                            
+                            <!-- Dados do Mutuário -->
+                            <div class="mb-4">
+                                <h6 class="text-primary">👤 Dados do Mutuário</h6>
+                                <dl class="row ms-2">
+                                    {% if dados_extraidos.nome %}
+                                        <dt class="col-sm-4">Nome:</dt>
+                                        <dd class="col-sm-8"><strong>{{ dados_extraidos.nome }}</strong></dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.cpf %}
+                                        <dt class="col-sm-4">CPF:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.cpf }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.ident %}
+                                        <dt class="col-sm-4">RG:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.ident }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.orgao %}
+                                        <dt class="col-sm-4">Órgão Emissor:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.orgao }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.dtnasc %}
+                                        <dt class="col-sm-4">Data Nascimento:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.dtnasc|date:"d/m/Y" }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.telefone %}
+                                        <dt class="col-sm-4">Telefone:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.telefone }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.email %}
+                                        <dt class="col-sm-4">Email:</dt>
+                                        <dd class="col-sm-8">{{ dados_extraidos.email }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.renda %}
+                                        <dt class="col-sm-4">Renda:</dt>
+                                        <dd class="col-sm-8">R$ {{ dados_extraidos.renda|floatformat:2 }}</dd>
+                                    {% endif %}
+                                    
+                                    {% if dados_extraidos.crenda %}
+                                        <dt class="col-sm-4">Renda Cônjuge:</dt>
+                                        <dd class="col-sm-8">R$ {{ dados_extraidos.crenda|floatformat:2 }}</dd>
+                                    {% endif %}
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                {% if texto_pdf_preview %}
+                <div class="card mt-3">
+                    <div class="card-header d-flex justify-content-between align-items-center"
+                         style="cursor:pointer" data-bs-toggle="collapse" data-bs-target="#debugTextoPDF">
+                        <span>🔎 Diagnóstico OCR — método: <strong>{{ metodo_extracao }}</strong>
+                        | parcelas detectadas: <strong>{{ n_parcelas_detectadas }}</strong></span>
+                        <small class="text-muted">clique para expandir</small>
+                    </div>
+                    <div id="debugTextoPDF" class="collapse">
+                        <div class="card-body p-2">
+                            <p class="text-muted small mb-1">Primeiros 5000 caracteres extraídos do PDF (use isso para diagnosticar o que o OCR está lendo):</p>
+                            <pre style="font-size:0.72rem;max-height:400px;overflow:auto;white-space:pre-wrap;background:#f8f9fa;padding:10px;border-radius:4px;">{{ texto_pdf_preview }}</pre>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="mt-3 d-flex gap-2 flex-wrap">
+                    <a href="{% url 'upload_contrato_pdf' %}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Processar Outro Contrato
+                    </a>
+                    <a href="{% url 'listar_contratos_ocr' %}" class="btn btn-secondary">
+                        <i class="fas fa-list"></i> Ver Todos os Contratos
+                    </a>
+                    <a href="{% url 'ocr_review_dashboard' %}" class="btn btn-success">
+                        <i class="fas fa-clipboard-check"></i> Abrir Revisao OCR
+                    </a>
+                    {% if not dry_run and dados_extraidos.codigo %}
+                    <a href="{% url 'painel_qualidade' %}" class="btn btn-outline-purple" style="color:#a855f7;border-color:#a855f7;">
+                        🔍 Inspecionar Qualidade
+                    </a>
+                    {% endif %}
+                </div>
+                
+            {% elif erro %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>✗ Erro!</strong> {{ erro }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% if texto_pdf_preview %}
+                <div class="card mt-3 mb-3">
+                    <div class="card-header d-flex justify-content-between align-items-center"
+                         style="cursor:pointer" data-bs-toggle="collapse" data-bs-target="#debugTextoPDFErro">
+                        <span>🔎 Diagnóstico OCR — método: <strong>{{ metodo_extracao }}</strong>
+                        | parcelas detectadas: <strong>{{ n_parcelas_detectadas }}</strong></span>
+                        <small class="text-muted">clique para expandir</small>
+                    </div>
+                    <div id="debugTextoPDFErro" class="collapse show">
+                        <div class="card-body p-2">
+                            <p class="text-muted small mb-1">Primeiros 5000 caracteres extraídos do PDF:</p>
+                            <pre style="font-size:0.72rem;max-height:400px;overflow:auto;white-space:pre-wrap;background:#f8f9fa;padding:10px;border-radius:4px;">{{ texto_pdf_preview }}</pre>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <a href="javascript:history.back()" class="btn btn-secondary">Voltar</a>
+                
+            {% else %}
+                <!-- Formulário de Upload -->
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <div class="mb-3">
+                                <label for="pdf_file" class="form-label">Selecione o arquivo PDF do contrato:</label>
+                                <div class="input-group">
+                                    <input 
+                                        type="file" 
+                                        class="form-control" 
+                                        id="pdf_file" 
+                                        name="pdf_file" 
+                                        accept=".pdf"
+                                        required
+                                    >
+                                    <button class="btn btn-outline-secondary" type="button" id="btn_limpar">
+                                        Limpar
+                                    </button>
+                                </div>
+                                <small class="form-text text-muted">
+                                    Máximo: 50MB. Apenas arquivos PDF.
+                                </small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="codigo_manual" class="form-label">
+                                    Número do Contrato (Opcional)
+                                    <small class="text-muted">- Se não encontrado no PDF, coloque aqui</small>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="codigo_manual" 
+                                    name="codigo_manual"
+                                    placeholder="Ex: 0000001 ou ABC-2026"
+                                >
+                            </div>
+                            
+                            <div class="form-check mb-3">
+                                <input 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    id="dry_run" 
+                                    name="dry_run"
+                                >
+                                <label class="form-check-label" for="dry_run">
+                                    <strong>Teste (Dry Run)</strong> - Apenas valida sem salvar no banco
+                                </label>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-upload"></i> Processar PDF e Cadastrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Informações -->
+                <div class="mt-4">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle"></i> Como funciona:</h5>
+                        <ol class="mb-0">
+                            <li>Selecione um PDF de contrato</li>
+                            <li>O sistema aplica OCR (reconhecimento de caracteres) no documento</li>
+                            <li>Extrai automaticamente: número, data, valores, prazo, etc.</li>
+                            <li>Cadastra no banco de dados mantendo a estrutura financeira existente</li>
+                            <li>Registra log completo de processamento para auditoria</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <a href="{% url 'listar_contratos_ocr' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-list"></i> Ver Contratos Já Cadastrados
+                    </a>
+                    <a href="{% url 'ocr_review_dashboard' %}" class="btn btn-outline-success ms-2">
+                        <i class="fas fa-clipboard-check"></i> Abrir Revisao OCR
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('btn_limpar').addEventListener('click', function() {
+        document.getElementById('pdf_file').value = '';
+    });
+    
+    // Validação antes de enviar
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const fileInput = document.getElementById('pdf_file');
+        if (!fileInput.files || fileInput.files.length === 0) {
+            e.preventDefault();
+            alert('Por favor, selecione um arquivo PDF');
+            return false;
+        }
+        
+        const file = fileInput.files[0];
+        if (file.size > 50 * 1024 * 1024) {
+            e.preventDefault();
+            alert('Arquivo muito grande. Máximo 50MB');
+            return false;
+        }
+    });
+</script>
+{% endblock %}

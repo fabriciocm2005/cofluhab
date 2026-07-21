@@ -1,0 +1,109 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Endereços por Conjunto - CoFluhab{% endblock %}
+
+{% block content %}
+    <h2>Consulta de Endereços por Conjunto</h2>
+    
+    {% if conjunto_selecionado %}
+        <!-- Mostra endereços do conjunto selecionado -->
+        <p><a href="{% url 'enderecos' %}" style="color: #092e20; font-weight: bold;">← Voltar para Conjuntos</a></p>
+        <h3>Conjunto {{ conjunto_selecionado }}</h3>
+        <p><strong>Resultados:</strong> Exibindo {{ page_obj.start_index }} a {{ page_obj.end_index }} de {{ total_enderecos }} endereços (Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }})</p>
+        
+        {% if page_obj %}
+            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                <thead style="background-color: #092e20; color: white;">
+                    <tr>
+                        <th>Mutuário</th>
+                        <th>Endereço</th>
+                        <th>Bairro</th>
+                        <th>Cidade/UF</th>
+                        <th>CEP</th>
+                        <th>Cód. Imóvel</th>
+                        <th>Contrato</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for e in page_obj %}
+                    <tr style="{% cycle 'background-color: #f9f9f9;' 'background-color: #ffffff;' %}">
+                        <td>
+                            <a href="{% url 'mutuario_detail' e.codigo_mutuario %}">
+                                {{ e.mutuario }}
+                            </a>
+                        </td>
+                        <td>{{ e.endereco }}, {{ e.numero }} {% if e.compl %}- {{ e.compl }}{% endif %}</td>
+                        <td>{{ e.bairro }}</td>
+                        <td>{{ e.cidade }}/{{ e.uf }}</td>
+                        <td>{{ e.cep }}</td>
+                        <td style="text-align: center;">{{ e.cod_imovel }}</td>
+                        <td style="text-align: center;">
+                            {% if e.contrato %}
+                                <a href="{% url 'contratos' %}?codigo={{ e.contrato }}" style="color: #092e20; font-weight: bold;">
+                                    {{ e.contrato }}
+                                </a>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- Paginação -->
+            {% if page_obj.paginator.num_pages > 1 %}
+                <div style="margin-top: 20px; text-align: center;">
+                    {% if page_obj.has_previous %}
+                        <a href="?conjunto={{ conjunto_selecionado }}&pagina=1" style="padding: 8px 12px; margin: 0 5px; background-color: #092e20; color: white; text-decoration: none; border-radius: 3px;">« Primeira</a>
+                        <a href="?conjunto={{ conjunto_selecionado }}&pagina={{ page_obj.previous_page_number }}" style="padding: 8px 12px; margin: 0 5px; background-color: #092e20; color: white; text-decoration: none; border-radius: 3px;">‹ Anterior</a>
+                    {% endif %}
+                    
+                    <span style="padding: 8px 12px; margin: 0 10px;">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                    
+                    {% if page_obj.has_next %}
+                        <a href="?conjunto={{ conjunto_selecionado }}&pagina={{ page_obj.next_page_number }}" style="padding: 8px 12px; margin: 0 5px; background-color: #092e20; color: white; text-decoration: none; border-radius: 3px;">Próxima ›</a>
+                        <a href="?conjunto={{ conjunto_selecionado }}&pagina={{ page_obj.paginator.num_pages }}" style="padding: 8px 12px; margin: 0 5px; background-color: #092e20; color: white; text-decoration: none; border-radius: 3px;">Última »</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <p>Nenhum endereço encontrado para este conjunto.</p>
+        {% endif %}
+        
+    {% else %}
+        <!-- Lista os conjuntos -->
+        <p>Selecione um conjunto para ver os endereços:</p>
+        
+        {% if conjuntos %}
+            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                <thead style="background-color: #092e20; color: white;">
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Qtd Contratos</th>
+                        <th>Qtd Mutuários</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for c in conjuntos %}
+                    <tr style="{% cycle 'background-color: #f9f9f9;' 'background-color: #ffffff;' %}">
+                        <td style="text-align: center;"><strong>{{ c.conjunto }}</strong></td>
+                        <td>{{ c.nome }}</td>
+                        <td style="text-align: center;">{{ c.qtd_contratos }}</td>
+                        <td style="text-align: center;">{{ c.qtd_mutuarios }}</td>
+                        <td style="text-align: center;">
+                            <a href="?conjunto={{ c.conjunto }}" style="background-color: #092e20; color: white; padding: 5px 15px; text-decoration: none; border-radius: 3px;">
+                                Ver Endereços
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhum conjunto cadastrado.</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

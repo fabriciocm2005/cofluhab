@@ -1,0 +1,13 @@
+
+=== DEBUG INDICES HISTÓRICOS ===
+[DEBUG PATH] Pasta base: C:\Users\fabri\cofluhab\cofluhab\principal
+[DEBUG PATH] CSV completo: C:\Users\fabri\cofluhab\cofluhab\principal\indices_historicos.csv
+[DEBUG CSV] Arquivo aberto: 149 linhas lidas.
+[DEBUG CARREGADO] Total índices: 148. Erros: 0.
+[SUCESSO TESTE] Chave 1984-08 = 0.270 (27.0%)
+[OK CSV] Primeiras chaves: ['1984-01', '1984-02', '1984-03', '1984-04', '1984-05']
+[FINAL MERGE] INDICES_HISTORICOS total: 162 entradas.
+[TESTE MERGE] '1984-08' em INDICES_HISTORICOS: 0.270 (27.0% se ok)
+=== FIM DEBUG ===
+CACHE_GERAL_OK {'total_fcvs_geral': 44493976.969999805, 'contratos_com_fcvs_geral': 2931, 'atualizado_em': '2026-03-17T22:39:55.649954'}
+CACHE_FILTRO_010_OK {'total_fcvs_filtro': 16880928.620000012, 'contratos_com_fcvs_filtro': 949, 'atualizado_em': '2026-03-17T22:40:36.420973'}

@@ -1,0 +1,110 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}FCVS Contribuicao por Ano{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">FCVS Contribuicao</h1>
+    <p class="page-subtitle">Escolha o ano e o tipo de visao. Em trimestral, a lista mostra contratos com cobranca FCVS de 3 em 3 meses.</p>
+</div>
+
+<div class="card" style="margin-bottom: 20px;">
+    <form method="get" id="filtros-fcvs" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; align-items:end;">
+        <div>
+            <label for="ano" style="display:block; font-weight:600; margin-bottom:6px;">Ano</label>
+            <select id="ano" name="ano" style="padding:10px; border:1px solid #cbd5e1; border-radius:8px; width:100%;" onchange="this.form.submit()">
+                {% for item_ano in anos_disponiveis %}
+                <option value="{{ item_ano }}" {% if ano == item_ano %}selected{% endif %}>{{ item_ano }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="periodicidade" style="display:block; font-weight:600; margin-bottom:6px;">Mensal/Trimestral</label>
+            <select id="periodicidade" name="periodicidade" style="padding:10px; border:1px solid #cbd5e1; border-radius:8px; width:100%;" onchange="this.form.submit()">
+                <option value="mensal" {% if periodicidade == 'mensal' %}selected{% endif %}>Mensal</option>
+                <option value="trimestral" {% if periodicidade == 'trimestral' %}selected{% endif %}>Trimestral</option>
+            </select>
+        </div>
+    </form>
+
+    <div style="margin-top: 12px; color:#64748b; font-size:13px;">
+        Tela simples e leve: sem detalhamento de contratos nesta pagina.
+    </div>
+</div>
+
+<div class="card" style="margin-bottom:20px; overflow:auto;">
+    <h3 style="margin-bottom:10px;">
+        {% if periodicidade == 'trimestral' %}
+        Contratos com contribuicao FCVS trimestral em {{ ano }}
+        {% else %}
+        Contribuicao FCVS por mes em {{ ano }}
+        {% endif %}
+    </h3>
+    {% if periodicidade == 'trimestral' %}
+    <div style="margin-bottom:10px; color:#475569;">
+        Total FCVS dos contratos trimestrais no ano: <strong>R$ {{ total_fcvs_contratos_trimestrais_ano|floatformat:2 }}</strong>
+        | Contratos encontrados: <strong>{{ contratos_trimestrais_ano|length }}</strong>
+    </div>
+    {% else %}
+    <div style="margin-bottom:10px; color:#475569;">Total anual: <strong>R$ {{ total_anual_resumo|floatformat:2 }}</strong></div>
+    {% endif %}
+
+    <table style="width:100%; border-collapse:collapse; min-width:760px;">
+        <thead>
+            <tr style="background:#f8fafc; text-align:left;">
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0;">
+                    {% if periodicidade == 'trimestral' %}Contrato{% else %}Mes{% endif %}
+                </th>
+                {% if periodicidade == 'trimestral' %}
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0;">Conjunto</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0;">Primeiro mes historico</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0;">Ultimo mes historico</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">Parcelas no ano</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">Contribuicao FCVS no ano</th>
+                {% else %}
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">Contribuicao FCVS</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">Contratos</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">Parcelas</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if periodicidade == 'trimestral' %}
+            {% for item in contratos_trimestrais_ano %}
+            <tr>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ item.contrato }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ item.conjunto }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ item.primeiro_mes_historico }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ item.ultimo_mes_historico }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">{{ item.total_parcelas_ano }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">R$ {{ item.total_fcvs_ano|floatformat:2 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="padding:16px; text-align:center; color:#64748b;">Nenhum contrato com cadencia trimestral (3 em 3 meses) encontrado para o ano selecionado.</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            {% for item in resumo_meses %}
+            <tr>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ item.mes_nome }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">R$ {{ item.total_fcvs|floatformat:2 }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">{{ item.total_contratos }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">{{ item.total_parcelas }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            {% if periodicidade != 'trimestral' %}
+            <tr style="background:#f1f5f9; font-weight:700;">
+                <td style="padding:8px; border-top:2px solid #cbd5e1;">TOTAL ANUAL</td>
+                <td style="padding:8px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ total_anual_resumo|floatformat:2 }}</td>
+                <td style="padding:8px; border-top:2px solid #cbd5e1;"></td>
+                <td style="padding:8px; border-top:2px solid #cbd5e1;"></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

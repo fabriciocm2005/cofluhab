@@ -1,0 +1,108 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Visualizar Relatório de Dívidas{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Visualização de Relatório</h1>
+    <p class="page-subtitle">{{ filename }}</p>
+</div>
+
+<div class="card" style="margin-bottom: 16px; display:flex; gap:10px; flex-wrap:wrap;">
+    <a href="{% url 'relatorio_divida_seguro' %}" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:8px; text-decoration:none; color:#334155;">Voltar</a>
+    <a href="{% url 'download_relatorio_divida_seguro' filename %}" style="padding:8px 12px; border:1px solid #1d4ed8; border-radius:8px; text-decoration:none; background:#1d4ed8; color:#fff;">Baixar arquivo</a>
+</div>
+
+{% if is_csv %}
+<div class="card" style="margin-bottom: 16px;">
+    <h3 style="margin-bottom: 10px;">Resumo</h3>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+            <strong>Linhas do CSV</strong><br>{{ total_rows }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+            <strong>Contratos únicos</strong><br>{{ sumario.contratos_unicos }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+            <strong>Linhas encontradas</strong><br>{{ sumario.encontrados }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+            <strong>Linhas não encontradas</strong><br>{{ sumario.nao_encontrados }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+            <strong>Total dívida (base)</strong><br>R$ {{ sumario.total_divida_banco }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+            <strong>Total encontrado nos PDFs</strong><br>R$ {{ sumario.total_cef_cobrando }}
+        </div>
+    </div>
+
+    {% if sumario.ano_relatorio %}
+    <div style="margin-top:12px; padding-top:10px; border-top:1px dashed #cbd5e1;">
+        <div style="margin-bottom:10px; padding:10px 12px; border:1px solid #bfdbfe; border-radius:8px; background:#eff6ff; font-size:13px; color:#1e3a8a;">
+            <strong>Metodologia do confronto (para reunião)</strong><br>
+            1) <strong>CEF total (atualizado)</strong>: valor anual informado pela CEF (principal + atualizações + encargos).<br>
+            2) <strong>Encontrado nos PDFs</strong>: soma dos valores extraídos dos arquivos PDF processados.<br>
+            3) <strong>COFLUHAB atualizado</strong>: contraprestações de seguro da base COFLUHAB (campo seguro), atualizadas por IPCA acumulado até a data atual.<br>
+            4) <strong>Cobrança fora de prazo</strong> (no relatório mensal): valores cobrados com meses após finalização > 0, classificados como potencialmente indevidos e sujeitos à validação por regra/evento.
+        </div>
+        <h4 style="margin:0 0 8px 0; color:#334155;">Confronto anual {{ sumario.ano_relatorio }}</h4>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+            <div style="padding:10px; border:1px solid #fde68a; border-radius:8px; background:#fffbeb;">
+                <strong>CEF histórico (principal)</strong><br>R$ {{ sumario.total_cef_historico_ano }}
+            </div>
+            <div style="padding:10px; border:1px solid #fed7aa; border-radius:8px; background:#fff7ed;">
+                <strong>CEF total (atualizado)</strong><br>R$ {{ sumario.total_cef_corrigido_ano }}
+            </div>
+            <div style="padding:10px; border:1px solid #bfdbfe; border-radius:8px; background:#eff6ff;">
+                <strong>Encontrado nos PDFs</strong><br>R$ {{ sumario.total_cef_cobrando }}
+            </div>
+            <div style="padding:10px; border:1px solid #a7f3d0; border-radius:8px; background:#ecfdf5;">
+                <strong>COFLUHAB atualizado</strong><br>R$ {{ sumario.total_cofluhab_atualizado_ano }}
+                <div style="margin-top:4px; font-size:12px; color:#047857;">Referência de devido na base interna (não é valor declarado pela CEF).</div>
+            </div>
+            <div style="padding:10px; border:1px solid #fde68a; border-radius:8px; background:#fef9c3;">
+                <strong>Diferença (CEF total - PDFs)</strong><br>R$ {{ sumario.diferenca_cef_pdf_ano }}
+            </div>
+            <div style="padding:10px; border:1px solid #fde68a; border-radius:8px; background:#fef9c3;">
+                <strong>Diferença (CEF total - COFLUHAB)</strong><br>R$ {{ sumario.diferenca_cef_cofluhab_ano }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3 style="margin-bottom: 10px;">Dados (até 300 linhas)</h3>
+    <div style="overflow:auto; border:1px solid #e2e8f0; border-radius:10px;">
+        <table style="width:100%; border-collapse: collapse; min-width: 1200px;">
+            <thead>
+                <tr style="background:#f8fafc; text-align:left;">
+                    {% for h in headers %}
+                    <th style="padding:8px; border-bottom:1px solid #e2e8f0;">{{ h }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% for chave, valor in row.items %}
+                    <td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ valor }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% elif is_md %}
+<div class="card">
+    <h3 style="margin-bottom: 10px;">Conteúdo do Laudo</h3>
+    <pre style="white-space: pre-wrap; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">{{ markdown_content }}</pre>
+</div>
+{% else %}
+<div class="card">
+    <p>Formato não suportado para visualização online.</p>
+</div>
+{% endif %}
+{% endblock %}

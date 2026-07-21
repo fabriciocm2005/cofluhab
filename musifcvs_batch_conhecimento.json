@@ -1,0 +1,103 @@
+{
+  "sistema": "MUSIFCVS - Sistema de Gestão de Movimentos FCVS",
+  "versao": "08/03/2007",
+  "descricao": "Manual de processamento de movimentos em batch para FCVS (Fundo de Compensação de Variações Salariais)",
+  
+  "fichas_principais": {
+    "FH1": {
+      "nome": "Ficha para Habilitação ao FCVS",
+      "objetivo": "Habilitar o Contrato liquidado do Mutuário, com vistas ao ressarcimento do saldo devedor",
+      "tipo_registro": "TR = 1",
+      "campos_principais": [
+        "Código do Agente",
+        "Número do Contrato",
+        "CPF do Mutuário",
+        "Data de Assinatura",
+        "Valor do Financiamento",
+        "Taxa de Juros",
+        "Prazo",
+        "Sistema de Amortização"
+      ]
+    },
+    "FH2": {
+      "nome": "Ficha para Alterações Contratuais",
+      "objetivo": "Alterar dados contratuais de contratos já habilitados",
+      "tipo_registro": "TR = 2"
+    },
+    "FH3": {
+      "nome": "Ficha para Alterações de Indicadores de Reajustes",
+      "objetivo": "Alterar indicadores de reajuste de contratos habilitados",
+      "tipo_registro": "TR = 2"
+    },
+    "FTI": {
+      "nome": "Ficha para Troca de Identificação de Contrato",
+      "objetivo": "Trocar a identificação do contrato no sistema",
+      "tipo_registro": "TR = 2"
+    }
+  },
+  
+  "relatorios": {
+    "RED": {
+      "nome": "Relação de Contratos com Aviso de Envio de Dossiê",
+      "tipo_registro": "TR = 3"
+    },
+    "RER": {
+      "nome": "Relação de Contratos com Aviso de Envio de Recurso/Reanálise",
+      "tipo_registro": "TR = 4"
+    },
+    "RNV": {
+      "nome": "Relação de Contratos Não Validados",
+      "finalidade": "Lista contratos que não passaram na validação"
+    },
+    "RCV": {
+      "nome": "Relação de Contratos Validados",
+      "finalidade": "Lista contratos que passaram na validação"
+    }
+  },
+  
+  "processos": {
+    "habilitacao": {
+      "descricao": "Processo de inclusão de novos contratos no FCVS",
+      "fichas": ["FH1"],
+      "etapas": [
+        "1. Preenchimento da FH1",
+        "2. Validação dos dados",
+        "3. Transmissão via FCVS2000 ou batch",
+        "4. Pré-consistência na DATAMEC",
+        "5. Crítica física e lógica",
+        "6. Batimento com CADMUT",
+        "7. Homologação ou Rejeição"
+      ]
+    },
+    "alteracao_contratual": {
+      "descricao": "Alteração de dados de contratos já habilitados",
+      "fichas": ["FH2", "FH3", "FTI"],
+      "validacoes": "Crítica física e lógica"
+    },
+    "batimento_cadmut": {
+      "descricao": "Batimento com o Cadastro Nacional de Mutuários",
+      "situacoes": [
+        "Contratos inexistentes no CADMUT",
+        "Contratos com indício de multiplicidade",
+        "Contratos aguardando acerto",
+        "Contratos com indício de sinistro"
+      ]
+    }
+  },
+  
+  "sistemas_relacionados": {
+    "SIFCVS": "Sistema de Informações do FCVS",
+    "SIAHAB": "Sistema de Informações de Habitação",
+    "CADMUT": "Cadastro Nacional de Mutuários",
+    "FCVS2000": "Sistema de transmissão de movimentos",
+    "DATAMEC": "Centro de processamento"
+  },
+  
+  "proximos_passos": [
+    "Criar parsers para FH1, FH2, FH3, FTI",
+    "Implementar validações de crítica física e lógica",
+    "Criar integração com CADMUT",
+    "Implementar geração de RNV e RCV",
+    "Implementar cálculos de VAF"
+  ]
+}

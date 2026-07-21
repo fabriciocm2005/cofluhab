@@ -1,0 +1,384 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integração CEF - COFLUHAB</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .card-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-icon {
+            font-size: 32px;
+        }
+        
+        .card-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(86, 171, 47, 0.4);
+        }
+        
+        .btn-info {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+        }
+        
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 180, 219, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #f85032 0%, #e73827 100%);
+            color: white;
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        .hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .quick-links {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .quick-links h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .quick-links ul {
+            list-style: none;
+        }
+        
+        .quick-links li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .quick-links li:last-child {
+            border-bottom: none;
+        }
+        
+        .quick-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .quick-links a:hover {
+            color: #764ba2;
+        }
+        
+        .file-upload-area {
+            border: 3px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .file-upload-area:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .file-upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 Integração CEF - Sistema FCVS</h1>
+            <p>Geração e processamento de arquivos para envio/recebimento da Caixa Econômica Federal</p>
+            <span class="status-badge status-active">✓ Sistema Operacional</span>
+        </div>
+        
+        <div class="cards-grid">
+            <!-- Card FH1 -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">📄</span>
+                    <span>FH1 - Habilitação FCVS</span>
+                </div>
+                <div class="card-description">
+                    Exporta registro de habilitação ao FCVS individual por contrato. Inclui HEADER, dados do mutuário e TRAILER com validação Gatekeeper.
+                </div>
+                <form action="/contratos/" method="get">
+                    <div class="form-group">
+                        <label>Selecionar Contrato:</label>
+                        <input type="number" name="search" placeholder="Digite o código do contrato..." required>
+                        <div class="hint">Ex: 442, 443, 6001, etc.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Buscar Contrato para FH1
+                    </button>
+                </form>
+                <div class="hint" style="margin-top: 15px;">
+                    Após encontrar o contrato, clique em "Exportar FH1" na página de detalhes
+                </div>
+            </div>
+            
+            <!-- Card RCV -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">📋</span>
+                    <span>RCV - Comprovação de Valores</span>
+                </div>
+                <div class="card-description">
+                    Exporta lote de contratos para comprovação de valores. Suporta múltiplos contratos em um único arquivo com validação completa.
+                </div>
+                <form action="/rcv/gerar/" method="get">
+                    <div class="form-group">
+                        <label>IDs dos Contratos (separados por vírgula):</label>
+                        <textarea name="contratos" rows="3" placeholder="Ex: 1,2,3,4,5 ou 1053,1054,1055" required></textarea>
+                        <div class="hint">Separe múltiplos IDs com vírgula</div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-full">
+                        🚀 Gerar Arquivo RCV
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Card Upload Retorno CEF -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">📥</span>
+                    <span>Importar Retorno CEF</span>
+                </div>
+                <div class="card-description">
+                    Processa arquivos de retorno recebidos da CEF após homologação. Valida e importa dados automaticamente.
+                </div>
+                <form action="#" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="arquivo-retorno">Arquivo de Retorno:</label>
+                        <div class="file-upload-area" onclick="document.getElementById('arquivo-retorno').click()">
+                            <div class="file-upload-icon">📁</div>
+                            <p><strong>Clique para selecionar arquivo</strong></p>
+                            <p class="hint">Formatos: .txt, .ret</p>
+                        </div>
+                        <input type="file" id="arquivo-retorno" name="arquivo_retorno" accept=".txt,.ret">
+                    </div>
+                    <button type="submit" class="btn btn-info btn-full">
+                        📤 Processar Arquivo
+                    </button>
+                </form>
+                <div class="hint" style="margin-top: 15px;">
+                    ⚠️ Em desenvolvimento - Processamento automático de retornos
+                </div>
+            </div>
+            
+            <!-- Card Testes -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-icon">🧪</span>
+                    <span>Modo de Teste</span>
+                </div>
+                <div class="card-description">
+                    Teste o sistema Gatekeeper forçando erros de validação. Use para verificar se as validações bloqueantes estão funcionando.
+                </div>
+                <div class="form-group">
+                    <label>Testes Disponíveis:</label>
+                </div>
+                <a href="/rcv/gerar/?contratos=1,2,3&teste_erro=1" class="btn btn-danger btn-full" style="margin-bottom: 10px;">
+                    🔴 RCV com Erro (Teste)
+                </a>
+                <a href="/contrato/1053/exportar-evolucao-txt/?teste_erro=1" class="btn btn-danger btn-full">
+                    🔴 FH1 com Erro (Teste)
+                </a>
+                <div class="hint" style="margin-top: 15px;">
+                    Deve exibir erro bloqueante do Gatekeeper
+                </div>
+            </div>
+        </div>
+        
+        <!-- Links Rápidos -->
+        <div class="quick-links">
+            <h2>🔗 Links Rápidos</h2>
+            <ul>
+                <li><a href="/">← Voltar ao Início</a></li>
+                <li><a href="/contratos/">📑 Listar Todos os Contratos</a></li>
+                <li><a href="/mutuarios/">👥 Listar Mutuários</a></li>
+                <li><a href="/fcvs/">💰 Relatório FCVS Geral</a></li>
+                <li><a href="/carteira-fcvs/">📊 Carteira FCVS Completa</a></li>
+                <li><a href="/cef/relatorios/upload/">📂 Upload Relatórios CEF</a></li>
+                <li><a href="/cef/retornos/lote/">🗂️ Processar Retornos em Lote</a></li>
+                <li><a href="/ai-agents/test/">🤖 Testar AI Agents (Novo!)</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Preview do arquivo selecionado
+        document.getElementById('arquivo-retorno').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name || 'Nenhum arquivo selecionado';
+            const uploadArea = document.querySelector('.file-upload-area p strong');
+            uploadArea.textContent = fileName;
+        });
+    </script>
+</body>
+</html>

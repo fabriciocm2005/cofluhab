@@ -1,0 +1,78 @@
+
+================================================================================
+FICHA PARA HABILITAÇÃO AO FCVS - FORMULÁRIO FH1
+================================================================================
+
+================================================================================
+I. IDENTIFICAÇÃO DO AGENTE FINANCEIRO
+================================================================================
+AGENTE FINANCEIRO: COFLUHAB - CIA FLUMINENSE DE HABITAÇÃO
+DATA DE GERAÇÃO: 21/01/2026 20:59
+
+================================================================================
+II. IDENTIFICAÇÃO DO MUTUÁRIO
+================================================================================
+NOME: ALDEMIR PEREIRA DA SILVA
+CPF: 35897198772
+IDENTIDADE: 003017074IPFRJ
+DATA DE NASCIMENTO: 16/08/1952
+ÓRGÃO: IPF
+
+================================================================================
+III. IDENTIFICAÇÃO DO CONTRATO
+================================================================================
+NÚMERO DO CONTRATO: 6001
+CONJUNTO HABITACIONAL: 010
+DATA DO CONTRATO: 30/10/1984
+PRAZO: 360 meses
+TOTAL DE PARCELAS: 360
+
+================================================================================
+IV. LOCALIZAÇÃO DO IMÓVEL
+================================================================================
+ENDEREÇO: ETR DO CASSOROTIBA, S/N
+COMPLEMENTO: RUA A  C578
+BAIRRO: INOA
+CIDADE/UF: MARICA/RJ
+CEP: 24910000
+CÓDIGO DO IMÓVEL: 001040608010
+
+================================================================================
+V. SITUAÇÃO FINANCEIRA
+================================================================================
+SALDO INICIAL: R$ 16,285,182.15
+SALDO ATUAL: R$ 13,809.88
+FCVS RESIDUAL: R$ 0.00
+ANOMALIAS DETECTADAS: 235 ocorrências de amortização negativa
+
+PERÍODO DO CONTRATO: 11/1984 até 10/2014
+
+================================================================================
+VI. FUNDAMENTAÇÃO JURÍDICA
+================================================================================
+1. O contrato foi celebrado durante período de hiperinflação (1984-1994)
+2. Foram detectadas 235 ocorrências de amortização negativa
+3. O saldo residual de FCVS não foi devidamente compensado
+4. Há direito à habilitação ao FCVS conforme Resolução CMN nº 2.099/94
+
+================================================================================
+VII. RECOMENDAÇÕES
+================================================================================
+1. Solicitar auditoria à Caixa Econômica Federal
+2. Apresentar este formulário como anexo ao processo
+3. Requerer a quitação do saldo residual de FCVS
+4. Caso negado, ingressar com ação judicial
+
+================================================================================
+VIII. ASSINATURAS
+================================================================================
+
+_______________________________________
+Responsável Técnico - COFLUHAB
+
+_______________________________________
+Mutuário
+
+DATA: ____/____/______
+
+================================================================================

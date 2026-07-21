@@ -1,0 +1,731 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Relatorio Divida Seguro{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+    <a
+        class="btn btn-success"
+        href="{% url 'relatorio_divida_seguro' %}?ano_inicio={{ ano_inicio_selecionado }}&ano_fim={{ ano_fim_selecionado }}&ano={{ ano_selecionado }}&mostrar_detalhes={{ mostrar_detalhes|yesno:'1,0' }}&exportar_excel=1"
+    >
+        Baixar Excel dos Resumos
+    </a>
+</div>
+<div class="page-header">
+    <h1 class="page-title">Relatorio de Dividas de Seguro</h1>
+    <p class="page-subtitle">Base já carregada. Estudo no período de 1992 a 2019 (faixa de cobrança CEF), com geração por ano ou intervalo.</p>
+</div>
+
+<div class="card" style="margin-bottom: 20px; position: sticky; top: 10px; z-index: 20;">
+    <form method="post" style="display: flex; gap: 12px; align-items: end; flex-wrap: wrap;">
+        {% csrf_token %}
+        <div>
+            <label for="ano" style="display:block; font-weight:600; margin-bottom:6px;">Ano único</label>
+            <select id="ano" name="ano" style="padding:10px; min-width: 160px; border:1px solid #ccc; border-radius:8px;">
+                <option value="">Selecione um ano</option>
+                {% for ano in anos_disponiveis %}
+                <option value="{{ ano }}" {% if ano_selecionado == ano|stringformat:"s" %}selected{% endif %}>{{ ano }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="ano_inicio" style="display:block; font-weight:600; margin-bottom:6px;">Ano inicial</label>
+            <select id="ano_inicio" name="ano_inicio" style="padding:10px; min-width: 160px; border:1px solid #ccc; border-radius:8px;">
+                {% for ano in anos_disponiveis %}
+                <option value="{{ ano }}" {% if ano_inicio_selecionado == ano|stringformat:"s" %}selected{% endif %}>{{ ano }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="ano_fim" style="display:block; font-weight:600; margin-bottom:6px;">Ano final</label>
+            <select id="ano_fim" name="ano_fim" style="padding:10px; min-width: 160px; border:1px solid #ccc; border-radius:8px;">
+                {% for ano in anos_disponiveis %}
+                <option value="{{ ano }}" {% if ano_fim_selecionado == ano|stringformat:"s" %}selected{% endif %}>{{ ano }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" style="padding: 10px 16px; border: 0; border-radius: 8px; background: #1e3c72; color: #fff; font-weight: 600; cursor: pointer;">
+            Gerar Relatorio
+        </button>
+    </form>
+
+    <p style="margin-top: 10px; color:#64748b; font-size: 13px;">
+        Período de estudo: <strong>{{ ano_inicial_estudo }} a {{ ano_final_estudo }}</strong>. Você pode gerar um ano único ou intervalo de anos sem consolidado total na tela.
+        Se Ano inicial/final estiverem diferentes, a geração considera o período selecionado.
+    </p>
+
+    <div style="margin-top: 14px; display:flex; gap:8px; flex-wrap: wrap;">
+        <a href="?" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:999px; text-decoration:none; color:#334155;">Consolidado</a>
+        {% for ano in anos_disponiveis %}
+        <a href="?ano={{ ano }}" style="padding:6px 10px; border:1px solid #cbd5e1; border-radius:999px; text-decoration:none; color:#334155;">{{ ano }}</a>
+        {% endfor %}
+    </div>
+
+    <div style="margin-top:10px;">
+        {% if mostrar_detalhes %}
+        <a href="?ano={{ ano_selecionado }}&ano_inicio={{ ano_inicio_selecionado }}&ano_fim={{ ano_fim_selecionado }}" style="font-size:13px; color:#334155; text-decoration:none;">Ocultar detalhamento técnico</a>
+        {% else %}
+        <a href="?ano={{ ano_selecionado }}&ano_inicio={{ ano_inicio_selecionado }}&ano_fim={{ ano_fim_selecionado }}&detalhes=1" style="font-size:13px; color:#1d4ed8; text-decoration:none;">Mostrar detalhamento técnico</a>
+        {% endif %}
+    </div>
+</div>
+
+{% if resumo_base %}
+<div class="card" style="margin-bottom: 20px; border-left: 5px solid #0f766e;">
+    <h3 style="margin-bottom: 12px;">Resumo da Base Consolidada</h3>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc;">
+            <strong>Arquivo</strong><br>{{ resumo_base.arquivo_csv }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc;">
+            <strong>Período</strong><br>{{ resumo_base.periodo }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc;">
+            <strong>Registros</strong><br>{{ resumo_base.total_registros }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc;">
+            <strong>Encontrados</strong><br>{{ resumo_base.encontrados }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc;">
+            <strong>Não encontrados</strong><br>{{ resumo_base.nao_encontrados }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc;">
+            <strong>Total seguro</strong><br>R$ {{ resumo_base.total_seguro }}
+        </div>
+        <div style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc; grid-column: 1 / -1;">
+            <strong>Tipos de confrontação</strong><br>{{ resumo_base.tipos|join:", " }}
+        </div>
+    </div>
+
+    {% if resumo_base.anos_detalhe %}
+    <div style="margin-top:12px; padding-top:10px; border-top:1px dashed #cbd5e1;">
+        <h4 style="margin:0 0 8px 0; color:#334155;">Composição por ano (intervalo selecionado)</h4>
+        <div style="overflow:auto;">
+            <table style="width:100%; border-collapse:collapse; min-width:520px; font-size:13px;">
+                <thead>
+                    <tr style="background:#f8fafc; text-align:left;">
+                        <th style="padding:8px 10px; border-bottom:1px solid #e2e8f0;">Ano</th>
+                        <th style="padding:8px 10px; border-bottom:1px solid #e2e8f0; text-align:right;">Registros</th>
+                        <th style="padding:8px 10px; border-bottom:1px solid #e2e8f0; text-align:right;">Total seguro (PDF)</th>
+                        <th style="padding:8px 10px; border-bottom:1px solid #e2e8f0;">Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in resumo_base.anos_detalhe %}
+                    <tr>
+                        <td style="padding:7px 10px; border-bottom:1px solid #f1f5f9; font-weight:600;">{{ item.ano }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #f1f5f9; text-align:right;">{{ item.registros }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #f1f5f9; text-align:right;">R$ {{ item.total_seguro }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #f1f5f9;">
+                            {% if item.sem_csv %}
+                                <span style="color:#b91c1c; font-weight:600;">Sem CSV válido</span>
+                            {% elif item.zerado %}
+                                <span style="color:#92400e; font-weight:600;">Com CSV, total zerado</span>
+                            {% else %}
+                                <span style="color:#166534; font-weight:600;">Com valores</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if resumo_global or confronto_global_por_ano %}
+    <div style="margin-top:14px; padding-top:12px; border-top:1px dashed #cbd5e1;">
+        {% if resumo_global %}
+        <h4 style="margin:0 0 10px 0; color:#0f766e;">Resumo Global ({{ resumo_global.periodo_resumo }})</h4>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom:16px;">
+            <div style="padding:10px; border:1px solid #fde68a; border-radius:10px; background:#fffbeb;">
+                <strong>CEF Histórico (principal)</strong><br><span style="font-weight:700;">R$ {{ resumo_global.total_cef_principal_global }}</span>
+            </div>
+            <div style="padding:10px; border:1px solid #fed7aa; border-radius:10px; background:#fff7ed;">
+                <strong>CEF Total (corrigido + multa + juros)</strong><br><span style="font-weight:700;">R$ {{ resumo_global.total_cef_corrigido_global }}</span>
+            </div>
+            <div style="padding:10px; border:1px solid #bfdbfe; border-radius:10px; background:#eff6ff;">
+                <strong>Total encontrado nos PDFs</strong><br><span style="color:#1e40af; font-weight:700;">R$ {{ resumo_global.total_pdf_global }}</span>
+            </div>
+            <div style="padding:10px; border:1px solid #a7f3d0; border-radius:10px; background:#ecfdf5;">
+                <strong>Histórico COFLUHAB</strong><br>
+                <span style="font-size:11px; color:#065f46;">Σ nominal do campo seguro (moedas de época, sem atualização monetária)</span><br>
+                <span style="color:#065f46; font-weight:700;">{{ resumo_global.historico_cofluhab_total }}</span>
+                <div style="margin-top:4px; font-size:12px; color:#047857;">Indicador bruto apenas para referência histórica; não comparar com valores corrigidos da CEF.</div>
+            </div>
+            <div style="padding:10px; border:1px solid #6ee7b7; border-radius:10px; background:#ecfeff;">
+                <strong>COFLUHAB atualizado + juros</strong><br><span style="font-weight:700; color:#065f46;">R$ {{ resumo_global.cofluhab_atualizado_juros_global }}</span>
+            </div>
+            <div style="padding:10px; border:1px solid {% if resumo_global.diferenca_global_negativa %}#fecdd3{% else %}#fde68a{% endif %}; border-radius:10px; background:{% if resumo_global.diferenca_global_negativa %}#fff1f2{% else %}#fef9c3{% endif %};">
+                <strong>Diferença Global (CEF total − PDFs)</strong><br><span style="font-weight:700; {% if resumo_global.diferenca_global_negativa %}color:#b91c1c;{% else %}color:#92400e;{% endif %}">R$ {{ resumo_global.diferenca_global }}</span>
+            </div>
+            <div style="padding:10px; border:1px solid {% if resumo_global.diferenca_cef_cofluhab_juros_global_negativa %}#fecdd3{% else %}#fde68a{% endif %}; border-radius:10px; background:{% if resumo_global.diferenca_cef_cofluhab_juros_global_negativa %}#fff1f2{% else %}#fef9c3{% endif %};">
+                <strong>Diferença Global (CEF total − COFLUHAB total)</strong><br><span style="font-weight:700; {% if resumo_global.diferenca_cef_cofluhab_juros_global_negativa %}color:#b91c1c;{% else %}color:#92400e;{% endif %}">R$ {{ resumo_global.diferenca_cef_cofluhab_juros_global }}</span>
+            </div>
+            <div style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; background:#f8fafc; grid-column: 1 / -1;">
+                <strong>Cobertura de meses com PDF</strong><br>{{ resumo_global.meses_pdf_total }} de {{ resumo_global.meses_esperados_total }} meses possíveis ({{ resumo_global.anos_com_csv }} ano(s) com CSV anual)
+            </div>
+        </div>
+        {% endif %}
+
+        {% if confronto_global_por_ano %}
+        <h4 style="margin:0 0 10px 0; color:#0f766e;">Relatório Global por Ano</h4>
+        {% for item in confronto_global_por_ano %}
+        <div style="margin-bottom:12px; padding:10px; border:1px solid #dbeafe; border-radius:10px; background:#f8fbff;">
+            <h5 style="margin:0 0 8px 0; color:#1e3a8a;">Confronto anual {{ item.ano }}</h5>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px;">
+                <div style="padding:8px; border:1px solid #fde68a; border-radius:8px; background:#fffbeb;"><strong>CEF histórico (principal)</strong><br>R$ {{ item.cef_historico }}</div>
+                <div style="padding:8px; border:1px solid #fed7aa; border-radius:8px; background:#fff7ed;"><strong>CEF total (atualizado)</strong><br>R$ {{ item.cef_total_corrigido }}</div>
+                <div style="padding:8px; border:1px solid #bfdbfe; border-radius:8px; background:#eff6ff;"><strong>Encontrado nos PDFs</strong><br>R$ {{ item.encontrado_pdfs }}</div>
+                <div style="padding:8px; border:1px solid #86efac; border-radius:8px; background:#f0fdf4;"><strong>Histórico COFLUHAB</strong><br>R$ {{ item.historico_cofluhab }}</div>
+                <div style="padding:8px; border:1px solid #a7f3d0; border-radius:8px; background:#ecfdf5;"><strong>COFLUHAB atualizado</strong><br>R$ {{ item.cofluhab_atualizado }}</div>
+                <div style="padding:8px; border:1px solid #6ee7b7; border-radius:8px; background:#ecfeff;"><strong>COFLUHAB atualizado + juros</strong><br>R$ {{ item.cofluhab_atualizado_juros }}</div>
+                <div style="padding:8px; border:1px solid #fde68a; border-radius:8px; background:#fef9c3;"><strong>Diferença (CEF total - PDFs)</strong><br>R$ {{ item.diferenca_cef_pdf }}</div>
+                <div style="padding:8px; border:1px solid #fde68a; border-radius:8px; background:#fef9c3;"><strong>Diferença (CEF total - COFLUHAB total com juros)</strong><br>R$ {{ item.diferenca_cef_cofluhab_juros }}</div>
+                <div style="padding:8px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;"><strong>Meses com PDF</strong><br>{{ item.meses_pdf_count }} de 12</div>
+            </div>
+        </div>
+        {% empty %}
+        <p style="margin:0; color:#64748b;">Sem dados anuais para o período selecionado.</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<script>
+(function () {
+    const ano = document.getElementById('ano');
+    const anoInicio = document.getElementById('ano_inicio');
+    const anoFim = document.getElementById('ano_fim');
+
+    if (!ano || !anoInicio || !anoFim) return;
+
+    ano.addEventListener('change', function () {
+        if (ano.value) {
+            anoInicio.value = ano.value;
+            anoFim.value = ano.value;
+        }
+    });
+
+    const limparAnoUnico = function () {
+        if (anoInicio.value !== anoFim.value) {
+            ano.value = '';
+        }
+    };
+
+    anoInicio.addEventListener('change', limparAnoUnico);
+    anoFim.addEventListener('change', limparAnoUnico);
+
+    // Garante consistência ao carregar a página após POST/refresh.
+    limparAnoUnico();
+})();
+</script>
+
+{% if preview_relatorio and mostrar_detalhes %}
+<div class="card" style="margin-bottom: 20px; border-left: 5px solid #2563eb;">
+    <h3 style="margin-bottom: 8px;">Relatório na Tela</h3>
+    <div style="margin-bottom:10px; padding:10px 12px; border:1px solid #bfdbfe; border-radius:8px; background:#eff6ff; font-size:13px; color:#1e3a8a;">
+        <strong>Legenda de interpretação</strong><br>
+        1) <strong>CEF total corrigido</strong>: valor anual de cobrança informado pela CEF.<br>
+        2) <strong>Encontrado nos PDFs</strong>: soma efetivamente extraída dos PDFs processados.<br>
+        3) <strong>Atualização COFLUHAB</strong>: contraprestações de seguro da base COFLUHAB atualizadas por IPCA.<br>
+        4) <strong>Cobrança fora do prazo</strong>: valores com meses após finalização > 0 (potencialmente indevidos; validar por evento/regra).
+    </div>
+
+    {# =================== MODO COMPARATIVO MENSAL (ex: 2019) =================== #}
+    {% if preview_relatorio.modo == 'comparativo_mensal' %}
+
+    {# Resumo anual #}
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:14px; padding:12px; background:#f0f9ff; border-radius:10px; border:1px solid #bae6fd;">
+        <div><span style="color:#475569; font-size:13px;">Total contratos no ano</span><br><strong>{{ preview_relatorio.total_anual_linhas }}</strong></div>
+        <div><span style="color:#475569; font-size:13px;">Encontrado nos PDFs (meses processados)</span><br><strong style="color:#1d4ed8;">R$ {{ preview_relatorio.total_anual_cef }}</strong></div>
+        <div><span style="color:#475569; font-size:13px;">CEF total do ano (12 meses)</span><br><strong style="color:#b91c1c;">R$ {{ preview_relatorio.cef_ano_completo_total }}</strong></div>
+        <div><span style="color:#475569; font-size:13px;">Média meses pós-fim</span><br><strong>{{ preview_relatorio.media_meses_pos_finalizacao }}</strong></div>
+        <div><span style="color:#475569; font-size:13px;">Meses disponíveis</span><br><strong>{{ preview_relatorio.meses|length }}</strong></div>
+    </div>
+
+    {# Confronto anual no topo #}
+    {% if preview_relatorio.cef_relatorio_disponivel %}
+    <div style="margin-bottom:20px; border:2px solid #e2e8f0; border-radius:12px; overflow:hidden;">
+        <div style="padding:12px 16px; background:#f1f5f9; border-bottom:1px solid #e2e8f0;">
+            <h4 style="margin:0; font-size:15px;">Confronto Anual {{ ano_selecionado }} &mdash; Relatório CEF vs Encontrado nos PDFs</h4>
+        </div>
+        <div style="overflow:auto;">
+        <table style="width:100%; border-collapse:collapse; min-width:640px; font-size:13px;">
+            <thead>
+                <tr style="background:#f8fafc; text-align:right;">
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0; text-align:left;">Mês</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">CEF Histórico</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">CEF Total Corrigido</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Encontrado nos PDFs</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Cobrança Fora do Prazo</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Seguro Base COFLUHAB</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Fator IPCA acumulado</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Atualização COFLUHAB</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Diferença</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mes in preview_relatorio.meses %}
+                <tr>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; font-weight:600;">{{ mes.nome_mes }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">{% if mes.cef_tem_dados %}R$ {{ mes.cef_principal }}{% else %}—{% endif %}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">{% if mes.cef_tem_dados %}R$ {{ mes.cef_total }}{% else %}—{% endif %}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right; color:#1d4ed8;">R$ {{ mes.total_cef_cobrando }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right; color:#b45309;">R$ {{ mes.cobranca_fora_prazo }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">R$ {{ mes.seguro_base_cofluhab }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">x{{ mes.fator_ipca_acumulado }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">{% if mes.cef_tem_dados %}R$ {{ mes.atualizacao_cofluhab }}{% else %}—{% endif %}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right; {% if mes.cef_tem_dados %}{% if mes.diferenca_zero %}color:#166534;{% elif mes.diferenca_negativa %}color:#b91c1c; font-weight:700;{% else %}color:#92400e;{% endif %}{% endif %}">
+                        {% if mes.cef_tem_dados %}R$ {{ mes.diferenca }}{% else %}—{% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr style="background:#f1f5f9; font-weight:700;">
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1;">
+                        TOTAL {{ ano_selecionado }}
+                        <div style="font-size:11px; font-weight:400; color:#64748b;">{{ preview_relatorio.meses_pdf_count }} mês(es) com PDF</div>
+                    </td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ preview_relatorio.total_anual_cef_principal }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ preview_relatorio.total_anual_cef_total }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right; color:#1d4ed8;">R$ {{ preview_relatorio.total_anual_cef }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right; color:#b45309;">R$ {{ preview_relatorio.total_anual_cobranca_fora_prazo }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ preview_relatorio.total_anual_seguro_base_cofluhab }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right; color:#64748b;">—</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ preview_relatorio.total_anual_atualizacao_cofluhab }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right; {% if preview_relatorio.total_anual_diferenca_negativa %}color:#b91c1c;{% else %}color:#166534;{% endif %}">
+                        R$ {{ preview_relatorio.total_anual_diferenca }}
+                    </td>
+                </tr>
+                {% if preview_relatorio.meses_pdf_count < 12 %}
+                <tr style="background:#fffbeb;">
+                    <td colspan="9" style="padding:7px 12px; font-size:12px; color:#92400e; border-top:1px solid #fde68a;">
+                        ⚠️ PDFs encontrados em {{ preview_relatorio.meses_pdf_count }} mês(es).
+                        Os totais de "Encontrado nos PDFs" e "Cobrança Fora do Prazo" cobrem somente meses processados por PDF.
+                        Total CEF do ano completo (12 meses): <strong>R$ {{ preview_relatorio.cef_ano_completo_total }}</strong>.
+                    </td>
+                </tr>
+                {% endif %}
+            </tfoot>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {# Detalhe do contrato selecionado #}
+    {% if preview_relatorio.contrato_detalhe %}
+    <div id="contrato-detalhe" style="padding:14px; border-radius:10px; border:1px solid #dbeafe; background:#eff6ff; margin-bottom:14px;">
+        <h4 style="margin:0 0 6px 0;">Contrato {{ preview_relatorio.contrato_detalhe.contrato }} — {{ preview_relatorio.contrato_detalhe.nome }}</h4>
+        <div style="font-size:13px; color:#334155; margin-bottom:10px;">
+            Status: <strong>{{ preview_relatorio.contrato_detalhe.status }}</strong> |
+            Motivo: <strong>{{ preview_relatorio.contrato_detalhe.motivo_finalizacao }}</strong> |
+            Data finalização: <strong>{{ preview_relatorio.contrato_detalhe.data_finalizacao }}</strong> |
+            Primeiro encontrado em: <strong>{{ preview_relatorio.contrato_detalhe.periodo }}</strong>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px;">
+            <div style="padding:10px; border:1px solid #bfdbfe; border-radius:8px; background:#fff;">
+                <strong>Meses pós fim do contrato</strong><br>
+                {{ preview_relatorio.contrato_detalhe.meses_apos_finalizacao|default:"0" }}
+            </div>
+            <div style="padding:10px; border:1px solid #fecaca; border-radius:8px; background:#fff5f5;">
+                <strong>Valor cobrado pela CEF (este mês)</strong><br>
+                <span style="color:#b91c1c; font-weight:700;">R$ {{ preview_relatorio.contrato_detalhe.valor_cef_cobrando|default:"0,00" }}</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {# Sumário meses clicável #}
+    <div style="margin-bottom:14px; display:flex; flex-wrap:wrap; gap:8px;">
+        {% for mes in preview_relatorio.meses %}
+        <a href="#mes-comp-{{ forloop.counter }}" onclick="document.getElementById('mes-comp-{{ forloop.counter }}').open=true" style="padding:6px 12px; border:1px solid #bfdbfe; border-radius:8px; background:#eff6ff; text-decoration:none; font-size:13px; color:#1e40af; white-space:nowrap;">
+            {{ mes.nome_mes }} — {{ mes.total_linhas }} contr. — <strong>R$ {{ mes.total_cef_cobrando }}</strong>
+        </a>
+        {% endfor %}
+    </div>
+    <div style="margin:-6px 0 12px 0; color:#64748b; font-size:12px;">
+        Clique no mês para abrir o detalhamento depurado.
+    </div>
+    {% if preview_relatorio.meses|length == 1 %}
+    {% with mes=preview_relatorio.meses.0 %}
+    <div style="margin-bottom:14px; padding:12px 14px; border:1px solid #bfdbfe; border-radius:12px; background:linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);">
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+            <div>
+                <div style="font-size:12px; color:#64748b;">Resumo mensal</div>
+                <div style="font-size:18px; font-weight:700; color:#1e40af;">{{ mes.nome_mes }}/{{ ano_selecionado }}</div>
+                <div style="font-size:13px; color:#475569;">{{ mes.arquivo }}</div>
+            </div>
+            <a href="{% url 'download_relatorio_divida_seguro' mes.arquivo %}" style="padding:8px 12px; border-radius:8px; background:#1d4ed8; color:#fff; text-decoration:none; font-size:13px;">Baixar CSV deste mês</a>
+        </div>
+        <div style="margin-top:10px; display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
+            <div style="padding:10px; border:1px solid #dbeafe; border-radius:8px; background:#fff;"><strong>Contratos</strong><br>{{ mes.total_linhas }}</div>
+            <div style="padding:10px; border:1px solid #fecaca; border-radius:8px; background:#fff;"><strong>Total cobrado</strong><br><span style="color:#b91c1c; font-weight:700;">R$ {{ mes.total_cef_cobrando }}</span></div>
+            {% if mes.cef_tem_dados %}
+            <div style="padding:10px; border:1px solid #fde68a; border-radius:8px; background:#fff;"><strong>Diferença CEF/PDF</strong><br>R$ {{ mes.diferenca }}</div>
+            {% endif %}
+        </div>
+    </div>
+    {% endwith %}
+    {% endif %}
+
+    {# Tabelas mês a mês (colapsáveis) #}
+    {% for mes in preview_relatorio.meses %}
+    <details id="mes-comp-{{ forloop.counter }}" open style="margin-bottom:12px; border:1px solid #bfdbfe; border-radius:10px; overflow:hidden;">
+        <summary style="padding:10px 14px; background:#eff6ff; cursor:pointer; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; list-style:none; -webkit-appearance:none; user-select:none;">
+            <span style="font-weight:700; color:#1e40af; font-size:14px;">
+                {{ mes.nome_mes }}/{{ ano_selecionado }}
+                <span style="font-size:12px; font-weight:400; color:#64748b; margin-left:8px;">{{ mes.arquivo }}</span>
+            </span>
+            <span style="font-size:13px; color:#475569; display:flex; align-items:center; gap:10px;">
+                {{ mes.total_linhas }} contratos |
+                Total: <strong style="color:#b91c1c;">R$ {{ mes.total_cef_cobrando }}</strong>
+                {% if mes.cef_tem_dados %}|
+                Dif: <strong {% if mes.diferenca_negativa %}style="color:#b91c1c;"{% elif mes.diferenca_zero %}style="color:#166534;"{% else %}style="color:#92400e;"{% endif %}>R$ {{ mes.diferenca }}</strong>{% endif %}
+                <a href="{% url 'download_relatorio_divida_seguro' mes.arquivo %}" onclick="event.stopPropagation()" style="padding:3px 9px; border-radius:6px; background:#1d4ed8; color:#fff; text-decoration:none; font-size:12px;">CSV</a>
+            </span>
+        </summary>
+        <div style="overflow:auto; border-top:1px solid #bfdbfe;">
+            <table style="width:100%; border-collapse:collapse; min-width:800px;">
+                <thead>
+                    <tr style="background:#f8fafc; text-align:left;">
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Contrato</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Nome</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Status</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Motivo finalização</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Data finalização</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0; text-align:right;">Meses pós fim</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0; text-align:right;">CEF cobrando</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in mes.linhas %}
+                    <tr {% if linha.contrato == preview_relatorio.contrato_ativo %}style="background:#eff6ff;"{% endif %}>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">
+                            <a href="?ano={{ ano_selecionado }}&contrato={{ linha.contrato }}#contrato-detalhe" style="font-weight:700; text-decoration:none; color:#1d4ed8;">{{ linha.contrato }}</a>
+                        </td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">{{ linha.nome }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">{{ linha.status }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">{{ linha.motivo_finalizacao }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">{{ linha.data_finalizacao }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7; text-align:right;">{{ linha.meses_apos_finalizacao }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7; text-align:right; color:#b91c1c; font-weight:600;">{{ linha.valor_cef_cobrando }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr style="background:#fef2f2; font-weight:700;">
+                        <td colspan="6" style="padding:7px 10px; text-align:right; border-top:2px solid #fca5a5;">Total {{ mes.nome_mes }}:</td>
+                        <td style="padding:7px 10px; text-align:right; border-top:2px solid #fca5a5; color:#b91c1c;">R$ {{ mes.total_cef_cobrando }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% if mes.cef_tem_dados %}
+        <div style="padding:10px 14px; display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:8px; background:#fafafa; border-top:1px solid #e2e8f0; font-size:13px;">
+            <div style="padding:8px 10px; border-radius:6px; background:#fffbeb; border:1px solid #fde68a;">
+                <div style="color:#92400e; font-size:11px;">CEF Histórico (principal)</div>
+                <strong>R$ {{ mes.cef_principal }}</strong>
+            </div>
+            <div style="padding:8px 10px; border-radius:6px; background:#fff7ed; border:1px solid #fed7aa;">
+                <div style="color:#9a3412; font-size:11px;">CEF Total (corrigido + multa + juros)</div>
+                <strong>R$ {{ mes.cef_total }}</strong>
+            </div>
+            <div style="padding:8px 10px; border-radius:6px; background:#eff6ff; border:1px solid #bfdbfe;">
+                <div style="color:#1e40af; font-size:11px;">Encontrado nos PDFs</div>
+                <strong>R$ {{ mes.total_cef_cobrando }}</strong>
+            </div>
+            <div style="padding:8px 10px; border-radius:6px; {% if mes.diferenca_zero %}background:#f0fdf4; border:1px solid #86efac;{% elif mes.diferenca_negativa %}background:#fff1f2; border:1px solid #fecdd3;{% else %}background:#fef9c3; border:1px solid #fde047;{% endif %}">
+                <div style="font-size:11px; {% if mes.diferenca_zero %}color:#166534;{% elif mes.diferenca_negativa %}color:#9f1239;{% else %}color:#713f12;{% endif %}">Diferença (CEF total − PDFs)</div>
+                <strong {% if mes.diferenca_negativa %}style="color:#b91c1c;"{% endif %}>R$ {{ mes.diferenca }}</strong>
+            </div>
+        </div>
+        {% endif %}
+    </details>
+    {% endfor %}
+
+    {# =================== MODO CONSOLIDADO MENSAL (2010-2018 com RIE_OFI) =================== #}
+    {% elif preview_relatorio.modo == 'consolidado_mensal' %}
+
+    {# Resumo anual #}
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:14px; padding:12px; background:#f0fdf4; border-radius:10px; border:1px solid #86efac;">
+        <div><span style="color:#475569; font-size:13px;">Arquivo</span><br><strong>{{ preview_relatorio.arquivo }}</strong></div>
+        <div><span style="color:#475569; font-size:13px;">Total contratos</span><br><strong>{{ preview_relatorio.total_linhas }}</strong></div>
+        <div><span style="color:#475569; font-size:13px;">Total cobrado no ano</span><br><strong style="color:#b91c1c;">R$ {{ preview_relatorio.total_cef_cobrando }}</strong></div>
+        <div><span style="color:#475569; font-size:13px;">Meses</span><br><strong>{{ preview_relatorio.meses|length }}</strong></div>
+        <div style="margin-left:auto;">
+            <a href="{% url 'download_relatorio_divida_seguro' preview_relatorio.arquivo %}" style="padding:8px 12px; border-radius:8px; background:#1d4ed8; color:#fff; text-decoration:none; font-size:13px;">Baixar CSV completo</a>
+        </div>
+    </div>
+
+    {# Detalhe do contrato clicado #}
+    {% if preview_relatorio.contrato_detalhe %}
+    <div id="contrato-detalhe" style="padding:14px; border-radius:10px; border:1px solid #dbeafe; background:#eff6ff; margin-bottom:14px;">
+        <h4 style="margin:0 0 6px 0;">Contrato {{ preview_relatorio.contrato_detalhe.contrato }} — {{ preview_relatorio.contrato_detalhe.nome }}</h4>
+        <div style="font-size:13px; color:#334155; margin-bottom:8px;">
+            Status: <strong>{{ preview_relatorio.contrato_detalhe.status }}</strong> |
+            Fonte: <strong>{{ preview_relatorio.contrato_detalhe.fonte }}</strong> |
+            Motivo: <strong>{{ preview_relatorio.contrato_detalhe.motivo_finalizacao }}</strong>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px;">
+            <div style="padding:10px; border:1px solid #dbeafe; border-radius:8px; background:#eff6ff;">
+                <strong>Data finalização</strong><br>
+                <span>{{ preview_relatorio.contrato_detalhe.data_finalizacao|default:"-" }}</span>
+            </div>
+            <div style="padding:10px; border:1px solid #dbeafe; border-radius:8px; background:#eff6ff;">
+                <strong>Meses pós finalização</strong><br>
+                <span>{{ preview_relatorio.contrato_detalhe.meses_apos_finalizacao|default:"0" }}</span>
+            </div>
+            <div style="padding:10px; border:1px solid #fecaca; border-radius:8px; background:#fff5f5;">
+                <strong>Valor cobrado pela CEF</strong><br>
+                <span style="color:#b91c1c; font-weight:700;">R$ {{ preview_relatorio.contrato_detalhe.valor_cef_cobrando|default:"0,00" }}</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {# Totalizador e confronto anual - modo consolidado #}
+    {% if preview_relatorio.cef_relatorio_disponivel %}
+    <div style="margin-bottom:20px; border:2px solid #e2e8f0; border-radius:12px; overflow:hidden;">
+        <div style="padding:12px 16px; background:#f1f5f9; border-bottom:1px solid #e2e8f0;">
+            <h4 style="margin:0; font-size:15px;">Confronto Anual {{ ano_selecionado }} &mdash; Relatório CEF vs Encontrado nos PDFs</h4>
+        </div>
+        <div style="overflow:auto;">
+        <table style="width:100%; border-collapse:collapse; min-width:640px; font-size:13px;">
+            <thead>
+                <tr style="background:#f8fafc; text-align:right;">
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0; text-align:left;">Mês</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">CEF Histórico</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">CEF Total Corrigido</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Encontrado nos PDFs</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Cobrança Fora do Prazo</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Seguro Base COFLUHAB</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Fator IPCA acumulado</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Atualização COFLUHAB</th>
+                    <th style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">Diferença</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mes in preview_relatorio.meses %}
+                <tr>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; font-weight:600;">{{ mes.nome_mes }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">{% if mes.cef_tem_dados %}R$ {{ mes.cef_principal }}{% else %}—{% endif %}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">{% if mes.cef_tem_dados %}R$ {{ mes.cef_total }}{% else %}—{% endif %}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right; color:#1d4ed8;">R$ {{ mes.total_cef_cobrando }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right; color:#b45309;">R$ {{ mes.cobranca_fora_prazo }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">R$ {{ mes.seguro_base_cofluhab }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">x{{ mes.fator_ipca_acumulado }}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right;">{% if mes.cef_tem_dados %}R$ {{ mes.atualizacao_cofluhab }}{% else %}—{% endif %}</td>
+                    <td style="padding:7px 12px; border-bottom:1px solid #f1f5f9; text-align:right; {% if mes.cef_tem_dados %}{% if mes.diferenca_zero %}color:#166534;{% elif mes.diferenca_negativa %}color:#b91c1c; font-weight:700;{% else %}color:#92400e;{% endif %}{% endif %}">
+                        {% if mes.cef_tem_dados %}R$ {{ mes.diferenca }}{% else %}—{% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr style="background:#f1f5f9; font-weight:700;">
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1;">
+                        TOTAL {{ ano_selecionado }}
+                        <div style="font-size:11px; font-weight:400; color:#64748b;">{{ preview_relatorio.meses_pdf_count }} mês(es) com PDF</div>
+                    </td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ preview_relatorio.total_anual_cef_principal }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ preview_relatorio.total_anual_cef_total }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right; color:#1d4ed8;">R$ {{ preview_relatorio.total_cef_cobrando }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right; color:#b45309;">R$ {{ preview_relatorio.total_anual_cobranca_fora_prazo }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ preview_relatorio.total_anual_seguro_base_cofluhab }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right; color:#64748b;">—</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ preview_relatorio.total_anual_atualizacao_cofluhab }}</td>
+                    <td style="padding:8px 12px; border-top:2px solid #cbd5e1; text-align:right; {% if preview_relatorio.total_anual_diferenca_negativa %}color:#b91c1c;{% else %}color:#166534;{% endif %}">
+                        R$ {{ preview_relatorio.total_anual_diferenca }}
+                    </td>
+                </tr>
+                {% if preview_relatorio.meses_pdf_count < 12 %}
+                <tr style="background:#fffbeb;">
+                    <td colspan="9" style="padding:7px 12px; font-size:12px; color:#92400e; border-top:1px solid #fde68a;">
+                        ⚠️ Os totais acima cobrem apenas {{ preview_relatorio.meses_pdf_count }} mês(es) processado(s) via PDF.
+                        Total CEF para o ano completo (12 meses): <strong>R$ {{ preview_relatorio.cef_ano_completo_total }}</strong>
+                    </td>
+                </tr>
+                {% endif %}
+            </tfoot>
+        </table>
+        </div>
+    </div>
+    {% else %}
+    <div style="padding:14px; background:#f0fdf4; border:2px solid #86efac; border-radius:10px; text-align:right; font-size:15px; margin-bottom:20px;">
+        <strong>Total anual {{ ano_selecionado }}: </strong>
+        <span style="color:#b91c1c; font-size:18px; font-weight:700;">R$ {{ preview_relatorio.total_cef_cobrando }}</span>
+        <span style="color:#475569; font-size:13px; margin-left:16px;">{{ preview_relatorio.total_linhas }} registros em {{ preview_relatorio.meses|length }} meses</span>
+    </div>
+    {% endif %}
+
+    {# Sumário meses clicável #}
+    <div style="margin-bottom:14px; display:flex; flex-wrap:wrap; gap:8px;">
+        {% for mes in preview_relatorio.meses %}
+        <a href="#mes-cons-{{ forloop.counter }}" onclick="document.getElementById('mes-cons-{{ forloop.counter }}').open=true" style="padding:6px 12px; border:1px solid #86efac; border-radius:8px; background:#f0fdf4; text-decoration:none; font-size:13px; color:#166534; white-space:nowrap;">
+            {{ mes.nome_mes }} — {{ mes.total_linhas }} contr. — <strong>R$ {{ mes.total_cef_cobrando }}</strong>
+        </a>
+        {% endfor %}
+    </div>
+    <div style="margin:-6px 0 12px 0; color:#64748b; font-size:12px;">
+        Clique no mês para abrir o detalhamento depurado.
+    </div>
+    {% if preview_relatorio.meses|length == 1 %}
+    {% with mes=preview_relatorio.meses.0 %}
+    <div style="margin-bottom:14px; padding:12px 14px; border:1px solid #86efac; border-radius:12px; background:linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);">
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+            <div>
+                <div style="font-size:12px; color:#64748b;">Resumo mensal</div>
+                <div style="font-size:18px; font-weight:700; color:#166534;">{{ mes.nome_mes }}/{{ ano_selecionado }}</div>
+                <div style="font-size:13px; color:#475569;">{{ mes.fonte }}</div>
+            </div>
+            <a href="{% url 'download_relatorio_divida_seguro' preview_relatorio.arquivo %}" style="padding:8px 12px; border-radius:8px; background:#1d4ed8; color:#fff; text-decoration:none; font-size:13px;">Baixar CSV completo</a>
+        </div>
+        <div style="margin-top:10px; display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
+            <div style="padding:10px; border:1px solid #dbeafe; border-radius:8px; background:#fff;"><strong>Contratos</strong><br>{{ mes.total_linhas }}</div>
+            <div style="padding:10px; border:1px solid #fecaca; border-radius:8px; background:#fff;"><strong>Total cobrado</strong><br><span style="color:#b91c1c; font-weight:700;">R$ {{ mes.total_cef_cobrando }}</span></div>
+            {% if mes.cef_tem_dados %}
+            <div style="padding:10px; border:1px solid #fde68a; border-radius:8px; background:#fff;"><strong>Diferença CEF/PDF</strong><br>R$ {{ mes.diferenca }}</div>
+            {% endif %}
+        </div>
+    </div>
+    {% endwith %}
+    {% endif %}
+
+    {# Tabelas mês a mês (colapsáveis) #}
+    {% for mes in preview_relatorio.meses %}
+    <details id="mes-cons-{{ forloop.counter }}" open style="margin-bottom:12px; border:1px solid #86efac; border-radius:10px; overflow:hidden;">
+        <summary style="padding:10px 14px; background:#f0fdf4; cursor:pointer; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; list-style:none; -webkit-appearance:none; user-select:none;">
+            <span style="font-weight:700; color:#166534; font-size:14px;">
+                {% if mes.mes_key == '00' %}Sem mês identificado{% else %}{{ mes.nome_mes }}/{{ ano_selecionado }}{% endif %}
+                <span style="font-size:12px; font-weight:400; color:#64748b; margin-left:8px;">{{ mes.fonte }}</span>
+            </span>
+            <span style="font-size:13px; color:#475569; display:flex; align-items:center; gap:10px;">
+                {{ mes.total_linhas }} contratos |
+                Total: <strong style="color:#b91c1c;">R$ {{ mes.total_cef_cobrando }}</strong>
+                {% if mes.cef_tem_dados %}|
+                Dif: <strong {% if mes.diferenca_negativa %}style="color:#b91c1c;"{% elif mes.diferenca_zero %}style="color:#166534;"{% else %}style="color:#92400e;"{% endif %}>R$ {{ mes.diferenca }}</strong>{% endif %}
+            </span>
+        </summary>
+        <div style="overflow:auto; border-top:1px solid #86efac;">
+            <table style="width:100%; border-collapse:collapse; min-width:700px;">
+                <thead>
+                    <tr style="background:#f8fafc; text-align:left;">
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Contrato</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Nome</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Status</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Motivo finalização</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0;">Data finalização</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0; text-align:right;">Meses pós fim</th>
+                        <th style="padding:7px 10px; border-bottom:1px solid #e2e8f0; text-align:right;">CEF cobrando</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in mes.linhas %}
+                    <tr {% if linha.contrato == preview_relatorio.contrato_ativo %}style="background:#eff6ff;"{% endif %}>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">
+                            <a href="?ano={{ ano_selecionado }}&contrato={{ linha.contrato }}#contrato-detalhe" style="font-weight:700; text-decoration:none; color:#1d4ed8;">{{ linha.contrato }}</a>
+                        </td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">{{ linha.nome }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">{{ linha.status }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">{{ linha.motivo_finalizacao }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7;">{{ linha.data_finalizacao }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7; text-align:right;">{{ linha.meses_apos_finalizacao }}</td>
+                        <td style="padding:7px 10px; border-bottom:1px solid #eef2f7; text-align:right; color:#b91c1c; font-weight:600;">{{ linha.valor_cef_cobrando }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr style="background:#f0fdf4; font-weight:700;">
+                        <td colspan="6" style="padding:7px 10px; text-align:right; border-top:2px solid #86efac;">Total {{ mes.nome_mes }}:</td>
+                        <td style="padding:7px 10px; text-align:right; border-top:2px solid #86efac; color:#b91c1c;">R$ {{ mes.total_cef_cobrando }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% if mes.cef_tem_dados %}
+        <div style="padding:10px 14px; display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:8px; background:#fafafa; border-top:1px solid #e2e8f0; font-size:13px;">
+            <div style="padding:8px 10px; border-radius:6px; background:#fffbeb; border:1px solid #fde68a;">
+                <div style="color:#92400e; font-size:11px;">CEF Histórico (principal)</div>
+                <strong>R$ {{ mes.cef_principal }}</strong>
+            </div>
+            <div style="padding:8px 10px; border-radius:6px; background:#fff7ed; border:1px solid #fed7aa;">
+                <div style="color:#9a3412; font-size:11px;">CEF Total (corrigido + multa + juros)</div>
+                <strong>R$ {{ mes.cef_total }}</strong>
+            </div>
+            <div style="padding:8px 10px; border-radius:6px; background:#eff6ff; border:1px solid #bfdbfe;">
+                <div style="color:#1e40af; font-size:11px;">Encontrado nos PDFs</div>
+                <strong>R$ {{ mes.total_cef_cobrando }}</strong>
+            </div>
+            <div style="padding:8px 10px; border-radius:6px; {% if mes.diferenca_zero %}background:#f0fdf4; border:1px solid #86efac;{% elif mes.diferenca_negativa %}background:#fff1f2; border:1px solid #fecdd3;{% else %}background:#fef9c3; border:1px solid #fde047;{% endif %}">
+                <div style="font-size:11px; {% if mes.diferenca_zero %}color:#166534;{% elif mes.diferenca_negativa %}color:#9f1239;{% else %}color:#713f12;{% endif %}">Diferença (CEF total − PDFs)</div>
+                <strong {% if mes.diferenca_negativa %}style="color:#b91c1c;"{% endif %}>R$ {{ mes.diferenca }}</strong>
+            </div>
+        </div>
+        {% endif %}
+    </details>
+    {% endfor %}
+
+    {% endif %}
+</div>
+{% elif preview_relatorio %}
+<div class="card" style="margin-bottom: 20px; border-left: 5px solid #94a3b8;">
+    <h3 style="margin-bottom: 8px;">Relatório na Tela</h3>
+    <p style="margin:0; color:#475569;">
+        Detalhamento técnico oculto para facilitar a navegação. Use o link <strong>Mostrar detalhamento técnico</strong> acima, se precisar abrir.
+    </p>
+</div>
+{% endif %}
+
+{% if exec_result %}
+<div class="card" style="margin-bottom: 20px; border-left: 5px solid {% if exec_result.ok %}#16a34a{% else %}#dc2626{% endif %};">
+    <h3 style="margin-bottom: 8px;">Execucao {% if exec_result.ok %}concluida{% else %}com erro{% endif %}</h3>
+    <p style="margin-bottom: 10px;">Codigo de retorno: {{ exec_result.returncode }}</p>
+    <pre style="white-space: pre-wrap; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px; padding:12px; max-height: 320px; overflow:auto;">{{ exec_result.output }}</pre>
+</div>
+{% endif %}
+
+<div class="card">
+    <h3 style="margin-bottom: 16px;">Arquivos Gerados (mais recentes)</h3>
+    {% if arquivos_por_periodo %}
+    <div style="margin-bottom: 16px; display: grid; gap: 10px;">
+        {% for periodo, itens in arquivos_por_periodo %}
+        <div style="padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 10px; background:#f8fafc;">
+            <strong>{{ periodo }}</strong>
+            <span style="color:#64748b;">- {{ itens|length }} arquivo(s)</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if arquivos_exibicao %}
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background:#f1f5f9; text-align:left;">
+                <th style="padding:10px; border-bottom:1px solid #ddd;">Arquivo</th>
+                <th style="padding:10px; border-bottom:1px solid #ddd;">Tipo</th>
+                <th style="padding:10px; border-bottom:1px solid #ddd;">Data</th>
+                <th style="padding:10px; border-bottom:1px solid #ddd;">Acao</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in arquivos_exibicao %}
+            <tr>
+                <td style="padding:10px; border-bottom:1px solid #eee;">{{ a.nome }}</td>
+                <td style="padding:10px; border-bottom:1px solid #eee;">{{ a.tipo }}</td>
+                <td style="padding:10px; border-bottom:1px solid #eee;">{{ a.modificado_em|date:"d/m/Y H:i:s" }}</td>
+                <td style="padding:10px; border-bottom:1px solid #eee;">
+                    <a href="{% url 'visualizar_relatorio_divida_seguro' a.nome %}">Visualizar</a> |
+                    <a href="{% url 'download_relatorio_divida_seguro' a.nome %}">Baixar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Nenhum arquivo encontrado para o filtro atual.</p>
+    {% endif %}
+</div>
+{% endblock %}

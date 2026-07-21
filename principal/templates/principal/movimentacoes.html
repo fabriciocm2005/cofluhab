@@ -1,0 +1,28 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Movimentações - CoFluhab{% endblock %}
+
+{% block content %}
+    <h2>Movimentações</h2>
+    {% if movimentacoes %}
+        <table border="1" cellpadding="6">
+            <thead>
+                <tr><th>Data</th><th>Tipo</th><th>Valor</th><th>Descrição</th><th>CodImovel</th><th>Conjunto</th></tr>
+            </thead>
+            <tbody>
+            {% for mv in movimentacoes %}
+                <tr>
+                    <td>{{ mv.data }}</td>
+                    <td>{{ mv.tipo }}</td>
+                    <td>{{ mv.valor }}</td>
+                    <td>{{ mv.descricao }}</td>
+                    <td>{{ mv.codimovel }}</td>
+                    <td>{{ mv.conjunto }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma movimentação cadastrada.</p>
+    {% endif %}
+{% endblock %}

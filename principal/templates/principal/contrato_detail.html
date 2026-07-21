@@ -1,0 +1,864 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Contrato {{ contrato.codigo }} - Evolução Teórica{% endblock %}
+
+{% block content %}
+<style>
+    /* Estilos para nova seção de evolução */
+.evolucao-table td { font-size: 11px; padding: 8px; }
+.evolucao-table tr:hover { background: #e3f2fd !important; }
+.anomalia-red { color: red; font-weight: bold; }
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    .printevo-container {
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        background: #fff;
+        padding: 30px;
+        max-width: 1500px;
+        margin: 20px auto;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    .printevo-header {
+        text-align: center;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 3px double #333;
+    }
+    .printevo-title {
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 10px;
+        color: #1a237e;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .printevo-subtitle {
+        font-size: 11px;
+        color: #555;
+    }
+    .printevo-info {
+        margin: 8px 0;
+        line-height: 1.8;
+        font-size: 11px;
+    }
+    .printevo-info strong {
+        display: inline-block;
+        width: 140px;
+        color: #1976d2;
+    }
+    .printevo-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10px;
+        margin-top: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .printevo-table th {
+        background: linear-gradient(to bottom, #1976d2, #1565c0);
+        color: white;
+        border: 1px solid #0d47a1;
+        padding: 8px 6px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .printevo-table td {
+        border: 1px solid #ddd;
+        padding: 5px 8px;
+        text-align: right;
+        font-size: 10px;
+        background: #fff;
+    }
+    .printevo-table td:first-child,
+    .printevo-table td:nth-child(2) {
+        text-align: center;
+        font-weight: 600;
+        color: #333;
+    }
+    .printevo-table tbody tr:nth-child(odd) {
+        background: #f8f9fa;
+    }
+    .printevo-table tbody tr:hover {
+        background: #e3f2fd;
+        transform: scale(1.01);
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+    .printevo-table tbody tr:hover td {
+        color: #0d47a1;
+    }
+    .actions {
+        margin: 25px 0;
+        font-size: 14px;
+        text-align: center;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .actions a {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 20px;
+        background: #1976d2;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.3s;
+        font-weight: 500;
+    }
+    .actions a:hover {
+        background: #1565c0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .info-header {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        padding: 20px;
+        border-left: 5px solid #1976d2;
+        margin-bottom: 25px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .summary-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        background: #4caf50;
+        color: white;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+    .summary-badge.danger {
+        background: #f44336;
+    }
+    .highlight-value {
+        color: #d32f2f;
+        font-weight: bold;
+        font-size: 13px;
+        padding: 2px 6px;
+        background: #ffebee;
+        border-radius: 3px;
+    }
+    @media print {
+        body { background: white; }
+        .actions { display: none; }
+        .printevo-container {
+            box-shadow: none;
+            margin: 0;
+            padding: 20px;
+        }
+        .printevo-table tbody tr:hover {
+            background: inherit;
+            transform: none;
+        }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .printevo-container {
+        animation: fadeIn 0.6s ease-out;
+    }
+    .reaj-indicator {
+        color: #ff6f00;
+        font-weight: bold;
+    }
+</style>
+
+<div style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
+    <a href="{% url 'contrato_editar' contrato.id %}" style="padding: 12px 24px; background: linear-gradient(135deg, #1976d2, #1565c0); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 3px 10px rgba(25,118,210,0.4); transition: all 0.3s;">
+        ✏️ Editar Contrato
+    </a>
+    <button onclick="validarContrato()" style="padding: 12px 24px; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 3px 10px rgba(16,185,129,0.4); transition: all 0.3s;">
+        🔍 Validar Dados
+    </button>
+    {% if parcelas_em_aberto > 0 %}
+    <a href="{% url 'debito_prestacoes' contrato.codigo %}" style="padding: 12px 24px; background: linear-gradient(135deg, #e53935, #d32f2f); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 3px 10px rgba(229,57,53,0.4); transition: all 0.3s;">
+        💰 Débito de Prestações ({{ parcelas_em_aberto }})
+    </a>
+    {% else %}
+    <div style="padding: 12px 24px; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; border-radius: 8px; font-weight: bold; box-shadow: 0 3px 10px rgba(46,125,50,0.4); display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 24px;">✅</span>
+        <span style="font-size: 16px; letter-spacing: 1px;">QUITADO</span>
+    </div>
+    {% endif %}
+
+    {% if parcelas_pagas > 0 %}
+    <a href="{% url 'parcelas_pagas' contrato.codigo %}" style="padding: 12px 24px; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 3px 10px rgba(46,125,50,0.4); transition: all 0.3s;">
+        🧾 Parcelas Pagas ({{ parcelas_pagas }})
+    </a>
+    {% endif %}
+
+    <a href="#crm-atendimento" style="padding: 12px 24px; background: linear-gradient(135deg, #6a1b9a, #4a148c); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 3px 10px rgba(106,27,154,0.4); transition: all 0.3s;">
+        📒 CRM Atendimento
+    </a>
+</div>
+
+<div id="crm-atendimento" style="background: #fff; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.15); margin-bottom: 24px; overflow: hidden;">
+    <div style="padding: 16px 20px; background: linear-gradient(135deg, #6a1b9a, #4a148c); color: white; font-weight: bold; letter-spacing: 0.5px;">
+        📒 CRM DE ATENDIMENTO E FOLLOW-UP
+    </div>
+
+    <div style="padding: 16px 20px; border-bottom: 1px solid #eee;">
+        <div style="margin-bottom: 14px; padding: 10px; background: #f3e5f5; border: 1px solid #e1bee7; border-radius: 8px;">
+            <div style="font-weight: bold; color: #4a148c; margin-bottom: 6px;">Importar planilha de atendimentos (Excel)</div>
+            <form method="post" action="{% url 'importar_atendimentos_crm' contrato.id %}" enctype="multipart/form-data" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                {% csrf_token %}
+                <input type="file" name="arquivo_crm" accept=".xlsx,.xls" required style="padding: 6px; border: 1px solid #ccc; border-radius: 6px; background: white;">
+                <button type="submit" style="padding: 8px 14px; background: #7b1fa2; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">📤 Importar em lote</button>
+                <span style="font-size: 12px; color: #555;">Colunas recomendadas: contrato, assunto, observacoes, acordo, proximo passo, data retorno, tipo contato, status, responsavel.</span>
+            </form>
+            {% if crm_importados or crm_ignorados or crm_erros %}
+            <div style="margin-top: 8px; font-size: 13px; color: #333;">
+                Resultado da importacao: <strong>{{ crm_importados }}</strong> importados,
+                <strong>{{ crm_ignorados }}</strong> ignorados,
+                <strong>{{ crm_erros }}</strong> erros.
+            </div>
+            {% endif %}
+        </div>
+
+        <form method="post" action="{% url 'adicionar_atendimento_crm' contrato.id %}" style="display: grid; gap: 10px; grid-template-columns: repeat(4, minmax(0, 1fr));">
+            {% csrf_token %}
+            <div>
+                <label style="font-size: 12px; color: #555; font-weight: bold;">Tipo de contato</label>
+                <select name="tipo_contato" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                    <option value="TELEFONE">Telefone</option>
+                    <option value="WHATSAPP">WhatsApp</option>
+                    <option value="EMAIL">E-mail</option>
+                    <option value="PRESENCIAL">Presencial</option>
+                    <option value="OUTRO">Outro</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 12px; color: #555; font-weight: bold;">Status</label>
+                <select name="status" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                    <option value="ABERTO">Aberto</option>
+                    <option value="EM_ANDAMENTO">Em andamento</option>
+                    <option value="CONCLUIDO">Concluido</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 12px; color: #555; font-weight: bold;">Data de retorno</label>
+                <input type="date" name="data_retorno" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+            <div>
+                <label style="font-size: 12px; color: #555; font-weight: bold;">Responsavel</label>
+                <input type="text" name="responsavel" placeholder="Atendente" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+
+            <div style="grid-column: span 4;">
+                <label style="font-size: 12px; color: #555; font-weight: bold;">Assunto</label>
+                <input type="text" name="assunto" required placeholder="Resumo do atendimento" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+            </div>
+
+            <div style="grid-column: span 4;">
+                <label style="font-size: 12px; color: #555; font-weight: bold;">Observacoes</label>
+                <textarea name="observacoes" required rows="3" placeholder="O que foi tratado no atendimento" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
+            </div>
+
+            <div style="grid-column: span 2;">
+                <label style="font-size: 12px; color: #555; font-weight: bold;">Acordo novo</label>
+                <textarea name="acordo_novo" rows="2" placeholder="Acordos assumidos" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
+            </div>
+            <div style="grid-column: span 2;">
+                <label style="font-size: 12px; color: #555; font-weight: bold;">Proximo passo</label>
+                <textarea name="proximo_passo" rows="2" placeholder="Pendencias e acao futura" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
+            </div>
+
+            <div style="grid-column: span 4; display: flex; justify-content: flex-end;">
+                <button type="submit" style="padding: 10px 18px; background: #6a1b9a; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                    + Registrar Atendimento
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div style="padding: 16px 20px;">
+        <div style="font-weight: bold; color: #4a148c; margin-bottom: 10px;">Historico de atendimentos</div>
+        {% if atendimentos_crm %}
+            <div style="display: grid; gap: 10px;">
+                {% for item in atendimentos_crm %}
+                <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; background: #fafafa;">
+                    <div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;">
+                        <div style="font-weight: bold; color: #333;">{{ item.assunto }}</div>
+                        <div style="font-size: 12px; color: #555;">{{ item.data_atendimento|date:'d/m/Y H:i' }}</div>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-bottom: 6px;">
+                        <strong>Tipo:</strong> {{ item.get_tipo_contato_display }} |
+                        <strong>Status:</strong> {{ item.get_status_display }} |
+                        <strong>Responsavel:</strong> {{ item.responsavel|default:'-' }}
+                        {% if item.data_retorno %}
+                        | <strong>Retorno:</strong> {{ item.data_retorno|date:'d/m/Y' }}
+                        {% endif %}
+                    </div>
+                    <div style="margin-bottom: 4px;"><strong>Observacoes:</strong> {{ item.observacoes|linebreaksbr }}</div>
+                    {% if item.acordo_novo %}
+                        <div style="margin-bottom: 4px;"><strong>Acordo:</strong> {{ item.acordo_novo|linebreaksbr }}</div>
+                    {% endif %}
+                    {% if item.proximo_passo %}
+                        <div><strong>Proximo passo:</strong> {{ item.proximo_passo|linebreaksbr }}</div>
+                    {% endif %}
+
+                    <div style="margin-top: 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <details style="width: 100%;">
+                            <summary style="cursor: pointer; color: #1565c0; font-weight: bold;">✏️ Editar atendimento</summary>
+                            <form method="post" action="{% url 'editar_atendimento_crm' contrato.id item.id %}" style="margin-top: 10px; display: grid; gap: 8px; grid-template-columns: repeat(4, minmax(0, 1fr)); background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px;">
+                                {% csrf_token %}
+                                <div>
+                                    <label style="font-size: 12px; color: #555; font-weight: bold;">Tipo de contato</label>
+                                    <select name="tipo_contato" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                                        <option value="TELEFONE" {% if item.tipo_contato == 'TELEFONE' %}selected{% endif %}>Telefone</option>
+                                        <option value="WHATSAPP" {% if item.tipo_contato == 'WHATSAPP' %}selected{% endif %}>WhatsApp</option>
+                                        <option value="EMAIL" {% if item.tipo_contato == 'EMAIL' %}selected{% endif %}>E-mail</option>
+                                        <option value="PRESENCIAL" {% if item.tipo_contato == 'PRESENCIAL' %}selected{% endif %}>Presencial</option>
+                                        <option value="OUTRO" {% if item.tipo_contato == 'OUTRO' %}selected{% endif %}>Outro</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #555; font-weight: bold;">Status</label>
+                                    <select name="status" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                                        <option value="ABERTO" {% if item.status == 'ABERTO' %}selected{% endif %}>Aberto</option>
+                                        <option value="EM_ANDAMENTO" {% if item.status == 'EM_ANDAMENTO' %}selected{% endif %}>Em andamento</option>
+                                        <option value="CONCLUIDO" {% if item.status == 'CONCLUIDO' %}selected{% endif %}>Concluido</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #555; font-weight: bold;">Data de retorno</label>
+                                    <input type="date" name="data_retorno" value="{% if item.data_retorno %}{{ item.data_retorno|date:'Y-m-d' }}{% endif %}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #555; font-weight: bold;">Responsavel</label>
+                                    <input type="text" name="responsavel" value="{{ item.responsavel }}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                                </div>
+                                <div style="grid-column: span 4;">
+                                    <label style="font-size: 12px; color: #555; font-weight: bold;">Assunto</label>
+                                    <input type="text" name="assunto" required value="{{ item.assunto }}" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                                </div>
+                                <div style="grid-column: span 4;">
+                                    <label style="font-size: 12px; color: #555; font-weight: bold;">Observacoes</label>
+                                    <textarea name="observacoes" required rows="3" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">{{ item.observacoes }}</textarea>
+                                </div>
+                                <div style="grid-column: span 2;">
+                                    <label style="font-size: 12px; color: #555; font-weight: bold;">Acordo novo</label>
+                                    <textarea name="acordo_novo" rows="2" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">{{ item.acordo_novo }}</textarea>
+                                </div>
+                                <div style="grid-column: span 2;">
+                                    <label style="font-size: 12px; color: #555; font-weight: bold;">Proximo passo</label>
+                                    <textarea name="proximo_passo" rows="2" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px;">{{ item.proximo_passo }}</textarea>
+                                </div>
+                                <div style="grid-column: span 4; display: flex; justify-content: flex-end;">
+                                    <button type="submit" style="padding: 8px 14px; background: #1565c0; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Salvar alteracoes</button>
+                                </div>
+                            </form>
+                        </details>
+
+                        <form method="post" action="{% url 'excluir_atendimento_crm' contrato.id item.id %}" onsubmit="return confirm('Deseja excluir este atendimento?');" style="margin: 0;">
+                            {% csrf_token %}
+                            <button type="submit" style="padding: 8px 12px; background: #c62828; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">🗑️ Excluir</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="color: #666;">Nenhum atendimento registrado para este contrato.</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="printevo-container">
+    <div class="printevo-header">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div class="printevo-title" style="margin: 0;">📊 EVOLUÇÃO TEÓRICA DO SALDO DO FINANCIAMENTO</div>
+            <a href="{% url 'exportar_evolucao_txt' contrato.pk %}" 
+               style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 12px;">
+                📥 Baixar TXT
+            </a>
+        </div>
+        <div class="printevo-subtitle">(SALDO DEVEDOR VINCENDO)</div>
+        <div class="printevo-subtitle" style="margin-top: 10px; font-weight: bold;">COFLUHAB - CIA FLUMINENSE DE HABITAÇÃO</div>
+        <div class="printevo-subtitle">Relatório gerado em: {{ "now"|date:"d/m/Y às H:i" }}</div>
+    </div>
+    
+    <div class="info-header">
+        <div class="printevo-info">
+            <strong>CÓDIGO:</strong> {{ contrato.codigo }}
+            <strong style="margin-left: 40px;">CONJUNTO:</strong> {{ contrato.conjunto }}
+            {% if contrato.ocorrencia %}
+            <strong style="margin-left: 40px;">OCORRÊNCIA:</strong> {{ contrato.ocorrencia }}
+            {% endif %}
+        </div>
+        <div class="printevo-info">
+            <strong>NOME:</strong> 
+            {% if mutuario %}
+                {% if mutuario_nome_display %}
+                <a href="{% url 'mutuario_detail' mutuario.codigo %}">{{ mutuario_nome_display }}</a>
+                {% else %}
+                <em>(nome OCR pendente de revisão)</em>
+                {% endif %}
+            {% else %}
+                <em>(sem cadastro)</em>
+            {% endif %}
+        </div>
+        {% if mutuario %}
+        <div class="printevo-info">
+            <strong>CPF:</strong> {{ mutuario.cpf|default:"-" }}
+            {% if mutuario.ident %}
+            <strong style="margin-left: 40px;">IDENTIDADE:</strong> {{ mutuario.ident }}
+            {% endif %}
+            {% if mutuario.dtnasc %}
+            <strong style="margin-left: 40px;">DATA NASC:</strong> {{ mutuario.dtnasc|date:"d/m/Y" }}
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if cod_imovel_display %}
+        <div class="printevo-info">
+            <strong>COD IMÓVEL:</strong> {{ cod_imovel_display }}
+            {% if mutuario.codimovel %}
+            <strong style="margin-left: 40px;">COD IMÓVEL (MUT):</strong> {{ mutuario.codimovel }}
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if mutuario %}
+        <div class="printevo-info">
+            <strong>ENDEREÇO IMÓVEL:</strong> {{ mutuario.endereco|default:"-" }}, {{ mutuario.numero|default:"S/N" }}{% if mutuario.compl %} - {{ mutuario.compl }}{% endif %}
+        </div>
+        <div class="printevo-info">
+            <strong>BAIRRO:</strong> {{ mutuario.bairro|default:"-" }}
+            <strong style="margin-left: 40px;">CIDADE/UF:</strong> {{ mutuario.cidade|default:"-" }}/{{ mutuario.uf|default:"-" }}
+            <strong style="margin-left: 40px;">CEP:</strong> {{ mutuario.cep|default:"-" }}
+        </div>
+        {% endif %}
+        <div class="printevo-info">
+            {% if contrato.data_contrato %}
+            <strong>DATA CONTRATO:</strong> {{ contrato.data_contrato|date:"d/m/Y" }}
+            {% endif %}
+            {% if contrato.data_primeiro_venc %}
+            <strong style="margin-left: 20px;">DATA 1º VENC:</strong> {{ contrato.data_primeiro_venc|date:"d/m/Y" }}
+            {% endif %}
+        </div>
+        <div class="printevo-info">
+            {% if contrato.sa %}
+            <strong>SA:</strong> {{ contrato.sa }}
+            {% endif %}
+            {% if contrato.tx_juros %}
+            <strong style="margin-left: 20px;">TX JUR:</strong> {{ contrato.tx_juros }}%
+            {% endif %}
+            {% if contrato.prazo %}
+            <strong style="margin-left: 20px;">PRAZO:</strong> {{ contrato.prazo }} meses
+            {% endif %}
+        </div>
+        <div class="printevo-info">
+            {% if contrato.cat_prof %}
+            <strong>CAT PROF:</strong> {{ contrato.cat_prof }}
+            {% endif %}
+            {% if contrato.pr %}
+            <strong style="margin-left: 20px;">PR:</strong> {{ contrato.pr }}
+            {% endif %}
+        </div>
+        <div class="printevo-info" style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #90caf9;">
+            <strong>📋 TOTAL PARCELAS:</strong> {{ total_parcelas }} <span class="summary-badge">{{ total_parcelas }} meses</span>
+            {% if parcelas_simuladas %}
+            <strong style="margin-left: 40px;">🔴 RESÍDUO FCVS (simulado):</strong> <span class="highlight-value" style="color:#c62828;">R$ {{ fcvs_residual|floatformat:2 }}</span>
+            {% else %}
+            <strong style="margin-left: 40px;">💰 SALDO ATUAL:</strong> <span class="highlight-value">R$ {{ saldo_atual|floatformat:2 }}</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div style="background: #fff3e0; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #ff9800;">
+        <h3 style="margin: 0 0 10px 0; color: #e65100; font-size: 13px;">📈 RESUMO ESTATÍSTICO</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; font-size: 11px;">
+            <div>
+                <strong>Total de Parcelas:</strong> {{ total_parcelas }}<br>
+                <strong>Parcelas Pagas:</strong> <span style="color: #2e7d32;">{{ parcelas|length|add:"-"|add:total_parcelas }}</span>
+            </div>
+            <div>
+                <strong>Primeira Parcela:</strong> {{ parcelas.0.dtvenc|date:"d/m/Y"|default:"-" }}<br>
+                <strong>Última Parcela:</strong> {% with ultima=parcelas|last %}{% if ultima %}{{ ultima.dtvenc|date:"d/m/Y" }}{% else %}-{% endif %}{% endwith %}
+            </div>
+            <div>
+                <strong>Saldo Inicial:</strong> R$ {{ saldo_inicial_exibicao|floatformat:2 }}<br>
+                {% if parcelas_simuladas %}
+                <strong>Resíduo FCVS:</strong> <span class="highlight-value" style="color:#c62828; font-weight:bold;">R$ {{ fcvs_residual|floatformat:2 }}</span>
+                {% else %}
+                <strong>Saldo Atual:</strong> <span class="highlight-value">R$ {{ saldo_atual|floatformat:2 }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <table class="printevo-table">
+        <thead>
+            <tr>
+                <th>DT VENC</th>
+                <th>MENS</th>
+                <th>JUROS</th>
+                <th>AMORT</th>
+                <th>CORR MONET</th>
+                <th>SD DEV</th>
+                <th>SEGUROS</th>
+                <th>TCA</th>
+                <th>FCVS MÊS</th>
+                <th>RZ PROGR</th>
+                <th>ENC MENSAL T</th>
+                <th>REAJ</th>
+                <th>MOEDA</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for parcela in parcelas %}
+            <tr {% if parcela.dtpgto %}style="background: #e8f5e9 !important;"{% elif parcela.simulado %}style="background: #f0f8ff !important;"{% endif %} title="{% if parcela.dtpgto %}✓ Paga em {{ parcela.dtpgto|date:"d/m/Y" }}{% elif parcela.simulado %}Parcela simulada (sem dado real no banco){% else %}Pendente{% endif %}">
+                <td>
+                    {{ parcela.dtvenc|date:"d/m/Y"|default:"-" }}
+                    {% if parcela.dtpgto %}<br><small style="color: #2e7d32;">✓</small>{% endif %}
+                    {% if parcela.simulado %}<br><small style="color: #1565c0; font-style:italic;">sim</small>{% endif %}
+                </td>
+                <td>{{ parcela.nmens|stringformat:"03d" }}</td>
+                <td style="text-align:right;">{{ parcela.juros|floatformat:2|default:"0,00" }}</td>
+                <td style="text-align:right;">{{ parcela.amort|floatformat:2|default:"0,00" }}</td>
+                <td style="text-align:right;">{% if parcela.corr_monet and parcela.corr_monet != 0 %}{{ parcela.corr_monet|floatformat:2 }}{% endif %}</td>
+                <td style="text-align:right;"><strong style="color: {% if parcela.sddev_original %}#1565c0{% elif parcela.sddev < 1000 %}#2e7d32{% elif parcela.sddev > 100000 %}#c62828{% else %}#333{% endif %};">{% if parcela.sddev_original %}{{ parcela.sddev_original|floatformat:2 }}{% else %}{{ parcela.sddev|floatformat:2|default:"0,00" }}{% endif %}</strong></td>
+                <td style="text-align:right;">{{ parcela.seguro|floatformat:2|default:"0,00" }}</td>
+                <td style="text-align:right;">{{ parcela.tca|floatformat:2|default:"0,00" }}</td>
+                <td style="text-align:right; color: {% if parcela.fcvs and parcela.fcvs > 0 %}#c62828{% else %}#2e7d32{% endif %}; font-weight:bold;">{{ parcela.fcvs|floatformat:2|default:"0,00" }}</td>
+                <td>{% if parcela.rz_progr and parcela.rz_progr != 0 %}{{ parcela.rz_progr|floatformat:6 }}{% endif %}</td>
+                <td style="text-align:right;"><strong>{{ parcela.enc_mensal_total|floatformat:2 }}</strong></td>
+                <td>{% if parcela.reaj %}<span class="reaj-indicator">{{ parcela.reaj|floatformat:6 }}</span>{% endif %}</td>
+                <td style="text-align:center; font-size:10px; color:#555;">{% if parcela.moeda %}{{ parcela.moeda }}{% endif %}</td>
+            </tr>
+            {% if parcela.sddev_original and forloop.last %}
+            <tr style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left: 4px solid #ff9800; font-weight: bold;">
+                <td colspan="2" style="text-align: center; padding: 12px; color: #e65100;">
+                    <span style="font-size: 11px;">📊 SALDO ATUALIZADO</span><br>
+                    <small style="font-weight: normal; color: #666;">(nov/2025)</small>
+                </td>
+                <td colspan="3"></td>
+                <td style="text-align: right; padding: 12px;">
+                    <strong style="color: #2e7d32; font-size: 13px;">R$ {{ parcela.sddev|floatformat:2 }}</strong>
+                </td>
+                <td colspan="7" style="padding-left: 15px; color: #666; font-size: 10px; font-weight: normal;">
+                    <em>Valor convertido para Real + correção IPCA (mai/2019 a nov/2025: +41,46%)</em>
+                </td>
+            </tr>
+            {% endif %}
+            {% empty %}
+            <tr>
+                <td colspan="13" style="text-align: center;">Nenhuma parcela encontrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- NOVA SEÇÃO: Evolução Histórica SFH (integração com view) -->
+{% if contrato.data_contrato %}
+<div class="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200" style="margin-top: 30px; margin-bottom: 20px;">
+    <h2 class="text-2xl font-bold mb-4 text-blue-800">📈 Evolução Histórica do Contrato SFH</h2>
+    <p class="mb-4 text-gray-700">
+        Simulação de saldos desde {{ contrato.data_contrato|date:"Y" }} até o fim do contrato,
+        com correção monetária histórica (IPCA/ORTN 1983-1990, TR 1991+) e PES pelo Salário Mínimo.
+        Anomalias detectadas: <strong style="color: {% if resumo_anomalias > 0 %}red{% else %}green{% endif %};">{{ resumo_anomalias }}</strong>
+        {% if fcvs_residual %}
+        | <strong style="color: #c62828;">FCVS TOTAL: R$ {{ fcvs_residual|floatformat:2 }}</strong>
+        {% endif %}
+    </p>
+    
+    {% if resumo_anomalias > 0 %}
+    <div class="mb-4 p-3 bg-yellow-100 rounded border border-yellow-300">
+        <p class="text-yellow-800"><strong>Atenção:</strong> {{ resumo_anomalias }} anomalias (ex: amortização negativa ou saldo residual em mudanças de moeda como 1986/1994). Verifique flags vermelhas na tabela abaixo – pode precisar de auditoria.</p>
+    </div>
+    {% else %}
+    <div class="mb-4 p-3 bg-green-100 rounded border border-green-300">
+        <p class="text-green-800">✅ Evolução OK! Nenhum erro crítico na simulação histórica.</p>
+    </div>
+    {% endif %}
+    
+    <div class="overflow-x-auto shadow-md rounded-lg">
+        <table class="printevo-table" style="font-size: 11px; margin-top: 10px;">
+            <thead>
+                <tr>
+                    <th>Mês</th>
+                    <th>Data</th>
+                    <th>Saldo Anterior</th>
+                    <th>Correção CM</th>
+                    <th>Amortização</th>
+                    <th>Juros</th>
+                    <th>Encargo Real</th>
+                    <th>Prest. PES</th>
+                    <th>FCVS Mês</th>
+                    <th>FCVS Acum.</th>
+                    <th>Novo Saldo</th>
+                    <th>Índice (%)</th>
+                    <th>Moeda</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in evolucao_historica %}
+                <tr {% if item.anomalia == 'SIMULADO' %}style="background: #f0f8ff;"{% endif %}>
+                    <td>{{ item.mes }}</td>
+                    <td>{{ item.data }}</td>
+                    <td style="text-align:right;">{{ item.moeda }} {{ item.saldo_ant|floatformat:2 }}</td>
+                    <td style="text-align:right;">{{ item.moeda }} {{ item.correcao|floatformat:2 }}</td>
+                    <td style="text-align:right;">{% if item.amort %}{{ item.moeda }} {{ item.amort|floatformat:2 }}{% else %}-{% endif %}</td>
+                    <td style="text-align:right;">{% if item.juros %}{{ item.moeda }} {{ item.juros|floatformat:4 }}{% else %}-{% endif %}</td>
+                    <td style="text-align:right; font-weight:bold;">{% if item.encargo %}{{ item.moeda }} {{ item.encargo|floatformat:2 }}{% else %}-{% endif %}</td>
+                    <td style="text-align:right; color:#1565c0;">{% if item.prest_pes %}{{ item.moeda }} {{ item.prest_pes|floatformat:4 }}{% else %}-{% endif %}</td>
+                    <td style="text-align:right; color:{% if item.fcvs_mes > 0 %}#c62828{% else %}#2e7d32{% endif %}; font-weight:bold;">{% if item.fcvs_mes is not None %}{{ item.moeda }} {{ item.fcvs_mes|floatformat:2 }}{% else %}-{% endif %}</td>
+                    <td style="text-align:right; color:#d32f2f; font-weight:bold;">{{ item.moeda }} {{ item.fcvs_excedente|floatformat:2 }}</td>
+                    <td style="text-align:right;">{{ item.moeda }} {{ item.saldo_novo|floatformat:2 }}</td>
+                    <td style="text-align:center;">{{ item.indice }}</td>
+                    <td style="text-align:center;"><strong>{{ item.moeda }}</strong></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="13" style="text-align: center;">Nenhum dado de evolução disponível.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <p class="mt-4 text-sm text-gray-600 italic">Dica: Para contratos de 1984, foque em flags vermelhas (hiperinflação cruzado). Atualize 'indices_historicos.csv' para dados exatos do BC.</p>
+</div>
+{% endif %}
+<!-- Fim da nova seção -->
+</div>
+
+<div class="actions">
+    <a href="{% url 'contratos' %}">⬅️ Voltar para Contratos</a>
+    <a href="{% url 'index' %}">🏠 Painel Principal</a>
+    <a href="{% url 'inspecionar_contrato' contrato.id %}" style="background: linear-gradient(135deg, #a855f7, #7c3aed); color: white;">🔍 Inspecionar Qualidade</a>
+    <a href="{% url 'relatorio_fh1' contrato.id %}" style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white;">📋 Relatório FH1</a>
+    <a href="{% url 'fh1_completo' contrato.id %}" style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white;">📄 FH1 Completo</a>
+    <a href="#" onclick="window.print(); return false;">🖨️ Imprimir Relatório</a>
+    <a href="#" onclick="document.querySelector('.printevo-table').scrollIntoView({behavior: 'smooth'}); return false;">📊 Ver Tabela</a>
+</div>
+
+<script>
+    // Adicionar tooltips nas linhas da tabela
+    document.querySelectorAll('.printevo-table tbody tr').forEach(row => {
+        row.addEventListener('click', function() {
+            const cells = this.querySelectorAll('td');
+            const mens = cells[1].textContent;
+            const sddev = cells[5].textContent;
+            alert(`Parcela ${mens}\nSaldo Devedor: R$ ${sddev}`);
+        });
+    });
+    
+    // Destacar parcelas com reajuste
+    document.querySelectorAll('.reaj-indicator').forEach(elem => {
+        const row = elem.closest('tr');
+        row.style.borderLeft = '4px solid #ff6f00';
+        row.style.fontWeight = 'bold';
+    });
+    
+    // ===== VALIDAÇÃO PREVENTIVA (OPÇÃO 3) =====
+    function validarContrato() {
+        const btn = event.target;
+        btn.disabled = true;
+        btn.innerHTML = '⏳ Validando...';
+        
+        fetch('/contrato/{{ contrato.id }}/validar/')
+            .then(response => response.json())
+            .then(data => {
+                mostrarResultadoValidacao(data);
+            })
+            .catch(error => {
+                alert('❌ Erro ao validar: ' + error);
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = '🔍 Validar Dados';
+            });
+    }
+    
+    function mostrarResultadoValidacao(data) {
+        // Criar modal
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s;
+        `;
+        
+        const content = document.createElement('div');
+        content.style.cssText = `
+            background: white;
+            border-radius: 16px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s;
+        `;
+        
+        let html = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0; color: #1e3c72;">
+                    ${data.valido ? '✅' : '⚠️'} Resultado da Validação
+                </h2>
+                <button onclick="this.closest('[style*=fixed]').remove()" style="
+                    background: #ef4444;
+                    color: white;
+                    border: none;
+                    border-radius: 50%;
+                    width: 36px;
+                    height: 36px;
+                    font-size: 20px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">×</button>
+            </div>
+            
+            <div style="background: ${data.pode_exportar ? '#d1fae5' : '#fee2e2'}; padding: 16px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid ${data.pode_exportar ? '#10b981' : '#ef4444'};">
+                <h3 style="margin: 0 0 8px 0; color: ${data.pode_exportar ? '#065f46' : '#991b1b'};">
+                    ${data.pode_exportar ? '✅ Pode Exportar' : '❌ Exportação Bloqueada'}
+                </h3>
+                <p style="margin: 0; color: ${data.pode_exportar ? '#047857' : '#dc2626'};">
+                    ${data.pode_exportar ? 'Contrato válido para exportação' : data.motivo_bloqueio}
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                <div style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 16px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 32px; font-weight: bold;">${data.resumo.erros}</div>
+                    <div style="font-size: 12px; opacity: 0.9;">Erros Críticos</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 16px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 32px; font-weight: bold;">${data.resumo.warnings}</div>
+                    <div style="font-size: 12px; opacity: 0.9;">Avisos</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; padding: 16px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 32px; font-weight: bold;">${data.resumo.info}</div>
+                    <div style="font-size: 12px; opacity: 0.9;">Informações</div>
+                </div>
+            </div>
+        `;
+        
+        // Erros
+        if (data.detalhes.erros.length > 0) {
+            html += `
+                <h3 style="color: #dc2626; margin-top: 24px;">❌ Erros Críticos</h3>
+                <div style="background: #fee2e2; border-radius: 8px; padding: 16px;">
+            `;
+            data.detalhes.erros.forEach(erro => {
+                html += `
+                    <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #fca5a5;">
+                        <div style="font-weight: bold; color: #991b1b; margin-bottom: 4px;">
+                            📍 ${erro.campo}
+                        </div>
+                        <div style="color: #7f1d1d; margin-bottom: 4px;">
+                            ${erro.mensagem}
+                        </div>
+                        <div style="color: #b91c1c; font-size: 13px; font-style: italic;">
+                            💡 ${erro.sugestao}
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+        }
+        
+        // Warnings
+        if (data.detalhes.warnings.length > 0) {
+            html += `
+                <h3 style="color: #d97706; margin-top: 24px;">⚠️ Avisos</h3>
+                <div style="background: #fef3c7; border-radius: 8px; padding: 16px;">
+            `;
+            data.detalhes.warnings.forEach(warn => {
+                html += `
+                    <div style="margin-bottom: 12px;">
+                        <div style="font-weight: bold; color: #92400e; margin-bottom: 4px;">
+                            ${warn.campo}
+                        </div>
+                        <div style="color: #78350f; font-size: 14px;">
+                            ${warn.mensagem}
+                        </div>
+                        ${warn.sugestao ? `<div style="color: #b45309; font-size: 13px; font-style: italic; margin-top: 4px;">💡 ${warn.sugestao}</div>` : ''}
+                    </div>
+                `;
+            });
+            html += '</div>';
+        }
+        
+        // Informações
+        if (data.detalhes.info.length > 0) {
+            html += `
+                <h3 style="color: #2563eb; margin-top: 24px;">ℹ️ Informações</h3>
+                <div style="background: #dbeafe; border-radius: 8px; padding: 16px;">
+            `;
+            data.detalhes.info.forEach(info => {
+                html += `
+                    <div style="margin-bottom: 8px; color: #1e40af; font-size: 14px;">
+                        • ${info.mensagem}
+                    </div>
+                `;
+            });
+            html += '</div>';
+        }
+        
+        // Botões de ação
+        html += `
+            <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: flex-end;">
+                <button onclick="this.closest('[style*=fixed]').remove()" style="
+                    padding: 10px 20px;
+                    background: #6b7280;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                ">Fechar</button>
+                ${data.pode_exportar ? `
+                    <a href="/contrato/{{ contrato.id }}/exportar-evolucao-txt/" style="
+                        padding: 10px 20px;
+                        background: linear-gradient(135deg, #10b981, #059669);
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 8px;
+                        font-weight: 600;
+                    ">📥 Exportar FH1</a>
+                ` : ''}
+            </div>
+        `;
+        
+        content.innerHTML = html;
+        modal.appendChild(content);
+        document.body.appendChild(modal);
+        
+        // Fechar ao clicar fora
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+    }
+</script>
+
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+</style>
+
+{% endblock %}

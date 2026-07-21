@@ -1,0 +1,638 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Relatório Caixa Econômica Federal - CoFluhab{% endblock %}
+
+{% block content %}
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .stat-card {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        border-left: 4px solid #ff9800;
+    }
+    
+    .stat-card.primary {
+        border-left-color: #2a5298;
+    }
+    
+    .stat-card.success {
+        border-left-color: #4caf50;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+        color: #7f8c8d;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+    
+    .export-section {
+        background: linear-gradient(135deg, #ff9800, #f57c00);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(255,152,0,0.3);
+        margin-bottom: 30px;
+        color: white;
+    }
+    
+    .export-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .export-description {
+        font-size: 14px;
+        margin-bottom: 24px;
+        opacity: 0.95;
+        line-height: 1.6;
+    }
+    
+    .export-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .btn-export {
+        padding: 14px 28px;
+        background: white;
+        color: #f57c00;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .btn-export:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    .filters-section {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        margin-bottom: 24px;
+    }
+    
+    .filters-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .filter-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .filter-group select {
+        padding: 10px 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+    
+    .filter-group select:focus {
+        outline: none;
+        border-color: #ff9800;
+    }
+    
+    .filters-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #2a5298, #1e3c72);
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(42,82,152,0.4);
+    }
+    
+    .btn-secondary {
+        background: #ecf0f1;
+        color: #2c3e50;
+    }
+    
+    .btn-secondary:hover {
+        background: #bdc3c7;
+    }
+    
+    .table-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+    
+    .table-header {
+        padding: 20px 24px;
+        background: linear-gradient(135deg, #ff9800, #f57c00);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .table-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+    
+    .table-caixa {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .table-caixa thead {
+        background: #f8f9fa;
+    }
+    
+    .table-caixa th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        color: #2c3e50;
+        border-bottom: 2px solid #e0e0e0;
+        font-size: 13px;
+    }
+    
+    .table-caixa td {
+        padding: 16px;
+        border-bottom: 1px solid #ecf0f1;
+        font-size: 14px;
+    }
+    
+    .table-caixa tbody tr:hover {
+        background: #fff3e0;
+    }
+    
+    .badge {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    
+    .badge-conjunto {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+    
+    .alert-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+    }
+    
+    .alert-box h4 {
+        margin-bottom: 8px;
+        color: #856404;
+    }
+    
+    .alert-box ul {
+        margin: 8px 0 0 20px;
+        color: #856404;
+    }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 24px;
+        background: white;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    .pagination a,
+    .pagination span {
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: 500;
+    }
+    
+    .pagination a:hover {
+        background: #ecf0f1;
+    }
+    
+    .pagination .current {
+        background: #ff9800;
+        color: white;
+    }
+
+    .tabs-nav {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+    }
+
+    .tab-link {
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid #dfe6e9;
+        background: #ffffff;
+        color: #2c3e50;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+    .tab-link:hover {
+        border-color: #ff9800;
+        color: #e65100;
+    }
+
+    .tab-link.active {
+        background: #ff9800;
+        border-color: #ff9800;
+        color: #fff;
+    }
+
+    .seguro-meta {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 18px;
+    }
+</style>
+
+<div class="page-header">
+    <h1 class="page-title">🏦 Relatório para Caixa Econômica Federal</h1>
+    <p style="color: #7f8c8d; margin-top: 8px;">
+        Geração de arquivos FH1 (Ficha de Habilitação ao FCVS) para prestação de contas à CEF
+    </p>
+</div>
+
+<div class="alert-box">
+    <h4>ℹ️ Informações Importantes</h4>
+    <ul>
+        <li>Os arquivos FH1 são gerados no formato exigido pela Caixa Econômica Federal</li>
+        <li>Cada arquivo contém dados do contrato, mutuário e evolução do saldo devedor</li>
+        <li>Os valores são convertidos automaticamente para Real usando as taxas históricas</li>
+        <li>Você pode exportar contratos individuais ou em lote (ZIP)</li>
+    </ul>
+</div>
+
+<div class="tabs-nav">
+    <a class="tab-link {% if active_tab == 'geral' %}active{% endif %}" href="?aba=geral{% if conjunto_filtro %}&conjunto={{ conjunto_filtro }}{% endif %}">📊 Visão Geral</a>
+    <a class="tab-link {% if active_tab == 'seguro' %}active{% endif %}" href="?aba=seguro{% if conjunto_filtro %}&conjunto={{ conjunto_filtro }}{% endif %}">🛡️ Aba Seguro</a>
+</div>
+
+{% if active_tab == 'geral' %}
+
+<div class="stats-grid">
+    <div class="stat-card primary">
+        <div class="stat-label">📊 Total de Contratos</div>
+        <div class="stat-value">{{ total_contratos }}</div>
+    </div>
+    
+    <div class="stat-card success">
+        <div class="stat-label">💰 Saldo Total</div>
+        <div class="stat-value">R$ {{ total_saldo|floatformat:2 }}</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-label">🏘️ Conjuntos</div>
+        <div class="stat-value">{{ estatisticas_conjunto|length }}</div>
+    </div>
+</div>
+
+<div class="export-section">
+    <div class="export-title">
+        <span>📦</span>
+        <span>Exportação em Lote</span>
+    </div>
+    <div class="export-description">
+        Exporte todos os contratos filtrados em um único arquivo ZIP contendo múltiplos arquivos FH1.
+        Ideal para envio em massa para a Caixa Econômica Federal.
+    </div>
+    <div class="export-actions">
+        <a href="?exportar_lote=zip{% if conjunto_filtro %}&conjunto={{ conjunto_filtro }}{% endif %}&aba={{ active_tab }}" 
+           class="btn-export">
+            <span>📥</span>
+            <span>Baixar ZIP com Todos os Contratos</span>
+        </a>
+        {% if conjunto_filtro %}
+        <a href="?exportar_lote=zip&conjunto={{ conjunto_filtro }}&aba={{ active_tab }}" 
+           class="btn-export" 
+           style="background: #ffe0b2; color: #e65100;">
+            <span>🏘️</span>
+            <span>Baixar ZIP do Conjunto {{ conjunto_filtro }}</span>
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="filters-section">
+    <form method="get" action="{% url 'relatorio_caixa' %}">
+        <input type="hidden" name="aba" value="{{ active_tab }}">
+        <div class="filters-grid">
+            <div class="filter-group">
+                <label for="conjunto">🏘️ Filtrar por Conjunto:</label>
+                <select name="conjunto" id="conjunto">
+                    <option value="">Todos os conjuntos</option>
+                    {% for conjunto in conjuntos %}
+                        <option value="{{ conjunto.conjunto }}" {% if conjunto_filtro == conjunto.conjunto %}selected{% endif %}>
+                            {{ conjunto.conjunto }} - {{ conjunto.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <div class="filters-actions">
+            <button type="submit" class="btn btn-primary">🔍 Filtrar</button>
+            <a href="{% url 'relatorio_caixa' %}?aba={{ active_tab }}" class="btn btn-secondary">🔄 Limpar</a>
+        </div>
+    </form>
+</div>
+
+{% if estatisticas_conjunto %}
+<div class="filters-section">
+    <h3 style="margin-bottom: 16px; color: #2c3e50;">📊 Estatísticas por Conjunto</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+        {% for codigo, stats in estatisticas_conjunto.items %}
+        <div style="padding: 16px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #ff9800;">
+            <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">
+                {{ codigo }} - {{ stats.nome }}
+            </div>
+            <div style="font-size: 13px; color: #7f8c8d;">
+                <span>{{ stats.qtd_contratos }} contratos</span>
+                <span style="margin-left: 12px;">•</span>
+                <span style="margin-left: 12px; font-weight: 600; color: #f57c00;">
+                    R$ {{ stats.total_saldo|floatformat:2 }}
+                </span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="table-container">
+    <div class="table-header">
+        <div class="table-title">📋 Lista de Contratos</div>
+        <div style="font-size: 13px;">
+            Exibindo {{ contratos|length }} de {{ total_contratos }} contratos
+        </div>
+    </div>
+    
+    {% if contratos %}
+    <table class="table-caixa">
+        <thead>
+            <tr>
+                <th>Conjunto</th>
+                <th>Nº Contrato</th>
+                <th>Mutuário</th>
+                <th>CPF</th>
+                <th style="text-align: center;">Data Contrato</th>
+                <th style="text-align: right;">Prazo (meses)</th>
+                <th style="text-align: right;">Saldo Atual</th>
+                <th style="text-align: center;">Exportar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in contratos %}
+            <tr>
+                <td>
+                    <span class="badge badge-conjunto">
+                        {{ item.conjunto }}
+                    </span>
+                </td>
+                <td>
+                    <strong>{{ item.contrato.codigo }}</strong>
+                </td>
+                <td>
+                    {% if item.mutuario %}
+                        {{ item.mutuario.nome|truncatewords:5 }}
+                    {% else %}
+                        <span style="color: #7f8c8d; font-style: italic;">Sem mutuário</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.mutuario and item.mutuario.cpf %}
+                        {{ item.mutuario.cpf }}
+                    {% else %}
+                        <span style="color: #7f8c8d;">-</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: center;">
+                    {% if item.data_contrato %}
+                        {{ item.data_contrato|date:"d/m/Y" }}
+                    {% else %}
+                        <span style="color: #7f8c8d;">-</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: right;">
+                    {% if item.prazo %}
+                        {{ item.prazo }}
+                    {% else %}
+                        <span style="color: #7f8c8d;">-</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: right;">
+                    <strong style="color: #ff9800;">R$ {{ item.saldo_atual|floatformat:2 }}</strong>
+                </td>
+                <td style="text-align: center;">
+                    <a href="{% url 'exportar_evolucao_txt' item.contrato.id %}" 
+                       style="color: #ff9800; text-decoration: none; font-weight: 600;"
+                       title="Baixar arquivo FH1">
+                        📥 FH1
+                    </a>
+                    <span style="margin: 0 8px;">|</span>
+                    <a href="{% url 'contrato_detail' item.contrato.id %}" 
+                       style="color: #2a5298; text-decoration: none; font-weight: 600;"
+                       title="Ver detalhes">
+                        👁️ Ver
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% if contratos.has_other_pages %}
+    <div class="pagination">
+        {% if contratos.has_previous %}
+            <a href="?page=1&aba={{ active_tab }}{% if conjunto_filtro %}&conjunto={{ conjunto_filtro }}{% endif %}">« Primeira</a>
+            <a href="?page={{ contratos.previous_page_number }}&aba={{ active_tab }}{% if conjunto_filtro %}&conjunto={{ conjunto_filtro }}{% endif %}">‹ Anterior</a>
+        {% endif %}
+        
+        <span class="current">Página {{ contratos.number }} de {{ contratos.paginator.num_pages }}</span>
+        
+        {% if contratos.has_next %}
+            <a href="?page={{ contratos.next_page_number }}&aba={{ active_tab }}{% if conjunto_filtro %}&conjunto={{ conjunto_filtro }}{% endif %}">Próxima ›</a>
+            <a href="?page={{ contratos.paginator.num_pages }}&aba={{ active_tab }}{% if conjunto_filtro %}&conjunto={{ conjunto_filtro }}{% endif %}">Última »</a>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <div style="padding: 60px 24px; text-align: center; color: #7f8c8d;">
+        <div style="font-size: 64px; margin-bottom: 16px;">📭</div>
+        <h3>Nenhum contrato encontrado</h3>
+        <p>Tente ajustar os filtros</p>
+    </div>
+    {% endif %}
+</div>
+
+{% else %}
+
+<div class="filters-section">
+    <form method="get" action="{% url 'relatorio_caixa' %}">
+        <input type="hidden" name="aba" value="{{ active_tab }}">
+        <div class="filters-grid">
+            <div class="filter-group">
+                <label for="conjunto">🏘️ Filtrar por Conjunto:</label>
+                <select name="conjunto" id="conjunto">
+                    <option value="">Todos os conjuntos</option>
+                    {% for conjunto in conjuntos %}
+                        <option value="{{ conjunto.conjunto }}" {% if conjunto_filtro == conjunto.conjunto %}selected{% endif %}>
+                            {{ conjunto.conjunto }} - {{ conjunto.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="filters-actions">
+            <button type="submit" class="btn btn-primary">🔍 Filtrar</button>
+            <a href="{% url 'relatorio_caixa' %}?aba={{ active_tab }}" class="btn btn-secondary">🔄 Limpar</a>
+        </div>
+    </form>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card primary">
+        <div class="stat-label">🛡️ Total de Seguro (Amostra)</div>
+        <div class="stat-value">R$ {{ total_seguro_carteira|floatformat:2 }}</div>
+    </div>
+    <div class="stat-card success">
+        <div class="stat-label">✅ Seguro Pago</div>
+        <div class="stat-value">R$ {{ total_seguro_pago|floatformat:2 }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">⏳ Seguro em Aberto</div>
+        <div class="stat-value">R$ {{ total_seguro_aberto|floatformat:2 }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">📄 Parcelas com Seguro</div>
+        <div class="stat-value">{{ total_parcelas_com_seguro }}</div>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="table-header">
+        <div class="table-title">🧾 Confrontação de Seguro por Contrato</div>
+        <div style="font-size: 13px;">Contratos com seguro: {{ contratos_com_seguro }} • Sem seguro: {{ contratos_sem_seguro }}</div>
+    </div>
+
+    <div style="padding: 16px 24px 0 24px;">
+        <p class="seguro-meta">
+            A confrontação considera os contratos com parcelas carregadas no filtro atual.
+            Esta visão ajuda a identificar exposição de seguro, pagamentos e pendências para análise do relatório CEF.
+        </p>
+    </div>
+
+    {% if contratos_seguro %}
+    <table class="table-caixa">
+        <thead>
+            <tr>
+                <th>Conjunto</th>
+                <th>Nº Contrato</th>
+                <th>Mutuário</th>
+                <th style="text-align: right;">Parcelas com Seguro</th>
+                <th style="text-align: right;">Parcelas sem Seguro</th>
+                <th style="text-align: right;">Seguro Total</th>
+                <th style="text-align: right;">Seguro Pago</th>
+                <th style="text-align: right;">Seguro em Aberto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in contratos_seguro %}
+            <tr>
+                <td><span class="badge badge-conjunto">{{ item.conjunto }}</span></td>
+                <td><strong>{{ item.codigo }}</strong></td>
+                <td>
+                    {% if item.mutuario %}
+                        {{ item.mutuario.nome|truncatewords:5 }}
+                    {% else %}
+                        <span style="color: #7f8c8d; font-style: italic;">Sem mutuário</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: right;">{{ item.parcelas_com_seguro }}</td>
+                <td style="text-align: right;">{{ item.parcelas_sem_seguro }}</td>
+                <td style="text-align: right; font-weight: 600;">R$ {{ item.seguro_total|floatformat:2 }}</td>
+                <td style="text-align: right; color: #2e7d32;">R$ {{ item.seguro_pago|floatformat:2 }}</td>
+                <td style="text-align: right; color: #e65100; font-weight: 600;">R$ {{ item.seguro_aberto|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div style="padding: 60px 24px; text-align: center; color: #7f8c8d;">
+        <div style="font-size: 64px; margin-bottom: 16px;">🛡️</div>
+        <h3>Nenhum dado de seguro encontrado</h3>
+        <p>Não há parcelas com seguro nos contratos carregados para o filtro atual.</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,293 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Interpretar Retorno CEF{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>📊 Interpretar Retorno CEF</h2>
+            <p class="text-muted">Interpretação automática de arquivos de retorno da CEF</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Formulário de Upload -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">📤 Upload de Retorno</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="tipo_retorno">Tipo de Retorno:</label>
+                            <select name="tipo_retorno" id="tipo_retorno" class="form-control" required>
+                                <option value="FCVS">FCVS - Habilitações</option>
+                                <option value="CADMUT">CADMUT - Cadastros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="arquivo">Arquivo de Retorno .txt:</label>
+                            <input type="file" name="arquivo" id="arquivo" class="form-control-file" accept=".txt" required>
+                            <small class="form-text text-muted">
+                                Arquivo de retorno baixado do portal SIWFC
+                            </small>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-block">
+                            <i class="fas fa-cog"></i> Interpretar Retorno
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Últimos Retornos -->
+            {% if ultimos_retornos %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6 class="mb-0">📜 Últimos Retornos</h6>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for retorno in ultimos_retornos %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ retorno.arquivo }}</strong>
+                                    <br>
+                                    <small class="text-muted">
+                                        {{ retorno.data_retorno|date:"d/m/Y H:i" }}
+                                        <br>
+                                        Protocolo: {{ retorno.protocolo }}
+                                    </small>
+                                </div>
+                                <span class="badge badge-{% if retorno.registros_rejeitados == 0 %}success{% elif retorno.registros_aceitos == 0 %}danger{% else %}warning{% endif %}">
+                                    {{ retorno.tipo_retorno }}
+                                </span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Resultados da Interpretação -->
+        <div class="col-md-8">
+            {% if relatorio %}
+            
+            <!-- Ação Requerida -->
+            {% if acao_requerida %}
+            <div class="card mb-3">
+                <div class="card-header 
+                    {% if acao_requerida == 'SUCESSO' %}bg-success
+                    {% elif acao_requerida == 'CORRIGIR_E_REENVIAR' %}bg-danger
+                    {% elif acao_requerida == 'REVISAR' %}bg-warning
+                    {% else %}bg-info
+                    {% endif %} text-white">
+                    <h4 class="mb-0">
+                        {% if acao_requerida == 'SUCESSO' %}✅ Processamento Bem-sucedido
+                        {% elif acao_requerida == 'CORRIGIR_E_REENVIAR' %}❌ Correção Necessária
+                        {% elif acao_requerida == 'REVISAR' %}⚠️ Revisão Necessária
+                        {% else %}ℹ️ Verificar Detalhes
+                        {% endif %}
+                    </h4>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Resumo -->
+            {% if resumo %}
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">📊 Resumo do Retorno</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <h3 class="text-primary">{{ resumo.total_registros|default:0 }}</h3>
+                            <p class="text-muted">Total</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-success">{{ resumo.aceitos|default:0 }}</h3>
+                            <p class="text-muted">Aceitos</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-danger">{{ resumo.rejeitados|default:0 }}</h3>
+                            <p class="text-muted">Rejeitados</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-warning">{{ resumo.com_critica|default:0 }}</h3>
+                            <p class="text-muted">Com Crítica</p>
+                        </div>
+                    </div>
+                    
+                    {% if resumo.data_processamento %}
+                    <hr>
+                    <p class="mb-0 text-center text-muted">
+                        <small>Processado em: {{ resumo.data_processamento }}</small>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Mensagens por Contrato -->
+            {% if mensagens %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">📝 Detalhes por Contrato</h5>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="mensagensAccordion">
+                        {% for msg in mensagens %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{ forloop.counter }}">
+                                <h6 class="mb-0">
+                                    <button class="btn btn-link d-flex justify-content-between align-items-center w-100" 
+                                            type="button" 
+                                            data-toggle="collapse" 
+                                            data-target="#collapse{{ forloop.counter }}"
+                                            style="text-decoration: none;">
+                                        <span>
+                                            {% if msg.status == 'SUCESSO' %}✅{% elif msg.status == 'ERRO' %}❌{% else %}⚠️{% endif %}
+                                            Contrato {{ msg.codigo_contrato|default:"Sem código" }}
+                                        </span>
+                                        <span class="badge badge-{% if msg.status == 'SUCESSO' %}success{% elif msg.status == 'ERRO' %}danger{% else %}warning{% endif %}">
+                                            {{ msg.status }}
+                                        </span>
+                                    </button>
+                                </h6>
+                            </div>
+                            <div id="collapse{{ forloop.counter }}" 
+                                 class="collapse {% if forloop.first %}show{% endif %}" 
+                                 data-parent="#mensagensAccordion">
+                                <div class="card-body">
+                                    <p><strong>Mensagem:</strong> {{ msg.mensagem }}</p>
+                                    
+                                    {% if msg.codigos_critica %}
+                                    <div class="alert alert-warning">
+                                        <strong>Códigos de Crítica:</strong>
+                                        <ul class="mb-0">
+                                            {% for codigo in msg.codigos_critica %}
+                                            <li>
+                                                <code>{{ codigo.codigo }}</code>: {{ codigo.descricao }}
+                                                {% if codigo.detalhes %}
+                                                    <br><small class="text-muted">{{ codigo.detalhes }}</small>
+                                                {% endif %}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if msg.campos_afetados %}
+                                    <p><strong>Campos Afetados:</strong></p>
+                                    <ul class="mb-0">
+                                        {% for campo in msg.campos_afetados %}
+                                        <li><code>{{ campo }}</code></li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Críticas Gerais -->
+            {% if criticas %}
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">❌ Críticas Encontradas ({{ criticas|length }})</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Descrição</th>
+                                    <th>Categoria</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for critica in criticas %}
+                                <tr>
+                                    <td><code>{{ critica.codigo }}</code></td>
+                                    <td>{{ critica.descricao }}</td>
+                                    <td>
+                                        <span class="badge badge-{% if critica.categoria == 'BLOQUEANTE' %}danger{% elif critica.categoria == 'ATENCAO' %}warning{% else %}info{% endif %}">
+                                            {{ critica.categoria }}
+                                        </span>
+                                    </td>
+                                    <td>{{ critica.acao_sugerida|default:"Verificar documentação" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% else %}
+            <!-- Estado Inicial -->
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-file-import fa-5x text-muted mb-3"></i>
+                    <h4 class="text-muted">Nenhum retorno interpretado ainda</h4>
+                    <p class="text-muted">Faça upload de um arquivo de retorno para interpretar</p>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>📋 O que o interpretador faz:</h5>
+                            <ul class="text-left">
+                                <li>Identifica HEADER e TRAILER</li>
+                                <li>Extrai registros de movimento</li>
+                                <li>Interpreta códigos de crítica</li>
+                                <li>Determina ação requerida</li>
+                                <li>Vincula com envios anteriores</li>
+                                <li>Salva histórico no banco</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>🔍 Códigos interpretados:</h5>
+                            <ul class="text-left">
+                                <li>Códigos M (movimento)</li>
+                                <li>Códigos de crítica</li>
+                                <li>Status de aceite/rejeição</li>
+                                <li>Campos com problemas</li>
+                                <li>Ações corretivas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,2946 @@
+{
+  "Leiautes_Movim_CADMUT_2025": {
+    "descricao": "Layouts de Movimentação CADMUT 2025",
+    "arquivo_padrao": "M99999.TXT",
+    "tipos_registro": {
+      "TIPO_11_HEADER": {
+        "tipo_movimento": 11,
+        "tipo_registro": 1,
+        "tamanho_linha": 180,
+        "descricao": "Header de Cadastramento de Contratos (CADMUT0)",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Movimento - Preencher com 11"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Registro - Obrigatório e igual a 1"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro"
+          },
+          {
+            "seq": 4,
+            "nome": "DATA_CRIACAO_ARQUIVO",
+            "inicio": 9,
+            "fim": 16,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data de Criação do Arquivo (AAAAMMDD)"
+          },
+          {
+            "seq": 5,
+            "nome": "PROCEDENCIA_ARQUIVO",
+            "inicio": 17,
+            "fim": 18,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Procedência do Arquivo - Conforme Tabela"
+          },
+          {
+            "seq": 6,
+            "nome": "CLASSE_AGENTE",
+            "inicio": 19,
+            "fim": 20,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Classe do Agente - Preencher com 99"
+          },
+          {
+            "seq": 7,
+            "nome": "VAGO",
+            "inicio": 21,
+            "fim": 180,
+            "tamanho": 160,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Campo vago - Preencher com 9 (noves)"
+          }
+        ]
+      },
+      "TIPO_11_MOVIMENTO": {
+        "tipo_movimento": 11,
+        "tipo_registro": 2,
+        "tamanho_linha": 180,
+        "descricao": "Movimento de Cadastramento de Contratos (CADMUT0)",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Movimento - Preencher com 11"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Registro - Obrigatório e igual a 2"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro"
+          },
+          {
+            "seq": 4,
+            "nome": "NUMERO_CONTRATO",
+            "inicio": 9,
+            "fim": 21,
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do Contrato - Alfanumérico"
+          },
+          {
+            "seq": 5,
+            "nome": "GRAU_HIPOTECA",
+            "inicio": 22,
+            "fim": 22,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Grau da Hipoteca"
+          },
+          {
+            "seq": 6,
+            "nome": "TIPO_MUTUARIO",
+            "inicio": 23,
+            "fim": 24,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Mutuário - Automático pelo Sistema (01-Principal)"
+          },
+          {
+            "seq": 7,
+            "nome": "NOME_MUTUARIO",
+            "inicio": 25,
+            "fim": 64,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Nome do Mutuário"
+          },
+          {
+            "seq": 8,
+            "nome": "COD_SEGURADORA",
+            "inicio": 65,
+            "fim": 67,
+            "tamanho": 3,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Código da Seguradora"
+          },
+          {
+            "seq": 9,
+            "nome": "DV_SEGURADORA",
+            "inicio": 68,
+            "fim": 68,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Dígito Verificador da Seguradora"
+          },
+          {
+            "seq": 10,
+            "nome": "REGIAO",
+            "inicio": 69,
+            "fim": 70,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Região da Seguradora"
+          },
+          {
+            "seq": 11,
+            "nome": "CPF",
+            "inicio": 71,
+            "fim": 79,
+            "tamanho": 9,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "CPF do Mutuário (sem DV)"
+          },
+          {
+            "seq": 12,
+            "nome": "DV_CPF",
+            "inicio": 80,
+            "fim": 81,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Dígito Verificador do CPF"
+          },
+          {
+            "seq": 13,
+            "nome": "IDENTIDADE",
+            "inicio": 82,
+            "fim": 98,
+            "tamanho": 17,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Identidade do Mutuário"
+          },
+          {
+            "seq": 14,
+            "nome": "DT_NASCIMENTO",
+            "inicio": 99,
+            "fim": 106,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Data de Nascimento (AAAAMMDD)"
+          },
+          {
+            "seq": 15,
+            "nome": "DT_CONTRATO",
+            "inicio": 107,
+            "fim": 114,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Contrato (AAAAMMDD)"
+          },
+          {
+            "seq": 16,
+            "nome": "SITUACAO_CONTRATO",
+            "inicio": 115,
+            "fim": 115,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Situação do Contrato - 1:Ativo 2:Inativo"
+          },
+          {
+            "seq": 17,
+            "nome": "TIPO_OPERACAO",
+            "inicio": 116,
+            "fim": 116,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Operação - 0:FDS-MCMV 1:COM FCVS 2:SEM FCVS 3:PSH S/FGTS 4:PSH C/FGTS 5:COM FGTS 6:PRO-MORADIA 7:FDS 8:PAR-ARREND 9:PAR-MCMV"
+          },
+          {
+            "seq": 18,
+            "nome": "TIPO_EVENTO",
+            "inicio": 117,
+            "fim": 119,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo do Evento"
+          },
+          {
+            "seq": 19,
+            "nome": "DATA_EVENTO",
+            "inicio": 120,
+            "fim": 127,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Evento (AAAAMMDD)"
+          },
+          {
+            "seq": 20,
+            "nome": "ENDERECO_IMOVEL",
+            "inicio": 128,
+            "fim": 167,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Endereço do Imóvel"
+          },
+          {
+            "seq": 21,
+            "nome": "UF_IMOVEL",
+            "inicio": 168,
+            "fim": 169,
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "UF do Imóvel"
+          },
+          {
+            "seq": 22,
+            "nome": "COD_MUNICIPIO",
+            "inicio": 170,
+            "fim": 173,
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código do Município"
+          },
+          {
+            "seq": 23,
+            "nome": "DV_MUNICIPIO",
+            "inicio": 174,
+            "fim": 174,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Dígito Verificador do Município"
+          },
+          {
+            "seq": 24,
+            "nome": "VAGO",
+            "inicio": 175,
+            "fim": 180,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Campo vago - Preencher com 9 (noves)"
+          }
+        ]
+      },
+      "TIPO_11_TRAILER": {
+        "tipo_movimento": 11,
+        "tipo_registro": 9,
+        "tamanho_linha": 180,
+        "descricao": "Trailer de Cadastramento de Contratos (CADMUT0)",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Movimento - Preencher com 11"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Registro - Obrigatório e igual a 9"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro"
+          },
+          {
+            "seq": 4,
+            "nome": "QTD_CONTRATOS",
+            "inicio": 9,
+            "fim": 15,
+            "tamanho": 7,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Quantidade de Contratos no arquivo"
+          },
+          {
+            "seq": 5,
+            "nome": "VAGO",
+            "inicio": 16,
+            "fim": 180,
+            "tamanho": 165,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Campo vago - Preencher com 9 (noves)"
+          }
+        ]
+      },
+      "TIPO_12_HEADER": {
+        "tipo_movimento": 12,
+        "tipo_registro": 3,
+        "tamanho_linha": 200,
+        "descricao": "Header de Acerto de Contratos em Crítica (CADMUT1)",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Movimento - Preencher com 12"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Registro - Obrigatório e igual a 3"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro"
+          },
+          {
+            "seq": 4,
+            "nome": "DATA_CRIACAO_ARQUIVO",
+            "inicio": 9,
+            "fim": 16,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data de Criação do Arquivo (AAAAMMDD)"
+          },
+          {
+            "seq": 5,
+            "nome": "PROCEDENCIA_ARQUIVO",
+            "inicio": 17,
+            "fim": 18,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Procedência do Arquivo - Conforme Tabela"
+          },
+          {
+            "seq": 6,
+            "nome": "CLASSE_AGENTE",
+            "inicio": 19,
+            "fim": 20,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Classe do Agente - Preencher com 99"
+          },
+          {
+            "seq": 7,
+            "nome": "VAGO",
+            "inicio": 21,
+            "fim": 200,
+            "tamanho": 180,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Campo vago - Preencher com 9 (noves)"
+          }
+        ]
+      },
+      "TIPO_12_MOVIMENTO": {
+        "tipo_movimento": 12,
+        "tipo_registro": 4,
+        "tamanho_linha": 200,
+        "descricao": "Movimento de Acerto de Contratos em Crítica (CADMUT1)",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Movimento - Preencher com 12"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Registro - Obrigatório e igual a 4"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro"
+          },
+          {
+            "seq": 4,
+            "nome": "NUMERO_CONTRATO",
+            "inicio": 9,
+            "fim": 21,
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do Contrato"
+          },
+          {
+            "seq": 5,
+            "nome": "GRAU_HIPOTECA",
+            "inicio": 22,
+            "fim": 22,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Grau da Hipoteca"
+          },
+          {
+            "seq": 6,
+            "nome": "TIPO_MUTUARIO",
+            "inicio": 23,
+            "fim": 24,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Mutuário - Automático (01-Principal)"
+          },
+          {
+            "seq": 7,
+            "nome": "NOME_MUTUARIO",
+            "inicio": 25,
+            "fim": 64,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Nome do Mutuário"
+          },
+          {
+            "seq": 8,
+            "nome": "COD_SEGURADORA",
+            "inicio": 65,
+            "fim": 67,
+            "tamanho": 3,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Código da Seguradora"
+          },
+          {
+            "seq": 9,
+            "nome": "DV_SEGURADORA",
+            "inicio": 68,
+            "fim": 68,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "DV da Seguradora"
+          },
+          {
+            "seq": 10,
+            "nome": "REGIAO",
+            "inicio": 69,
+            "fim": 70,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Região"
+          },
+          {
+            "seq": 11,
+            "nome": "CPF",
+            "inicio": 71,
+            "fim": 79,
+            "tamanho": 9,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "CPF do Mutuário"
+          },
+          {
+            "seq": 12,
+            "nome": "DV_CPF",
+            "inicio": 80,
+            "fim": 81,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "DV do CPF"
+          },
+          {
+            "seq": 13,
+            "nome": "IDENTIDADE",
+            "inicio": 82,
+            "fim": 98,
+            "tamanho": 17,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Identidade do Mutuário"
+          },
+          {
+            "seq": 14,
+            "nome": "DT_NASCIMENTO",
+            "inicio": 99,
+            "fim": 106,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Data Nascimento (AAAAMMDD)"
+          },
+          {
+            "seq": 15,
+            "nome": "DT_CONTRATO",
+            "inicio": 107,
+            "fim": 114,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Contrato (AAAAMMDD)"
+          },
+          {
+            "seq": 16,
+            "nome": "SITUACAO_CONTRATO",
+            "inicio": 115,
+            "fim": 115,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Situação - 1:Ativo 2:Inativo"
+          },
+          {
+            "seq": 17,
+            "nome": "TIPO_OPERACAO",
+            "inicio": 116,
+            "fim": 116,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Operação (0-9)"
+          },
+          {
+            "seq": 18,
+            "nome": "TIPO_EVENTO",
+            "inicio": 117,
+            "fim": 119,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo do Evento"
+          },
+          {
+            "seq": 19,
+            "nome": "DATA_EVENTO",
+            "inicio": 120,
+            "fim": 127,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Evento (AAAAMMDD)"
+          },
+          {
+            "seq": 20,
+            "nome": "ENDERECO_IMOVEL",
+            "inicio": 128,
+            "fim": 167,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Endereço do Imóvel"
+          },
+          {
+            "seq": 21,
+            "nome": "UF_IMOVEL",
+            "inicio": 168,
+            "fim": 169,
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "UF do Imóvel"
+          },
+          {
+            "seq": 22,
+            "nome": "COD_MUNICIPIO",
+            "inicio": 170,
+            "fim": 173,
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código do Município"
+          },
+          {
+            "seq": 23,
+            "nome": "DV_MUNICIPIO",
+            "inicio": 174,
+            "fim": 174,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "DV do Município"
+          },
+          {
+            "seq": 24,
+            "nome": "M1",
+            "inicio": 175,
+            "fim": 175,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: AGENTE inválido"
+          },
+          {
+            "seq": 25,
+            "nome": "M2",
+            "inicio": 176,
+            "fim": 176,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: CONTRATO inválido"
+          },
+          {
+            "seq": 26,
+            "nome": "M3",
+            "inicio": 177,
+            "fim": 177,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: HIPOTECA fora do intervalo"
+          },
+          {
+            "seq": 27,
+            "nome": "M4",
+            "inicio": 178,
+            "fim": 178,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: TIPO Mutuário inválido"
+          },
+          {
+            "seq": 28,
+            "nome": "M5",
+            "inicio": 179,
+            "fim": 179,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: NOME inválido"
+          },
+          {
+            "seq": 29,
+            "nome": "M6",
+            "inicio": 180,
+            "fim": 180,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: SEGURADORA ou REGIÃO inválida"
+          },
+          {
+            "seq": 30,
+            "nome": "M7",
+            "inicio": 181,
+            "fim": 181,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: CPF não criticado"
+          },
+          {
+            "seq": 31,
+            "nome": "M10",
+            "inicio": 182,
+            "fim": 182,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: DV CPF não criticado"
+          },
+          {
+            "seq": 32,
+            "nome": "M8",
+            "inicio": 183,
+            "fim": 183,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: IDENTIDADE não criticada"
+          },
+          {
+            "seq": 33,
+            "nome": "M9",
+            "inicio": 184,
+            "fim": 184,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: DT NASC inválida"
+          },
+          {
+            "seq": 34,
+            "nome": "C4",
+            "inicio": 185,
+            "fim": 185,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: Data contrato inválida"
+          },
+          {
+            "seq": 35,
+            "nome": "C5",
+            "inicio": 186,
+            "fim": 186,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: SITUAÇÃO inválida"
+          },
+          {
+            "seq": 36,
+            "nome": "C6",
+            "inicio": 187,
+            "fim": 187,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: TIPO OPERAÇÃO inválido"
+          },
+          {
+            "seq": 37,
+            "nome": "C7",
+            "inicio": 188,
+            "fim": 188,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: EVENTO inválido"
+          },
+          {
+            "seq": 38,
+            "nome": "C8",
+            "inicio": 189,
+            "fim": 189,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: Data evento inválida"
+          },
+          {
+            "seq": 39,
+            "nome": "C9",
+            "inicio": 190,
+            "fim": 190,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: Endereço em branco"
+          },
+          {
+            "seq": 40,
+            "nome": "C10",
+            "inicio": 191,
+            "fim": 191,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: UF inválida"
+          },
+          {
+            "seq": 41,
+            "nome": "C11",
+            "inicio": 192,
+            "fim": 192,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Crítica: Município inválido"
+          },
+          {
+            "seq": 42,
+            "nome": "STATUS",
+            "inicio": 193,
+            "fim": 193,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Status - 0:SEM ERRO 1:COM ERRO"
+          },
+          {
+            "seq": 43,
+            "nome": "VAGO",
+            "inicio": 194,
+            "fim": 200,
+            "tamanho": 7,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Campo vago"
+          }
+        ]
+      },
+      "TIPO_12_TRAILER": {
+        "tipo_movimento": 12,
+        "tipo_registro": 8,
+        "tamanho_linha": 200,
+        "descricao": "Trailer de Acerto de Contratos em Crítica (CADMUT1)",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Movimento - Preencher com 12"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Registro - Obrigatório e igual a 8"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro"
+          },
+          {
+            "seq": 4,
+            "nome": "QTD_CONTRATOS",
+            "inicio": 9,
+            "fim": 15,
+            "tamanho": 7,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Quantidade de Contratos"
+          },
+          {
+            "seq": 5,
+            "nome": "VAGO",
+            "inicio": 16,
+            "fim": 200,
+            "tamanho": 185,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Campo vago"
+          }
+        ]
+      }
+    }
+  },
+  "Leiautes_Movim_FCVS_2025_V2": {
+    "descricao": "Layouts de Movimentação FCVS 2025 Versão 2",
+    "tamanho_linha_padrao": 430,
+    "tipos_registro": {
+      "HEADER_GERAL": {
+        "tipo_registro": 0,
+        "tamanho_linha": 430,
+        "descricao": "Header para todos os tipos de movimentos FCVS",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "UFS",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código da UFS"
+          },
+          {
+            "seq": 2,
+            "nome": "MAT_AG_FINANC",
+            "inicio": 3,
+            "fim": 8,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro com DV"
+          },
+          {
+            "seq": 3,
+            "nome": "CONSTANTE",
+            "inicio": 9,
+            "fim": 22,
+            "tamanho": 14,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "ZEROS"
+          },
+          {
+            "seq": 4,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 23,
+            "fim": 23,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo Registro - 0 para Header"
+          },
+          {
+            "seq": 5,
+            "nome": "CONSTANTE2",
+            "inicio": 24,
+            "fim": 32,
+            "tamanho": 9,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "ZEROS"
+          },
+          {
+            "seq": 6,
+            "nome": "QTD_DOCTOS",
+            "inicio": 33,
+            "fim": 37,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Quantidade de registros no arquivo"
+          },
+          {
+            "seq": 7,
+            "nome": "FILLER",
+            "inicio": 38,
+            "fim": 405,
+            "tamanho": 368,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "BRANCOS"
+          },
+          {
+            "seq": 8,
+            "nome": "UFS2",
+            "inicio": 406,
+            "fim": 407,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código da UFS (repetido)"
+          },
+          {
+            "seq": 9,
+            "nome": "MAT_AG_FINANC2",
+            "inicio": 408,
+            "fim": 413,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro"
+          },
+          {
+            "seq": 10,
+            "nome": "DATA_GERACAO",
+            "inicio": 414,
+            "fim": 419,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data geração do lote (DDMMAA)"
+          },
+          {
+            "seq": 11,
+            "nome": "NUMERO_LOTE",
+            "inicio": 420,
+            "fim": 422,
+            "tamanho": 3,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do lote"
+          },
+          {
+            "seq": 12,
+            "nome": "FORMA_ENVIO",
+            "inicio": 423,
+            "fim": 423,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "S (FCVS 2000)"
+          },
+          {
+            "seq": 13,
+            "nome": "TIPO_MOVIMENTO",
+            "inicio": 424,
+            "fim": 424,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo movimento: I,J,K,P,R,S,G,U,V,F,B"
+          },
+          {
+            "seq": 14,
+            "nome": "FILLER2",
+            "inicio": 425,
+            "fim": 430,
+            "tamanho": 6,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "BRANCOS"
+          }
+        ]
+      },
+      "FH1_FICHA_HABILITACAO": {
+        "tipo_movimento": "I",
+        "tipo_registro": 1,
+        "tamanho_linha": 430,
+        "descricao": "FH1 - Ficha para Habilitação ao FCVS",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "UFS",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código da UFS"
+          },
+          {
+            "seq": 2,
+            "nome": "MAT_AG_FINANC",
+            "inicio": 3,
+            "fim": 8,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro com DV"
+          },
+          {
+            "seq": 3,
+            "nome": "NUM_CONTRATO_MUT",
+            "inicio": 9,
+            "fim": 21,
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do Contrato do Mutuário no Agente"
+          },
+          {
+            "seq": 4,
+            "nome": "HIPOTECA",
+            "inicio": 22,
+            "fim": 22,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Grau de Hipoteca"
+          },
+          {
+            "seq": 5,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 23,
+            "fim": 23,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Registro - 1"
+          },
+          {
+            "seq": 6,
+            "nome": "SEQUENCIAL",
+            "inicio": 24,
+            "fim": 25,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Sequencial - 0"
+          },
+          {
+            "seq": 7,
+            "nome": "CONSTANTE",
+            "inicio": 26,
+            "fim": 26,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Constante - 0"
+          },
+          {
+            "seq": 8,
+            "nome": "NOME_MUT_PRINCIPAL",
+            "inicio": 27,
+            "fim": 66,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Nome do Mutuário Principal"
+          },
+          {
+            "seq": 9,
+            "nome": "TIPO",
+            "inicio": 67,
+            "fim": 67,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo de Documento"
+          },
+          {
+            "seq": 10,
+            "nome": "CPF_CI",
+            "inicio": 68,
+            "fim": 84,
+            "tamanho": 17,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "CPF ou CI"
+          },
+          {
+            "seq": 11,
+            "nome": "DT_NASCIMENTO",
+            "inicio": 85,
+            "fim": 90,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data de Nascimento (DDMMAA)"
+          },
+          {
+            "seq": 12,
+            "nome": "COD_MUNICIPIO",
+            "inicio": 91,
+            "fim": 95,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código do Município"
+          },
+          {
+            "seq": 13,
+            "nome": "UF",
+            "inicio": 96,
+            "fim": 97,
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "UF do Imóvel"
+          },
+          {
+            "seq": 14,
+            "nome": "ENDERECO_IMOVEL",
+            "inicio": 98,
+            "fim": 135,
+            "tamanho": 38,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Endereço do Imóvel"
+          },
+          {
+            "seq": 15,
+            "nome": "DT_CONTRATO",
+            "inicio": 136,
+            "fim": 141,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Contrato (DDMMAA)"
+          },
+          {
+            "seq": 16,
+            "nome": "VLR_GARANTIA",
+            "inicio": 142,
+            "fim": 153,
+            "tamanho": 12,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor da Garantia (10 int 2 dec)"
+          },
+          {
+            "seq": 17,
+            "nome": "IM",
+            "inicio": 154,
+            "fim": 155,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "IM (Índice de Mercado)"
+          },
+          {
+            "seq": 18,
+            "nome": "DT_LEGISLACAO",
+            "inicio": 156,
+            "fim": 161,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data da Legislação (DDMMAA)"
+          },
+          {
+            "seq": 19,
+            "nome": "VLR_FINANC_CONTRATADO",
+            "inicio": 162,
+            "fim": 173,
+            "tamanho": 12,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Financiamento Contratado (10i 2d)"
+          },
+          {
+            "seq": 20,
+            "nome": "VLR_FINANC_PADRAO_FCVS",
+            "inicio": 174,
+            "fim": 185,
+            "tamanho": 12,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Financ. Padrão FCVS (10i 2d)"
+          },
+          {
+            "seq": 21,
+            "nome": "COD_CATEG_PROF",
+            "inicio": 186,
+            "fim": 190,
+            "tamanho": 5,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código da Categoria Profissional"
+          },
+          {
+            "seq": 22,
+            "nome": "SEGURO_CREDITO",
+            "inicio": 191,
+            "fim": 191,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Seguro de Crédito"
+          },
+          {
+            "seq": 23,
+            "nome": "CARENCIA_1O_VENC",
+            "inicio": 192,
+            "fim": 192,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Carência no 1º Vencimento"
+          },
+          {
+            "seq": 24,
+            "nome": "SEGURO_DFI_LOTES",
+            "inicio": 193,
+            "fim": 193,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Seguro DFI por Lotes Urbanizados"
+          },
+          {
+            "seq": 25,
+            "nome": "CREDITOS_PROER",
+            "inicio": 194,
+            "fim": 194,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Créditos Adquiridos pela Caixa com PROER"
+          },
+          {
+            "seq": 26,
+            "nome": "VAGO",
+            "inicio": 195,
+            "fim": 195,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Não preencher"
+          },
+          {
+            "seq": 27,
+            "nome": "PRAZO_CONTRATADO",
+            "inicio": 196,
+            "fim": 198,
+            "tamanho": 3,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Prazo Contratado (meses)"
+          },
+          {
+            "seq": 28,
+            "nome": "TAXA_JUROS_CONTRAT",
+            "inicio": 199,
+            "fim": 204,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 4,
+            "obrigatorio": true,
+            "descricao": "Taxa Juros Contratado (2i 4d)"
+          },
+          {
+            "seq": 29,
+            "nome": "CES_CONTRATUAL",
+            "inicio": 205,
+            "fim": 208,
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "CES Contratual"
+          },
+          {
+            "seq": 30,
+            "nome": "PLANO",
+            "inicio": 209,
+            "fim": 211,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Plano"
+          },
+          {
+            "seq": 31,
+            "nome": "ST",
+            "inicio": 212,
+            "fim": 212,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "ST"
+          },
+          {
+            "seq": 32,
+            "nome": "RJ",
+            "inicio": 213,
+            "fim": 213,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "RJ"
+          },
+          {
+            "seq": 33,
+            "nome": "RR",
+            "inicio": 214,
+            "fim": 215,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "RR"
+          },
+          {
+            "seq": 34,
+            "nome": "INDEX",
+            "inicio": 216,
+            "fim": 218,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Índice"
+          },
+          {
+            "seq": 35,
+            "nome": "PRAZO_FCVS",
+            "inicio": 219,
+            "fim": 221,
+            "tamanho": 3,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Prazo FCVS"
+          },
+          {
+            "seq": 36,
+            "nome": "TAXA_JUROS_FCVS",
+            "inicio": 222,
+            "fim": 227,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 4,
+            "obrigatorio": true,
+            "descricao": "Taxa Juros para FCVS (2i 4d)"
+          },
+          {
+            "seq": 37,
+            "nome": "CES_FCVS",
+            "inicio": 228,
+            "fim": 231,
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 3,
+            "obrigatorio": true,
+            "descricao": "CES para FCVS (1i 3d)"
+          },
+          {
+            "seq": 38,
+            "nome": "PLANO_FCVS",
+            "inicio": 232,
+            "fim": 234,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Plano FCVS"
+          },
+          {
+            "seq": 39,
+            "nome": "ST_FCVS",
+            "inicio": 235,
+            "fim": 235,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "ST FCVS"
+          },
+          {
+            "seq": 40,
+            "nome": "RJ_FCVS",
+            "inicio": 236,
+            "fim": 236,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "RJ FCVS"
+          },
+          {
+            "seq": 41,
+            "nome": "RR_FCVS",
+            "inicio": 237,
+            "fim": 238,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "RR FCVS"
+          },
+          {
+            "seq": 42,
+            "nome": "INDEX_FCVS",
+            "inicio": 239,
+            "fim": 241,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Índice FCVS"
+          },
+          {
+            "seq": 43,
+            "nome": "DT_SALDO_CONSTRUCAO",
+            "inicio": 242,
+            "fim": 247,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Saldo Construção (DDMMAA)"
+          },
+          {
+            "seq": 44,
+            "nome": "SALDO_DEVEDOR",
+            "inicio": 248,
+            "fim": 259,
+            "tamanho": 12,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Saldo Devedor (10i 2d)"
+          },
+          {
+            "seq": 45,
+            "nome": "PRIMEIRO_VENCIMENTO",
+            "inicio": 260,
+            "fim": 265,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "1º Vencimento (DDMMAA)"
+          },
+          {
+            "seq": 46,
+            "nome": "SEGURO_CRED_MIP_DFI",
+            "inicio": 266,
+            "fim": 273,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Seguro Crédito/MIP/DFI (6i 2d)"
+          },
+          {
+            "seq": 47,
+            "nome": "VLR_PRESTACAO",
+            "inicio": 274,
+            "fim": 283,
+            "tamanho": 10,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor da Prestação (8i 2d)"
+          },
+          {
+            "seq": 48,
+            "nome": "TCA_TAC",
+            "inicio": 284,
+            "fim": 291,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "TCA/TAC (6i 2d)"
+          },
+          {
+            "seq": 49,
+            "nome": "FCVS_MENSAL",
+            "inicio": 292,
+            "fim": 299,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "FCVS Mensal (6i 2d)"
+          },
+          {
+            "seq": 50,
+            "nome": "RAZAO_ACRES_DECRES",
+            "inicio": 300,
+            "fim": 307,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Razão Acresc/Decresc (6i 2d)"
+          },
+          {
+            "seq": 51,
+            "nome": "TIPO_EVENTO",
+            "inicio": 308,
+            "fim": 310,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo Evento"
+          },
+          {
+            "seq": 52,
+            "nome": "DT_EVENTO",
+            "inicio": 311,
+            "fim": 316,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Evento (DDMMAA)"
+          },
+          {
+            "seq": 53,
+            "nome": "OR_CO",
+            "inicio": 317,
+            "fim": 318,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "OR/CO"
+          },
+          {
+            "seq": 54,
+            "nome": "PERC_CAIXA",
+            "inicio": 319,
+            "fim": 322,
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "% Caixa (100)"
+          },
+          {
+            "seq": 55,
+            "nome": "NUM_CONTR_EMPR_CAIXA",
+            "inicio": 323,
+            "fim": 340,
+            "tamanho": 18,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Nº Contrato Empréstimo Caixa"
+          },
+          {
+            "seq": 56,
+            "nome": "TAXA_JUROS_EVENTO",
+            "inicio": 341,
+            "fim": 346,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 4,
+            "obrigatorio": true,
+            "descricao": "Taxa Juros Evento (2i 4d)"
+          },
+          {
+            "seq": 57,
+            "nome": "VAF1_VLR_BASICO",
+            "inicio": 347,
+            "fim": 360,
+            "tamanho": 14,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "VAF1 - Valor Básico (12i 2d)"
+          },
+          {
+            "seq": 58,
+            "nome": "VAF2_VLR_COMPLEMENTAR",
+            "inicio": 361,
+            "fim": 374,
+            "tamanho": 14,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "VAF2 - Valor Complementar (12i 2d)"
+          },
+          {
+            "seq": 59,
+            "nome": "VAF3_VLR_RESIDUAL",
+            "inicio": 375,
+            "fim": 388,
+            "tamanho": 14,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "VAF3 - Valor Residual (12i 2d)"
+          },
+          {
+            "seq": 60,
+            "nome": "JUROS_CALC_AGENTE",
+            "inicio": 389,
+            "fim": 402,
+            "tamanho": 14,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Juros Calculados pelo Agente Financeiro"
+          },
+          {
+            "seq": 61,
+            "nome": "DEBITO_CREDITO",
+            "inicio": 403,
+            "fim": 403,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Débito/Crédito (D ou C)"
+          },
+          {
+            "seq": 62,
+            "nome": "QTD_ALTERACOES",
+            "inicio": 404,
+            "fim": 405,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Quantidade de Alterações"
+          },
+          {
+            "seq": 63,
+            "nome": "UFS2",
+            "inicio": 406,
+            "fim": 407,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código da UFS"
+          },
+          {
+            "seq": 64,
+            "nome": "MAT_AG_FINANC2",
+            "inicio": 408,
+            "fim": 413,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente Financeiro"
+          },
+          {
+            "seq": 65,
+            "nome": "DATA_GERACAO",
+            "inicio": 414,
+            "fim": 419,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data geração do lote (DDMMAA)"
+          },
+          {
+            "seq": 66,
+            "nome": "NUMERO_LOTE",
+            "inicio": 420,
+            "fim": 422,
+            "tamanho": 3,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do lote"
+          },
+          {
+            "seq": 67,
+            "nome": "FORMA_ENVIO",
+            "inicio": 423,
+            "fim": 423,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "S (FCVS 2000)"
+          },
+          {
+            "seq": 68,
+            "nome": "TIPO_MOVIMENTO",
+            "inicio": 424,
+            "fim": 424,
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "I"
+          },
+          {
+            "seq": 69,
+            "nome": "FILLER",
+            "inicio": 425,
+            "fim": 430,
+            "tamanho": 6,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "BRANCOS"
+          }
+        ]
+      }
+    }
+  },
+  "Leiaute_CADMUT_Espelho": {
+    "descricao": "Layout do Espelho CADMUT - Posição dos Contratos",
+    "tamanho_linha": "variavel",
+    "tipos_registro": {
+      "REGISTRO_UNICO": {
+        "tamanho_estimado": 200,
+        "descricao": "Registro único do Espelho CADMUT",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "AGENTE",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código do Agente Financeiro"
+          },
+          {
+            "seq": 2,
+            "nome": "CONTRATO",
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do Contrato"
+          },
+          {
+            "seq": 3,
+            "nome": "HIPOTECA",
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Grau de Hipoteca"
+          },
+          {
+            "seq": 4,
+            "nome": "NOME_MUTUARIO",
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Nome do Mutuário"
+          },
+          {
+            "seq": 5,
+            "nome": "CPF",
+            "tamanho": 9,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "CPF do Mutuário"
+          },
+          {
+            "seq": 6,
+            "nome": "DV_CPF",
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Dígito Verificador do CPF"
+          },
+          {
+            "seq": 7,
+            "nome": "SITUACAO_CONTRATO",
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Situação do Contrato - 1:Ativo 2:Inativo"
+          },
+          {
+            "seq": 8,
+            "nome": "IND_COBERTURA_FCVS",
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Indicativo de Cobertura FCVS - 1:Com Cobertura 2:Sem Cobertura 3:PSH"
+          },
+          {
+            "seq": 9,
+            "nome": "SIT_CADASTRAMENTO",
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Situação de Cadastramento - 1:Incorp.e Qualif. 2:Incorp.e não Qualif. 3:Em crítica"
+          },
+          {
+            "seq": 10,
+            "nome": "SIT_MULTIPLICIDADE",
+            "tamanho": 1,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Situação Multiplicidade - 0:Sem 1:Indício 2:Descaracterizada 3:Caracterizada"
+          },
+          {
+            "seq": 11,
+            "nome": "SIT_SINISTRO",
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Situação Sinistro - Diversos códigos (0-15)"
+          },
+          {
+            "seq": 12,
+            "nome": "PROCEDENCIA",
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Procedência - 1:Sifcvs 2:Sifcvs crítica 3:Caixa 4:Delphos 5:Hecopart 6:Ag.Financ. 7:FVS 8:Aliança 9:Bradesco"
+          }
+        ]
+      }
+    }
+  },
+  "Leiaute_M460301": {
+    "descricao": "M460301 - Relação de Contratos Novados com Irregularidade no CADMUT - ACUMULATIVO",
+    "tamanho_linha": "variavel",
+    "tipos_registro": {
+      "REGISTRO_UNICO": {
+        "descricao": "Registro de contrato com irregularidade (acumulativo)",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "GIFUS_ANALISE",
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "GIFUS de Análise - Códigos: 03-SA,04-BR,05-FO,08-GO,11-BH,12-BE,14-CT,15-RE,18-PO,19-RJ,20-FL,21-SP"
+          },
+          {
+            "seq": 2,
+            "nome": "AGENTE_ORIGEM",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Origem"
+          },
+          {
+            "seq": 3,
+            "nome": "AGENTE_CESSIONARIO",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Cessionário"
+          },
+          {
+            "seq": 4,
+            "nome": "AGENTE_CEDENTE",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Cedente"
+          },
+          {
+            "seq": 5,
+            "nome": "CONTRATO",
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do Contrato"
+          },
+          {
+            "seq": 6,
+            "nome": "HIPOTECA",
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Grau de Hipoteca"
+          },
+          {
+            "seq": 7,
+            "nome": "DT_CONTRATO",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Contrato (DD-MM-AAAA)"
+          },
+          {
+            "seq": 8,
+            "nome": "MUNICIPIO_CADMUT",
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Município no CADMUT"
+          },
+          {
+            "seq": 9,
+            "nome": "DT_EVENTO_CADMUT",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Evento CADMUT (DD-MM-AAAA)"
+          },
+          {
+            "seq": 10,
+            "nome": "DT_POSIC_NOVACAO_VA1_VAF2",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Posicionamento Novação VA1/VAF2 (DD-MM-AAAA)"
+          },
+          {
+            "seq": 11,
+            "nome": "VLR_SALDO_VAF1_VA2_VENCIDO",
+            "tamanho": 13,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Saldo VAF1/VA2 Vencido (11v2)"
+          },
+          {
+            "seq": 12,
+            "nome": "VLR_SALDO_VAF1_VAF2_VINCENDO",
+            "tamanho": 13,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Saldo VAF1/VAF2 Vincendo (11v2)"
+          },
+          {
+            "seq": 13,
+            "nome": "DT_POSIC_NOVACAO_VA3",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Posicionamento Novação VA3 (DD-MM-AAAA)"
+          },
+          {
+            "seq": 14,
+            "nome": "VLR_SALDO_VAF3",
+            "tamanho": 13,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Saldo VAF3 (11v2)"
+          },
+          {
+            "seq": 15,
+            "nome": "DT_POSIC_NOVACAO_VAF4",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Posicionamento Novação VAF4 (DD-MM-AAAA)"
+          },
+          {
+            "seq": 16,
+            "nome": "VLR_SALDO_VAF4",
+            "tamanho": 13,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Saldo VAF4 (11v2)"
+          },
+          {
+            "seq": 17,
+            "nome": "PERC_COBERTURA",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Percentual de Cobertura (3v2)"
+          },
+          {
+            "seq": 18,
+            "nome": "SIT_MULTIPLICIDADE_SINISTRO",
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Situação Multiplicidade/Sinistro - Códigos diversos"
+          },
+          {
+            "seq": 19,
+            "nome": "DT_APRESENT_CONTESTACAO",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Apresentação da Contestação (DD-MM-AAAA)"
+          },
+          {
+            "seq": 20,
+            "nome": "DT_PRAZO_FINAL_CONTESTACAO",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Prazo final para Contestação (DD-MM-AAAA)"
+          }
+        ]
+      }
+    }
+  },
+  "Leiaute_M460401": {
+    "descricao": "M460401 - Relação de Contratos Novados com Irregularidade no CADMUT - INCLUSÕES NO MÊS",
+    "tamanho_linha": "variavel",
+    "tipos_registro": {
+      "REGISTRO_UNICO": {
+        "descricao": "Registro de contrato com irregularidade (inclusões mensais)",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "GIFUS_ANALISE",
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "GIFUS de Análise - Códigos: 03-SA,04-BR,05-FO,08-GO,11-BH,12-BE,14-CT,15-RE,18-PO,19-RJ,20-FL,21-SP"
+          },
+          {
+            "seq": 2,
+            "nome": "AGENTE_ORIGEM",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Origem"
+          },
+          {
+            "seq": 3,
+            "nome": "AGENTE_CESSIONARIO",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Cessionário"
+          },
+          {
+            "seq": 4,
+            "nome": "AGENTE_CEDENTE",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Cedente"
+          },
+          {
+            "seq": 5,
+            "nome": "CONTRATO",
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do Contrato"
+          },
+          {
+            "seq": 6,
+            "nome": "HIPOTECA",
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Grau de Hipoteca"
+          },
+          {
+            "seq": 7,
+            "nome": "DT_CONTRATO",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Contrato (DD-MM-AAAA)"
+          },
+          {
+            "seq": 8,
+            "nome": "MUNICIPIO_CADMUT",
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Município no CADMUT"
+          },
+          {
+            "seq": 9,
+            "nome": "DT_EVENTO_CADMUT",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Evento CADMUT (DD-MM-AAAA)"
+          },
+          {
+            "seq": 10,
+            "nome": "DT_POSIC_NOVACAO_VA1_VAF2",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Posicionamento Novação VA1/VAF2 (DD-MM-AAAA)"
+          },
+          {
+            "seq": 11,
+            "nome": "VLR_SALDO_VAF1_VA2_VENCIDO",
+            "tamanho": 13,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Saldo VAF1/VA2 Vencido (11v2)"
+          },
+          {
+            "seq": 12,
+            "nome": "VLR_SALDO_VAF1_VAF2_VINCENDO",
+            "tamanho": 13,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Saldo VAF1/VAF2 Vincendo (11v2)"
+          },
+          {
+            "seq": 13,
+            "nome": "DT_POSIC_NOVACAO_VA3",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Posicionamento Novação VA3 (DD-MM-AAAA)"
+          },
+          {
+            "seq": 14,
+            "nome": "VLR_SALDO_VAF3",
+            "tamanho": 13,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Saldo VAF3 (11v2)"
+          },
+          {
+            "seq": 15,
+            "nome": "DT_POSIC_NOVACAO_VAF4",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Posicionamento Novação VAF4 (DD-MM-AAAA)"
+          },
+          {
+            "seq": 16,
+            "nome": "VLR_SALDO_VAF4",
+            "tamanho": 13,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Valor Saldo VAF4 (11v2)"
+          },
+          {
+            "seq": 17,
+            "nome": "PERC_COBERTURA",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 2,
+            "obrigatorio": true,
+            "descricao": "Percentual de Cobertura (3v2)"
+          },
+          {
+            "seq": 18,
+            "nome": "SIT_MULTIPLICIDADE_SINISTRO",
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Situação Multiplicidade/Sinistro"
+          },
+          {
+            "seq": 19,
+            "nome": "DT_APRESENT_CONTESTACAO",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Apresentação da Contestação (DD-MM-AAAA)"
+          },
+          {
+            "seq": 20,
+            "nome": "DT_PRAZO_FINAL_CONTESTACAO",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Prazo final para Contestação (DD-MM-AAAA)"
+          }
+        ]
+      }
+    }
+  },
+  "Leiaute_M460801": {
+    "descricao": "M460801 - Relação de Contratos Novados Regularizados no CADMUT sem Manifestação da GIFUS",
+    "tamanho_linha": "variavel",
+    "tipos_registro": {
+      "REGISTRO_UNICO": {
+        "descricao": "Registro de contrato regularizado sem manifestação",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "GIFUS_ANALISE",
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "GIFUS de Análise"
+          },
+          {
+            "seq": 2,
+            "nome": "AGENTE_ORIGEM",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Origem"
+          },
+          {
+            "seq": 3,
+            "nome": "AGENTE_CESSIONARIO",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Cessionário"
+          },
+          {
+            "seq": 4,
+            "nome": "AGENTE_CEDENTE",
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Agente Cedente"
+          },
+          {
+            "seq": 5,
+            "nome": "CONTRATO",
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do Contrato"
+          },
+          {
+            "seq": 6,
+            "nome": "HIPOTECA",
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Grau de Hipoteca"
+          },
+          {
+            "seq": 7,
+            "nome": "DT_CONTRATO",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Contrato (DD-MM-AAAA)"
+          },
+          {
+            "seq": 8,
+            "nome": "MUNICIPIO_CADMUT",
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Município no CADMUT"
+          },
+          {
+            "seq": 9,
+            "nome": "DT_EVENTO_CADMUT",
+            "tamanho": 10,
+            "tipo": "D",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data Evento CADMUT (DD-MM-AAAA)"
+          }
+        ]
+      }
+    }
+  },
+  "Leiaute_FCVS3026": {
+    "descricao": "P3026 - Arquivo de Posição FCVS (9 tipos de registro TR1-TR9)",
+    "formato_arquivo": "Excel (.xls)",
+    "tipos_registro": {
+      "TR1_CONTRATOS_HABILITADOS_NAO_HOMOLOGADOS": {
+        "tipo_registro": "1",
+        "descricao": "TR1 (D1) - Contratos Habilitados Não Homologados",
+        "tamanho_linha": 319,
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 1,
+            "fim": 1,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "9(1)",
+            "descricao": "Tipo de Registro = 1"
+          },
+          {
+            "seq": 2,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 2,
+            "fim": 6,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "9(5)",
+            "descricao": "Matrícula do Agente"
+          },
+          {
+            "seq": 3,
+            "nome": "AGENTE_CESSIONARIO",
+            "inicio": 7,
+            "fim": 11,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "9(5)",
+            "descricao": "Agente Cessionário"
+          },
+          {
+            "seq": 4,
+            "nome": "AGENTE_CEDENTE",
+            "inicio": 12,
+            "fim": 16,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "9(5)",
+            "descricao": "Agente Cedente"
+          },
+          {
+            "seq": 5,
+            "nome": "NUMERO_CONTRATO",
+            "inicio": 17,
+            "fim": 29,
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(13)",
+            "descricao": "Número do Contrato"
+          },
+          {
+            "seq": 6,
+            "nome": "GRAU_HIPOTECA",
+            "inicio": 30,
+            "fim": 30,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "9(1)",
+            "descricao": "Grau de Hipoteca do Contrato"
+          },
+          {
+            "seq": 7,
+            "nome": "NOME_MUTUARIO",
+            "inicio": 31,
+            "fim": 70,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(40)",
+            "descricao": "Nome do Mutuário"
+          },
+          {
+            "seq": 8,
+            "nome": "CPF",
+            "inicio": 71,
+            "fim": 81,
+            "tamanho": 11,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(11)",
+            "descricao": "CPF"
+          },
+          {
+            "seq": 9,
+            "nome": "DT_ASSINATURA_CONTRATO",
+            "inicio": 82,
+            "fim": 89,
+            "tamanho": 8,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(8)",
+            "descricao": "Data Assinatura Contrato (DDMMAAAA)"
+          },
+          {
+            "seq": 10,
+            "nome": "ENDERECO_IMOVEL",
+            "inicio": 90,
+            "fim": 129,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(40)",
+            "descricao": "Endereço do Imóvel"
+          },
+          {
+            "seq": 11,
+            "nome": "COD_MUNICIPIO",
+            "inicio": 130,
+            "fim": 134,
+            "tamanho": 5,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(5)",
+            "descricao": "Código do Município"
+          },
+          {
+            "seq": 12,
+            "nome": "NOME_MUNICIPIO",
+            "inicio": 135,
+            "fim": 144,
+            "tamanho": 10,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(10)",
+            "descricao": "Nome do Município"
+          },
+          {
+            "seq": 13,
+            "nome": "ORIGEM_RECURSO",
+            "inicio": 145,
+            "fim": 146,
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(2)",
+            "descricao": "Origem de Recurso"
+          },
+          {
+            "seq": 14,
+            "nome": "IM",
+            "inicio": 147,
+            "fim": 148,
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(2)",
+            "descricao": "IM (Índice de Mercado)"
+          },
+          {
+            "seq": 15,
+            "nome": "TAXA_JUROS_CONTRATUAL",
+            "inicio": 149,
+            "fim": 154,
+            "tamanho": 6,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(6)",
+            "descricao": "Taxa de Juros Contratual"
+          },
+          {
+            "seq": 16,
+            "nome": "TAXA_JUROS_EVENTO",
+            "inicio": 155,
+            "fim": 160,
+            "tamanho": 6,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(6)",
+            "descricao": "Taxa de Juros no Evento"
+          },
+          {
+            "seq": 17,
+            "nome": "COD_SIT_CONTRATO",
+            "inicio": 161,
+            "fim": 162,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "9(2)",
+            "descricao": "Código Situação do Contrato"
+          },
+          {
+            "seq": 18,
+            "nome": "DESC_SIT_CONTRATO",
+            "inicio": 163,
+            "fim": 232,
+            "tamanho": 70,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(70)",
+            "descricao": "Descrição Situação do Contrato"
+          },
+          {
+            "seq": 19,
+            "nome": "TIPO_EVENTO",
+            "inicio": 233,
+            "fim": 235,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(3)",
+            "descricao": "Tipo de Evento"
+          },
+          {
+            "seq": 20,
+            "nome": "DT_EVENTO",
+            "inicio": 236,
+            "fim": 243,
+            "tamanho": 8,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(8)",
+            "descricao": "Data do Evento (DDMMAAAA)"
+          },
+          {
+            "seq": 21,
+            "nome": "VAF1_INFORMADO",
+            "inicio": 244,
+            "fim": 257,
+            "tamanho": 14,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(14)",
+            "descricao": "VAF 1 Informado pelo Agente"
+          },
+          {
+            "seq": 22,
+            "nome": "VAF2_INFORMADO",
+            "inicio": 258,
+            "fim": 271,
+            "tamanho": 14,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(14)",
+            "descricao": "VAF 2 Informado pelo Agente"
+          },
+          {
+            "seq": 23,
+            "nome": "VAF3_INFORMADO",
+            "inicio": 272,
+            "fim": 285,
+            "tamanho": 14,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(14)",
+            "descricao": "VAF 3 Informado pelo Agente"
+          },
+          {
+            "seq": 24,
+            "nome": "DT_HABILITACAO",
+            "inicio": 286,
+            "fim": 293,
+            "tamanho": 8,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(8)",
+            "descricao": "Data Habilitação (DDMMAAAA)"
+          },
+          {
+            "seq": 25,
+            "nome": "DOCUMENTACAO",
+            "inicio": 294,
+            "fim": 294,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "9(1)",
+            "descricao": "Documentação - 0:Não Entregue 1:Entregue"
+          },
+          {
+            "seq": 26,
+            "nome": "DT_PROC_HABILITACAO",
+            "inicio": 295,
+            "fim": 302,
+            "tamanho": 8,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(8)",
+            "descricao": "Data Processamento Habilitação (DDMMAAAA)"
+          },
+          {
+            "seq": 27,
+            "nome": "DT_ENTREGA_AF",
+            "inicio": 303,
+            "fim": 310,
+            "tamanho": 8,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(8)",
+            "descricao": "Data da Entrega ao Agente Financeiro"
+          },
+          {
+            "seq": 28,
+            "nome": "DT_PRAZO_AGENTE",
+            "inicio": 311,
+            "fim": 318,
+            "tamanho": 8,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "X(8)",
+            "descricao": "Data Prazo Agente"
+          },
+          {
+            "seq": 29,
+            "nome": "SIT_ANALISE_ATUAL",
+            "inicio": 319,
+            "fim": 319,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "formato": "9(1)",
+            "descricao": "Situação de Análise Atual - 0:Não Homolog.Sem Análise 1:Não Homolog.Em Análise 2:Homolog.Sem Reabertura"
+          }
+        ]
+      }
+    }
+  }
+}

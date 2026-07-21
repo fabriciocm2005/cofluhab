@@ -1,0 +1,238 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Amortização Negativa - CoFluhab{% endblock %}
+
+{% block content %}
+<style>
+    .search-container {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .search-title {
+        color: white;
+        font-size: 24px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    .info-box {
+        background: #fff3cd;
+        border-left: 4px solid #ff9800;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 6px;
+    }
+    .info-box strong {
+        color: #e65100;
+    }
+    .search-filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .filter-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+        font-size: 13px;
+    }
+    .filter-group input {
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+    .filter-group input:focus {
+        outline: none;
+        border-color: #ff6b6b;
+    }
+    .search-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        justify-content: center;
+    }
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-search {
+        background: #4caf50;
+        color: white;
+    }
+    .btn-search:hover {
+        background: #45a049;
+        transform: translateY(-2px);
+    }
+    .btn-clear {
+        background: #f44336;
+        color: white;
+    }
+    .btn-clear:hover {
+        background: #da190b;
+        transform: translateY(-2px);
+    }
+    .btn-excel {
+        background: #2e7d32;
+        color: white;
+    }
+    .btn-excel:hover {
+        background: #1b5e20;
+        transform: translateY(-2px);
+    }
+    .results-info {
+        background: #ffebee;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        border-left: 4px solid #f44336;
+    }
+    .results-info strong {
+        color: #c62828;
+    }
+    .contratos-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .contratos-table th {
+        background: linear-gradient(to bottom, #f44336, #e53935);
+        color: white;
+        padding: 15px 10px;
+        text-align: left;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    .contratos-table td {
+        padding: 12px 10px;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 14px;
+    }
+    .contratos-table tr:hover {
+        background: #fff3e0;
+    }
+    .contrato-link {
+        color: #d32f2f;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+    .contrato-link:hover {
+        color: #c62828;
+        text-decoration: underline;
+    }
+    .valor-negativo {
+        color: #d32f2f;
+        font-weight: bold;
+    }
+    .valor-positivo {
+        color: #388e3c;
+        font-weight: bold;
+    }
+    .badge-conjunto {
+        background: #ff6b6b;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="search-container">
+    <div class="search-title">⚠️ Contratos com Amortização Negativa Corrigida</div>
+    
+    <div class="info-box">
+        <strong>ℹ️ Informação:</strong> Esta lista contém os <strong>{{ total_contratos }}</strong> contratos que apresentavam saldo devedor negativo 
+        devido à anomalia de amortização negativa do sistema financeiro habitacional. Os valores foram convertidos para positivos 
+        em <strong>26/11/2025</strong>. Total convertido: <strong>R$ {{ total_convertido|floatformat:2 }}</strong>
+    </div>
+    
+    <form method="get" action="{% url 'amortizacao_negativa' %}">
+        <div class="search-filters">
+            <div class="filter-group">
+                <label>🔍 Código do Contrato</label>
+                <input type="text" name="codigo" placeholder="Ex: 000102" value="{{ busca_codigo }}">
+            </div>
+            <div class="filter-group">
+                <label>🏘️ Conjunto</label>
+                <input type="text" name="conjunto" placeholder="Ex: 010" value="{{ busca_conjunto }}">
+            </div>
+        </div>
+        <div class="search-actions">
+            <button type="submit" class="btn btn-search">🔍 Buscar</button>
+            <a href="{% url 'amortizacao_negativa' %}" class="btn btn-clear">🔄 Limpar Filtros</a>
+        </div>
+    </form>
+</div>
+
+<div class="results-info">
+    <strong>📊 Resultados:</strong> 
+    Exibindo até 200 contratos de um total de <strong>{{ total_contratos }}</strong> contratos com amortização negativa corrigida.
+    <div style="margin-top: 10px;">
+        <a href="?exportar=excel{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}" class="btn btn-excel">
+            📥 Exportar Relatório Completo (Excel)
+        </a>
+    </div>
+</div>
+
+<table class="contratos-table">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Conjunto</th>
+            <th>Saldo Negativo Original</th>
+            <th>Saldo Convertido</th>
+            <th>Data Conversão</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contrato in contratos %}
+        <tr>
+            <td>{{ contrato.codigo }}</td>
+            <td><span class="badge-conjunto">{{ contrato.conjunto }}</span></td>
+            <td class="valor-negativo">R$ {{ contrato.saldo_negativo|floatformat:2 }}</td>
+            <td class="valor-positivo">R$ {{ contrato.saldo_convertido|floatformat:2 }}</td>
+            <td>{{ contrato.data_conversao }}</td>
+            <td>
+                {% if contrato.contrato_id %}
+                    <a href="{% url 'contrato_detail' contrato.contrato_id %}" class="contrato-link">
+                        👁️ Visualizar
+                    </a>
+                {% else %}
+                    <span style="color: #999;">N/A</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" style="text-align: center; padding: 30px; color: #999;">
+                Nenhum contrato encontrado com os filtros especificados.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

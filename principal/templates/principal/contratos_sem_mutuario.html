@@ -1,0 +1,210 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Contratos sem Mutuário - CoFluhab{% endblock %}
+
+{% block content %}
+<style>
+    .alert-warning {
+        background: #fff3cd;
+        border-left: 4px solid #ff9800;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+    th {
+        background: #092e20;
+        color: white;
+        padding: 12px 8px;
+        text-align: left;
+        font-weight: bold;
+    }
+    td {
+        padding: 10px 8px;
+        border-bottom: 1px solid #ddd;
+    }
+    tr:hover {
+        background: #f5f5f5;
+    }
+    .btn-cadastrar {
+        padding: 8px 16px;
+        background: #4caf50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        display: inline-block;
+    }
+    .btn-cadastrar:hover {
+        background: #45a049;
+    }
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .pagination a {
+        padding: 8px 12px;
+        margin: 0 5px;
+        background: #092e20;
+        color: white;
+        text-decoration: none;
+        border-radius: 3px;
+    }
+</style>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin: 0;">⚠️ Contratos sem Mutuário Cadastrado</h2>
+    <a href="?exportar=excel{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}" 
+       style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+        📥 Exportar Excel
+    </a>
+</div>
+
+{% if not busca_codigo and not busca_conjunto %}
+<div class="alert-warning">
+    <strong>ℹ️ Atenção:</strong> Existem <strong>{{ total }}</strong> contratos sem mutuário vinculado. 
+    É necessário cadastrar os mutuários para completar as informações do sistema.
+</div>
+{% endif %}
+
+<!-- Estatísticas por Conjunto -->
+<div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h3 style="margin-top: 0; color: #092e20;">📊 Estatísticas por Conjunto</h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+        <thead>
+            <tr style="background: #092e20; color: white;">
+                <th style="padding: 10px; text-align: center;">Código</th>
+                <th style="padding: 10px; text-align: left;">Nome</th>
+                <th style="padding: 10px; text-align: center;">Total Contratos</th>
+                <th style="padding: 10px; text-align: center;">✅ Com Mutuário</th>
+                <th style="padding: 10px; text-align: center;">⚠️ Sem Mutuário</th>
+                <th style="padding: 10px; text-align: center;">% Completo</th>
+                <th style="padding: 10px; text-align: center;">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for conj in conjuntos_stats %}
+            <tr style="{% cycle 'background: #f9f9f9;' 'background: #ffffff;' %} {% if conj.sem_mutuario > 0 %}border-left: 4px solid #ff9800;{% else %}border-left: 4px solid #4caf50;{% endif %}">
+                <td style="padding: 10px; text-align: center; font-weight: bold;">{{ conj.conjunto }}</td>
+                <td style="padding: 10px;">{{ conj.nome }}</td>
+                <td style="padding: 10px; text-align: center;">{{ conj.total_contratos }}</td>
+                <td style="padding: 10px; text-align: center; color: #2e7d32; font-weight: bold;">{{ conj.com_mutuario }}</td>
+                <td style="padding: 10px; text-align: center; {% if conj.sem_mutuario > 0 %}color: #e65100; font-weight: bold;{% endif %}">
+                    {{ conj.sem_mutuario }}
+                </td>
+                <td style="padding: 10px; text-align: center;">
+                    {% widthratio conj.com_mutuario conj.total_contratos 100 %}%
+                    <div style="background: #e0e0e0; height: 8px; border-radius: 4px; margin-top: 5px; overflow: hidden;">
+                        <div style="background: {% if conj.sem_mutuario == 0 %}#4caf50{% else %}#ff9800{% endif %}; height: 100%; width: {% widthratio conj.com_mutuario conj.total_contratos 100 %}%;"></div>
+                    </div>
+                </td>
+                <td style="padding: 10px; text-align: center;">
+                    {% if conj.sem_mutuario > 0 %}
+                        <a href="?conjunto={{ conj.conjunto }}" style="padding: 6px 12px; background: #ff9800; color: white; text-decoration: none; border-radius: 4px; font-size: 11px; font-weight: bold;">
+                            Ver {{ conj.sem_mutuario }}
+                        </a>
+                    {% else %}
+                        <span style="color: #4caf50; font-weight: bold;">✓ Completo</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Formulário de Busca -->
+<div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <form method="get" style="display: flex; gap: 15px; align-items: flex-end;">
+        <div style="flex: 1;">
+            <label for="codigo" style="display: block; font-weight: bold; margin-bottom: 5px;">🔍 Buscar por Código:</label>
+            <input type="text" id="codigo" name="codigo" value="{{ busca_codigo }}" 
+                   placeholder="Ex: 000442" 
+                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <div style="flex: 1;">
+            <label for="conjunto" style="display: block; font-weight: bold; margin-bottom: 5px;">📍 Buscar por Conjunto:</label>
+            <input type="text" id="conjunto" name="conjunto" value="{{ busca_conjunto }}" 
+                   placeholder="Ex: 001, 010" 
+                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <button type="submit" style="padding: 10px 24px; background: #092e20; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">
+            Buscar
+        </button>
+        {% if busca_codigo or busca_conjunto %}
+        <a href="{% url 'contratos_sem_mutuario' %}" style="padding: 10px 24px; background: #757575; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">
+            Limpar
+        </a>
+        {% endif %}
+    </form>
+</div>
+
+{% if busca_conjunto %}
+<div style="background: #fff3cd; padding: 15px; border-radius: 4px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+    <strong>📋 Filtro Ativo:</strong> Exibindo contratos sem mutuário do conjunto <strong>{{ busca_conjunto }}</strong>
+</div>
+{% endif %}
+
+{% if total > 0 %}
+<p><strong>Resultados:</strong> Exibindo {{ page_obj.start_index }} a {{ page_obj.end_index }} de {{ total }} contratos sem mutuário</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Conjunto</th>
+            <th>Total Parcelas</th>
+            <th>Saldo Devedor</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in page_obj %}
+        <tr>
+            <td><strong>{{ c.codigo }}</strong></td>
+            <td style="text-align: center;">{{ c.conjunto }}</td>
+            <td style="text-align: center;">{{ c.total_parcelas }}</td>
+            <td style="text-align: right;">R$ {{ c.saldo_devedor|floatformat:2 }}</td>
+            <td>
+                <a href="{% url 'contrato_detail' c.id %}" style="color: #092e20; margin-right: 10px;">Ver Detalhes</a>
+                <a href="{% url 'cadastrar_mutuario' c.id %}" class="btn-cadastrar">➕ Cadastrar Mutuário</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Paginação -->
+{% if page_obj.paginator.num_pages > 1 %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?pagina=1{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}">« Primeira</a>
+            <a href="?pagina={{ page_obj.previous_page_number }}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}">‹ Anterior</a>
+        {% endif %}
+        
+        <span style="padding: 8px 12px;">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        
+        {% if page_obj.has_next %}
+            <a href="?pagina={{ page_obj.next_page_number }}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}">Próxima ›</a>
+            <a href="?pagina={{ page_obj.paginator.num_pages }}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_conjunto %}&conjunto={{ busca_conjunto }}{% endif %}">Última »</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% else %}
+<div style="background: #f8f9fa; padding: 30px; text-align: center; border-radius: 8px; border: 2px dashed #dee2e6;">
+    <p style="font-size: 18px; color: #6c757d; margin: 0;">
+        {% if busca_conjunto %}
+            🎉 Não há contratos sem mutuário no conjunto <strong>{{ busca_conjunto }}</strong>!
+        {% else %}
+            ℹ️ Use os filtros acima para buscar contratos sem mutuário
+        {% endif %}
+    </p>
+</div>
+{% endif %}
+
+{% endblock %}

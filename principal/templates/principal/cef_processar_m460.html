@@ -1,0 +1,420 @@
+{% extends "principal/base.html" %}
+{% load static %}
+
+{% block title %}Processar M460xxx - Irregularidades CEF{% endblock %}
+
+{% block extra_css %}
+<style>
+    .upload-area {
+        border: 2px dashed #007bff;
+        border-radius: 8px;
+        padding: 40px;
+        text-align: center;
+        background-color: #f8f9fa;
+        transition: all 0.3s;
+    }
+    
+    .upload-area:hover {
+        background-color: #e9ecef;
+        border-color: #0056b3;
+    }
+    
+    .file-icon {
+        font-size: 48px;
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+    
+    .resultado-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .stat-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    .stat-box h3 {
+        margin: 0;
+        font-size: 2em;
+        font-weight: bold;
+    }
+    
+    .stat-box p {
+        margin: 5px 0 0 0;
+        opacity: 0.9;
+    }
+    
+    .gifus-table {
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .gifus-table th {
+        background-color: #007bff;
+        color: white;
+        padding: 12px;
+        text-align: left;
+    }
+    
+    .gifus-table td {
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .gifus-table tr:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .badge-gifus {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.85em;
+    }
+    
+    .alert-custom {
+        border-left: 4px solid;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .alert-info-custom {
+        background-color: #e7f3ff;
+        border-left-color: #2196F3;
+    }
+    
+    .alert-warning-custom {
+        background-color: #fff3cd;
+        border-left-color: #ff9800;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2><i class="fas fa-exclamation-triangle"></i> Processar M460xxx - Irregularidades CEF</h2>
+            <p class="text-muted">
+                Processa arquivos de irregularidades retornados pela CEF (M460301, M460401, M460801)
+            </p>
+        </div>
+    </div>
+
+    <!-- Área de Upload -->
+    <div class="row mb-4">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="upload-area mb-4">
+                            <div class="file-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <h4>Selecione o arquivo M460xxx</h4>
+                            <p class="text-muted">Suporta M460301, M460401 e M460801 (formato .txt)</p>
+                            <input type="file" name="arquivo_m460" id="arquivo_m460" class="form-control mt-3" accept=".txt" required>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="tipo_arquivo" class="form-label">Tipo de Arquivo</label>
+                                <select name="tipo_arquivo" id="tipo_arquivo" class="form-select">
+                                    <option value="auto">🔍 Detectar Automaticamente</option>
+                                    <option value="M460301">M460301 - Irregularidades de Parcelas</option>
+                                    <option value="M460401">M460401 - Irregularidades de Posição</option>
+                                    <option value="M460801">M460801 - Multiplicidade de Sinistros</option>
+                                </select>
+                                <small class="text-muted">
+                                    O sistema pode detectar automaticamente o tipo de arquivo
+                                </small>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label">Ações Adicionais</label>
+                                <div class="form-check">
+                                    <input type="checkbox" name="atualizar_contratos" id="atualizar_contratos" class="form-check-input">
+                                    <label for="atualizar_contratos" class="form-check-label">
+                                        Atualizar observações dos contratos automaticamente
+                                    </label>
+                                </div>
+                                <small class="text-muted">
+                                    Adiciona informações de irregularidades às observações dos contratos encontrados
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-play"></i> Processar Arquivo
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informações sobre os Tipos de Arquivo -->
+    <div class="row mb-4">
+        <div class="col-lg-4">
+            <div class="alert alert-info-custom">
+                <h5><i class="fas fa-file-alt"></i> M460301</h5>
+                <p class="mb-0">
+                    <strong>Irregularidades de Parcelas</strong><br>
+                    Contém informações sobre contratos com problemas no pagamento de parcelas.
+                    Inclui códigos GIFUS, valores VAF e saldos devedores.
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="alert alert-info-custom">
+                <h5><i class="fas fa-file-alt"></i> M460401</h5>
+                <p class="mb-0">
+                    <strong>Irregularidades de Posição</strong><br>
+                    Similar ao M460301, mas com foco em irregularidades de posição do contrato.
+                    Estrutura de campos idêntica ao M460301.
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="alert alert-warning-custom">
+                <h5><i class="fas fa-file-alt"></i> M460801</h5>
+                <p class="mb-0">
+                    <strong>Multiplicidade de Sinistros</strong><br>
+                    Identifica contratos com múltiplas ocorrências de sinistros.
+                    Estrutura simplificada com códigos de situação específicos.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    {% if resultado %}
+    <div class="row">
+        <div class="col-12">
+            <div class="resultado-card">
+                <h3 class="mb-3">
+                    <i class="fas fa-check-circle text-success"></i> 
+                    Arquivo Processado: {{ resultado.tipo_display }}
+                </h3>
+                
+                <!-- Estatísticas Gerais -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3>{{ resultado.total_registros }}</h3>
+                            <p>Registros Processados</p>
+                        </div>
+                    </div>
+                    
+                    {% if resultado.contratos_atualizados is not None %}
+                    <div class="col-md-3">
+                        <div class="stat-box" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                            <h3>{{ resultado.contratos_atualizados }}</h3>
+                            <p>Contratos Atualizados</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if resultado.por_gifus %}
+                    <div class="col-md-3">
+                        <div class="stat-box" style="background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);">
+                            <h3>{{ resultado.por_gifus|length }}</h3>
+                            <p>Códigos GIFUS Diferentes</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-box" style="background: linear-gradient(135deg, #0575e6 0%, #021b79 100%);">
+                            <h3>R$ {{ resultado.totais_vaf.total_vaf1|floatformat:2 }}</h3>
+                            <p>Total VAF1</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if resultado.por_situacao %}
+                    <div class="col-md-3">
+                        <div class="stat-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <h3>{{ resultado.por_situacao|length }}</h3>
+                            <p>Situações Diferentes</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Resumo por GIFUS (M460301/M460401) -->
+                {% if resultado.por_gifus %}
+                <div class="mb-4">
+                    <h4><i class="fas fa-chart-bar"></i> Resumo por Código GIFUS</h4>
+                    <table class="gifus-table table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descrição</th>
+                                <th class="text-center">Quantidade</th>
+                                <th class="text-end">Total VAF1</th>
+                                <th class="text-end">Total VAF2</th>
+                                <th class="text-end">Total VAF3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for gifus, dados in resultado.por_gifus.items %}
+                            <tr>
+                                <td><span class="badge-gifus bg-primary">{{ gifus }}</span></td>
+                                <td>{{ dados.descricao|truncatewords:10 }}</td>
+                                <td class="text-center">{{ dados.quantidade }}</td>
+                                <td class="text-end">R$ {{ dados.total_vaf1|floatformat:2 }}</td>
+                                <td class="text-end">R$ {{ dados.total_vaf2|floatformat:2 }}</td>
+                                <td class="text-end">R$ {{ dados.total_vaf3|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Top 10 Maiores Saldos -->
+                {% if resultado.top_saldos %}
+                <div class="mb-4">
+                    <h4><i class="fas fa-trophy"></i> Top 10 Maiores Saldos Devedores</h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Posição</th>
+                                <th>Contrato</th>
+                                <th>Mutuário</th>
+                                <th>GIFUS</th>
+                                <th class="text-end">Saldo Devedor</th>
+                                <th class="text-end">VAF1 CEF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for registro in resultado.top_saldos %}
+                            <tr>
+                                <td><strong>#{{ forloop.counter }}</strong></td>
+                                <td>{{ registro.numero_contrato }}</td>
+                                <td>{{ registro.nome_mutuario|truncatewords:5 }}</td>
+                                <td><span class="badge bg-warning">{{ registro.codigo_gifus }}</span></td>
+                                <td class="text-end"><strong>R$ {{ registro.saldo_devedor_principal|floatformat:2 }}</strong></td>
+                                <td class="text-end">R$ {{ registro.vaf1_fcvs_caixa|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+                {% endif %}
+                
+                <!-- Resumo por Situação (M460801) -->
+                {% if resultado.por_situacao %}
+                <div class="mb-4">
+                    <h4><i class="fas fa-list"></i> Resumo por Situação de Multiplicidade</h4>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descrição</th>
+                                <th class="text-center">Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for situacao, dados in resultado.por_situacao.items %}
+                            <tr>
+                                <td><span class="badge bg-info">{{ situacao }}</span></td>
+                                <td>{{ dados.descricao }}</td>
+                                <td class="text-center"><strong>{{ dados.quantidade }}</strong></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+                
+                <!-- Contratos Não Encontrados -->
+                {% if resultado.contratos_nao_encontrados %}
+                <div class="alert alert-warning">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Contratos Não Encontrados</h5>
+                    <p>Os seguintes contratos não foram encontrados no banco de dados:</p>
+                    <ul class="mb-0">
+                        {% for contrato in resultado.contratos_nao_encontrados %}
+                        <li>{{ contrato }}</li>
+                        {% endfor %}
+                        {% if resultado.contratos_nao_encontrados|length == 10 %}
+                        <li><em>... e mais</em></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                <!-- Botões de Ação -->
+                <div class="d-flex gap-2 mt-4">
+                    <form method="post" action="{% url 'exportar_m460_excel' resultado.tipo %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" name="arquivo_m460" style="display: none;" id="arquivo_export" required>
+                        <button type="button" class="btn btn-success" onclick="document.getElementById('arquivo_export').click()">
+                            <i class="fas fa-file-excel"></i> Exportar para Excel
+                        </button>
+                    </form>
+                    
+                    <a href="{% url 'comparar_m460' %}" class="btn btn-info">
+                        <i class="fas fa-exchange-alt"></i> Comparar com Outro Arquivo
+                    </a>
+                    
+                    <a href="{% url 'processar_m460' %}" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Processar Outro Arquivo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Erros -->
+    {% if erros %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <h5><i class="fas fa-times-circle"></i> Erros Encontrados</h5>
+                <ul class="mb-0">
+                    {% for erro in erros %}
+                    <li>{{ erro }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+// Atualizar nome do arquivo selecionado
+document.getElementById('arquivo_m460').addEventListener('change', function(e) {
+    if (this.files.length > 0) {
+        const fileName = this.files[0].name;
+        document.querySelector('.upload-area h4').textContent = fileName;
+        document.querySelector('.upload-area .file-icon').innerHTML = '<i class="fas fa-file-alt"></i>';
+        document.querySelector('.upload-area').style.borderColor = '#28a745';
+    }
+});
+
+// Copiar arquivo para form de export
+const originalFile = document.getElementById('arquivo_m460');
+const exportFile = document.getElementById('arquivo_export');
+
+if (originalFile && exportFile && originalFile.files.length > 0) {
+    const dt = new DataTransfer();
+    dt.items.add(originalFile.files[0]);
+    exportFile.files = dt.files;
+}
+</script>
+{% endblock %}

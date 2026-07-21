@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORMULÁRIO FH1 - HABILITAÇÃO AO FCVS</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #003366; font-size: 18px; }
+        .header h2 { color: #0066cc; font-size: 16px; }
+        .section { margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; }
+        .section-title { background-color: #f0f0f0; padding: 5px; margin: -15px -15px 15px -15px; font-weight: bold; }
+        .field { margin-bottom: 10px; }
+        .field label { display: inline-block; width: 200px; font-weight: bold; }
+        .field-value { display: inline-block; border-bottom: 1px solid #000; min-width: 300px; padding: 2px 5px; }
+        .signature { margin-top: 50px; }
+        .signature-line { border-top: 1px solid #000; width: 300px; margin-top: 30px; }
+        .page-break { page-break-after: always; }
+        @media print {
+            .no-print { display: none; }
+            body { margin: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- CABEÇALHO -->
+        <div class="header">
+            <h1>CAIXA ECONÔMICA FEDERAL</h1>
+            <h2>FORMULÁRIO FH1 - HABILITAÇÃO AO FCVS</h2>
+            <p>(Fundo de Compensação de Variações Salariais)</p>
+        </div>
+
+        <!-- SEÇÃO 1: IDENTIFICAÇÃO DO CONTRATO -->
+        <div class="section">
+            <div class="section-title">1. IDENTIFICAÇÃO DO CONTRATO</div>
+            
+            <div class="field">
+                <label>Número do Contrato:</label>
+                <span class="field-value">{{ contrato.codigo }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Conjunto Habitacional:</label>
+                <span class="field-value">{{ contrato.conjunto }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Data do Contrato:</label>
+                <span class="field-value">{{ contrato.data_contrato|date:"d/m/Y" }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Prazo Original (meses):</label>
+                <span class="field-value">{{ contrato.prazo }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Saldo Inicial:</label>
+                <span class="field-value">R$ {{ saldo_inicial|floatformat:2 }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Saldo Atual:</label>
+                <span class="field-value">R$ {{ saldo_atual|floatformat:2 }}</span>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 2: IDENTIFICAÇÃO DO MUTUÁRIO -->
+        <div class="section">
+            <div class="section-title">2. IDENTIFICAÇÃO DO MUTUÁRIO</div>
+            
+            <div class="field">
+                <label>Nome Completo:</label>
+                <span class="field-value">{{ mutuario.nome }}</span>
+            </div>
+            
+            <div class="field">
+                <label>CPF:</label>
+                <span class="field-value">{{ mutuario.cpf }}</span>
+            </div>
+            
+            <div class="field">
+                <label>RG:</label>
+                <span class="field-value">{{ mutuario.rg }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Data de Nascimento:</label>
+                <span class="field-value">{{ mutuario.data_nascimento|date:"d/m/Y" }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Endereço do Imóvel:</label>
+                <span class="field-value">{{ endereco.logradouro }}, {{ endereco.numero }} - {{ endereco.bairro }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Cidade/UF:</label>
+                <span class="field-value">{{ endereco.cidade }}/{{ endereco.uf }}</span>
+            </div>
+            
+            <div class="field">
+                <label>CEP:</label>
+                <span class="field-value">{{ endereco.cep }}</span>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 3: ANÁLISE DE FCVS -->
+        <div class="section">
+            <div class="section-title">3. ANÁLISE DE FCVS - RESÍDUO DE AMORTIZAÇÃO NEGATIVA</div>
+            
+            <div class="field">
+                <label>Período Analisado:</label>
+                <span class="field-value">{{ primeira_parcela|date:"m/Y" }} a {{ ultima_parcela|date:"m/Y" }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Total de Parcelas:</label>
+                <span class="field-value">{{ total_parcelas }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Parcelas com Amortização Negativa:</label>
+                <span class="field-value">{{ anomalias }} ({{ percentual_anomalias|floatformat:1 }}%)</span>
+            </div>
+            
+            <div class="field">
+                <label>FCVS Residual Calculado:</label>
+                <span class="field-value" style="font-weight: bold; color: #d00;">R$ {{ fcvs_residual|floatformat:2 }}</span>
+            </div>
+            
+            <div class="field">
+                <label>Justificativa Técnica:</label>
+                <div style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9;">
+                    <p>O contrato apresentou amortização negativa em {{ anomalias }} meses, resultando em resíduo de FCVS acumulado de R$ {{ fcvs_residual|floatformat:2 }}.</p>
+                    <p>Este valor decorre da aplicação de índices de correção superiores à capacidade de amortização durante os períodos de hiperinflação (1986-1994).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 4: MESES CRÍTICOS (TOP 10) -->
+        <div class="section">
+            <div class="section-title">4. MESES COM MAIOR CRESCIMENTO DO SALDO DEVEDOR</div>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #ccc; padding: 5px;">Mês</th>
+                        <th style="border: 1px solid #ccc; padding: 5px;">Data</th>
+                        <th style="border: 1px solid #ccc; padding: 5px;">Saldo Anterior</th>
+                        <th style="border: 1px solid #ccc; padding: 5px;">Saldo Atual</th>
+                        <th style="border: 1px solid #ccc; padding: 5px;">Crescimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for anomalia in anomalias_top10 %}
+                    <tr>
+                        <td style="border: 1px solid #ccc; padding: 5px; text-align: center;">{{ anomalia.mes }}</td>
+                        <td style="border: 1px solid #ccc; padding: 5px; text-align: center;">{{ anomalia.data|date:"m/Y" }}</td>
+                        <td style="border: 1px solid #ccc; padding: 5px; text-align: right;">R$ {{ anomalia.saldo_ant|floatformat:2 }}</td>
+                        <td style="border: 1px solid #ccc; padding: 5px; text-align: right;">R$ {{ anomalia.saldo_atual|floatformat:2 }}</td>
+                        <td style="border: 1px solid #ccc; padding: 5px; text-align: right; color: #d00;">R$ {{ anomalia.crescimento|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SEÇÃO 5: DECLARAÇÕES -->
+        <div class="section">
+            <div class="section-title">5. DECLARAÇÕES</div>
+            
+            <div style="margin: 15px 0;">
+                <p><strong>DECLARO</strong> para os devidos fins que:</p>
+                <ol>
+                    <li>O contrato acima identificado apresenta resíduo de FCVS decorrente de amortização negativa;</li>
+                    <li>Solicito a habilitação ao Fundo de Compensação de Variações Salariais (FCVS);</li>
+                    <li>Estou ciente de que a análise está sujeita à confirmação pela Caixa Econômica Federal;</li>
+                    <li>Autorizo a consulta aos dados do contrato para fins de análise técnica.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 6: ASSINATURAS -->
+        <div class="section">
+            <div class="section-title">6. ASSINATURAS</div>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+                <div style="text-align: center;">
+                    <p>___________________________________________</p>
+                    <p><strong>MUTUÁRIO</strong></p>
+                    <p>{{ mutuario.nome }}</p>
+                    <p>CPF: {{ mutuario.cpf }}</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <p>___________________________________________</p>
+                    <p><strong>REPRESENTANTE LEGAL</strong></p>
+                    <p>COFLUHAB - CIA FLUMINENSE DE HABITAÇÃO</p>
+                    <p>CNPJ: [INSERIR CNPJ DA EMPRESA]</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <p>___________________________________________</p>
+                <p><strong>ANALISTA TÉCNICO</strong></p>
+                <p>[NOME DO ANALISTA]</p>
+                <p>CREA/CRC: [NÚMERO DO REGISTRO]</p>
+            </div>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div style="margin-top: 50px; text-align: center; font-size: 12px; color: #666;">
+            <p>Documento gerado automaticamente pelo Sistema de Auditoria COFLUHAB</p>
+            <p>Data de emissão: {% now "d/m/Y H:i" %}</p>
+            <p>Processo nº: AUD-FCVS-{{ contrato.codigo }}-{% now "YmdHis" %}</p>
+        </div>
+    </div>
+</body>
+</html>

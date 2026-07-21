@@ -1,0 +1,474 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}CADMUT - CoFluhab{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1 class="page-title">CADMUT</h1>
+        <p class="page-subtitle">Central operacional para preparar bases, validar cadastros e alimentar novos contratos.</p>
+    </div>
+
+    <div class="card">
+        <h2>Visão geral</h2>
+        <p>Este painel organiza o fluxo CADMUT como porta de entrada para novos contratos. A base principal continua sendo o conjunto habitacional, e o CADMUT atua como camada de preparação e validação.</p>
+        <ul>
+            <li>Carregar bases iniciais de contratos e mutuários.</li>
+            <li>Validar dados antes de criar ou atualizar contratos na base.</li>
+            <li>Relacionar mutuários ao conjunto habitacional correto.</li>
+            <li>Preparar arquivos e retornos para o fluxo CEF/FCVS.</li>
+        </ul>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Criar conjunto habitacional</h2>
+        <p>Crie o conjunto antes do upload da base para definir para qual código os novos contratos serão vinculados.</p>
+
+        {% if conjunto_success %}
+            <div style="background: #ecfdf3; border: 1px solid #86efac; color: #166534; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                {{ conjunto_success }}
+            </div>
+        {% endif %}
+
+        {% if conjunto_error %}
+            <div style="background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                {{ conjunto_error }}
+            </div>
+        {% endif %}
+
+        <form method="post" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            {% csrf_token %}
+            <input type="hidden" name="acao" value="criar_conjunto">
+            <input type="text" name="novo_conjunto_codigo" placeholder="Código do conjunto" maxlength="10" required>
+            <input type="text" name="novo_conjunto_nome" placeholder="Nome do conjunto" maxlength="100" required style="min-width: 280px;">
+            <button type="submit" class="btn btn-primary">Criar Conjunto</button>
+        </form>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Receber base inicial</h2>
+        <p>Envie a planilha ou arquivo-base para iniciar a alimentação dos novos contratos.</p>
+
+        {% if upload_success %}
+            <div style="background: #ecfdf3; border: 1px solid #86efac; color: #166534; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                {{ upload_success }}
+            </div>
+        {% endif %}
+
+        {% if upload_error %}
+            <div style="background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                {{ upload_error }}
+            </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            {% csrf_token %}
+            <input type="hidden" name="acao" value="upload_base">
+            <select name="conjunto_destino" required>
+                <option value="">Selecione o conjunto de destino</option>
+                {% for c in conjuntos_cadmut %}
+                    <option value="{{ c.conjunto }}">{{ c.conjunto }} - {{ c.nome }}</option>
+                {% endfor %}
+            </select>
+            <input type="file" name="arquivo_base" accept=".xlsx,.xls,.csv,.txt" required>
+            <button type="submit" class="btn btn-primary">Enviar Base</button>
+        </form>
+        <p style="margin-top: 8px; color: #475569;">Formatos aceitos: .xlsx, .xls, .csv e .txt.</p>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>OCR de cadastro (beta)</h2>
+        <p>Faça upload de um PDF de contrato para extrair automaticamente dados cadastrais e confirmar a gravação.</p>
+
+        {% if ocr_success %}
+            <div style="background: #ecfdf3; border: 1px solid #86efac; color: #166534; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                {{ ocr_success }}
+            </div>
+        {% endif %}
+        {% if ocr_error %}
+            <div style="background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                {{ ocr_error }}
+            </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
+            {% csrf_token %}
+            <input type="hidden" name="acao" value="ocr_extrair_cadastro">
+            <select name="conjunto_ocr" required>
+                <option value="">Conjunto destino</option>
+                {% for c in conjuntos_cadmut %}
+                    <option value="{{ c.conjunto }}">{{ c.conjunto }} - {{ c.nome }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="codigo_manual_ocr" placeholder="Código (opcional, prevalece sobre OCR)">
+            <input type="file" name="arquivo_ocr" accept=".pdf" required>
+            <button type="submit" class="btn btn-primary">Extrair OCR</button>
+        </form>
+
+        {% if ocr_preview %}
+            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; margin-top: 10px;">
+                <tr><th>Arquivo</th><td>{{ ocr_preview.arquivo }}</td></tr>
+                <tr><th>Método</th><td>{{ ocr_preview.metodo }}</td></tr>
+                <tr><th>Score OCR</th><td>{{ ocr_preview.score }}</td></tr>
+                <tr><th>Código</th><td>{{ ocr_preview.codigo|default:"-" }}</td></tr>
+                <tr><th>Nome</th><td>{{ ocr_preview.nome|default:"-" }}</td></tr>
+                <tr><th>CPF</th><td>{{ ocr_preview.cpf|default:"-" }}</td></tr>
+                <tr><th>Endereço</th><td>{{ ocr_preview.endereco|default:"-" }}</td></tr>
+                <tr><th>Número</th><td>{{ ocr_preview.numero|default:"-" }}</td></tr>
+                <tr><th>Complemento</th><td>{{ ocr_preview.compl|default:"-" }}</td></tr>
+                <tr><th>Bairro</th><td>{{ ocr_preview.bairro|default:"-" }}</td></tr>
+                <tr><th>Cidade/UF</th><td>{{ ocr_preview.cidade|default:"-" }}/{{ ocr_preview.uf|default:"-" }}</td></tr>
+                <tr><th>CEP</th><td>{{ ocr_preview.cep|default:"-" }}</td></tr>
+                <tr><th>Cód Imóvel</th><td>{{ ocr_preview.codimovel|default:"-" }}</td></tr>
+                <tr><th>Tipo Imóvel</th><td>{{ ocr_preview.tipoimovel|default:"-" }}</td></tr>
+                <tr><th>Identidade/Órgão</th><td>{{ ocr_preview.ident|default:"-" }}/{{ ocr_preview.orgao|default:"-" }}</td></tr>
+                <tr><th>Data Nascimento</th><td>{{ ocr_preview.dtnasc|default:"-" }}</td></tr>
+                <tr><th>Valor Financiamento</th><td>{{ ocr_preview.vlfinanc|default:"-" }}</td></tr>
+                <tr><th>Valor Imóvel</th><td>{{ ocr_preview.vlprop|default:"-" }}</td></tr>
+                <tr><th>Prestação Inicial</th><td>{{ ocr_preview.prestacao_inicial|default:"-" }}</td></tr>
+                <tr><th>Prazo</th><td>{{ ocr_preview.prazo|default:"-" }}</td></tr>
+                <tr><th>Data 1º Venc.</th><td>{{ ocr_preview.data_primeiro_venc|default:"-" }}</td></tr>
+                <tr><th>SA</th><td>{{ ocr_preview.sa|default:"-" }}</td></tr>
+                <tr><th>Tx Juros</th><td>{{ ocr_preview.tx_juros|default:"-" }}</td></tr>
+                <tr><th>Cat Prof</th><td>{{ ocr_preview.cat_prof|default:"-" }}</td></tr>
+                <tr><th>PR</th><td>{{ ocr_preview.pr|default:"-" }}</td></tr>
+                <tr><th>Conjunto</th><td>{{ ocr_preview.conjunto|default:"-" }}</td></tr>
+            </table>
+
+            {% if ocr_preview.faltando_criticos %}
+                <p style="margin-top: 10px; color: #92400e;">
+                    Campos críticos faltando: {{ ocr_preview.faltando_criticos|join:", " }}
+                </p>
+            {% endif %}
+
+            <form method="post" style="margin-top: 12px; padding: 10px; border: 1px solid #fed7aa; border-radius: 8px; background: #fff7ed;">
+                {% csrf_token %}
+                <input type="hidden" name="acao" value="ocr_salvar_complemento_manual">
+                <input type="hidden" name="codigo_manual_complemento" value="{{ ocr_preview.codigo|default:'' }}">
+                <div style="margin-bottom: 8px;"><strong>Complementação manual assistida (persistente)</strong></div>
+                <p style="margin: 0 0 10px 0; color: #9a3412;">
+                    Salva os campos uma única vez para este código e reaplica automaticamente nas próximas importações OCR.
+                    Arquivo: {{ arquivo_overrides_ocr }}
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px;">
+                    <label>Data 1º Venc.
+                        <input type="text" name="manual_data_primeiro_venc" placeholder="dd/mm/aaaa" value="{{ ocr_manual_override.data_primeiro_venc|default:ocr_preview.data_primeiro_venc }}">
+                    </label>
+                    <label>SA
+                        <input type="text" name="manual_sa" placeholder="ex.: 4" value="{{ ocr_manual_override.sa|default:ocr_preview.sa }}">
+                    </label>
+                    <label>Tx Juros
+                        <input type="text" name="manual_tx_juros" placeholder="ex.: 4,80" value="{{ ocr_manual_override.tx_juros|default:ocr_preview.tx_juros }}">
+                    </label>
+                    <label>Cat Prof
+                        <input type="text" name="manual_cat_prof" placeholder="ex.: 00021" value="{{ ocr_manual_override.cat_prof|default:ocr_preview.cat_prof }}">
+                    </label>
+                    <label>PR
+                        <input type="text" name="manual_pr" placeholder="ex.: PES" value="{{ ocr_manual_override.pr|default:ocr_preview.pr }}">
+                    </label>
+                    <label>Identidade
+                        <input type="text" name="manual_ident" value="{{ ocr_manual_override.ident|default:ocr_preview.ident }}">
+                    </label>
+                    <label>Órgão
+                        <input type="text" name="manual_orgao" value="{{ ocr_manual_override.orgao|default:ocr_preview.orgao }}">
+                    </label>
+                    <label>Data Nascimento
+                        <input type="text" name="manual_dtnasc" placeholder="dd/mm/aaaa" value="{{ ocr_manual_override.dtnasc|default:ocr_preview.dtnasc }}">
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Salvar complemento manual</button>
+            </form>
+
+            {% if tem_pendente_ocr %}
+                <form method="post" style="margin-top: 12px; padding: 10px; border: 1px solid #dbeafe; border-radius: 8px; background: #eff6ff;">
+                    {% csrf_token %}
+                    <input type="hidden" name="acao" value="ocr_confirmar_cadastro">
+                    <div style="margin-bottom: 8px;"><strong>Modo de aplicação OCR</strong></div>
+                    {% for valor, rotulo in opcoes_modo_importacao %}
+                        <label style="display:block; margin-bottom: 4px;">
+                            <input type="radio" name="modo_importacao_ocr" value="{{ valor }}" {% if valor == 'complementar_vazios' %}checked{% endif %}> {{ rotulo }}
+                        </label>
+                    {% endfor %}
+                    <div style="margin-top: 8px; margin-bottom: 8px;"><strong>Campos elegíveis para sobrescrita (modo 3)</strong></div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                        {% for campo in campos_sobrescrita %}
+                            <label><input type="checkbox" name="campos_sobrescrever_ocr" value="{{ campo }}"> {{ campo }}</label>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Confirmar e aplicar OCR</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        {% if ocr_lote_preview %}
+            <div style="margin-top: 14px; padding: 12px; border: 1px solid #bfdbfe; background: #eff6ff; border-radius: 8px;">
+                <h3 style="margin-top: 0;">Prévia OCR em lote</h3>
+                <p style="margin: 4px 0;"><strong>Arquivo:</strong> {{ ocr_lote_preview.arquivo }}</p>
+                <p style="margin: 4px 0;"><strong>Conjunto:</strong> {{ ocr_lote_preview.conjunto }}</p>
+                <p style="margin: 4px 0;"><strong>Páginas:</strong> {{ ocr_lote_preview.total_paginas }} | <strong>Válidos:</strong> {{ ocr_lote_preview.total_validos }} | <strong>Inválidos:</strong> {{ ocr_lote_preview.total_invalidos }} | <strong>Sem dados:</strong> {{ ocr_lote_preview.total_sem_dados|default:"0" }} | <strong>Duplicados:</strong> {{ ocr_lote_preview.total_duplicados|default:"0" }}</p>
+                {% if ocr_lote_preview.metodos_usados %}
+                    <p style="margin: 4px 0;"><strong>Método(s):</strong> {{ ocr_lote_preview.metodos_usados|join:", " }}</p>
+                {% endif %}
+                {% if ocr_lote_preview.preview_csv %}
+                    <p style="margin: 4px 0;"><strong>Prévia CSV:</strong> {{ ocr_lote_preview.preview_csv }}</p>
+                {% endif %}
+                {% if ocr_lote_preview.diagnostico_csv %}
+                    <p style="margin: 4px 0;"><strong>Diagnóstico de campos Azure:</strong> {{ ocr_lote_preview.diagnostico_csv }}</p>
+                {% endif %}
+
+                <div style="overflow-x: auto; margin-top: 8px;">
+                    <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; min-width: 700px;">
+                        <thead>
+                            <tr>
+                                <th>Página</th>
+                                <th>Método</th>
+                                <th>Código</th>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Endereço</th>
+                                <th>Número</th>
+                                <th>Bairro</th>
+                                <th>Cidade/UF</th>
+                                <th>Financiamento</th>
+                                <th>Prestação</th>
+                                <th>Prazo</th>
+                                <th>Tx Juros</th>
+                                <th>Data 1º Venc</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in ocr_lote_preview.itens %}
+                                <tr>
+                                    <td>{{ item.pagina }}</td>
+                                    <td>{{ item.metodo|default:"-" }}</td>
+                                    <td>{{ item.codigo|default:"-" }}</td>
+                                    <td>{{ item.nome|default:"-" }}</td>
+                                    <td>{{ item.cpf|default:"-" }}</td>
+                                    <td>{{ item.endereco|default:"-" }}</td>
+                                    <td>{{ item.numero|default:"-" }}</td>
+                                    <td>{{ item.bairro|default:"-" }}</td>
+                                    <td>{{ item.cidade|default:"-" }}/{{ item.uf|default:"-" }}</td>
+                                    <td>{{ item.vlfinanc|default:"-" }}</td>
+                                    <td>{{ item.prestacao_inicial|default:"-" }}</td>
+                                    <td>{{ item.prazo|default:"-" }}</td>
+                                    <td>{{ item.tx_juros|default:"-" }}</td>
+                                    <td>{{ item.data_primeiro_venc|default:"-" }}</td>
+                                    <td>{% if item.duplicado %}duplicado{% elif item.codigo_valido %}válido{% elif item.sem_dados %}sem dados{% else %}inválido{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if tem_pendente_ocr_lote %}
+                    <form method="post" style="margin-top: 12px;">
+                        {% csrf_token %}
+                        <input type="hidden" name="acao" value="ocr_confirmar_lote">
+                        <div style="margin-bottom: 8px;"><strong>Modo de aplicação OCR em lote</strong></div>
+                        {% for valor, rotulo in opcoes_modo_importacao %}
+                            <label style="display:block; margin-bottom: 4px;">
+                                <input type="radio" name="modo_importacao_ocr_lote" value="{{ valor }}" {% if valor == 'complementar_vazios' %}checked{% endif %}> {{ rotulo }}
+                            </label>
+                        {% endfor %}
+                        <div style="margin-top: 8px; margin-bottom: 8px;"><strong>Campos elegíveis para sobrescrita (modo 3)</strong></div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                            {% for campo in campos_sobrescrita %}
+                                <label><input type="checkbox" name="campos_sobrescrever_ocr_lote" value="{{ campo }}"> {{ campo }}</label>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Confirmar e aplicar OCR em lote</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Status da base</h2>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;">
+            <tr>
+                <th>Indicador</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>Conjuntos habitacionais</td>
+                <td>{{ total_conjuntos|default:"0" }}</td>
+            </tr>
+            <tr>
+                <td>Mutuários</td>
+                <td>{{ total_mutuarios|default:"0" }}</td>
+            </tr>
+            <tr>
+                <td>Contratos totais</td>
+                <td>{{ total_contratos|default:"0" }}</td>
+            </tr>
+            <tr>
+                <td>Contratos com conjunto vinculado</td>
+                <td>{{ contratos_com_conjunto|default:"0" }}</td>
+            </tr>
+            <tr>
+                <td>Contratos sem conjunto</td>
+                <td>{{ contratos_sem_conjunto|default:"0" }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Ações rápidas</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <a class="btn btn-primary" href="{% url 'conjuntos' %}">Ver Conjuntos</a>
+            <a class="btn btn-primary" href="{% url 'mutuarios' %}">Ver Mutuários</a>
+            <a class="btn btn-primary" href="{% url 'contratos' %}">Ver Contratos</a>
+            <a class="btn btn-primary" href="{% url 'validar_ficha_cef' %}">Validar Ficha</a>
+            <a class="btn btn-primary" href="{% url 'interpretar_retorno_cef' %}">Interpretar Retorno</a>
+            <a class="btn btn-primary" href="{% url 'processar_relatorios_cef_upload' %}">Upload Relatórios</a>
+            <a class="btn btn-primary" href="{% url 'processar_retornos_cef_lote' %}">Processar Retornos</a>
+            <a class="btn btn-primary" href="{% url 'download_arquivo_lote' %}">Gerar Lote</a>
+        </div>
+    </div>
+
+    {% if preview_base %}
+        <div class="card" style="margin-top: 20px;">
+            <h2>Prévia da base enviada</h2>
+
+            {% if preview_base.erro %}
+                <div style="background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 10px; border-radius: 6px;">
+                    {{ preview_base.erro }}
+                </div>
+            {% else %}
+                <p><strong>Formato:</strong> {{ preview_base.formato }}</p>
+
+                <h3>Mapeamento automático de campos</h3>
+                <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; margin-bottom: 12px;">
+                    <tr>
+                        <th>Campo de destino</th>
+                        <th>Coluna encontrada na base</th>
+                    </tr>
+                    {% for campo, coluna in preview_base.campos_detectados.items %}
+                        <tr>
+                            <td>{{ campo }}</td>
+                            <td>{% if coluna %}{{ coluna }}{% else %}<span style="color: #b45309;">não detectado</span>{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                <h3>Amostra de linhas</h3>
+                {% if preview_base.cabecalhos and preview_base.amostra %}
+                    <div style="overflow-x: auto;">
+                        <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; min-width: 900px;">
+                            <thead>
+                                <tr>
+                                    {% for c in preview_base.cabecalhos %}
+                                        <th>{{ c }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for linha in preview_base.amostra %}
+                                    <tr>
+                                        {% for valor in linha %}
+                                            <td>{{ valor }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p>Não foi possível montar a amostra de linhas para esta base.</p>
+                {% endif %}
+
+                {% if tem_pendente_confirmacao %}
+                    <div style="margin-top: 14px; padding: 12px; border: 1px solid #fed7aa; background: #fff7ed; border-radius: 8px;">
+                        <p style="margin: 0 0 8px 0;"><strong>Confirmação:</strong> a gravação cria contratos que não existem e só complementa contratos existentes em campos ainda vazios.</p>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="acao" value="confirmar_gravacao">
+
+                            <div style="margin-bottom: 10px;">
+                                <strong>Modo de importação</strong>
+                                {% for valor, rotulo in opcoes_modo_importacao %}
+                                    <div style="margin-top: 6px;">
+                                        <label>
+                                            <input type="radio" name="modo_importacao" value="{{ valor }}" {% if valor == 'complementar_vazios' %}checked{% endif %}>
+                                            {{ rotulo }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div style="margin-bottom: 10px;">
+                                <strong>Campos elegíveis para sobrescrita (modo 3)</strong>
+                                <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px;">
+                                    {% for campo in campos_sobrescrita %}
+                                        <label>
+                                            <input type="checkbox" name="campos_sobrescrever" value="{{ campo }}"> {{ campo }}
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Confirmar e gravar contratos da base</button>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if import_resultado %}
+        <div class="card" style="margin-top: 20px;">
+            <h2>Resultado da gravação</h2>
+            <p><strong>Arquivo:</strong> {{ import_resultado.arquivo }}</p>
+            <p><strong>Conjunto:</strong> {{ import_resultado.conjunto }}</p>
+            <p><strong>Modo aplicado:</strong> {{ import_resultado.modo_importacao }}</p>
+            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; max-width: 680px;">
+                <tr>
+                    <th>Criados</th>
+                    <th>Atualizados</th>
+                    <th>Ignorados</th>
+                </tr>
+                <tr>
+                    <td>{{ import_resultado.criados }}</td>
+                    <td>{{ import_resultado.atualizados }}</td>
+                    <td>{{ import_resultado.ignorados }}</td>
+                </tr>
+            </table>
+
+            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; max-width: 680px; margin-top: 12px;">
+                <tr>
+                    <th>Mutuários criados</th>
+                    <th>Mutuários atualizados</th>
+                    <th>Vínculos contrato-mutuário</th>
+                </tr>
+                <tr>
+                    <td>{{ import_resultado.mutuarios_criados }}</td>
+                    <td>{{ import_resultado.mutuarios_atualizados }}</td>
+                    <td>{{ import_resultado.vinculados }}</td>
+                </tr>
+            </table>
+        </div>
+    {% endif %}
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Arquivos-base recebidos</h2>
+        {% if arquivos_base %}
+            <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <th>Arquivo</th>
+                    <th>Tamanho (KB)</th>
+                    <th>Última modificação</th>
+                </tr>
+                {% for arq in arquivos_base %}
+                    <tr>
+                        <td>{{ arq.nome }}</td>
+                        <td>{{ arq.tamanho_kb }}</td>
+                        <td>{{ arq.modificado_em }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>Nenhuma base enviada ainda.</p>
+        {% endif %}
+    </div>
+{% endblock %}

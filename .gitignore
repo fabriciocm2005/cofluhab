@@ -1,0 +1,61 @@
+# Variáveis de ambiente (NUNCA commitar)
+.env
+
+# Banco de dados local
+db.sqlite3
+db.sqlite3.backup*
+db.sqlite3.bak*
+db.sqlite3.movmut.bak*
+
+# Arquivos estáticos coletados
+staticfiles/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Ambientes virtuais
+venv/
+venv_django/
+venv_ai/
+myvenv/
+testevenv/
+.venv/
+
+# Logs
+*.log
+django_view_debug.log
+cef_automation_debug.log
+ocr_processamento.log
+
+# Exports e temporários
+exports/
+*.backup
+*_tmp_*
+_tmp_*
+
+# Dados históricos e backups locais
+dados_antigos/
+principal/backup/
+manual/
+contrato_teste.pdf
+
+# Artefatos de exploração local
+*.ipynb
+debug_*.png
+erro_*.png
+0*_*.png
+
+# Media uploads (não versionados)
+media/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

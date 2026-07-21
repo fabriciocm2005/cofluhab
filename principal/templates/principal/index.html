@@ -1,0 +1,74 @@
+{% extends 'principal/base.html' %} 
+
+{% block content %} 
+
+    <div class="page-header">
+        <h1 class="page-title">Sistema COFLUHAB - Dashboard</h1>
+        <p class="page-subtitle">Painel de gestão de dados importados do sistema legado.</p>
+    </div>
+
+    <div class="card">
+        <h2>📊 Estatísticas do Sistema</h2>
+        <br>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;">
+        <tr>
+            <th>Categoria</th>
+            <th>Total de Registros</th>
+            <th>Ações</th>
+        </tr>
+        <tr>
+            <td><strong>Mutuários</strong></td>
+            <td>{{ total_mutuarios|default:"0" }}</td>
+            <td><a href="{% url 'mutuarios' %}">Ver Todos</a></td>
+        </tr>
+        <tr>
+            <td><strong>Conjuntos Habitacionais</strong></td>
+            <td>{{ total_conjuntos|default:"0" }}</td>
+            <td><a href="{% url 'conjuntos' %}">Ver Todos</a></td>
+        </tr>
+        <tr>
+            <td><strong>Endereços</strong></td>
+            <td>{{ total_enderecos|default:"0" }}</td>
+            <td><a href="{% url 'enderecos' %}">Ver Todos</a></td>
+        </tr>
+        <tr>
+            <td><strong>Contratos de Financiamento</strong></td>
+            <td>{{ total_contratos|default:"0" }}</td>
+            <td><a href="{% url 'contratos' %}">Ver Todos</a></td>
+        </tr>
+        <tr>
+            <td><strong>Parcelas (Evolução)</strong></td>
+            <td>{{ total_parcelas|default:"0" }}</td>
+            <td>-</td>
+        </tr>
+    </table>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>📁 CADMUT</h2>
+        <p>Ponto de entrada para organizar conjuntos habitacionais, validar dados e preparar bases iniciais para novos contratos.</p>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;">
+            <tr>
+                <th>Indicador</th>
+                <th>Valor</th>
+                <th>Ação</th>
+            </tr>
+            <tr>
+                <td><strong>Conjuntos</strong></td>
+                <td>{{ total_conjuntos|default:"0" }}</td>
+                <td><a href="{% url 'cadmut' %}">Abrir CADMUT</a></td>
+            </tr>
+            <tr>
+                <td><strong>Contratos</strong></td>
+                <td>{{ total_contratos|default:"0" }}</td>
+                <td><a href="{% url 'conjuntos' %}">Ver Conjuntos</a></td>
+            </tr>
+            <tr>
+                <td><strong>Base operacional</strong></td>
+                <td>{{ total_mutuarios|default:"0" }} mutuários</td>
+                <td><a href="{% url 'validar_ficha_cef' %}">Validar CADMUT</a></td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,763 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Gerar Lote CEF{% endblock %}
+
+{% block content %}
+<style>
+    #modalCredenciais {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 1100;
+        background: rgba(15, 23, 42, 0.55);
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    #modalCredenciais.show {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #modalCredenciais .modal-dialog {
+        width: 100%;
+        max-width: 820px;
+        margin: 0 auto;
+    }
+
+    #modalCredenciais .modal-content {
+        background: #ffffff !important;
+        color: #212529 !important;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+        opacity: 1 !important;
+    }
+
+    #modalCredenciais .modal-body {
+        max-height: 72vh;
+        overflow-y: auto;
+    }
+
+    #modalCredenciais .alert {
+        opacity: 1 !important;
+    }
+
+    #modalCredenciais code {
+        white-space: pre-wrap;
+        word-break: break-word;
+        border-radius: 8px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>📦 Gerar Lote de Fichas</h2>
+            <p class="text-muted">Geração em lote de fichas para múltiplos contratos</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">📋 Selecionar Contratos para o Lote</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Filtro por Conjunto -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">🔍 Filtrar por Conjunto</h6>
+                        </div>
+                        <div class="card-body">
+                            <form method="get" id="filtroForm">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label>Selecione um ou mais conjuntos:</label>
+                                        <select name="conjunto" id="conjunto_filter" class="form-control" multiple size="5">
+                                            <option value="" {% if not conjuntos_selecionados %}selected{% endif %}>-- Todos os Conjuntos --</option>
+                                            {% for conj in conjuntos_disponiveis %}
+                                                <option value="{{ conj.conjunto }}" 
+                                                        {% if conj.conjunto in conjuntos_selecionados %}selected{% endif %}>
+                                                    {{ conj.nome }} ({{ conj.conjunto }}) - {{ conj.qtd_mut }} mutuários
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                        <small class="form-text text-muted">
+                                            <i class="fas fa-info-circle"></i> Use Ctrl+Click para selecionar múltiplos conjuntos
+                                        </small>
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-sm btn-outline-primary" id="btnMarcarTodosConjuntos">
+                                                <i class="fas fa-check-square"></i> Marcar todos os conjuntos
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnLimparConjuntos">
+                                                <i class="fas fa-square"></i> Limpar conjuntos
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-end">
+                                        <div>
+                                            <button type="submit" class="btn btn-primary btn-block mb-2">
+                                                <i class="fas fa-filter"></i> Filtrar
+                                            </button>
+                                            <a href="{% url 'download_arquivo_lote' %}" class="btn btn-secondary btn-block">
+                                                <i class="fas fa-times"></i> Limpar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if conjuntos_selecionados %}
+                                <div class="alert alert-info mt-3 mb-0">
+                                    <i class="fas fa-filter"></i> Filtrando por: 
+                                    {% for conj in conjuntos_selecionados %}
+                                        <span class="badge badge-primary">{{ conj }}</span>
+                                    {% endfor %}
+                                    <br>
+                                    <small>Total de contratos encontrados: <strong>{{ total_contratos }}</strong></small>
+                                </div>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for conj in conjuntos_selecionados %}
+                        <input type="hidden" name="conjunto" value="{{ conj }}" class="conjunto-contexto">
+                        {% endfor %}
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="tipo_ficha">Tipo de Ficha:</label>
+                                <select name="tipo_ficha" id="tipo_ficha" class="form-control" required>
+                                    <option value="FH1">FH1 - Habilitação FCVS</option>
+                                    <option value="CADMUT">CADMUT - Cadastro Mutuário</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="matricula">Matrícula Agente Financeiro:</label>
+                                <input type="text" name="matricula" id="matricula" class="form-control" 
+                                    value="{{ default_matricula|default:'000044' }}" maxlength="6">
+                                <small class="form-text text-muted">Informe 6 dígitos (matrícula + DV). Ex: 0000449</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="numero_lote">Número do Lote:</label>
+                                <input type="text" name="numero_lote" id="numero_lote" class="form-control" 
+                                       readonly style="background-color: #e9ecef;">
+                                <small class="form-text text-muted">Gerado automaticamente</small>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" id="selectAll">
+                                        </th>
+                                        <th>Código</th>
+                                        <th>Mutuário</th>
+                                        <th>CPF</th>
+                                        <th>Data Contrato</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for contrato in contratos %}
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="contratos" value="{{ contrato.id }}" class="contrato-checkbox">
+                                        </td>
+                                        <td><strong>{{ contrato.codigo }}</strong></td>
+                                        <td>
+                                            {% if contrato.mutuario %}
+                                                {{ contrato.mutuario.nome }}
+                                            {% else %}
+                                                <span class="text-muted">Sem mutuário</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if contrato.mutuario %}
+                                                {{ contrato.mutuario.cpf|default:"-" }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ contrato.data_contrato|date:"d/m/Y"|default:"-" }}</td>
+                                        <td>R$ {{ contrato.valor|floatformat:2|default:"0,00" }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Paginação -->
+                        {% if page_obj.has_other_pages %}
+                        <div class="d-flex justify-content-between align-items-center my-3 px-2">
+                            <div class="text-muted">
+                                <small>Página <strong>{{ page_obj.number }}</strong> de <strong>{{ page_obj.paginator.num_pages }}</strong> ({{ total_contratos }} contrato{{ total_contratos|pluralize }})</small>
+                            </div>
+                            <nav aria-label="Navegação de páginas">
+                                <ul class="pagination pagination-sm mb-0">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1{% for conj in conjuntos_selecionados %}&conjunto={{ conj }}{% endfor %}" title="Primeira página">&laquo;&laquo;</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for conj in conjuntos_selecionados %}&conjunto={{ conj }}{% endfor %}" title="Página anterior">&laquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
+                                        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                                    {% endif %}
+                                    
+                                    {% for num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == num %}
+                                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page={{ num }}{% for conj in conjuntos_selecionados %}&conjunto={{ conj }}{% endfor %}">{{ num }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for conj in conjuntos_selecionados %}&conjunto={{ conj }}{% endfor %}" title="Próxima página">&raquo;</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% for conj in conjuntos_selecionados %}&conjunto={{ conj }}{% endfor %}" title="Última página">&raquo;&raquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                                        <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div>
+                                <span id="selectedCount" data-total="{{ total_contratos }}">0</span> contratos selecionados
+                                <div class="mt-1">
+                                    <label class="mb-0">
+                                        <input type="checkbox" id="todosFiltrados" name="todos_filtrados" value="1">
+                                        Selecionar todos os contratos do filtro ({{ total_contratos }})
+                                    </label>
+                                </div>
+                                <div class="mt-1">
+                                    <label class="mb-0 text-warning" title="Na geração manual do ZIP, permite incluir contratos mesmo com envios FH1 anteriores.">
+                                        <input type="checkbox" id="forcarReenvioManual" name="forcar_reenvio" value="1" checked>
+                                        Forçar reenvio (ignorar bloqueios para gerar o ZIP)
+                                    </label>
+                                </div>
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="btnMarcarPagina">
+                                        <i class="fas fa-check-square"></i> Marcar todos da página
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="btnDesmarcarPagina">
+                                        <i class="fas fa-square"></i> Limpar marcação da página
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-success btn-lg mr-2" onclick="enviarAutomatico()">
+                                    <i class="fas fa-rocket"></i> Gerar e Enviar Automaticamente à CEF
+                                </button>
+                                <button type="submit" class="btn btn-outline-success btn-lg mr-2" name="formato_saida" value="excel">
+                                    <i class="fas fa-file-excel"></i> Gerar Excel Horizontal (FH1)
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-lg" name="formato_saida" value="zip">
+                                    <i class="fas fa-download"></i> Gerar e Baixar Lote
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Confirmação de Envio CEF -->
+    <div class="modal" id="modalCredenciais" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-rocket"></i> Envio Automático para CEF
+                    </h5>
+                    <button type="button" class="close text-white" onclick="fecharModalCredenciais()">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6><i class="fas fa-info-circle text-info"></i> Envio rápido (3 passos)</h6>
+                    <p class="mb-2">O sistema usa a sessão do Chrome de depuração para enviar automaticamente ao SIWFC.</p>
+
+                    <ol class="mb-3 pl-3">
+                        <li>Abra o Chrome de depuração:</li>
+                    </ol>
+                    <code style="background: #333; color: #0f0; padding: 8px; display: block; margin: 0 0 10px 0;">chrome.exe --remote-debugging-port=9222</code>
+
+                    <ol start="2" class="mb-3 pl-3">
+                        <li>Faça login em <a href="https://www.siwfc.caixa.gov.br/documentos" target="_blank">siwfc.caixa.gov.br/documentos</a></li>
+                        <li>Volte aqui e clique em <strong>Confirmar Envio</strong></li>
+                    </ol>
+
+                    <div class="alert alert-info py-2 mb-3">
+                        <i class="fas fa-lightbulb"></i>
+                        Se já estiver logado no Chrome de depuração, pode confirmar direto.
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label style="font-weight: 600;">
+                            <input type="checkbox" id="forcarReenvio" style="margin-right: 6px;" checked>
+                            Permitir reenvio quando já existir envio anterior em status "Gerado" ou "Erro"
+                        </label>
+                        <small class="form-text text-muted d-block">
+                            Observação: status Processando/Enviado/Retorno Recebido continuam bloqueados.
+                        </small>
+                    </div>
+                    
+                    <div id="progressoEnvio" class="mt-3" style="display:none;">
+                        <h6>Progresso do Envio:</h6>
+                        <ul id="listaProgresso" class="list-unstyled">
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="fecharModalCredenciais()">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="confirmarEnvioAutomatico()" id="btnConfirmarEnvio">
+                        <i class="fas fa-paper-plane"></i> Confirmar Envio
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">ℹ️ Sobre a Geração em Lote</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>O sistema gera um arquivo ZIP contendo:</strong></p>
+                    <ul>
+                        <li><strong>HEADER_FH1_*.txt:</strong> Arquivo de cabeçalho com metadados do lote</li>
+                        <li><strong>DADOS_FH1_*.txt:</strong> Arquivo com todas as fichas FH1 dos contratos</li>
+                        <li><strong>RELATORIO_*.txt:</strong> Relatório de geração com estatísticas e erros</li>
+                    </ul>
+                    <p class="mb-0"><strong>Importante:</strong> Ambos os arquivos (HEADER e DADOS) devem ser enviados juntos no portal SIWFC conforme especificação.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">⚡ Dicas</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-0">
+                        <li>Máximo recomendado: 100 fichas por lote</li>
+                        <li>Use o checkbox "Selecionar Todos" para agilizar</li>
+                        <li>O sistema valida cada ficha antes de gerar</li>
+                        <li>Fichas com erro serão listadas no relatório</li>
+                        <li>Registros de envio serão criados para cada contrato</li>
+                        <li>Matrícula e número do lote são obrigatórios</li>
+                        <li>Confira o relatório incluído no ZIP após o download</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">🚀 Envio Automático para CEF</h6>
+                </div>
+                <div class="card-body">
+                    <h6><strong>Como funciona o envio automático:</strong></h6>
+                    <ol>
+                        <li>Selecione os contratos desejados</li>
+                        <li>Clique em "Gerar e Enviar Automaticamente à CEF"</li>
+                        <li>Informe suas credenciais do portal SIWFC (CPF e Senha)</li>
+                        <li>O sistema irá:
+                            <ul>
+                                <li>Gerar os arquivos HEADER e DADOS</li>
+                                <li>Fazer login no portal SIWFC</li>
+                                <li>Navegar para "Envio de Movimentos"</li>
+                                <li>Selecionar Produto (FCVS) e Tipo (FH1)</li>
+                                <li>Fazer upload dos arquivos</li>
+                                <li>Verificar se há críticas no retorno</li>
+                                <li>Capturar screenshots do processo</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Requisitos:</strong>
+                        <ul class="mb-0">
+                            <li>Google Chrome instalado</li>
+                            <li>Bibliotecas: <code>selenium</code> e <code>webdriver-manager</code></li>
+                            <li>Credenciais válidas do portal SIWFC</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gerar número do lote automaticamente
+    const now = new Date();
+    const dia = String(now.getDate()).padStart(2, '0');
+    const hora = String(now.getHours()).padStart(2, '0');
+    const minuto = String(now.getMinutes()).padStart(2, '0');
+    const numeroLote = (dia + hora + minuto).slice(-3); // Últimos 3 dígitos
+    document.getElementById('numero_lote').value = numeroLote;
+    
+    const selectAll = document.getElementById('selectAll');
+    const checkboxes = document.querySelectorAll('.contrato-checkbox');
+    const selectedCount = document.getElementById('selectedCount');
+    const todosFiltrados = document.getElementById('todosFiltrados');
+    const btnMarcarTodosConjuntos = document.getElementById('btnMarcarTodosConjuntos');
+    const btnLimparConjuntos = document.getElementById('btnLimparConjuntos');
+    const btnMarcarPagina = document.getElementById('btnMarcarPagina');
+    const btnDesmarcarPagina = document.getElementById('btnDesmarcarPagina');
+    const conjuntoFilter = document.getElementById('conjunto_filter');
+
+    if (btnMarcarTodosConjuntos && conjuntoFilter) {
+        btnMarcarTodosConjuntos.addEventListener('click', function() {
+            Array.from(conjuntoFilter.options).forEach(opt => {
+                if (opt.value !== '') {
+                    opt.selected = true;
+                }
+            });
+        });
+    }
+
+    if (btnLimparConjuntos && conjuntoFilter) {
+        btnLimparConjuntos.addEventListener('click', function() {
+            Array.from(conjuntoFilter.options).forEach(opt => {
+                opt.selected = false;
+            });
+            if (conjuntoFilter.options.length > 0) {
+                conjuntoFilter.options[0].selected = true;
+            }
+        });
+    }
+
+    if (btnMarcarPagina) {
+        btnMarcarPagina.addEventListener('click', function() {
+            if (todosFiltrados && todosFiltrados.checked) {
+                return;
+            }
+            checkboxes.forEach(cb => {
+                if (!cb.disabled) {
+                    cb.checked = true;
+                }
+            });
+            updateCount();
+        });
+    }
+
+    if (btnDesmarcarPagina) {
+        btnDesmarcarPagina.addEventListener('click', function() {
+            checkboxes.forEach(cb => {
+                if (!cb.disabled) {
+                    cb.checked = false;
+                }
+            });
+            if (todosFiltrados) {
+                todosFiltrados.checked = false;
+                checkboxes.forEach(cb => { cb.disabled = false; });
+                selectAll.disabled = false;
+            }
+            updateCount();
+        });
+    }
+    
+    // Select/Deselect All
+    selectAll.addEventListener('change', function() {
+        checkboxes.forEach(cb => {
+            cb.checked = selectAll.checked;
+        });
+        updateCount();
+    });
+    
+    // Update count on individual checkbox change
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateCount);
+    });
+
+    if (todosFiltrados) {
+        todosFiltrados.addEventListener('change', function() {
+            if (todosFiltrados.checked) {
+                checkboxes.forEach(cb => { cb.checked = false; cb.disabled = true; });
+                selectAll.checked = false;
+                selectAll.disabled = true;
+            } else {
+                checkboxes.forEach(cb => { cb.disabled = false; });
+                selectAll.disabled = false;
+            }
+            updateCount();
+        });
+    }
+    
+    function updateCount() {
+        if (todosFiltrados && todosFiltrados.checked) {
+            selectedCount.textContent = selectedCount.dataset.total || '0';
+            return;
+        }
+
+        const count = document.querySelectorAll('.contrato-checkbox:checked').length;
+        selectedCount.textContent = count;
+        
+        // Update selectAll state
+        selectAll.checked = count === checkboxes.length;
+        selectAll.indeterminate = count > 0 && count < checkboxes.length;
+    }
+    
+    updateCount();
+});
+
+// Função para envio automático
+function enviarAutomatico() {
+    const checkboxes = document.querySelectorAll('.contrato-checkbox:checked');
+    const todosFiltrados = document.getElementById('todosFiltrados');
+    
+    if (checkboxes.length === 0 && !(todosFiltrados && todosFiltrados.checked)) {
+        alert('Selecione pelo menos um contrato para enviar!');
+        return;
+    }
+    
+    // Abrir modal de credenciais
+    abrirModalCredenciais();
+}
+
+function abrirModalCredenciais() {
+    const modal = document.getElementById('modalCredenciais');
+    if (!modal) return;
+
+    if (typeof window.$ !== 'undefined' && typeof window.$.fn !== 'undefined' && typeof window.$.fn.modal === 'function') {
+        window.$('#modalCredenciais').modal('show');
+        return;
+    }
+
+    modal.style.display = 'flex';
+    modal.classList.add('show');
+    modal.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function fecharModalCredenciais() {
+    const modal = document.getElementById('modalCredenciais');
+    if (!modal) return;
+
+    if (typeof window.$ !== 'undefined' && typeof window.$.fn !== 'undefined' && typeof window.$.fn.modal === 'function') {
+        window.$('#modalCredenciais').modal('hide');
+        return;
+    }
+
+    modal.style.display = 'none';
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+}
+
+function confirmarEnvioAutomatico() {
+    const matricula = document.getElementById('matricula').value;
+    const numero_lote = document.getElementById('numero_lote').value;
+    const forcarReenvio = document.getElementById('forcarReenvio')?.checked ? '1' : '0';
+    const todosFiltrados = document.getElementById('todosFiltrados');
+    const usarTodosFiltrados = !!(todosFiltrados && todosFiltrados.checked);
+    
+    // Coletar IDs dos contratos selecionados
+    const checkboxes = document.querySelectorAll('.contrato-checkbox:checked');
+    const contratoIds = Array.from(checkboxes).map(cb => cb.value);
+    
+    console.log("Contratos selecionados:", contratoIds);
+    
+    // Desabilitar botão e mostrar progresso
+    const btnConfirmar = document.getElementById('btnConfirmarEnvio');
+    btnConfirmar.disabled = true;
+    btnConfirmar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+    
+    const progressoDiv = document.getElementById('progressoEnvio');
+    const listaProgresso = document.getElementById('listaProgresso');
+    progressoDiv.style.display = 'block';
+    listaProgresso.innerHTML = '<li><i class="fas fa-spinner fa-spin"></i> Verificando sessão e iniciando envio...</li>';
+    
+    // Preparar dados (sem CPF/senha pois usa sessão existente)
+    const formData = new FormData();
+    if (usarTodosFiltrados) {
+        formData.append('todos_filtrados', '1');
+        document.querySelectorAll('.conjunto-contexto').forEach(input => {
+            formData.append('conjunto', input.value);
+        });
+    } else {
+        contratoIds.forEach(id => formData.append('contratos', id));
+    }
+    formData.append('matricula', matricula);
+    formData.append('numero_lote', numero_lote);
+    formData.append('forcar_reenvio', forcarReenvio);
+    formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+    
+    const url = '{% url "enviar_lote_automatico" %}';
+    console.log("📤 URL do fetch:", url);
+    console.log("📤 Dados a enviar:", {
+        contratos: contratoIds,
+        matricula: matricula,
+        numero_lote: numero_lote
+    });
+    
+    // Enviar requisição
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log("📥 Resposta recebida!");
+        console.log("📥 Status HTTP:", response.status);
+        console.log("📥 Status Text:", response.statusText);
+        console.log("📥 Headers:", response.headers);
+        return response.json();
+    })
+    .then(data => {
+        console.log("📦 JSON parseado com sucesso!");
+        console.log("📦 Dados recebidos:", data);
+        listaProgresso.innerHTML = '';
+        
+        if (data.sucesso) {
+            listaProgresso.innerHTML = `<li class="text-info"><i class="fas fa-clock"></i> ${data.mensagem}</li>`;
+
+            if (data.remessa_id) {
+                acompanharRemessa(data.remessa_id, listaProgresso, btnConfirmar);
+            } else {
+                listaProgresso.innerHTML += '<li class="text-warning"><i class="fas fa-exclamation-triangle"></i> Remessa iniciada sem ID de acompanhamento.</li>';
+                btnConfirmar.disabled = false;
+                btnConfirmar.innerHTML = '<i class="fas fa-paper-plane"></i> Confirmar Envio';
+            }
+            
+        } else {
+            listaProgresso.innerHTML = `
+                <li class="text-danger"><i class="fas fa-times-circle"></i> ${data.mensagem}</li>
+            `;
+
+            if (data.contratos_bloqueados && data.contratos_bloqueados.length > 0) {
+                listaProgresso.innerHTML += '<li class="text-warning"><i class="fas fa-ban"></i> Contratos bloqueados:</li>';
+                data.contratos_bloqueados.slice(0, 20).forEach(item => {
+                    const protocolo = item.protocolo ? ` | Protocolo: ${item.protocolo}` : '';
+                    listaProgresso.innerHTML += `<li class="ml-3 text-muted">- ${item.codigo} (${item.status_label})${protocolo}</li>`;
+                });
+                if (data.contratos_bloqueados.length > 20) {
+                    listaProgresso.innerHTML += `<li class="ml-3 text-muted">... e mais ${data.contratos_bloqueados.length - 20}</li>`;
+                }
+            }
+            btnConfirmar.disabled = false;
+            btnConfirmar.innerHTML = '<i class="fas fa-paper-plane"></i> Confirmar Envio';
+        }
+    })
+    .catch(error => {
+        console.error('❌ ERRO NO FETCH!');
+        console.error('❌ Tipo do erro:', error.name);
+        console.error('❌ Mensagem:', error.message);
+        console.error('❌ Stack:', error.stack);
+        alert("ERRO NO FETCH: " + error.message);
+        
+        listaProgresso.innerHTML = `
+            <li class="text-danger"><i class="fas fa-times-circle"></i> Erro: ${error.message}</li>
+        `;
+        
+        btnConfirmar.disabled = false;
+        btnConfirmar.innerHTML = '<i class="fas fa-paper-plane"></i> Confirmar Envio';
+    });
+}
+
+function acompanharRemessa(remessaId, listaProgresso, btnConfirmar) {
+    const statusUrlBase = '{% url "status_remessa_cef" 0 %}'.replace('/0/status/', `/${remessaId}/status/`);
+
+    const timer = setInterval(() => {
+        fetch(statusUrlBase)
+            .then(r => r.json())
+            .then(data => {
+                const protocoloTxt = data.protocolo_cef ? ` | Protocolo: <strong>${data.protocolo_cef}</strong>` : '';
+                const inicioTxt = data.iniciado_em ? data.iniciado_em : '-';
+                const fimTxt = data.finalizado_em ? data.finalizado_em : 'em andamento';
+                const duracaoTxt = data.duracao_humanizada ? data.duracao_humanizada : '-';
+                listaProgresso.innerHTML = `
+                    <li><i class="fas fa-sync fa-spin"></i> Status: <strong>${data.status_label}</strong></li>
+                    <li>Lote: ${data.numero_lote || '-'} | Contratos: ${data.total_contratos} | Fichas: ${data.total_fichas || 0}</li>
+                    <li>Sucesso: ${data.envios_sucesso} | Erro: ${data.envios_erro}${protocoloTxt}</li>
+                    <li>Início: ${inicioTxt} | Fim: ${fimTxt} | Duração: <strong>${duracaoTxt}</strong></li>
+                    <li>${data.mensagem || ''}</li>
+                `;
+
+                if (data.finalizado) {
+                    clearInterval(timer);
+                    btnConfirmar.disabled = false;
+                    btnConfirmar.innerHTML = '<i class="fas fa-paper-plane"></i> Confirmar Envio';
+
+                    if (data.status === 'ENVIADO') {
+                        listaProgresso.innerHTML += '<li class="text-success"><i class="fas fa-check-circle"></i> Remessa finalizada com sucesso.</li>';
+                    } else {
+                        listaProgresso.innerHTML += '<li class="text-danger"><i class="fas fa-times-circle"></i> Remessa finalizada com erro.</li>';
+                    }
+
+                    setTimeout(() => {
+                        fecharModalCredenciais();
+                        location.reload();
+                    }, 3000);
+                }
+            })
+            .catch(() => {
+                // mantém polling; erro temporário de rede
+            });
+    }, 3000);
+}
+
+// Máscara de CPF
+document.addEventListener('DOMContentLoaded', function() {
+    const cpfInput = document.getElementById('cpf_usuario');
+    if (cpfInput) {
+        cpfInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                e.target.value = value;
+            }
+        });
+    }
+});
+
+document.addEventListener('click', function(event) {
+    const modal = document.getElementById('modalCredenciais');
+    if (!modal) return;
+    if (event.target === modal) {
+        fecharModalCredenciais();
+    }
+});
+</script>
+{% endblock %}

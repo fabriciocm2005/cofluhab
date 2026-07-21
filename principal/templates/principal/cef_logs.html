@@ -1,0 +1,206 @@
+{% extends 'principal/base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📋 Logs de Automação CEF</h1>
+    <p class="page-subtitle">Histórico completo de todas as operações automáticas</p>
+</div>
+
+<!-- Filtros -->
+<div class="card" style="margin-bottom: 30px;">
+    <div style="padding: 20px;">
+        <form method="GET" style="display: flex; gap: 15px; align-items: end; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 200px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500;">Tipo de Ação</label>
+                <select name="tipo" class="form-control">
+                    <option value="">Todas</option>
+                    {% for value, label in tipo_choices %}
+                    <option value="{{ value }}" {% if request.GET.tipo == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div style="flex: 1; min-width: 200px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500;">Status</label>
+                <select name="sucesso" class="form-control">
+                    <option value="">Todos</option>
+                    <option value="1" {% if request.GET.sucesso == '1' %}selected{% endif %}>✅ Sucesso</option>
+                    <option value="0" {% if request.GET.sucesso == '0' %}selected{% endif %}>❌ Erro</option>
+                </select>
+            </div>
+            
+            <div style="flex: 1; min-width: 200px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500;">Data</label>
+                <input type="date" name="data" class="form-control" value="{{ request.GET.data }}">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">🔍 Filtrar</button>
+            <a href="{% url 'logs_automacao' %}" class="btn" style="background: #6b7280; color: white;">✖️ Limpar</a>
+        </form>
+    </div>
+</div>
+
+<!-- Estatísticas -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
+    <div class="card" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px; text-align: center;">
+        <div style="font-size: 32px; margin-bottom: 5px;">{{ sucesso_count }}</div>
+        <div style="font-size: 14px; opacity: 0.9;">✅ Sucessos</div>
+    </div>
+    
+    <div class="card" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 15px; text-align: center;">
+        <div style="font-size: 32px; margin-bottom: 5px;">{{ erro_count }}</div>
+        <div style="font-size: 14px; opacity: 0.9;">❌ Erros</div>
+    </div>
+    
+    <div class="card" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; padding: 15px; text-align: center;">
+        <div style="font-size: 32px; margin-bottom: 5px;">{{ logs.count }}</div>
+        <div style="font-size: 14px; opacity: 0.9;">📊 Total Mostrado</div>
+    </div>
+</div>
+
+<!-- Timeline de Logs -->
+<div class="card">
+    <div class="card-header">
+        <h2>Timeline de Operações</h2>
+    </div>
+    <div style="max-height: 700px; overflow-y: auto;">
+        {% for log in logs %}
+        <div class="log-entry" style="padding: 20px; border-bottom: 1px solid #e5e7eb; display: flex; gap: 20px; align-items: start;
+                                       {% if not log.sucesso %}background: #fef2f2;{% endif %}">
+            <!-- Ícone -->
+            <div style="font-size: 32px; min-width: 40px; text-align: center;">
+                {% if log.sucesso %}
+                    ✅
+                {% else %}
+                    ❌
+                {% endif %}
+            </div>
+            
+            <!-- Conteúdo -->
+            <div style="flex: 1;">
+                <!-- Cabeçalho -->
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                    <div>
+                        <div style="font-weight: 600; font-size: 16px;">
+                            {{ log.get_tipo_acao_display }}
+                        </div>
+                        <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">
+                            {{ log.timestamp|date:"d/m/Y H:i:s" }}
+                            {% if log.duracao_segundos %}
+                                • Duração: {{ log.duracao_segundos }}s
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Badge de Status -->
+                    <div>
+                        {% if log.sucesso %}
+                            <span class="badge" style="background: #10b981;">Sucesso</span>
+                        {% else %}
+                            <span class="badge" style="background: #ef4444;">Erro</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Descrição -->
+                <div style="margin-bottom: 12px; color: #374151;">
+                    {{ log.descricao }}
+                </div>
+                
+                <!-- Informações Adicionais -->
+                <div style="display: flex; gap: 20px; font-size: 13px; color: #6b7280;">
+                    {% if log.envio %}
+                        <div>
+                            📤 Envio: <a href="{% url 'contrato_detail' log.envio.contrato.id %}">
+                                {{ log.envio.contrato.codigo }}
+                            </a>
+                        </div>
+                    {% endif %}
+                    
+                    {% if log.agendamento %}
+                        <div>
+                            📅 Agendamento: {{ log.agendamento.nome }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Traceback (se houver erro) -->
+                {% if not log.sucesso and log.traceback %}
+                <details style="margin-top: 12px;">
+                    <summary style="cursor: pointer; color: #ef4444; font-weight: 500;">
+                        Ver detalhes do erro
+                    </summary>
+                    <pre style="background: #fef2f2; padding: 15px; border-radius: 8px; margin-top: 8px; overflow-x: auto; font-size: 12px;">{{ log.traceback }}</pre>
+                </details>
+                {% endif %}
+                
+                <!-- Screenshot -->
+                {% if log.screenshot %}
+                <div style="margin-top: 12px;">
+                    <button onclick="verScreenshot('{{ log.screenshot.url }}')" class="btn btn-sm">
+                        📸 Ver Screenshot
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div style="text-align: center; padding: 60px; color: #6b7280;">
+            <div style="font-size: 48px; margin-bottom: 15px;">📋</div>
+            <div style="font-size: 18px; margin-bottom: 10px;">Nenhum log encontrado</div>
+            <div style="font-size: 14px;">
+                {% if request.GET.tipo or request.GET.sucesso or request.GET.data %}
+                    Tente ajustar os filtros
+                {% else %}
+                    Os logs aparecerão aqui quando a automação for executada
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal Screenshot -->
+<div id="modalScreenshot" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
+    <div style="position: relative; max-width: 90%; max-height: 90%; background: white; border-radius: 12px; padding: 20px;">
+        <button onclick="fecharScreenshot()" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer;">
+            ✖️
+        </button>
+        <img id="screenshotImg" src="" style="max-width: 100%; max-height: 80vh; border-radius: 8px;">
+    </div>
+</div>
+
+<style>
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+}
+
+.log-entry:hover {
+    background: #f9fafb !important;
+}
+</style>
+
+<script>
+function verScreenshot(url) {
+    document.getElementById('screenshotImg').src = url;
+    document.getElementById('modalScreenshot').style.display = 'flex';
+}
+
+function fecharScreenshot() {
+    document.getElementById('modalScreenshot').style.display = 'none';
+}
+
+document.getElementById('modalScreenshot')?.addEventListener('click', (e) => {
+    if (e.target.id === 'modalScreenshot') {
+        fecharScreenshot();
+    }
+});
+</script>
+{% endblock %}

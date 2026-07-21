@@ -1,0 +1,141 @@
+{% extends 'principal/base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📊 Histórico de Validações AI</h1>
+    <p class="page-subtitle">Acompanhe todas as validações automáticas realizadas pelos agentes</p>
+</div>
+
+<div class="card">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>🤖 Validações Realizadas</h2>
+        <div style="display: flex; gap: 10px;">
+            <span class="badge" style="background: #10b981;">✅ {{ aprovadas }} Aprovadas</span>
+            <span class="badge" style="background: #ef4444;">❌ {{ reprovadas }} Reprovadas</span>
+            <span class="badge" style="background: #6b7280;">Total: {{ total }}</span>
+        </div>
+    </div>
+    
+    {% if validacoes %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Tipo</th>
+                <th>Contrato</th>
+                <th>Data/Hora</th>
+                <th>Tempo</th>
+                <th>Tamanho</th>
+                <th>Agentes</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for val in validacoes %}
+            <tr>
+                <td>
+                    {% if val.status == 'APROVADO' %}
+                    <span style="font-size: 24px;">✅</span>
+                    {% elif val.status == 'REPROVADO' %}
+                    <span style="font-size: 24px;">❌</span>
+                    {% else %}
+                    <span style="font-size: 24px;">⚠️</span>
+                    {% endif %}
+                    {% if val.correcao_automatica %}
+                    <span style="font-size: 18px;" title="Auto-corrigido">🔧</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <span class="badge" style="background: {% if val.tipo_arquivo == 'FH1' %}#3b82f6{% else %}#8b5cf6{% endif %};">
+                        {{ val.tipo_arquivo }}
+                    </span>
+                </td>
+                <td>
+                    {% if val.contrato %}
+                    <a href="{% url 'contrato_detail' val.contrato.id %}">{{ val.contrato.codigo }}</a>
+                    {% else %}
+                    <em>Múltiplos</em>
+                    {% endif %}
+                </td>
+                <td>{{ val.data_validacao|date:"d/m/Y H:i:s" }}</td>
+                <td>
+                    {% if val.tempo_execucao %}
+                    {{ val.tempo_execucao|floatformat:2 }}s
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if val.tamanho_arquivo %}
+                    {{ val.tamanho_arquivo|filesizeformat }}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td><small>{{ val.agentes_utilizados|truncatewords:3 }}</small></td>
+                <td>
+                    <a href="{% url 'validacao_ai_detail' val.id %}" class="btn btn-sm" style="padding: 4px 8px; font-size: 12px;">
+                        📄 Ver Relatório
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div style="padding: 40px; text-align: center; color: #6b7280;">
+        <p style="font-size: 48px; margin: 0;">🤖</p>
+        <p style="margin-top: 16px;">Nenhuma validação AI realizada ainda.</p>
+        <p style="margin-top: 8px; font-size: 14px;">
+            Exporte um arquivo FH1 ou RCV para iniciar as validações automáticas!
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table tr:hover {
+    background: #f9fafb;
+}
+
+.btn-sm {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+.btn-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+</style>
+{% endblock %}

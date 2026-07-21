@@ -1,0 +1,204 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Processar Retornos CEF em Lote{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>🗂️ Processar Retornos CEF em Lote</h2>
+            <p class="text-muted">Processa uma pasta inteira de retornos, gera consolidado CSV, comparação de remessas e relatório markdown.</p>
+            <p class="mb-3">
+                <a href="{% url 'listar_retornos_cef' %}" class="btn btn-outline-secondary btn-sm">← Voltar para Retornos CEF</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">⚙️ Parâmetros</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="pasta_entrada">Pasta de entrada</label>
+                            <input type="text" name="pasta_entrada" id="pasta_entrada" class="form-control" value="{{ pasta_entrada }}" placeholder="manual/00044" required>
+                            <small class="form-text text-muted">Pode ser relativa ao projeto (ex.: manual/00044) ou absoluta.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pasta_saida">Pasta de saída</label>
+                            <input type="text" name="pasta_saida" id="pasta_saida" class="form-control" value="{{ pasta_saida }}" placeholder="manual/00044" required>
+                            <small class="form-text text-muted">Arquivos gerados: consolidado, comparação e relatório.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-play"></i> Processar Lote
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">ℹ️ Regras de processamento</h6>
+                </div>
+                <div class="card-body small">
+                    <ul class="mb-0">
+                        <li>CADMUT1: interpretador CADMUT</li>
+                        <li>M3026xx: parser P3026 v2</li>
+                        <li>Sxxxxxx: leitura textual com totalizadores</li>
+                        <li>Outros: fallback FCVS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            {% if resumo %}
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">📊 Resumo da Execução</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <h4 class="text-primary">{{ resumo.total_arquivos }}</h4>
+                            <p class="text-muted">Arquivos lidos</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="text-success">{{ resumo.ok }}</h4>
+                            <p class="text-muted">OK</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="text-danger">{{ resumo.erro }}</h4>
+                            <p class="text-muted">Com erro</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="text-warning">{{ resumo.comparacoes_diferentes }}</h4>
+                            <p class="text-muted">Comparações diferentes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if arquivos_saida %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">📁 Arquivos Gerados</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-0">
+                        {% for arquivo in arquivos_saida %}
+                        <li><code>{{ arquivo }}</code></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">🔄 Comparação por Código</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Qtd Arquivos</th>
+                                    <th>Conteúdo</th>
+                                    <th>Datas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in comparacao %}
+                                <tr>
+                                    <td><code>{{ row.codigo }}</code></td>
+                                    <td>{{ row.qtd_arquivos }}</td>
+                                    <td>
+                                        {% if row.conteudo == 'igual' %}
+                                        <span class="badge badge-success">igual</span>
+                                        {% elif row.conteudo == 'diferente' %}
+                                        <span class="badge badge-warning">diferente</span>
+                                        {% else %}
+                                        <span class="badge badge-secondary">sem comparação</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ row.datas }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="4" class="text-center text-muted">Sem dados de comparação.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">🧾 Consolidado por Arquivo</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Arquivo</th>
+                                    <th>Código</th>
+                                    <th>Data</th>
+                                    <th>Tipo</th>
+                                    <th>Status</th>
+                                    <th>Resumo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in resultados %}
+                                <tr>
+                                    <td>{{ item.arquivo }}</td>
+                                    <td><code>{{ item.codigo }}</code></td>
+                                    <td>{{ item.data_remessa }}</td>
+                                    <td>{{ item.tipo_detectado }}</td>
+                                    <td>
+                                        {% if item.status == 'OK' %}
+                                        <span class="badge badge-success">OK</span>
+                                        {% else %}
+                                        <span class="badge badge-danger">ERRO</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if item.linhas_total %}Linhas: {{ item.linhas_total }}{% endif %}
+                                        {% if item.movimentos %}<br>Mov.: {{ item.movimentos }}{% endif %}
+                                        {% if item.rejeitados %}<br>Rej.: {{ item.rejeitados }}{% endif %}
+                                        {% if item.totalizadores_encontrados %}<br>Totalizadores: {{ item.totalizadores_encontrados }}{% endif %}
+                                        {% if item.registros_p3026 %}<br>Registros P3026: {{ item.registros_p3026 }}{% endif %}
+                                        {% if item.avisos_parser %}<br>Avisos parser: {{ item.avisos_parser }}{% endif %}
+                                        {% if item.primeiro_aviso %}<br><small class="text-muted">{{ item.primeiro_aviso }}</small>{% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="6" class="text-center text-muted">Nenhum arquivo processado ainda.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <h4 class="text-muted">Nenhum lote processado ainda</h4>
+                    <p class="text-muted mb-0">Informe as pastas e clique em Processar Lote.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

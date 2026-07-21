@@ -1,0 +1,137 @@
+{
+  "tamanho": 424,
+  "linha_completa": "190004426000         11000ALDEMIR PEREIRA DA SILVA                135897198772      16085200000RJETR DO CASSOROTIBA                    30108400000000000000301084001621233978001621233978     NNNN 0000000000000   0 00SAC0000000000000   0 00SAC301084001621233978301184000000000018233154000000000000000000000000   00000000010000000000000000000000000000000000000000000000000000000000000000000000000006531742D0019000442120226224SI",
+  "campos_documentados": {
+    "UFS": {
+      "inicio": 1,
+      "fim": 2,
+      "valor": "19"
+    },
+    "MAT": {
+      "inicio": 3,
+      "fim": 8,
+      "valor": "000442"
+    },
+    "CONTRATO": {
+      "inicio": 9,
+      "fim": 21,
+      "valor": "6000         "
+    },
+    "HIPOTECA": {
+      "inicio": 22,
+      "fim": 22,
+      "valor": "1"
+    },
+    "SEQ": {
+      "inicio": 23,
+      "fim": 24,
+      "valor": "10"
+    },
+    "CONST": {
+      "inicio": 25,
+      "fim": 25,
+      "valor": "0"
+    },
+    "NOME": {
+      "inicio": 26,
+      "fim": 65,
+      "valor": "0ALDEMIR PEREIRA DA SILVA               "
+    },
+    "CPF": {
+      "inicio": 66,
+      "fim": 76,
+      "valor": " 1358971987"
+    },
+    "DTNASC": {
+      "inicio": 77,
+      "fim": 82,
+      "valor": "72    "
+    },
+    "CODMUN": {
+      "inicio": 83,
+      "fim": 87,
+      "valor": "  160"
+    },
+    "UF": {
+      "inicio": 88,
+      "fim": 89,
+      "valor": "85"
+    },
+    "ENDERECO": {
+      "inicio": 90,
+      "fim": 127,
+      "valor": "200000RJETR DO CASSOROTIBA            "
+    },
+    "DTCONTRATO": {
+      "inicio": 128,
+      "fim": 133,
+      "valor": "      "
+    },
+    "VLRFINCONTRAT": {
+      "inicio": 134,
+      "fim": 145,
+      "valor": "  3010840000"
+    },
+    "PRAZOCONTRAT": {
+      "inicio": 146,
+      "fim": 148,
+      "valor": "000"
+    },
+    "TXJUROS": {
+      "inicio": 149,
+      "fim": 152,
+      "valor": "0000"
+    },
+    "VLRFINFCVS": {
+      "inicio": 153,
+      "fim": 164,
+      "valor": "000301084001"
+    },
+    "PRAZOFCVS": {
+      "inicio": 165,
+      "fim": 167,
+      "valor": "621"
+    },
+    "TXJUROSFCVS": {
+      "inicio": 168,
+      "fim": 171,
+      "valor": "2339"
+    },
+    "PLANO": {
+      "inicio": 172,
+      "fim": 174,
+      "valor": "780"
+    },
+    "RR": {
+      "inicio": 175,
+      "fim": 176,
+      "valor": "01"
+    },
+    "INDEX": {
+      "inicio": 177,
+      "fim": 179,
+      "valor": "621"
+    },
+    "CATPROF": {
+      "inicio": 180,
+      "fim": 184,
+      "valor": "23397"
+    },
+    "PR": {
+      "inicio": 185,
+      "fim": 186,
+      "valor": "8 "
+    },
+    "1VENC": {
+      "inicio": 187,
+      "fim": 192,
+      "valor": "    NN"
+    }
+  },
+  "campos_extras": "NN 0000000000000   0 00SAC0000000000000   0 00SAC301084001621233978301184000000000018233154000000000000000000000000   00000000010000000000000000000000000000000000000000000000000000000000000000000000000006531742D0019000442120226224SI",
+  "estatisticas": {
+    "zeros": 161,
+    "espacos": 12,
+    "outros": 59
+  }
+}

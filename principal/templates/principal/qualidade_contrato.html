@@ -1,0 +1,227 @@
+{% extends "principal/base.html" %}
+{% block title %}Qualidade — Contrato {{ contrato.codigo }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+
+  <!-- Cabeçalho -->
+  <div class="d-flex align-items-center gap-3 mb-3">
+    <a href="{% url 'contrato_detail' contrato.pk %}" class="btn btn-sm btn-outline-secondary">← Contrato</a>
+    <h4 class="mb-0">🔍 Agente de Qualidade — {{ contrato.codigo }}</h4>
+    <a href="{% url 'painel_qualidade' %}" class="btn btn-sm btn-outline-primary ms-auto">📊 Painel Geral</a>
+  </div>
+
+  <!-- Score e prontidão -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="card text-center border-{{ relatorio.status_css }} h-100">
+        <div class="card-body">
+          <div class="display-3 fw-bold text-{{ relatorio.status_css }}">{{ relatorio.score }}</div>
+          <div class="fs-5 text-{{ relatorio.status_css }}">{{ relatorio.status_label }}</div>
+          <small class="text-muted">Score de qualidade (0-100)</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center h-100 {% if relatorio.prontidao_cadmut %}border-success{% else %}border-danger{% endif %}">
+        <div class="card-body">
+          <div class="display-4">{% if relatorio.prontidao_cadmut %}✅{% else %}❌{% endif %}</div>
+          <div class="fw-bold">CADMUT</div>
+          <small class="text-muted">{% if relatorio.prontidao_cadmut %}Pronto para envio{% else %}Campos CADMUT com erro{% endif %}</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center h-100 {% if relatorio.prontidao_fh1 %}border-success{% else %}border-danger{% endif %}">
+        <div class="card-body">
+          <div class="display-4">{% if relatorio.prontidao_fh1 %}✅{% else %}❌{% endif %}</div>
+          <div class="fw-bold">FH1</div>
+          <small class="text-muted">{% if relatorio.prontidao_fh1 %}Pronto para gerar ficha{% else %}Campos FH1 com erro{% endif %}</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-center gap-3 mt-2">
+            <div>
+              <span class="badge bg-danger fs-5">{{ relatorio.erros|length }}</span>
+              <div class="small text-muted">Erros</div>
+            </div>
+            <div>
+              <span class="badge bg-warning fs-5">{{ relatorio.avisos|length }}</span>
+              <div class="small text-muted">Avisos</div>
+            </div>
+            <div>
+              <span class="badge bg-info fs-5">{{ relatorio.infos|length }}</span>
+              <div class="small text-muted">Infos</div>
+            </div>
+          </div>
+          <small class="text-muted d-block mt-2">Itens de inspeção</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumo financeiro -->
+  {% if relatorio.resumo_financeiro %}
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+      <strong>📈 Resumo da Evolução Financeira</strong>
+    </div>
+    <div class="card-body">
+      <div class="row row-cols-2 row-cols-md-4 g-3">
+        {% with rf=relatorio.resumo_financeiro %}
+        {% if rf.total_parcelas is not None %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5">{{ rf.total_parcelas }}</div>
+            <small class="text-muted">Parcelas cadastradas</small>
+          </div>
+        </div>
+        {% endif %}
+        {% if rf.cobertura_prazo_pct is not None %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5 {% if rf.cobertura_prazo_pct < 95 %}text-warning{% else %}text-success{% endif %}">{{ rf.cobertura_prazo_pct }}%</div>
+            <small class="text-muted">Cobertura do prazo</small>
+          </div>
+        </div>
+        {% endif %}
+        {% if rf.saldo_inicial is not None %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5">R$ {{ rf.saldo_inicial|floatformat:2 }}</div>
+            <small class="text-muted">Saldo inicial</small>
+          </div>
+        </div>
+        {% endif %}
+        {% if rf.saldo_final is not None %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5 {% if rf.saldo_final > 0 %}text-warning{% else %}text-success{% endif %}">R$ {{ rf.saldo_final|floatformat:2 }}</div>
+            <small class="text-muted">Saldo final</small>
+          </div>
+        </div>
+        {% endif %}
+        {% if rf.soma_amort is not None %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5">R$ {{ rf.soma_amort|floatformat:2 }}</div>
+            <small class="text-muted">Total amortizado</small>
+          </div>
+        </div>
+        {% endif %}
+        {% if rf.soma_fcvs > 0 %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5">R$ {{ rf.soma_fcvs|floatformat:2 }}</div>
+            <small class="text-muted">Total contribuição FCVS</small>
+          </div>
+        </div>
+        {% endif %}
+        {% if rf.amort_negativas > 0 %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5 text-danger">{{ rf.amort_negativas }}</div>
+            <small class="text-muted">Amortizações negativas</small>
+          </div>
+        </div>
+        {% endif %}
+        {% if rf.inversoes_saldo > 0 %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5 text-warning">{{ rf.inversoes_saldo }}</div>
+            <small class="text-muted">Inversões de saldo</small>
+          </div>
+        </div>
+        {% endif %}
+        {% if rf.lacunas %}
+        <div class="col">
+          <div class="border rounded p-2 text-center h-100">
+            <div class="fw-bold fs-5 text-warning">{{ rf.lacunas|length }}</div>
+            <small class="text-muted">Lacunas na sequência</small>
+          </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Lista de itens agrupados por nível -->
+  {% if relatorio.erros %}
+  <div class="card mb-3 border-danger">
+    <div class="card-header bg-danger text-white">
+      ❌ Erros — bloqueiam CADMUT e FH1 ({{ relatorio.erros|length }})
+    </div>
+    <div class="list-group list-group-flush">
+      {% for item in relatorio.erros %}
+      <div class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <span>
+            <span class="badge bg-secondary me-1">{{ item.categoria }}</span>
+            <strong>{{ item.campo }}</strong> — {{ item.mensagem }}
+          </span>
+        </div>
+        {% if item.sugestao %}
+        <small class="text-muted">💡 {{ item.sugestao }}</small>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if relatorio.avisos %}
+  <div class="card mb-3 border-warning">
+    <div class="card-header bg-warning">
+      ⚠️ Avisos — possível rejeição pela CEF ({{ relatorio.avisos|length }})
+    </div>
+    <div class="list-group list-group-flush">
+      {% for item in relatorio.avisos %}
+      <div class="list-group-item">
+        <span class="badge bg-secondary me-1">{{ item.categoria }}</span>
+        <strong>{{ item.campo }}</strong> — {{ item.mensagem }}
+        {% if item.sugestao %}
+        <br><small class="text-muted">💡 {{ item.sugestao }}</small>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if relatorio.infos %}
+  <div class="card mb-3 border-info">
+    <div class="card-header bg-info text-white">
+      ℹ️ Informações ({{ relatorio.infos|length }})
+    </div>
+    <div class="list-group list-group-flush">
+      {% for item in relatorio.infos %}
+      <div class="list-group-item">
+        <span class="badge bg-secondary me-1">{{ item.categoria }}</span>
+        {{ item.mensagem }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if not relatorio.erros and not relatorio.avisos %}
+  <div class="alert alert-success">
+    ✅ Contrato sem erros ou avisos. Pronto para geração de CADMUT e FH1!
+  </div>
+  {% endif %}
+
+  <!-- Ações -->
+  <div class="d-flex gap-2 mt-3 flex-wrap">
+    {% if relatorio.prontidao_fh1 %}
+    <a href="{% url 'gerar_ficha_cef' contrato.pk %}" class="btn btn-success">📄 Gerar FH1</a>
+    {% endif %}
+    <a href="{% url 'contrato_detail' contrato.pk %}" class="btn btn-outline-secondary">← Voltar ao Contrato</a>
+    <a href="?refresh=1" class="btn btn-outline-primary">🔄 Re-inspecionar</a>
+  </div>
+</div>
+{% endblock %}

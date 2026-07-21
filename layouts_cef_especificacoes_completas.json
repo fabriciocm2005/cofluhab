@@ -1,0 +1,512 @@
+{
+  "Leiautes_Movim_CADMUT_2025": {
+    "descricao": "Layouts de Movimentação CADMUT 2025",
+    "tipos_registro": {
+      "TIPO_11_HEADER": {
+        "tipo_movimento": 11,
+        "tipo_registro": 1,
+        "tamanho_linha": 180,
+        "descricao": "Header de Cadastramento de Contratos",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Preencher com 11 (onze)"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Obrigatório e igual a 1 (um)"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente"
+          },
+          {
+            "seq": 4,
+            "nome": "DATA_CRIACAO_ARQUIVO",
+            "inicio": 9,
+            "fim": 16,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data criação arquivo (AAAAMMDD)"
+          },
+          {
+            "seq": 5,
+            "nome": "PROCEDENCIA_ARQUIVO",
+            "inicio": 17,
+            "fim": 18,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Conforme Tabela"
+          },
+          {
+            "seq": 6,
+            "nome": "CLASSE_AGENTE",
+            "inicio": 19,
+            "fim": 20,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Preencher com 99"
+          },
+          {
+            "seq": 7,
+            "nome": "VAGO",
+            "inicio": 21,
+            "fim": 180,
+            "tamanho": 160,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Preencher com 9 (noves)"
+          }
+        ]
+      },
+      "TIPO_11_MOVIMENTO": {
+        "tipo_movimento": 11,
+        "tipo_registro": 2,
+        "tamanho_linha": 180,
+        "descricao": "Movimento de Cadastramento de Contratos",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Preencher com 11 (onze)"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Obrigatório e igual a 2 (dois)"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente"
+          },
+          {
+            "seq": 4,
+            "nome": "NUMERO_CONTRATO",
+            "inicio": 9,
+            "fim": 21,
+            "tamanho": 13,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Número do Contrato"
+          },
+          {
+            "seq": 5,
+            "nome": "GRAU_HIPOTECA",
+            "inicio": 22,
+            "fim": 22,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Grau da Hipoteca"
+          },
+          {
+            "seq": 6,
+            "nome": "TIPO_MUTUARIO",
+            "inicio": 23,
+            "fim": 24,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Automático pelo Sistema (01-Principal)"
+          },
+          {
+            "seq": 7,
+            "nome": "NOME_MUTUARIO",
+            "inicio": 25,
+            "fim": 64,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Nome do Mutuário"
+          },
+          {
+            "seq": 8,
+            "nome": "COD_SEGURADORA",
+            "inicio": 65,
+            "fim": 67,
+            "tamanho": 3,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Código da Seguradora"
+          },
+          {
+            "seq": 9,
+            "nome": "DV_SEGURADORA",
+            "inicio": 68,
+            "fim": 68,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "DV da Seguradora"
+          },
+          {
+            "seq": 10,
+            "nome": "REGIAO",
+            "inicio": 69,
+            "fim": 70,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Região"
+          },
+          {
+            "seq": 11,
+            "nome": "CPF",
+            "inicio": 71,
+            "fim": 79,
+            "tamanho": 9,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "CPF do Mutuário"
+          },
+          {
+            "seq": 12,
+            "nome": "DV_CPF",
+            "inicio": 80,
+            "fim": 81,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "DV do CPF"
+          },
+          {
+            "seq": 13,
+            "nome": "IDENTIDADE",
+            "inicio": 82,
+            "fim": 98,
+            "tamanho": 17,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Identidade do Mutuário"
+          },
+          {
+            "seq": 14,
+            "nome": "DT_NASCIMENTO",
+            "inicio": 99,
+            "fim": 106,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Data Nascimento (AAAAMMDD)"
+          },
+          {
+            "seq": 15,
+            "nome": "DT_CONTRATO",
+            "inicio": 107,
+            "fim": 114,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Contrato (AAAAMMDD)"
+          },
+          {
+            "seq": 16,
+            "nome": "SITUACAO_CONTRATO",
+            "inicio": 115,
+            "fim": 115,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "1-Ativo, 2-Inativo"
+          },
+          {
+            "seq": 17,
+            "nome": "TIPO_OPERACAO",
+            "inicio": 116,
+            "fim": 116,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "0-FDS-MCMV 1-COM FCVS 2-SEM FCVS 3-PSH S/FGTS 4-PSH C/FGTS 5-COM FGTS 6-PRO-MORADIA 7-FDS 8-PAR-ARREND 9-PAR-MCMV"
+          },
+          {
+            "seq": 18,
+            "nome": "TIPO_EVENTO",
+            "inicio": 117,
+            "fim": 119,
+            "tamanho": 3,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Tipo do Evento"
+          },
+          {
+            "seq": 19,
+            "nome": "DATA_EVENTO",
+            "inicio": 120,
+            "fim": 127,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data do Evento (AAAAMMDD)"
+          },
+          {
+            "seq": 20,
+            "nome": "ENDERECO_IMOVEL",
+            "inicio": 128,
+            "fim": 167,
+            "tamanho": 40,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Endereço do Imóvel"
+          },
+          {
+            "seq": 21,
+            "nome": "UF_IMOVEL",
+            "inicio": 168,
+            "fim": 169,
+            "tamanho": 2,
+            "tipo": "X",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "UF do Imóvel"
+          },
+          {
+            "seq": 22,
+            "nome": "COD_MUNICIPIO",
+            "inicio": 170,
+            "fim": 173,
+            "tamanho": 4,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Código do Município"
+          },
+          {
+            "seq": 23,
+            "nome": "DV_MUNICIPIO",
+            "inicio": 174,
+            "fim": 174,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "DV do Município"
+          },
+          {
+            "seq": 24,
+            "nome": "VAGO",
+            "inicio": 175,
+            "fim": 180,
+            "tamanho": 6,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Preencher com 9 (noves)"
+          }
+        ]
+      },
+      "TIPO_11_TRAILER": {
+        "tipo_movimento": 11,
+        "tipo_registro": 9,
+        "tamanho_linha": 180,
+        "descricao": "Trailer de Cadastramento de Contratos",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Preencher com 11 (onze)"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Obrigatório e igual a 9 (nove)"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente"
+          },
+          {
+            "seq": 4,
+            "nome": "QTD_CONTRATOS",
+            "inicio": 9,
+            "fim": 15,
+            "tamanho": 7,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Quantidade de Contratos"
+          },
+          {
+            "seq": 5,
+            "nome": "VAGO",
+            "inicio": 16,
+            "fim": 180,
+            "tamanho": 165,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Preencher com 9 (noves)"
+          }
+        ]
+      },
+      "TIPO_12_HEADER": {
+        "tipo_movimento": 12,
+        "tipo_registro": 3,
+        "tamanho_linha": 200,
+        "descricao": "Header de Acerto de Contratos em Crítica",
+        "campos": [
+          {
+            "seq": 1,
+            "nome": "TIPO_MOV",
+            "inicio": 1,
+            "fim": 2,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Preencher com 12 (doze)"
+          },
+          {
+            "seq": 2,
+            "nome": "TIPO_REGISTRO",
+            "inicio": 3,
+            "fim": 3,
+            "tamanho": 1,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Obrigatório e igual a 3 (três)"
+          },
+          {
+            "seq": 3,
+            "nome": "MATRICULA_AGENTE",
+            "inicio": 4,
+            "fim": 8,
+            "tamanho": 5,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Matrícula do Agente"
+          },
+          {
+            "seq": 4,
+            "nome": "DATA_CRIACAO_ARQUIVO",
+            "inicio": 9,
+            "fim": 16,
+            "tamanho": 8,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Data criação arquivo (AAAAMMDD)"
+          },
+          {
+            "seq": 5,
+            "nome": "PROCEDENCIA_ARQUIVO",
+            "inicio": 17,
+            "fim": 18,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Conforme Tabela"
+          },
+          {
+            "seq": 6,
+            "nome": "CLASSE_AGENTE",
+            "inicio": 19,
+            "fim": 20,
+            "tamanho": 2,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": true,
+            "descricao": "Preencher com 99"
+          },
+          {
+            "seq": 7,
+            "nome": "VAGO",
+            "inicio": 21,
+            "fim": 200,
+            "tamanho": 180,
+            "tipo": "N",
+            "decimais": 0,
+            "obrigatorio": false,
+            "descricao": "Preencher com 9 (noves)"
+          }
+        ]
+      }
+    }
+  }
+}

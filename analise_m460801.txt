@@ -1,0 +1,32 @@
+LAYOUT M460801
+================================================================================
+
+
+=== PÁGINA 1 ===
+
+M460801 - RELAÇÃO DE CONTRATOS NOVADOS REGULARIZADOS NO
+CADMUT SEM MANIFESTAÇÃO DA GIFUS
+Seq Campo Tipo Tam Observação
+01 GIFUS de Análise Cha 02 03 – GIFUS/SA
+04 – GIFUS/BR
+05 – GIFUS/FO
+08 – GIFUS/GO
+11 – GIFUS/BH
+12 – GIFUS/BE
+14 – GIFUS/CT
+15 – GIFUS/RE
+18 – GIFUS/PO
+19 – GIFUS/RJ
+20 – GIFUS/FL
+21 – GIFUS/SP
+02 Agente Origem Num 05
+03 Agente Cessionário Num 05
+04 Agente Cedente Num 05
+05 Contrato Cha 13
+06 Hipoteca Num 01
+07 Data do Contrato Date 10 DD-MM-AAAA
+08 Município Num 04
+(CADMUT)
+09 Data Evento Date 10 DD-MM-AAAA
+(CADMUT)
+1

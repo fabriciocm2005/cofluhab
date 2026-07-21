@@ -1,0 +1,338 @@
+{% extends "principal/base.html" %}
+{% load static %}
+
+{% block title %}Comparar Arquivos M460{% endblock %}
+
+{% block extra_css %}
+<style>
+    .upload-box {
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+        background-color: #f8f9fa;
+        transition: all 0.3s;
+    }
+    
+    .upload-box:hover {
+        border-color: #007bff;
+        background-color: #e7f1ff;
+    }
+    
+    .vs-separator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 2em;
+        font-weight: bold;
+        color: #6c757d;
+    }
+    
+    .comparison-result {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 25px;
+        margin-top: 30px;
+    }
+    
+    .stat-comparison {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    .stat-comparison h3 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+    
+    .stat-comparison p {
+        margin: 5px 0 0 0;
+        opacity: 0.9;
+    }
+    
+    .divergence-card {
+        border-left: 4px solid #dc3545;
+        background-color: #fff5f5;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+    }
+    
+    .unique-card {
+        border-left: 4px solid #ffc107;
+        background-color: #fffbf0;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+    }
+    
+    .comparison-table {
+        width: 100%;
+    }
+    
+    .comparison-table th {
+        background-color: #f8f9fa;
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+    }
+    
+    .comparison-table td {
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2><i class="fas fa-exchange-alt"></i> Comparar Arquivos M460</h2>
+            <p class="text-muted">
+                Compare dois arquivos M460 para encontrar contratos únicos e divergências de valores
+            </p>
+        </div>
+    </div>
+
+    <!-- Formulário de Upload -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="row mb-4">
+            <!-- Arquivo 1 -->
+            <div class="col-lg-5">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-file-upload"></i> Arquivo 1</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="upload-box mb-3">
+                            <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                            <input type="file" name="arquivo1" id="arquivo1" class="form-control" accept=".txt" required>
+                        </div>
+                        
+                        <label for="tipo1" class="form-label">Tipo de Arquivo</label>
+                        <select name="tipo1" id="tipo1" class="form-select">
+                            <option value="M460301">M460301 - Irregularidades de Parcelas</option>
+                            <option value="M460401">M460401 - Irregularidades de Posição</option>
+                        </select>
+                        <small class="text-muted">Selecione o tipo do primeiro arquivo</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- VS -->
+            <div class="col-lg-2">
+                <div class="vs-separator">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+            </div>
+            
+            <!-- Arquivo 2 -->
+            <div class="col-lg-5">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-file-upload"></i> Arquivo 2</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="upload-box mb-3">
+                            <i class="fas fa-cloud-upload-alt fa-3x text-success mb-3"></i>
+                            <input type="file" name="arquivo2" id="arquivo2" class="form-control" accept=".txt" required>
+                        </div>
+                        
+                        <label for="tipo2" class="form-label">Tipo de Arquivo</label>
+                        <select name="tipo2" id="tipo2" class="form-select">
+                            <option value="M460301">M460301 - Irregularidades de Parcelas</option>
+                            <option value="M460401" selected>M460401 - Irregularidades de Posição</option>
+                        </select>
+                        <small class="text-muted">Selecione o tipo do segundo arquivo</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-lg btn-primary">
+                    <i class="fas fa-search"></i> Comparar Arquivos
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Resultados da Comparação -->
+    {% if resultado %}
+    <div class="comparison-result">
+        <h3 class="mb-4">
+            <i class="fas fa-chart-line text-primary"></i> 
+            Resultado da Comparação
+        </h3>
+        
+        <!-- Estatísticas Gerais -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stat-comparison">
+                    <h3>{{ resultado.total1 }}</h3>
+                    <p>Registros Arquivo 1<br><small>{{ resultado.tipo1 }}</small></p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-comparison" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                    <h3>{{ resultado.total2 }}</h3>
+                    <p>Registros Arquivo 2<br><small>{{ resultado.tipo2 }}</small></p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-comparison" style="background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);">
+                    <h3>{{ resultado.em_ambos }}</h3>
+                    <p>Contratos em Ambos</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-comparison" style="background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%);">
+                    <h3>{{ resultado.divergencias_valores|length }}</h3>
+                    <p>Divergências Encontradas</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contratos Únicos no Arquivo 1 -->
+        {% if resultado.so_em_1 %}
+        <div class="mb-4">
+            <h4><i class="fas fa-file text-primary"></i> Contratos Apenas no Arquivo 1 ({{ resultado.so_em_1|length }})</h4>
+            <div class="unique-card">
+                <div class="d-flex flex-wrap gap-2">
+                    {% for contrato in resultado.so_em_1|slice:":30" %}
+                    <span class="badge bg-primary">{{ contrato }}</span>
+                    {% endfor %}
+                    {% if resultado.so_em_1|length > 30 %}
+                    <span class="badge bg-secondary">... e mais {{ resultado.so_em_1|length|add:"-30" }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Contratos Únicos no Arquivo 2 -->
+        {% if resultado.so_em_2 %}
+        <div class="mb-4">
+            <h4><i class="fas fa-file text-success"></i> Contratos Apenas no Arquivo 2 ({{ resultado.so_em_2|length }})</h4>
+            <div class="unique-card">
+                <div class="d-flex flex-wrap gap-2">
+                    {% for contrato in resultado.so_em_2|slice:":30" %}
+                    <span class="badge bg-success">{{ contrato }}</span>
+                    {% endfor %}
+                    {% if resultado.so_em_2|length > 30 %}
+                    <span class="badge bg-secondary">... e mais {{ resultado.so_em_2|length|add:"-30" }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Divergências de Valores -->
+        {% if resultado.divergencias_valores %}
+        <div class="mb-4">
+            <h4><i class="fas fa-exclamation-triangle text-danger"></i> Divergências de Valores</h4>
+            <p class="text-muted">Contratos que aparecem em ambos os arquivos mas com valores diferentes</p>
+            
+            {% for div in resultado.divergencias_valores %}
+            <div class="divergence-card">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <h6 class="mb-1">
+                            <i class="fas fa-file-contract"></i> {{ div.contrato }}
+                        </h6>
+                        <small class="text-muted">{{ div.mutuario }}</small>
+                    </div>
+                    <span class="badge bg-danger">{{ div.divergencias|length }} diferença(s)</span>
+                </div>
+                <ul class="mb-0">
+                    {% for diferenca in div.divergencias %}
+                    <li>{{ diferenca }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+            
+            {% if resultado.divergencias_valores|length == 50 %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> 
+                Mostrando as primeiras 50 divergências. Existem mais registros com diferenças.
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <!-- Resumo Final -->
+        <div class="alert alert-info">
+            <h5><i class="fas fa-info-circle"></i> Resumo da Comparação</h5>
+            <ul class="mb-0">
+                <li><strong>Total de contratos únicos:</strong> {{ resultado.total1|add:resultado.total2|add:-resultado.em_ambos }}</li>
+                <li><strong>Contratos comuns:</strong> {{ resultado.em_ambos }}</li>
+                <li><strong>Contratos com divergências:</strong> {{ resultado.divergencias_valores|length }}</li>
+                <li><strong>Taxa de divergência:</strong> 
+                    {% if resultado.em_ambos > 0 %}
+                        {{ resultado.divergencias_valores|length|mul:100|div:resultado.em_ambos|floatformat:1 }}%
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Botões de Ação -->
+        <div class="d-flex gap-2 mt-4">
+            <a href="{% url 'comparar_m460' %}" class="btn btn-primary">
+                <i class="fas fa-redo"></i> Nova Comparação
+            </a>
+            <a href="{% url 'processar_m460' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar ao Processamento
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Erros -->
+    {% if erros %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <h5><i class="fas fa-times-circle"></i> Erros Encontrados</h5>
+                <ul class="mb-0">
+                    {% for erro in erros %}
+                    <li>{{ erro }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+// Atualizar nome dos arquivos selecionados
+document.getElementById('arquivo1').addEventListener('change', function(e) {
+    if (this.files.length > 0) {
+        this.previousElementSibling.innerHTML = 
+            '<i class="fas fa-file-alt fa-3x text-success mb-3"></i><p class="mb-0">' + 
+            this.files[0].name + '</p>';
+    }
+});
+
+document.getElementById('arquivo2').addEventListener('change', function(e) {
+    if (this.files.length > 0) {
+        this.previousElementSibling.innerHTML = 
+            '<i class="fas fa-file-alt fa-3x text-success mb-3"></i><p class="mb-0">' + 
+            this.files[0].name + '</p>';
+    }
+});
+</script>
+{% endblock %}

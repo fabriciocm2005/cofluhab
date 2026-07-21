@@ -1,0 +1,188 @@
+{% extends "principal/base.html" %}
+{% load static %}
+
+{% block title %}Relatório FH1 - FCVS{% endblock %}
+
+{% block content %}
+<style>
+    .fh1-container {
+        max-width: 900px;
+        margin: 20px auto;
+        background: white;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+    .fh1-header {
+        text-align: center;
+        font-weight: bold;
+        border: 3px solid #2a5298;
+        padding: 20px;
+        margin-bottom: 30px;
+        background: linear-gradient(135deg, #2a5298, #1e3c72);
+        color: white;
+        border-radius: 8px;
+    }
+    .fh1-header h2 {
+        margin: 0;
+        font-size: 22px;
+    }
+    .fh1-header p {
+        margin: 5px 0 0 0;
+        font-size: 14px;
+        font-weight: normal;
+    }
+    .fh1-row {
+        display: flex;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 12px 0;
+    }
+    .fh1-label {
+        font-weight: 600;
+        width: 250px;
+        font-size: 13px;
+        color: #2c3e50;
+    }
+    .fh1-value {
+        flex-grow: 1;
+        font-size: 14px;
+        color: #34495e;
+    }
+    .fh1-highlight {
+        background-color: #fff3cd;
+        padding: 15px;
+        border-left: 4px solid #ffc107;
+        margin: 20px 0;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+    .fh1-success {
+        background-color: #d4edda;
+        padding: 15px;
+        border-left: 4px solid #28a745;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+    .fh1-actions {
+        margin-top: 30px;
+        text-align: center;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+    .btn-fh1 {
+        padding: 12px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-primary-fh1 {
+        background: linear-gradient(135deg, #2a5298, #1e3c72);
+        color: white;
+    }
+    .btn-primary-fh1:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(42,82,152,0.4);
+    }
+    .btn-secondary-fh1 {
+        background: #6c757d;
+        color: white;
+    }
+    .btn-secondary-fh1:hover {
+        background: #5a6268;
+    }
+</style>
+
+<div class="fh1-container">
+    <div class="fh1-header">
+        <h2>📋 FICHA PARA HABILITAÇÃO AO FCVS</h2>
+        <p>FORMULÁRIO FH1 - SISTEMA FINANCEIRO DE HABITAÇÃO (SFH)</p>
+    </div>
+    
+    <div class="fh1-row">
+        <div class="fh1-label">🏦 AGENTE FINANCEIRO:</div>
+        <div class="fh1-value">{{ agente_financeiro|default:"CAIXA ECONÔMICA FEDERAL" }}</div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">👤 NOME DO MUTUÁRIO:</div>
+        <div class="fh1-value"><strong>{{ mutuario.nome }}</strong></div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">🆔 CPF:</div>
+        <div class="fh1-value">{{ mutuario.cpf|default:"Não informado" }}</div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">📄 Nº DO CONTRATO:</div>
+        <div class="fh1-value"><strong>{{ contrato.codigo }}</strong></div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">📅 DATA DO CONTRATO:</div>
+        <div class="fh1-value">{{ contrato.data_contrato|date:"d/m/Y"|default:"Não informada" }}</div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">🏘️ CONJUNTO HABITACIONAL:</div>
+        <div class="fh1-value">{{ conjunto.conjunto }} - {{ conjunto.nome }}</div>
+    </div>
+
+    <div class="fh1-highlight">
+        <div class="fh1-row" style="border: none;">
+            <div class="fh1-label">💰 SALDO RESIDUAL (FCVS):</div>
+            <div class="fh1-value" style="font-size: 20px; color: #d63031;">R$ {{ fcvs_residual|floatformat:2 }}</div>
+        </div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">📊 SALDO DEVEDOR ATUAL:</div>
+        <div class="fh1-value">R$ {{ saldo_atual|floatformat:2 }}</div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">🔢 TOTAL DE PARCELAS:</div>
+        <div class="fh1-value">{{ total_parcelas }}</div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">⚠️ ANOMALIAS DETECTADAS:</div>
+        <div class="fh1-value">{{ anomalias }} ocorrências de amortização negativa</div>
+    </div>
+
+    <div class="fh1-row">
+        <div class="fh1-label">📆 PERÍODO DO CONTRATO:</div>
+        <div class="fh1-value">{{ primeira_parcela|date:"m/Y" }} até {{ ultima_parcela|date:"m/Y" }}</div>
+    </div>
+
+    {% if fcvs_residual > 1000 %}
+    <div class="fh1-success">
+        <strong>✅ CONCLUSÃO:</strong> Há evidências de FCVS residual no valor de <strong>R$ {{ fcvs_residual|floatformat:2 }}</strong>.
+        Recomenda-se solicitar auditoria à Caixa Econômica Federal para habilitação ao FCVS.
+    </div>
+    {% else %}
+    <div class="fh1-highlight">
+        <strong>⚠️ OBSERVAÇÃO:</strong> FCVS residual insignificante (R$ {{ fcvs_residual|floatformat:2 }}). 
+        Provavelmente já foi compensado nas correções posteriores.
+    </div>
+    {% endif %}
+
+    <div class="fh1-actions">
+        <a href="{% url 'contrato_detail' contrato.id %}" class="btn-fh1 btn-secondary-fh1">
+            ← Voltar ao Contrato
+        </a>
+        <button onclick="window.print()" class="btn-fh1 btn-primary-fh1">
+            🖨️ Imprimir FH1
+        </button>
+    </div>
+</div>
+
+<style media="print">
+    .fh1-actions { display: none; }
+    .btn-fh1 { display: none; }
+</style>
+{% endblock %}

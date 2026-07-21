@@ -1,0 +1,586 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Visualizar P3026 - Posição da Carteira{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card-header-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+    }
+    
+    .stats-box {
+        background: white;
+        border-left: 4px solid #667eea;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .stats-box h3 {
+        font-size: 1.1rem;
+        color: #333;
+        margin: 0 0 0.5rem 0;
+    }
+    
+    .stats-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #667eea;
+    }
+    
+    .registro-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .registro-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .registro-header {
+        background: #f5f5f5;
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .registro-header:hover {
+        background: #efefef;
+    }
+    
+    .registro-tipo {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin-right: 1rem;
+    }
+    
+    .tipo-tr1 { background: #e3f2fd; color: #1976d2; }
+    .tipo-tr2 { background: #f3e5f5; color: #7b1fa2; }
+    .tipo-tr3 { background: #e0f2f1; color: #00796b; }
+    .tipo-tr4 { background: #fff3e0; color: #e65100; }
+    .tipo-tr5 { background: #fce4ec; color: #c2185b; }
+    .tipo-tr6 { background: #f1f8e9; color: #558b2f; }
+    .tipo-tr7 { background: #e0f7fa; color: #00838f; }
+    .tipo-tr8 { background: #ffe0b2; color: #e65100; }
+    
+    .registro-info {
+        flex: 1;
+    }
+    
+    .registro-titulo {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .registro-subtitulo {
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .registro-detalhes {
+        padding: 1.5rem;
+        display: none;
+    }
+    
+    .registro-detalhes.show {
+        display: block;
+    }
+    
+    .detalhes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .detalhe-item {
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 1rem;
+    }
+    
+    .detalhe-item:last-child {
+        border-bottom: none;
+    }
+    
+    .detalhe-label {
+        font-size: 0.85rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.25rem;
+    }
+    
+    .detalhe-valor {
+        font-size: 1rem;
+        color: #333;
+        font-weight: 500;
+        word-break: break-word;
+    }
+    
+    .filtro-box {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 4px;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .badge-contagem {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        margin-left: 0.5rem;
+    }
+    
+    .tabela-resumo {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    
+    .tabela-resumo th {
+        background: #f5f5f5;
+        padding: 1rem;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 2px solid #667eea;
+    }
+    
+    .tabela-resumo td {
+        padding: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .tabela-resumo tr:hover {
+        background: #f9f9f9;
+    }
+    
+    .alerta-error {
+        background: #ffebee;
+        border-left: 4px solid #f44336;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        color: #c62828;
+    }
+    
+    .alerta-success {
+        background: #e8f5e9;
+        border-left: 4px solid #4caf50;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        color: #2e7d32;
+    }
+    
+    .expandir-tudo {
+        margin-bottom: 1rem;
+    }
+    
+    .expandir-tudo button {
+        margin-right: 0.5rem;
+    }
+
+    .registros-container {
+        max-height: 72vh;
+        overflow-y: auto;
+        padding-right: 6px;
+    }
+
+    .registros-container::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .registros-container::-webkit-scrollbar-thumb {
+        background: #c7c7c7;
+        border-radius: 8px;
+    }
+
+    .tabela-registros {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .tabela-registros th {
+        position: sticky;
+        top: 0;
+        background: #eef2ff;
+        color: #1f2937;
+        padding: 10px;
+        font-size: 13px;
+        text-align: left;
+        border-bottom: 1px solid #dbe1f3;
+        z-index: 2;
+    }
+
+    .tabela-registros td {
+        padding: 10px;
+        border-bottom: 1px solid #f1f3f8;
+        font-size: 13px;
+        vertical-align: top;
+    }
+
+    .btn-mini {
+        background: #334155;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .detalhes-linha {
+        display: none;
+        background: #f8fafc;
+    }
+
+    .detalhes-linha.show {
+        display: table-row;
+    }
+
+    .detalhes-box {
+        padding: 12px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 10px;
+    }
+
+    .campo {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 8px;
+    }
+
+    .campo strong {
+        display: block;
+        color: #475569;
+        font-size: 11px;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+    }
+
+    .filtros-tr {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+    }
+
+    .filtro-btn {
+        border: 1px solid #cbd5e1;
+        background: #fff;
+        color: #334155;
+        border-radius: 16px;
+        padding: 6px 12px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .filtro-btn.active {
+        background: #1e40af;
+        color: #fff;
+        border-color: #1e40af;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card-header-custom mb-4">
+        <h2 class="mb-2">📊 Visualizador P3026 - Posição da Carteira Homologada</h2>
+        <p class="mb-0">Interpretação amigável do arquivo de posição da carteira recebido da CEF</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <!-- Coluna de Upload/Controle -->
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">📤 Upload do Arquivo</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="arquivo">Arquivo P3026 (.txt)</label>
+                            <input type="file" name="arquivo" id="arquivo" class="form-control-file" accept=".txt" required>
+                            <small class="form-text text-muted">Arquivo de posição da carteira</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="limite_exibicao">Qtd. de registros para exibir</label>
+                            <select name="limite_exibicao" id="limite_exibicao" class="form-control">
+                                <option value="20" {% if limite_exibicao == 20 %}selected{% endif %}>20 (recomendado)</option>
+                                <option value="30" {% if limite_exibicao == 30 %}selected{% endif %}>30</option>
+                                <option value="50" {% if limite_exibicao == 50 %}selected{% endif %}>50</option>
+                                <option value="100" {% if limite_exibicao == 100 %}selected{% endif %}>100</option>
+                                <option value="todos" {% if limite_exibicao == 'todos' %}selected{% endif %}>Todos (pode ficar pesado)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-upload"></i> Carregar Arquivo
+                        </button>
+                    </form>
+
+                    {% if resumo %}
+                    <hr>
+                    <h6>📋 Informações do Arquivo</h6>
+                    
+                    <div class="stats-box">
+                        <h3>Total de Registros</h3>
+                        <div class="stats-number">{{ total_registros }}</div>
+                    </div>
+                    
+                    <div class="stats-box">
+                        <h3>Data Geração</h3>
+                        <div class="stats-number" style="font-size: 1rem;">
+                            {{ resumo.data_geracao|date:"d/m/Y" }}
+                        </div>
+                    </div>
+
+                    <div class="stats-box">
+                        <h3>Código Agente</h3>
+                        <div class="stats-number" style="font-size: 1rem;">
+                            {{ resumo.codigo_agente }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if resumo %}
+            <div class="card mt-3">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">📊 Distribuição por Tipo</h5>
+                </div>
+                <div class="card-body p-0">
+                    <table class="tabela-resumo">
+                        <tbody>
+                            {% if resumo.por_tipo.TR1 %}
+                            <tr>
+                                <td>
+                                    <span class="registro-tipo tipo-tr1">TR1</span>
+                                    <small class="text-muted">Habilitados não homologados</small>
+                                </td>
+                                <td class="text-right"><strong>{{ resumo.por_tipo.TR1 }}</strong></td>
+                            </tr>
+                            {% endif %}
+                            {% if resumo.por_tipo.TR2 %}
+                            <tr>
+                                <td>
+                                    <span class="registro-tipo tipo-tr2">TR2</span>
+                                    <small class="text-muted">Responsabilidade de replanejamento</small>
+                                </td>
+                                <td class="text-right"><strong>{{ resumo.por_tipo.TR2 }}</strong></td>
+                            </tr>
+                            {% endif %}
+                            {% if resumo.por_tipo.TR3 %}
+                            <tr>
+                                <td><span class="registro-tipo tipo-tr3">TR3</span></td>
+                                <td class="text-right"><strong>{{ resumo.por_tipo.TR3 }}</strong></td>
+                            </tr>
+                            {% endif %}
+                            {% if resumo.por_tipo.TR4 %}
+                            <tr>
+                                <td><span class="registro-tipo tipo-tr4">TR4</span></td>
+                                <td class="text-right"><strong>{{ resumo.por_tipo.TR4 }}</strong></td>
+                            </tr>
+                            {% endif %}
+                            {% if resumo.por_tipo.TR5 %}
+                            <tr>
+                                <td>
+                                    <span class="registro-tipo tipo-tr5">TR5</span>
+                                    <small class="text-muted">Negativa de cobertura / cobertura FCVS</small>
+                                </td>
+                                <td class="text-right"><strong>{{ resumo.por_tipo.TR5 }}</strong></td>
+                            </tr>
+                            {% endif %}
+                            {% if resumo.por_tipo.TR6 %}
+                            <tr>
+                                <td><span class="registro-tipo tipo-tr6">TR6</span></td>
+                                <td class="text-right"><strong>{{ resumo.por_tipo.TR6 }}</strong></td>
+                            </tr>
+                            {% endif %}
+                            {% if resumo.por_tipo.TR7 %}
+                            <tr>
+                                <td><span class="registro-tipo tipo-tr7">TR7</span></td>
+                                <td class="text-right"><strong>{{ resumo.por_tipo.TR7 }}</strong></td>
+                            </tr>
+                            {% endif %}
+                            {% if resumo.por_tipo.TR8 %}
+                            <tr>
+                                <td><span class="registro-tipo tipo-tr8">TR8</span></td>
+                                <td class="text-right"><strong>{{ resumo.por_tipo.TR8 }}</strong></td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Coluna de Registros -->
+        <div class="col-lg-9">
+            {% if resumo %}
+                {% if erros %}
+                <div class="alerta-error">
+                    <strong>⚠️ {{ erros|length }} erro(s) encontrado(s):</strong>
+                    <ul class="mb-0 mt-2">
+                        {% for erro in erros %}
+                        <li>{{ erro }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                <div class="alerta-success">
+                    <strong>✓ Arquivo processado com sucesso!</strong> {{ total_registros }} registros interpretados.
+                </div>
+                {% endif %}
+
+                {% if total_ocultos > 0 %}
+                <div class="alert alert-warning">
+                    Exibindo <strong>{{ registros|length }}</strong> de <strong>{{ total_registros }}</strong> registros.
+                    <strong>{{ total_ocultos }}</strong> ocultos para manter a leitura confortável.
+                </div>
+                {% endif %}
+
+                <div class="filtros-tr">
+                    <button type="button" class="filtro-btn active" data-filtro="TODOS" onclick="aplicarFiltroTR('TODOS', this)">Todos</button>
+                    {% if resumo.por_tipo.TR1 %}<button type="button" class="filtro-btn" data-filtro="1" onclick="aplicarFiltroTR('1', this)">TR1 ({{ resumo.por_tipo.TR1 }})</button>{% endif %}
+                    {% if resumo.por_tipo.TR2 %}<button type="button" class="filtro-btn" data-filtro="2" onclick="aplicarFiltroTR('2', this)">TR2 ({{ resumo.por_tipo.TR2 }})</button>{% endif %}
+                    {% if resumo.por_tipo.TR3 %}<button type="button" class="filtro-btn" data-filtro="3" onclick="aplicarFiltroTR('3', this)">TR3 ({{ resumo.por_tipo.TR3 }})</button>{% endif %}
+                    {% if resumo.por_tipo.TR4 %}<button type="button" class="filtro-btn" data-filtro="4" onclick="aplicarFiltroTR('4', this)">TR4 ({{ resumo.por_tipo.TR4 }})</button>{% endif %}
+                    {% if resumo.por_tipo.TR5 %}<button type="button" class="filtro-btn" data-filtro="5" onclick="aplicarFiltroTR('5', this)">TR5 ({{ resumo.por_tipo.TR5 }})</button>{% endif %}
+                    {% if resumo.por_tipo.TR6 %}<button type="button" class="filtro-btn" data-filtro="6" onclick="aplicarFiltroTR('6', this)">TR6 ({{ resumo.por_tipo.TR6 }})</button>{% endif %}
+                    {% if resumo.por_tipo.TR7 %}<button type="button" class="filtro-btn" data-filtro="7" onclick="aplicarFiltroTR('7', this)">TR7 ({{ resumo.por_tipo.TR7 }})</button>{% endif %}
+                    {% if resumo.por_tipo.TR8 %}<button type="button" class="filtro-btn" data-filtro="8" onclick="aplicarFiltroTR('8', this)">TR8 ({{ resumo.por_tipo.TR8 }})</button>{% endif %}
+                </div>
+
+                <div class="registros-container">
+                    <table class="tabela-registros">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Contrato</th>
+                                <th>Mutuário</th>
+                                <th>CPF</th>
+                                <th>Município</th>
+                                <th>Descrição Situação</th>
+                                <th>Motivo Negativa</th>
+                                <th>Evento</th>
+                                <th>Saldo/VAF</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for registro in registros %}
+                            <tr class="registro-row" data-tipo="{{ registro.tipo_registro }}" data-id="{{ forloop.counter }}">
+                                <td><span class="registro-tipo tipo-tr{{ registro.tipo_registro }}">TR{{ registro.tipo_registro }}</span></td>
+                                <td>{{ registro.numero_contrato|default:"-" }}</td>
+                                <td>{{ registro.dados.NOME_DO_MUTUARIO|default:"-" }}</td>
+                                <td>{{ registro.cpf_mutuario|default:"-" }}</td>
+                                <td>{{ registro.dados.NOME_DO_MUNICIPIO|default:"-" }}</td>
+                                <td>{{ registro.dados.DESCRICAO_SITUACAO_DO_CONTRATO|default:"-" }}</td>
+                                <td>{{ registro.dados.MOTIVO_DA_NEGATIVA_DE_COBERTURA|default:"-" }}</td>
+                                <td>{{ registro.dados.TIPO_DE_EVENTO|default:"-" }}</td>
+                                <td>{{ registro.dados.VAF_3_INFORMADO_PELO_AGENTE|default:registro.dados.SALDO_TOTAL_VENCIDO_VINCENDO|default:"-" }}</td>
+                                <td><button type="button" class="btn-mini" onclick="toggleDetalhes('{{ forloop.counter }}')">Detalhes</button></td>
+                            </tr>
+                            <tr id="detalhes-{{ forloop.counter }}" class="detalhes-linha" data-parent-id="{{ forloop.counter }}">
+                                <td colspan="10">
+                                    <div class="detalhes-box">
+                                        {% for chave, valor in registro.dados.items %}
+                                            {% if valor and chave != 'linha_original' and chave != 'comprimento_total' %}
+                                                <div class="campo">
+                                                    <strong>{{ chave|title }}</strong>
+                                                    {{ valor }}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if registros|length == 0 %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> Nenhum registro encontrado no arquivo.
+                </div>
+                {% endif %}
+
+            {% else %}
+                <div class="alert alert-secondary text-center p-5">
+                    <i class="fas fa-file-upload fa-3x mb-3"></i>
+                    <p><strong>Faça o upload de um arquivo P3026</strong></p>
+                    <p class="text-muted">Selecione um arquivo .txt contendo dados de posição da carteira</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleDetalhes(id) {
+    const linha = document.getElementById('detalhes-' + id);
+    if (linha) {
+        linha.classList.toggle('show');
+    }
+}
+
+function aplicarFiltroTR(tipo, btn) {
+    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    // fecha detalhes ao trocar filtro
+    document.querySelectorAll('.detalhes-linha').forEach(d => d.classList.remove('show'));
+
+    const linhas = document.querySelectorAll('.registro-row');
+    linhas.forEach(linha => {
+        const tipoLinha = linha.getAttribute('data-tipo');
+        const mostrar = (tipo === 'TODOS' || tipoLinha === tipo);
+        linha.style.display = mostrar ? '' : 'none';
+
+        const id = linha.getAttribute('data-id');
+        const detalhes = document.getElementById('detalhes-' + id);
+        if (detalhes) {
+            detalhes.style.display = mostrar ? '' : 'none';
+        }
+    });
+}
+</script>
+{% endblock %}

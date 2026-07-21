@@ -1,0 +1,747 @@
+{% extends 'principal/base.html' %}
+{% load static %}
+
+{% block title %}OCR Review Dashboard{% endblock %}
+
+{% block extra_css %}
+<style>
+    .review-queue-card {
+        background: white;
+        border-left: 4px solid #007bff;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .score-badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: bold;
+        color: white;
+    }
+    
+    .score-excellent {
+        background-color: #28a745;
+    }
+    
+    .score-good {
+        background-color: #17a2b8;
+    }
+    
+    .score-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+    
+    .score-critical {
+        background-color: #dc3545;
+    }
+    
+    .review-item {
+        border: 1px solid #dee2e6;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 0.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .review-item.auto-approved {
+        background-color: #d4edda;
+        border-left: 4px solid #28a745;
+    }
+    
+    .review-item.pending {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+    }
+    
+    .review-item.rejected {
+        background-color: #f8d7da;
+        border-left: 4px solid #dc3545;
+    }
+    
+    .review-item.corrected {
+        background-color: #d1ecf1;
+        border-left: 4px solid #17a2b8;
+    }
+    
+    .field-info {
+        flex: 1;
+    }
+    
+    .field-name {
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+    }
+    
+    .field-values {
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .confidence-score {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        background-color: #e9ecef;
+        border-radius: 0.25rem;
+        font-size: 0.85rem;
+    }
+    
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+        margin-left: 1rem;
+    }
+    
+    .btn-small {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .stats-bar {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .stat-item {
+        flex: 1;
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #007bff;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 0.5rem;
+    }
+    
+    .modal-body textarea {
+        font-size: 0.9rem;
+        resize: vertical;
+    }
+    
+    .loading {
+        display: none;
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .loading.active {
+        display: block;
+    }
+    
+    .filters {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .no-pending {
+        text-align: center;
+        padding: 3rem;
+        background: #d4edda;
+        border-radius: 0.5rem;
+        color: #155724;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h1 class="mb-4">
+        <i class="fas fa-clipboard-check"></i> OCR Review Dashboard
+    </h1>
+    
+    <!-- Filters -->
+    <div class="filters">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="sortBy">Ordenar por:</label>
+                <select id="sortBy" class="form-control form-control-sm">
+                    <option value="score">Confiança (Baixa Primeiro)</option>
+                    <option value="revisar_count">Campos para Revisar</option>
+                    <option value="auto_count">Campos Auto-Aprovados</option>
+                    <option value="date">Data Mais Recente</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="limit">Limite:</label>
+                <select id="limit" class="form-control form-control-sm">
+                    <option value="25">25 resultados</option>
+                    <option value="50" selected>50 resultados</option>
+                    <option value="100">100 resultados</option>
+                    <option value="500">500 resultados</option>
+                </select>
+            </div>
+            <div class="col-md-4" style="display: flex; align-items: flex-end;">
+                <button id="refreshBtn" class="btn btn-primary btn-sm w-100">
+                    <i class="fas fa-sync-alt"></i> Atualizar
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading indicator -->
+    <div id="loading" class="loading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Carregando...</span>
+        </div>
+        <p class="mt-2">Carregando filas de revisão...</p>
+    </div>
+    
+    <!-- Queues list -->
+    <div id="queuesList"></div>
+</div>
+
+<!-- Modal para detalhes completos e edição -->
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewModalLabel">Revisar Contrato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="reviewModalBody">
+                <!-- Conteúdo dinâmico -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-success" id="bulkApproveBtn">
+                    Aprovar Todos Pendentes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para corrigir valor -->
+<div class="modal fade" id="correctModal" tabindex="-1" role="dialog" aria-labelledby="correctModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="correctModalLabel">Corrigir Campo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Campo: <strong id="correctFieldName"></strong></label>
+                </div>
+                <div class="form-group">
+                    <label>Valor Extraído:</label>
+                    <input type="text" class="form-control" id="correctValueExtracted" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Novo Valor:</label>
+                    <input type="text" class="form-control" id="correctValueApproved" required>
+                </div>
+                <div class="form-group">
+                    <label>Notas (opcional):</label>
+                    <textarea class="form-control" id="correctNotes" rows="3" placeholder="Por que foi corrigido?"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveCorrectBtn">Salvar Correção</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const API_BASE = '/api/ocr-review';
+
+let currentQueueId = null;
+let currentFieldName = null;
+
+function loadPendingQueues() {
+    const sortBy = document.getElementById('sortBy').value;
+    const limit = document.getElementById('limit').value;
+    
+    showLoading(true);
+    
+    fetch(`${API_BASE}/pending/?sort_by=${sortBy}&limit=${limit}`)
+        .then(response => response.json())
+        .then(data => {
+            displayQueues(data);
+            showLoading(false);
+        })
+        .catch(error => {
+            console.error('Erro ao carregar filas:', error);
+            document.getElementById('queuesList').innerHTML = 
+                `<div class="alert alert-danger">Erro ao carregar filas: ${error}</div>`;
+            showLoading(false);
+        });
+}
+
+function displayQueues(data) {
+    const container = document.getElementById('queuesList');
+    
+    if (data.total === 0) {
+        container.innerHTML = `
+            <div class="no-pending">
+                <h4>✓ Nenhuma fila de revisão pendente</h4>
+                <p>Todos os contratos foram aprovados!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = `
+        <div class="alert alert-info">
+            <strong>${data.total} contrato(s)</strong> aguardando revisão
+        </div>
+    `;
+    
+    data.queues.forEach(queue => {
+        const scoreClass = getScoreClass(queue.score);
+        const statusLabel = getStatusLabel(queue.status);
+        
+        html += `
+            <div class="review-queue-card">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h5>Contrato: <strong>${queue.contrato_codigo}</strong></h5>
+                        <div class="score-badge ${scoreClass}">
+                            Confiança: ${queue.score}%
+                        </div>
+                        <span class="badge badge-info ml-2">${statusLabel}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stats-bar">
+                            <div class="stat-item">
+                                <div class="stat-value">${queue.auto_count}</div>
+                                <div class="stat-label">Auto-Aprovados</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">${queue.revisar_count}</div>
+                                <div class="stat-label">Aguardando Revisão</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <small class="text-muted">
+                        Criado em: ${new Date(queue.extraction_date).toLocaleString('pt-BR')}
+                    </small>
+                </div>
+                
+                <div class="mt-3">
+                    <button type="button" class="btn btn-primary btn-sm" data-action="open-review" data-queue-id="${queue.id}">
+                        <i class="fas fa-edit"></i> Revisar Itens
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+    bindQueueActions();
+}
+
+function openReviewModal(queueId) {
+    currentQueueId = queueId;
+    
+    showLoading(true);
+    fetch(`${API_BASE}/${queueId}/`)
+        .then(handleApiResponse)
+        .then(data => {
+            displayReviewDetail(data);
+            showLoading(false);
+            showModal('reviewModal');
+        })
+        .catch(error => {
+            console.error('Erro ao carregar detalhes:', error);
+            showLoading(false);
+            alert(`Erro ao carregar detalhes da fila: ${error.message || error}`);
+        });
+}
+
+function displayReviewDetail(data) {
+    const queue = data.queue;
+    const items = data.items;
+    
+    let html = `
+        <h6 class="mb-3">Contrato: <strong>${queue.contrato_codigo}</strong></h6>
+        
+        <div class="stats-bar mb-3">
+            <div class="stat-item">
+                <div class="stat-value">${queue.score}</div>
+                <div class="stat-label">Confiança Geral</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">${queue.auto_count}</div>
+                <div class="stat-label">Auto-Aprovados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">${queue.revisar_count}</div>
+                <div class="stat-label">Pendentes</div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <h6>Itens para Revisão:</h6>
+        <div id="reviewItems">
+    `;
+    
+    items.forEach(item => {
+        const itemClass = getItemClass(item.status);
+        const statusLabel = getItemStatusLabel(item.status);
+        
+        html += `
+            <div class="review-item ${itemClass}">
+                <div class="field-info">
+                    <div class="field-name">${item.field_name}</div>
+                    <div class="field-values">
+                        <strong>Extraído:</strong> <code>${item.value_extracted}</code>
+                        ${item.value_approved ? `<br><strong>Aprovado:</strong> <code>${item.value_approved}</code>` : ''}
+                        <br>
+                        <span class="confidence-score">Confiança: ${item.confidence_score}%</span>
+                        <span class="badge badge-secondary">${statusLabel}</span>
+                        ${item.notes ? `<br><small class="text-muted">${item.notes}</small>` : ''}
+                    </div>
+                </div>
+                <div class="action-buttons">
+        `;
+        
+        if (item.status === 'PENDING_REVIEW') {
+            html += `
+                    <button type="button" class="btn btn-success btn-small" data-action="approve-field" data-queue-id="${queue.id}" data-field-name="${item.field_name}">
+                        ✓ Aprovar
+                    </button>
+                    <button type="button" class="btn btn-warning btn-small" data-action="correct-field" data-queue-id="${queue.id}" data-field-name="${item.field_name}" data-field-value="${(item.value_extracted || '').toString().replace(/\"/g, '&quot;')}">
+                        ✎ Corrigir
+                    </button>
+                    <button type="button" class="btn btn-danger btn-small" data-action="reject-field" data-queue-id="${queue.id}" data-field-name="${item.field_name}">
+                        ✕ Rejeitar
+                    </button>
+            `;
+        }
+        
+        html += `
+                </div>
+            </div>
+        `;
+    });
+    
+    html += `
+        </div>
+    `;
+    
+    document.getElementById('reviewModalBody').innerHTML = html;
+    bindReviewItemActions();
+}
+
+function approveField(queueId, fieldName) {
+    if (!confirm(`Aprovar campo "${fieldName}"?`)) return;
+    
+    fetch(`${API_BASE}/${queueId}/approve-field/${encodeURIComponent(fieldName)}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify({})
+    })
+    .then(handleApiResponse)
+    .then(data => {
+        if (data.sucesso) {
+            alert(`Campo "${fieldName}" aprovado!`);
+            openReviewModal(queueId);  // Recarrega
+        } else {
+            alert(`Erro ao aprovar: ${data.erro}`);
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert(`Erro ao aprovar campo: ${error.message || error}`);
+    });
+}
+
+function correctField(queueId, fieldName, valueExtracted) {
+    currentQueueId = queueId;
+    currentFieldName = fieldName;
+    
+    document.getElementById('correctFieldName').textContent = fieldName;
+    document.getElementById('correctValueExtracted').value = valueExtracted || '';
+    document.getElementById('correctValueApproved').value = '';
+    document.getElementById('correctNotes').value = '';
+    
+    showModal('correctModal');
+}
+
+function rejectField(queueId, fieldName) {
+    const notes = prompt('Motivo da rejeição (opcional):');
+    if (notes === null) return;
+    
+    fetch(`${API_BASE}/${queueId}/reject-field/${encodeURIComponent(fieldName)}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify({ notes: notes || 'Rejeitado pelo revisor' })
+    })
+    .then(handleApiResponse)
+    .then(data => {
+        if (data.sucesso) {
+            alert(`Campo "${fieldName}" rejeitado!`);
+            openReviewModal(queueId);  // Recarrega
+        } else {
+            alert(`Erro ao rejeitar: ${data.erro}`);
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert(`Erro ao rejeitar campo: ${error.message || error}`);
+    });
+}
+
+document.getElementById('saveCorrectBtn').addEventListener('click', function() {
+    const newValue = document.getElementById('correctValueApproved').value;
+    const notes = document.getElementById('correctNotes').value;
+    
+    if (!newValue.trim()) {
+        alert('Digite um valor válido');
+        return;
+    }
+    
+    fetch(`${API_BASE}/${currentQueueId}/approve-field/${encodeURIComponent(currentFieldName)}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify({
+            approved_value: newValue,
+            notes: notes || `Corrigido pelo usuário`
+        })
+    })
+    .then(handleApiResponse)
+    .then(data => {
+        if (data.sucesso) {
+            hideModal('correctModal');
+            alert('Campo corrigido com sucesso!');
+            openReviewModal(currentQueueId);  // Recarrega
+        } else {
+            alert(`Erro ao salvar: ${data.erro}`);
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert(`Erro ao salvar correção: ${error.message || error}`);
+    });
+});
+
+document.getElementById('bulkApproveBtn').addEventListener('click', function() {
+    if (!confirm('Aprovar todos os campos pendentes?')) return;
+    
+    fetch(`${API_BASE}/${currentQueueId}/bulk-approve/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify({ approve_all: true })
+    })
+    .then(handleApiResponse)
+    .then(data => {
+        if (data.sucesso) {
+            alert(`${data.approved_count} campo(s) aprovado(s)!`);
+            hideModal('reviewModal');
+            loadPendingQueues();
+        } else {
+            alert('Erro ao aprovar campos');
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert(`Erro no bulk approve: ${error.message || error}`);
+    });
+});
+
+document.addEventListener('click', function(event) {
+    const button = event.target.closest('button[data-action]');
+    if (!button) return;
+
+    const action = button.getAttribute('data-action');
+    const queueId = Number(button.getAttribute('data-queue-id'));
+    const fieldName = button.getAttribute('data-field-name') || '';
+    const fieldValue = button.getAttribute('data-field-value') || '';
+
+    if (action === 'open-review' && queueId) {
+        openReviewModal(queueId);
+        return;
+    }
+    if (action === 'approve-field' && queueId && fieldName) {
+        approveField(queueId, fieldName);
+        return;
+    }
+    if (action === 'correct-field' && queueId && fieldName) {
+        correctField(queueId, fieldName, fieldValue);
+        return;
+    }
+    if (action === 'reject-field' && queueId && fieldName) {
+        rejectField(queueId, fieldName);
+    }
+});
+
+function bindQueueActions() {
+    document.querySelectorAll('button[data-action="open-review"]').forEach((btn) => {
+        btn.onclick = function() {
+            const queueId = Number(btn.getAttribute('data-queue-id'));
+            if (queueId) {
+                openReviewModal(queueId);
+            }
+        };
+    });
+}
+
+function bindReviewItemActions() {
+    document.querySelectorAll('button[data-action="approve-field"]').forEach((btn) => {
+        btn.onclick = function() {
+            const queueId = Number(btn.getAttribute('data-queue-id'));
+            const fieldName = btn.getAttribute('data-field-name') || '';
+            if (queueId && fieldName) {
+                approveField(queueId, fieldName);
+            }
+        };
+    });
+
+    document.querySelectorAll('button[data-action="correct-field"]').forEach((btn) => {
+        btn.onclick = function() {
+            const queueId = Number(btn.getAttribute('data-queue-id'));
+            const fieldName = btn.getAttribute('data-field-name') || '';
+            const fieldValue = btn.getAttribute('data-field-value') || '';
+            if (queueId && fieldName) {
+                correctField(queueId, fieldName, fieldValue);
+            }
+        };
+    });
+
+    document.querySelectorAll('button[data-action="reject-field"]').forEach((btn) => {
+        btn.onclick = function() {
+            const queueId = Number(btn.getAttribute('data-queue-id'));
+            const fieldName = btn.getAttribute('data-field-name') || '';
+            if (queueId && fieldName) {
+                rejectField(queueId, fieldName);
+            }
+        };
+    });
+}
+
+// Event listeners
+document.getElementById('refreshBtn').addEventListener('click', loadPendingQueues);
+document.getElementById('sortBy').addEventListener('change', loadPendingQueues);
+document.getElementById('limit').addEventListener('change', loadPendingQueues);
+
+function showLoading(show) {
+    document.getElementById('loading').classList.toggle('active', show);
+}
+
+function getScoreClass(score) {
+    if (score >= 80) return 'score-excellent';
+    if (score >= 60) return 'score-good';
+    if (score >= 40) return 'score-warning';
+    return 'score-critical';
+}
+
+function getStatusLabel(status) {
+    const labels = {
+        'PENDING': 'Pendente',
+        'PARTIALLY_REVIEWED': 'Parcialmente Revisado',
+        'APPROVED': 'Aprovado',
+        'REJECTED': 'Rejeitado'
+    };
+    return labels[status] || status;
+}
+
+function getItemClass(status) {
+    return {
+        'AUTO_APPROVED': 'auto-approved',
+        'PENDING_REVIEW': 'pending',
+        'USER_CORRECTED': 'corrected',
+        'REJECTED': 'rejected'
+    }[status] || '';
+}
+
+function getItemStatusLabel(status) {
+    const labels = {
+        'AUTO_APPROVED': 'Auto-Aprovado',
+        'PENDING_REVIEW': 'Aguardando Revisão',
+        'USER_CORRECTED': 'Corrigido',
+        'REJECTED': 'Rejeitado'
+    };
+    return labels[status] || status;
+}
+
+function getCSRFToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
+           document.cookie.split('; ').find(row => row.startsWith('csrftoken='))?.split('=')[1] || '';
+}
+
+function handleApiResponse(response) {
+    if (!response.ok) {
+        return response.text().then(text => {
+            throw new Error(`HTTP ${response.status}: ${text.slice(0, 200)}`);
+        });
+    }
+    return response.json();
+}
+
+function showModal(modalId) {
+    const el = document.getElementById(modalId);
+    if (!el) return;
+
+    if (window.bootstrap && window.bootstrap.Modal) {
+        window.bootstrap.Modal.getOrCreateInstance(el).show();
+        return;
+    }
+
+    el.style.display = 'block';
+    el.classList.add('show');
+    el.removeAttribute('aria-hidden');
+}
+
+function hideModal(modalId) {
+    const el = document.getElementById(modalId);
+    if (!el) return;
+
+    if (window.bootstrap && window.bootstrap.Modal) {
+        const instance = window.bootstrap.Modal.getInstance(el);
+        if (instance) {
+            instance.hide();
+            return;
+        }
+    }
+
+    el.style.display = 'none';
+    el.classList.remove('show');
+    el.setAttribute('aria-hidden', 'true');
+}
+
+// Carrega as filas quando a página abre
+document.addEventListener('DOMContentLoaded', loadPendingQueues);
+</script>
+{% endblock %}

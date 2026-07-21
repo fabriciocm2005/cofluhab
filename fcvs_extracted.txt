@@ -1,0 +1,612 @@
+
+================================================================================
+--- PÁGINA 1 de 12 ---
+================================================================================
+
+• REGISTRO => HEADER – PARA TODOS OS TIPOS DE MOVIMENTOS (POSIÇÃO 424
+DIFERENCIA O TIPO DE MOVIMENTO – Exceto para os movimentos de RCV e RNV
+Simplificados)
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 UFS NUM 2 1-2 Código da UFS
+02 MAT.AG.FINANC NUM 6 3-8 Matrícula do Agente Financeiro/DV
+03 CONSTANTE NUM 14 9-22 ZEROS
+04 TIPO DE REGISTRO NUM 1 23 0
+05 CONSTANTE NUM 9 24-32 ZEROS
+06 QTD DOCTOS NUM 5 33-37 Qtde de registros gravados no Arquivo.
+07 FILLER - 368 38-405 BRANCOS
+08 UFS NUM 2 406-407 Código da UFS
+09 MAT. AG. FINANC. NUM 6 408-413 Matrícula do Agente Financeiro
+10 DATA GERAÇÃO NUM 6 414-419 Data da geração do lote (DDMMAA).
+11 NÚMERO NUM 3 420-422 Número do lote
+12 FORMA DE ENVIO ALFA 1 423 S (FCVS 2000)
+13 TIPO MOVIMENTO ALFA 1 424 Tipo de movimento do lote (I, J, K,P, R S, G, U, V, F, B)
+14 FILLER - 6 425-430 BRANCOS
+• TIPO DE MOVIMENTO = I - FH1 – Ficha para Habilitação ao FCVS
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 . UFS 01 a 02 2 NUM
+02 . MAT. AG. FINANC. /DV 03 a 08 6 NUM
+03 . N.º CONTRATO DO MUT. NO AGENTE 09 a 21 13 ALFA
+04 . HIPOTECA 22 1 NUM
+05 TIPO DE REGISTRO 23 1 NUM 1
+06 SEQUENCIAL 24 a 25 2 NUM 0
+07 CONSTANTE 26 1 NUM 0
+08 NOME DO MUT. PRINCIPAL 27 a 66 40 ALFA
+09 . TIPO 67 1 NUM
+10 . CPF/CI 68 a 84 17 ALFA
+11 DATA DE NASCIMENTO 85 a 90 6 NUM (DDMMAA)
+12 CODIGO DO MUNICÍPIO 91 a 95 5 NUM
+13 UF 96 a 97 2 ALFA
+14 ENDEREÇO DO IMÓVEL 98 a 135 38 ALFA
+15 DATA DO CONTRATO 136 a 141 6 NUM ( DDMMAA)
+16 VALOR DA GARANTIA 142 a 153 12 NUM 10 INT. e 2 DEC.
+17 IM 154 a 155 2 NUM
+18 DATA DA LEGISLAÇÃO 156 a 161 6 NUM (DDMMAA)
+19 VALOR FINANCIAMENTO CONTRATADO 162 a 173 12 NUM 10 INT. e 2 DEC.
+20 VALOR FINANC. PADRÃO FCVS 174 a 185 12 NUM 10 INT. e 2 DEC.
+21 CÓDIGO DA CATEG. PROFISSIONAL 186 a 190 5 ALFA
+22 . SEGURO DE CRÉDITO 191 1 ALFA
+23 . CARÊNCIA NO 1O VENCIMENTO 192 1 ALFA
+24 . SEGURO DFI POR LOTES URBANIZADOS 193 1 ALFA
+. CRÉDITOS ADQUIRIDOS PELA CAIXA COM
+25 194 1 ALFA
+RECURSOS DO PROER
+26 . VAGO 195 1 ALFA Não preencher
+27 PRAZO CONTRATADO 196 a 198 3 NUM
+28 TAXA JUROS CONTRATADO 199 a 204 6 NUM 2 INT. e 4 DEC.
+29 CES CONTRATUAL 205 a 208 5 NUM
+30 . PLANO 209 a 211 3 ALFA
+31 . ST 212 1 NUM
+32 . RJ 213 1 ALFA
+33 . RR 214 a 215 2 NUM
+34 . INDEX 216 a 218 3 ALFA
+35 PRAZO FCVS 219 a 221 3 NUM
+
+================================================================================
+--- PÁGINA 2 de 12 ---
+================================================================================
+
+36 TAXA JUROS PARA FCVS 222 a 227 6 NUM 2 INT. e 4 DEC.
+37 CES PARA FCVS 228 a 231 4 NUM 1 INT. e 3 DEC.
+38 . PLANO 232 a 234 3 ALFA
+39 . ST 235 1 NUM
+40 . RJ 236 1 ALFA
+41 . RR 237 a 238 2 NUM
+42 . INDEX 239 a 241 3 ALFA
+43 DATA SALDO CONSTRUÇÃO 242 a 247 6 NUM (DDMMAA)
+44 SALDO DEVEDOR 248 a 259 12 NUM 10 INT. e 2 DEC.
+45 1o VENCIMENTO 260 a 265 6 NUM (DDMMAA)
+46 SEGURO CREDITO / MIP / DFI 266 a 273 8 NUM 6 INT. e 2 DEC.
+47 VALOR DA PRESTAÇÃO 274 a 283 10 NUM 8 INT. e 2 DEC.
+49 TCA/TAC 284 a 291 8 NUM 6 INT. e 2 DEC.
+50 FCVS MENSAL 292 a 299 8 NUM 6 INT. e 2 DEC.
+51 RAZÃO ACRES/ DECRES. 300 a 307 8 NUM 6 INT. e 2 DEC.
+52 TIPO EVENTO 308 a 310 3 ALFA
+53 DATA DO EVENTO 311 a 316 6 NUM (DDMMAA)
+54 OR/CO 317 a 318 2 NUM
+55 % CAIXA 319 a 322 4 NUM 100
+56 N.º CONTR. EMPR. CAIXA 323 a 340 18 NUM
+57 TAXA JUROS EVENTO 341 a 346 6 NUM 2 INT. e 4 DEC.
+58 VAF1 Þ VALOR BÁSICO 347 a 360 14 NUM 12 INT. e 2 DEC.
+59 VAF2 Þ VALOR COMPLEMENTAR 361 a 374 14 NUM 12 INT. e 2 DEC.
+60 VAF3 Þ VALOR RESIDUAL 375 a 388 14 NUM 12 INT. e 2 DEC.
+JUROS CALCULADOS PELO AGENTE
+61 389 a 402 14 NUM
+FINANCEIRO
+62 DEBITO/CRÉDITO 403 1 ALFA D ou C
+63 QUANTIDADE DE ALTERAÇÕES 404 a 405 2 NUM
+64 . UFS 406 a 407 2 NUM Código da UFS
+65 . MAT. AG. FINANC. 408 a 413 6 NUM Matrícula do Agente Financeiro
+66 . DATA GERAÇÃO 414 a 419 6 NUM Data geração do lote (DDMMAA)
+67 . NÚMERO 420 a 422 3 NUM Número do lote
+68 . FORMA DE ENVIO 423 1 ALFA = S (FCVS 2000)
+69 . TIPO MOVIMENTO 424 1 ALFA I
+70 FILLER 425 a 430 6 - BRANCOS
+• TIPO DE MOVIMENTO = I - FH2 e FH3 para Habilitação ao FCVS
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 UFS NUM 2
+02 MAT. AG. FINANC. /DV NUM 6
+03 N.º CONTR. DO MUT. NO AGENTE ALFA 13
+04 HIPOTECA NUM 1
+05 TIPO DE REGISTRO NUM 1 2
+06 SEQUENCIAL NUM 2
+07 CONSTANTE NUM 1 ZERO
+08 COD ALTERAÇÃO NUM 3
+09 DATA DA ALTERAÇÃO NUM 6 DDMMAA
+10 PRESTAÇÃO ALTERADA NUM 4 MMAA
+11 PRAZO NUM 3
+12 TAXA JUROS / ÍNDICE ALFA 8 VER PREENCHIMENTO DESTE CAMPO NO ITEM 2.3 (FH2)
+13 CÓDIGO DA CATEGORIA ALFA 5
+14 VALOR DA ALTERAÇÃO NUM 12 10 INT. E 2 DEC.
+15 PLANO ALFA 3
+16 ST NUM 1
+17 RJ ALFA 1
+18 RR NUM 2
+29 INDEX ALFA 3
+20 FILLER - 328 BRANCOS
+21 IDENTIFICAÇÃO DO LOTE Duplicar do HEADER
+22 UFS NUM 2 Código da UFS
+23 MAT. AG. FINANC. NUM 6 Matrícula do Agente Financeiro
+24 DATA GERAÇÃO NUM 6 DDMMAA Data geração do lote
+25 NÚMERO NUM 3 Número do lote
+
+================================================================================
+--- PÁGINA 3 de 12 ---
+================================================================================
+
+26 FORMA DE ENVIO ALFA 1 S (FCVS 2000)
+27 TIPO MOVIMENTO ALFA 1 I
+28 FILLER - 6 BRANCOS
+
+================================================================================
+--- PÁGINA 4 de 12 ---
+================================================================================
+
+• TIPO DE MOVIMENTO = S - FTI – Troca de Identificação de Contrato
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 UFS 2
+02 MAT. AG. FINANC. /DV NUM 6
+03 N.º CONTR. DO MUT NO AGENTE ALFA 13
+04 HIPOTECA NUM 1
+05 TIPO DE REGISTRO NUM 1 4
+06 CONSTANTE NUM 3 000
+07 CONSTANTE - 10 BRANCOS
+08 SEQUENCIAL NUM 2 00
+09 USO CAIXA NUM 1 0
+10 CÓDIGO DO CAMPO NUM 3 010 (campo controle)
+11 UFS NUM 2
+12 MAT. AG. FINANC. NUM 6
+13 NUMERO DO CONTRATO ALFA 13
+14 HIPOTECA NUM 1
+15 FILLER - 341 BRANCOS
+16 UFS NUM 2 Código da UFS
+17 MAT. AG. FINANC. NUM 6 Matrícula do Agente Financeiro
+18 DATA GERAÇÃO NUM 6 DDMMAA Data geração do lote
+19 NÚMERO NUM 3 Número do lote
+20 FORMA DE ENVIO ALFA 1 S (FCVS 2000)
+21 TIPO MOVIMENTO ALFA 1 S
+22 FILLER - 6 BRANCOS
+• TIPO DE MOVIMENTO = J - RED – RELAÇÃO DE CONTRATOS COM AVISO DE ENVIO DE DOSSIÊ
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 UFS NUM 2
+02 MAT.AG.FINANC. /DV NUM 6
+03 N.º CONTR. DO MUT NO AGENTE ALFA 13
+04 HIPOTECA NUM 1
+05 TIPO DE REGISTRO NUM 1 4
+06 CONSTANTE NUM 5 a ZEROS
+07 DATA HABILITAÇÃO / DATA EVOLUÇÃO NUM 6 DDMMAA
+08 CONSTANTE NUM 5 ZEROS
+09 CÓDIGO NUM 3 620
+10 FILLER - 363 BRANCOS
+11 UFS NUM 2 Código da UFS
+12 MAT. AG. FINANC. NUM 6 Matrícula do Agente Financeiro
+13 DATA GERAÇÃO NUM 6 DDMMAA Data geração do lote
+14 NÚMERO NUM 3 Número do lote
+15 FORMA DE ENVIO ALFA 1 S (FCVS 2000)
+16 TIPO MOVIMENTO ALFA 1 J
+17 FILLER - 6 BRANCOS
+
+================================================================================
+--- PÁGINA 5 de 12 ---
+================================================================================
+
+• TIPO DE MOVIMENTO = K - RER – RELAÇÃO DE CONTRATOS COM AVISO DE ENVIO DE
+RECURSO/REANALISE
+SEQ NOME DO CAMPO TIPO TAM POSIÇÃO DESCRIÇÃO
+01 UFS NUM 2
+02 MAT.AG.FINANC. /DV NUM 6
+03 N.º CONTR. DO MUT NO AGENTE ALFA 13
+04 HIPOTECA NUM 1
+05 TIPO DE REGISTRO NUM 1 4
+06 CONSTANTE NUM 5 a ZEROS
+07 DATA TÉRMINO ANÁLISE / DATA
+NUM 6 DDMMAA
+REPROCESSAMENTO
+08 CONSTANTE NUM 5 ZEROS
+09 CÓDIGO NUM 3 630
+10 FILLER - 363 BRANCOS
+11 UFS NUM 2 Código da UFS
+12 MAT. AG. FINANC. NUM 6 Matrícula do Agente Financeiro
+13 DATA GERAÇÃO NUM 6 DDMMAA Data geração do lote.
+14 NÚMERO NUM 3 Número do lote
+15 FORMA DE ENVIO ALFA 1 S (FCVS 2000)
+16 TIPO MOVIMENTO ALFA 1 K
+17 FILLER - 6 BRANCOS
+• TIPO DE MOVIMENTO = P - RNV – RELAÇÃO DE CONTRATOS EVOLUÍDOS
+E NÃO VALIDADOS
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 UFS NUM 2
+02 MAT.AG.FINANC. /DV NUM 6
+03 N.º CONTR. DO MUT NO AGENTE ALFA 13
+04 HIPOTECA NUM 1
+05 TIPO DE REGISTRO NUM 1 4
+06 CONSTANTE NUM 5 a ZEROS
+07 DATA TÉRMINO ANÁLISE / DATA
+NUM 6 DDMMAA
+REPROCESSAMENTO
+08 CONSTANTE NUM 5 ZEROS
+09 CÓDIGO NUM 3 700
+10 FILLER - 363 BRANCOS
+11 UFS NUM 2 Código da UFS
+12 MAT. AG. FINANC. NUM 6 Matrícula do Agente Financeiro
+13 DATA GERAÇÃO NUM 6 DDMMAA Data geração do lote
+14 NÚMERO NUM 3 Número do lote
+15 FORMA DE ENVIO ALFA 1 S (FCVS 2000)
+16 TIPO MOVIMENTO ALFA 1 P
+17 FILLER - 6 BRANCOS
+• . TIPO DE MOVIMENTO = R - RCV – RELAÇÃO DE CONTRATOS VALIDADOS
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 UFS NUM 2
+02 MAT.AG.FINANC. /DV NUM 6
+03 N.º CONTR. DO MUT NO AGENTE ALFA 13
+04 HIPOTECA NUM 1
+05 TIPO DE REGISTRO NUM 1 4
+06 CONSTANTE NUM 5 a ZEROS
+
+================================================================================
+--- PÁGINA 6 de 12 ---
+================================================================================
+
+07 DATA TÉRMINO ANÁLISE / DATA
+NUM 6 DDMMAA
+REPROCESSAMENTO
+08 CONSTANTE NUM 5 ZEROS
+09 CÓDIGO NUM 3 710
+10 FILLER - 363 BRANCOS
+11 UFS NUM 2 Código da UFS
+12 MAT. AG. FINANC. NUM 6 Matrícula do Agente Financeiro
+13 DATA GERAÇÃO NUM 6 DDMMAA Data geração do lote.
+14 NÚMERO NUM 3 Número do lote
+15 FORMA DE ENVIO ALFA 1 S (FCVS 2000)
+16 TIPO MOVIMENTO ALFA 1 R
+17 FILLER - 6 BRANCOS
+TRANSFERENCIA DE TITULARIDADE
+TIPO DE MOVIMENTO = AGENTE FINANCEIRO – Tipo G
+NOME TIPO TAMANHO CONTEÚDO DO CAMPO
+UFS * CHAR 2 Código da UFS do Agente Financeiro Cedente
+MATAGE * CHAR 6 Matricula do Agente Financeiro Cedente
+NOCONT CHAR 13 Numero do contrato cedido
+HIP CHAR 1 Grau de Hipoteca do contrato cedido
+COD_OPE CHAR 1 = 1 (Inclusão)
+= 3 (exclusão)
+CTE CHAR 3 = Zeros
+DAT_NEG CHAR 6 Data da negociação (data de posicionamento dos saldos) (AAMMDD)
+UFSCONT CHAR 2 Código da UFS de origem do contrato cedido
+MATAGECONT CHAR 6 Matrícula do Agente de origem do contrato cedido
+VAL_NEG CHAR 18 Valor negociado (16 INT. e 2 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+Pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 000001289032145610
+MOEDA CHAR 2 = 05
+TX_JUR CHAR 6 Taxa de juros (2 INT. e 4 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 011234
+MATAGEDES CHAR 6 Informar a matrícula do destino:
+Matrícula do Agente cessionário = AGENTE
+991859 = CEF 1A Linha
+992859 = CEF 2A Linha
+993859 = FGDLI
+994859 = BACEN
+DESTPGTO CHAR 2 = 01
+DESTTRANS CHAR 2 Informar o código referente ao destino :
+01 = Outro AGENTE
+04 = CEF 2A Linha
+05 = CEF 1A Linha
+07 = FGDLI
+11 = BACEN
+CTRREPASSE CHAR 18 = zeros
+GRUP_DEST CHAR 10 No caso de TRANSFERÊNCIA CONJUNTA, informar o(s) código(s) dos destinos: 04, 05, 07 e/ou
+11
+No caso de TRANSFERÊNCIA SIMPLES, este campo deve ser preenchido com ZEROS.
+Nas transferências entre Agentes, este campo deve ser
+preenchido com ZEROS.
+OBS. Esse campo pode ser preenchido com até 4 códigos.
+As posições sem código devem ser preenchidas com zeros.
+Ex.: 0407110000
+
+================================================================================
+--- PÁGINA 7 de 12 ---
+================================================================================
+
+ESPACO1FAC CHAR 200 = Brancos
+ESPACO2FAC CHAR 101 = Brancos
+IDLUFS * CHAR 2 Código da UFS do Agente cedente
+IDLMATAGE * CHAR 6 Matricula do Agente Financeiro Cedente
+IDLDTPREE * CHAR 6 Data da geração do lote (DDMMAA)
+IDLLOTVOL * CHAR 3 Numero do lote
+OBS.: Os lotes devem ser numerados sequencialmente,
+por data de geração. Não podem haver lotes com
+mesmo número na mesma data.
+IDLFORMAH * CHAR 1 D
+IDLTPMOV * CHAR 1 G
+IDLESPACO * CHAR 6 = Brancos
+IMPORTANTE:
+Os campos com * do arquivo HEADERTT.TXT e SAIDATT.TXT, devem ser iguais.O Tamanho dos registros é de 430 bytes.
+TRANSFERENCIA SIMPLES : Transferência envolvendo somente 1 cedente e 1 cessionário.
+TRANSFERENCIA CONJUNTA : Transferência envolvendo mais de 1 cedente e mais de 1 cessionário
+TRANSFERENCIA DE TITULARIDADE
+TIPO DE MOVIMENTO = CEF 1ª LINHA – Tipo U
+NOME TIPO TAMANHO CONTEÚDO DO CAMPO
+UFS * CHAR 2 = Noves
+MATAGE * CHAR 6 = 991859
+NOCONT CHAR 13 Numero do Contrato cedido
+HIP CHAR 1 Grau de Hipoteca do contrato cedido
+COD_OPE CHAR 1 = 1 (Inclusão)
+= 3 (exclusão)
+CTE CHAR 3 = Zeros
+DAT_NEG CHAR 6 Data da negociação (data de posicionamento dos saldos) (AAMMDD)
+UFSCONT CHAR 2 Código da UFS de origem do contrato cedido
+MATAGECONT CHAR 6 Matrícula do Agente de origem do contrato cedido
+VAL_NEG CHAR 18 Valor negociado (16 INT. e 2 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 000001289032145610
+MOEDA CHAR 2 = 05
+TX_JUR CHAR 6 Taxa de juros (2 INT. e 4 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 011234
+MATAGEDES CHAR 6 Informar a matricula do destino:
+Matrícula do Agente cessionário = AGENTE
+992859 = CEF 2A Linha
+993859 = FGDLI
+994859 = BACEN
+DESTPGTO CHAR 2 = 05
+DESTTRANS CHAR 2 Informar o código referente ao destino :
+01 = AGENTE
+04 = CEF 2A Linha
+07 = FGDLI
+11 = BACEN
+CTRREPASSE CHAR 18 = zeros
+GRUP_DEST CHAR 10 No caso de TRANSFERÊNCIA CONJUNTA, informar o(s) código(s) dos destinos: 01, 04,
+07 e/ou 11
+No caso de TRANSFERÊNCIA SIMPLES, este campo deve ser preenchido com ZEROS.
+OBS. Esse campo pode ser preenchido com até 4 códigos.
+As posições sem código devem ser preenchidas com zeros.
+Ex.: 0107110000
+ESPACO1FAC CHAR 200 = Brancos
+ESPACO2FAC CHAR 101 = Brancos
+IDLUFS * CHAR 2 = Noves
+IDLMATAGE * CHAR 6 991859
+
+================================================================================
+--- PÁGINA 8 de 12 ---
+================================================================================
+
+IDLDTPREE * CHAR 6 Data da geração do lote(DDMMAA)
+IDLLOTVOL * CHAR 3 Numero do lote
+OBS.: Os lotes devem ser numerados sequencialmente,
+por data de geração. Não pode haver lotes com
+mesmo número na mesma data.
+IDLFORMAH * CHAR 1 D
+IDLTPMOV * CHAR 1 U
+IDLESPACO * CHAR 6 = Brancos
+IMPORTANTE:
+Os campos com * do arquivo HEADERTT.TXT e SAIDATT.TXT, devem ser iguais.
+O Tamanho dos registros é de 430 bytes.
+TRANSFERENCIA SIMPLES : Transferência envolvendo somente 1 cedente e 1 cessionário.
+TRANSFERENCIA CONJUNTA : Transferência envolvendo mais de 1 cedente e mais de 1 cessionário
+TRANSFERENCIA DE TITULARIDADE
+TIPO DE MOVIMENTO = CEF 2ª LINHA – Tipo V
+NOME TIPO TAMANHO CONTEÚDO DO CAMPO
+UFS * CHAR 2 = Noves
+MATAGE * CHAR 6 = 992859
+NOCONT CHAR 13 Numero do Contrato cedido
+HIP CHAR 1 Grau de Hipoteca do contrato cedido
+COD_OPE CHAR 1 = 1 (Inclusão)
+= 3 (exclusão)
+CTE CHAR 3 = Zeros
+DAT_NEG CHAR 6 Data da negociação (data de posicionamento dos saldos) (AAMMDD)
+UFSCONT CHAR 2 Código da UFS de origem do contrato cedido
+MATAGECONT CHAR 6 Matrícula do Agente de origem do contrato cedido
+VAL_NEG CHAR 18 Valor negociado (16 INT. e 2 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 000001289032145610
+MOEDA CHAR 2 = 05
+TX_JUR CHAR 6 Taxa de juros (2 INT. e 4 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 011234
+MATAGEDES CHAR 6 Informar a matricula do destino:
+Matrícula do Agente cessionário = AGENTE
+991859 = CEF 1A Linha
+993859 = FGDLI
+994859 = BACEN
+DESTPGTO CHAR 2 = 04
+DESTTRANS CHAR 2 Informar o código referente ao destino :
+01 = AGENTE
+05 = CEF 1A Linha
+07 = FGDLI
+11 = BACEN
+CTRREPASSE CHAR 18 = zeros
+GRUP_DEST CHAR 10 No caso de TRANSFERÊNCIA CONJUNTA, informar o(s) código(s) dos destinos: 01, 05,
+07 e/ou 11
+No caso de TRANSFERÊNCIA SIMPLES, este campo deve ser preenchido com ZEROS.
+OBS. Esse campo pode ser preenchido com até 4 códigos.
+As posições sem código devem ser preenchidas com zeros.
+Ex.: 0107110000
+ESPACO1FAC CHAR 200 = Brancos
+ESPACO2FAC CHAR 101 = Brancos
+IDLUFS * CHAR 2 = Noves
+IDLMATAGE * CHAR 6 992859
+IDLDTPREE * CHAR 6 Data da geração do lote(DDMMAA)
+IDLLOTVOL * CHAR 3 Numero do lote
+OBS.: Os lotes devem ser numerados sequencialmente,
+por data de geração. Não pode haver lotes com
+mesmo número na mesma data.
+
+================================================================================
+--- PÁGINA 9 de 12 ---
+================================================================================
+
+IDLFORMAH * CHAR 1 D
+IDLTPMOV * CHAR 1 V
+IDLESPACO * CHAR 6 = Brancos
+IMPORTANTE:
+Os campos com * do arquivo HEADERTT.TXT e SAIDATT.TXT, devem ser iguais.
+O Tamanho dos registros é de 430 bytes.
+TRANSFERENCIA SIMPLES : Transferência envolvendo somente 1 cedente e 1 cessionário.
+TRANSFERENCIA CONJUNTA : Transferência envolvendo mais de 1 cedente e mais de 1 cessionário
+TRANSFERENCIA DE TITULARIDADE
+TIPO DE MOVIMENTO = FGDLI – Tipo F
+NOME TIPO TAMANHO CONTEÚDO DO CAMPO
+UFS * CHAR 2 = Noves
+MATAGE * CHAR 6 = 993859
+NOCONT CHAR 13 Numero do Contrato cedido
+HIP CHAR 1 Grau de Hipoteca do contrato cedido
+COD_OPE CHAR 1 = 1 (Inclusão)
+= 3 (exclusão)
+CTE CHAR 3 = Zeros
+DAT_NEG CHAR 6 Data da negociação (data de posicionamento dos saldos) (AAMMDD)
+UFSCONT CHAR 2 Código da UFS de origem do contrato cedido
+MATAGECONT CHAR 6 Matrícula do Agente de origem do contrato cedido
+VAL_NEG CHAR 18 Valor negociado (16 INT. e 2 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 000001289032145610
+MOEDA CHAR 2 = 05
+TX_JUR CHAR 6 Taxa de juros (2 INT. e 4 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 011234
+MATAGEDES CHAR 6 Informar a matricula do destino:
+Matrícula do Agente cessionário = AGENTE
+991859 = CEF 1A Linha
+992859 = CEF 2A Linha
+994859 = BACEN
+DESTPGTO CHAR 2 = 07
+DESTTRANS CHAR 2 Informar o código referente ao destino :
+01 = AGENTE
+04 = CEF 2A Linha
+05 = CEF 1A Linha
+11 = BACEN
+CTRREPASSE CHAR 18 = zeros
+GRUP_DEST CHAR 10 No caso de TRANSFERÊNCIA CONJUNTA, informar o(s) código(s) dos destinos: 01, 04,
+05 e/ou 11
+No caso de TRANSFERÊNCIA SIMPLES, este campo deve ser preenchido com ZEROS.
+OBS. Esse campo pode ser preenchido com até 4 códigos.
+As posições sem código devem ser preenchidas com zeros.
+Ex.: 0105110000
+ESPACO1FAC CHAR 200 = Brancos
+ESPACO2FAC CHAR 101 = Brancos
+IDLUFS * CHAR 2 = Noves
+IDLMATAGE * CHAR 6 993859
+IDLDTPREE * CHAR 6 Data da geração do lote(DDMMAA)
+IDLLOTVOL * CHAR 3 Numero do lote
+OBS.: Os lotes devem ser numerados sequencialmente,
+por data de geração. Não pode haver lotes com
+mesmo número na mesma data.
+IDLFORMAH * CHAR 1 D
+IDLTPMOV * CHAR 1 F
+IDLESPACO * CHAR 6 = Brancos
+IMPORTANTE:
+
+================================================================================
+--- PÁGINA 10 de 12 ---
+================================================================================
+
+Os campos com * do arquivo HEADERTT.TXT e SAIDATT.TXT, devem ser iguais.
+O Tamanho dos registros é de 430 bytes.
+TRANSFERENCIA SIMPLES : Transferência envolvendo somente 1 cedente e 1 cessionário.
+TRANSFERENCIA CONJUNTA : Transferência envolvendo mais de 1 cedente e mais de 1 cessionário
+TRANSFERENCIA DE TITULARIDADE
+TIPO DE MOVIMENTO = BACEN– Tipo B
+NOME TIPO TAMANHO CONTEÚDO DO CAMPO
+UFS * CHAR 2 = Noves
+MATAGE * CHAR 6 = 994859
+NOCONT CHAR 13 Numero do Contrato cedido
+HIP CHAR 1 Grau de Hipoteca do contrato cedido
+COD_OPE CHAR 1 = 1 (Inclusão)
+= 3 (exclusão)
+CTE CHAR 3 = Zeros
+DAT_NEG CHAR 6 Data da negociação (data de posicionamento dos saldos) (AAMMDD)
+UFSCONT CHAR 2 Código da UFS de origem do contrato cedido
+MATAGECONT CHAR 6 Matrícula do Agente de origem do contrato cedido
+VAL_NEG CHAR 18 Valor negociado (16 INT. e 2 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 000001289032145610
+MOEDA CHAR 2 = 05
+TX_JUR CHAR 6 Taxa de juros (2 INT. e 4 DEC.)
+OBS.: Esse campo não pode conter : espaço em branco,
+pontos ( . ) e vírgula ( , ).
+Os campos sem valor devem ser preenchidos com zeros.
+EX.: 011234
+MATAGEDES CHAR 6 Informar a matricula do destino:
+Matrícula do Agente cessionário = AGENTE
+991859 = CEF 1A Linha
+992859 = CEF 2A Linha
+993859 = FGDLI
+DESTPGTO CHAR 2 = 11
+DESTTRANS CHAR 2 Informar o código referente ao destino :
+01 = AGENTE
+04 = CEF 2A Linha
+05 = CEF 1A Linha
+07 = FGDLI
+CTRREPASSE CHAR 18 = zeros
+GRUP_DEST CHAR 10 No caso de TRANSFERÊNCIA CONJUNTA, informar o(s) código(s) dos destinos: 01, 04,
+05 e/ou 07
+No caso de TRANSFERÊNCIA SIMPLES, este campo deve ser preenchido com ZEROS.
+OBS. Esse campo pode ser preenchido com até 4 códigos.
+As posições sem código devem ser preenchidas com zeros.
+Ex.: 0105070000
+ESPACO1FAC CHAR 200 = Brancos
+ESPACO2FAC CHAR 101 = Brancos
+IDLUFS * CHAR 2 = Noves
+IDLMATAGE * CHAR 6 994859
+IDLDTPREE * CHAR 6 Data da geração do lote(DDMMAA)
+IDLLOTVOL * CHAR 3 Numero do lote
+OBS.: Os lotes devem ser numerados sequencialmente,
+por data de geração. Não pode haver lotes com
+mesmo número na mesma data.
+IDLFORMAH * CHAR 1 D
+IDLTPMOV * CHAR 1 B
+IDLESPACO * CHAR 6 = Brancos
+
+================================================================================
+--- PÁGINA 11 de 12 ---
+================================================================================
+
+IMPORTANTE:
+Os campos com * do arquivo HEADERTT.TXT e SAIDATT.TXT, devem ser iguais.
+O Tamanho dos registros é de 430 bytes.
+TRANSFERENCIA SIMPLES : Transferência envolvendo somente 1 cedente e 1 cessionário.
+TRANSFERENCIA CONJUNTA : Transferência envolvendo mais de 1 cedente e mais de 1 cessionário
+Movimentos RCV e RNV simplificados
+1 - Selecionar “Envio Simplificado”
+2 – Enviar arquivo TXT seguindo o leiaute abaixo:
+• TIPO DE MOVIMENTO = P - RNV – RELAÇÃO DE CONTRATOS EVOLUÍDOS
+E NÃO VALIDADOS
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 MAT.AG.FINANC. (SEM dígito verificador) NUM 5
+02 N.º CONTR. DO MUT NO AGENTE ALFA 13
+03 HIPOTECA NUM 1
+04 DATA TÉRMINO ANÁLISE / DATA
+NUM 8 DDMMAAAA
+REPROCESSAMENTO
+• . TIPO DE MOVIMENTO = R - RCV – RELAÇÃO DE CONTRATOS VALIDADOS
+SEQ NOME DO CAMPO TIPO TAM FORMATO OBSERVAÇÕES
+01 MAT.AG.FINANC. (SEM dígito verificador) NUM 5
+02 N.º CONTR. DO MUT NO AGENTE ALFA 13
+03 HIPOTECA NUM 1
+04 DATA TÉRMINO ANÁLISE / DATA
+NUM 8 DDMMAAAA
+REPROCESSAMENTO
+
+================================================================================
+--- PÁGINA 12 de 12 ---
+================================================================================
+
+3 – Informar a quantidade de registros a serem marcados com a manifestação
+de RCV/RNV:
+4 – Clicar em Enviar Arquivos.

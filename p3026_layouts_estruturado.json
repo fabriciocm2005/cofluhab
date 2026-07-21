@@ -1,0 +1,4425 @@
+{
+  "TR1": {
+    "nome": "TR1",
+    "descricao": "Tipo de Registro TR1",
+    "total_campos": 37,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 1",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  070",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "071  A  081",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "082  A  089",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "090  A  129",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "130  A  134",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "X (5)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "135  A  144",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "145  A  146",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "147  A  148",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "149  A  154",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "X (6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "155  A  160",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "X (6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "161  A  162",
+        "descricao": "CODIGO SITUACAO DO CONTRATO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "163  A  232",
+        "descricao": "DESCRICAO SITUACAO DO CONTRATO",
+        "tamanho": "070",
+        "formato": "X (70)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "233  A  235",
+        "descricao": "TIPO DE EVENTO",
+        "tamanho": "003",
+        "formato": "X (3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "236  A  243",
+        "descricao": "DATA DO EVENTO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "244  A  257",
+        "descricao": "VAF 1 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "258  A  271",
+        "descricao": "VAF 2 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "272  A  285",
+        "descricao": "VAF 3 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "286  A  293",
+        "descricao": "DATA HABILITACAO  (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "294  A  294",
+        "descricao": "DOCUMENTACAO",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 – NÃO ENTREGUE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 – ENTREGUE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "26",
+        "colunas": "295  A  302",
+        "descricao": "DATA PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "27",
+        "colunas": "303  A  310",
+        "descricao": "DATA DA ENTREGA AO A .F.",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "311  A  318",
+        "descricao": "DATA PRAZO AGENTE",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "319  A  319",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "30",
+        "colunas": "320 A 327",
+        "descricao": "ÚLTIMA DATA DE MARCAÇÃO DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "328  A  500",
+        "descricao": "VAGO",
+        "tamanho": "173",
+        "formato": "X(173)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  },
+  "TR2": {
+    "nome": "TR2",
+    "descricao": "Tipo de Registro TR2",
+    "total_campos": 76,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 2",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  031",
+        "descricao": "SEQUENCIAL = 1",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "032  A  071",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "072  A  082",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "083  A  090",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "091  A  130",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "131  A  135",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "136  A  145",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "146  A  147",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "148  A  149",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "150  A  155",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "99V9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "156  A  161",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "99V9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "162  A  167",
+        "descricao": "TAXA DE JUROS DA MP 1520",
+        "tamanho": "006",
+        "formato": "99V9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "168  A  170",
+        "descricao": "TIPO DE EVENTO",
+        "tamanho": "003",
+        "formato": "X (3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "171  A  178",
+        "descricao": "DATA DO EVENTO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "179  A  186",
+        "descricao": "DATA HABILITACAO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "187  A  200",
+        "descricao": "VAF 1 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "201  A  214",
+        "descricao": "VAF 2 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "215  A  228",
+        "descricao": "VAF 3 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "229  A  242",
+        "descricao": "VAF 1 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "26",
+        "colunas": "243  A  256",
+        "descricao": "VAF 2 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "257  A  264",
+        "descricao": "DATA BASE  (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "265  A  272",
+        "descricao": "DATA TERMINO DE ANALISE ESPERADA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "30",
+        "colunas": "273  A  274",
+        "descricao": "DESTINO PAGAMENTO",
+        "tamanho": "002",
+        "formato": "9(2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "275  A  276",
+        "descricao": "DESTINO COMPLEMENTAR",
+        "tamanho": "002",
+        "formato": "9(2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "32",
+        "colunas": "277  A  291",
+        "descricao": "SALDO VENCIDO LÍQUIDO",
+        "tamanho": "015",
+        "formato": "9(13)V99",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "33",
+        "colunas": "292  A  306",
+        "descricao": "SALDO VINCENDO LÍQUIDO",
+        "tamanho": "015",
+        "formato": "9(13)V99",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "34",
+        "colunas": "307  A  321",
+        "descricao": "SALDO TOTAL (VENCIDO + VINCENDO) LÍQUIDO",
+        "tamanho": "015",
+        "formato": "9(13)V99",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "35",
+        "colunas": "322  A  325",
+        "descricao": "RNV ou RCV ou RCNP ou SM (sem manifestação).",
+        "tamanho": "004",
+        "formato": "X(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "36",
+        "colunas": "326  A  333",
+        "descricao": "DATA RNV / RCV / RCNP (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "37",
+        "colunas": "334  A  337",
+        "descricao": "AUDI (auditado)   ou    NAUD (não auditado)",
+        "tamanho": "004",
+        "formato": "X(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "38",
+        "colunas": "338  A  339",
+        "descricao": "CODIGO DA GIFUS DE ANALISE",
+        "tamanho": "002",
+        "formato": "X(2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "39",
+        "colunas": "340  A  347",
+        "descricao": "DATA  NOVAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "40",
+        "colunas": "348  A  352",
+        "descricao": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+        "tamanho": "005",
+        "formato": "X(5)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "41",
+        "colunas": "353  A  360",
+        "descricao": "DATA PROC.HABILITAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "42",
+        "colunas": "361  A  371",
+        "descricao": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+        "tamanho": "011",
+        "formato": "X(11)",
+        "tipo": "ALFUNUMÉRICO"
+      },
+      {
+        "seq": "43",
+        "colunas": "372  A  372",
+        "descricao": "STATUS  DO RECURSO",
+        "tamanho": "001",
+        "formato": "X (1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "44",
+        "colunas": "373  A  380",
+        "descricao": "DATA STATUS",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "45",
+        "colunas": "381  A  381",
+        "descricao": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "46",
+        "colunas": "382  A  396",
+        "descricao": "VLR. PERDA DE JUROS",
+        "tamanho": "015",
+        "formato": "9(13)V99",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "47",
+        "colunas": "397  A  397",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "48",
+        "colunas": "398 A 398",
+        "descricao": "INDICATIVO DE VAF3 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "49",
+        "colunas": "399 A 399",
+        "descricao": "INDICATIVO DE VAF4 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "50",
+        "colunas": "400 A 407",
+        "descricao": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "51",
+        "colunas": "408 A 415",
+        "descricao": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "52",
+        "colunas": "416 A 423",
+        "descricao": "ÚLTIMA DATA DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "53",
+        "colunas": "424 A 425",
+        "descricao": "CONTROLE ADMINISTRADORA FCVS",
+        "tamanho": "002",
+        "formato": "9(2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "54",
+        "colunas": "426 A 427",
+        "descricao": "CONTROLE ADMINISTRADORA FCVS",
+        "tamanho": "002",
+        "formato": "9(2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "55",
+        "colunas": "428 A 500",
+        "descricao": "VAGO",
+        "tamanho": "073",
+        "formato": "X(73)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "nan",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "nan",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 2",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  031",
+        "descricao": "SEQUENCIAL = 2",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "032  A  331",
+        "descricao": "VALOR DEDUZIDO – MOEDA 1 a 20",
+        "tamanho": "300",
+        "formato": "nan",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": ". SINAL (branco para valor “+” ou “zero”  e “-“ para  valor negativo)",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": ". VALOR",
+        "tamanho": "014",
+        "formato": "9(12)V99",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "(OCORRE ATE 20 VEZES)",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "09",
+        "colunas": "332  A  500",
+        "descricao": "VAGO",
+        "tamanho": "169",
+        "formato": "X(169)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  },
+  "TR3": {
+    "nome": "TR3",
+    "descricao": "Tipo de Registro TR3",
+    "total_campos": 71,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 3",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  031",
+        "descricao": "SEQUENCIAL = 1",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "032  A  071",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "072  A  082",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "083  A  090",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "091  A  130",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "131  A  135",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "136  A  145",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "146  A  147",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "148  A  149",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "150  A  155",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "99V9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "156  A  161",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "99V9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "162  A  167",
+        "descricao": "TAXA DE JUROS DA MP 1520",
+        "tamanho": "006",
+        "formato": "X(6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "168  A  170",
+        "descricao": "TIPO DE EVENTO",
+        "tamanho": "003",
+        "formato": "X (3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "171  A  178",
+        "descricao": "DATA DO EVENTO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "179  A  186",
+        "descricao": "DATA HABILITACAO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "187  A  200",
+        "descricao": "VAF 1 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "201  A  214",
+        "descricao": "VAF 2 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "215  A 228",
+        "descricao": "VAF 1 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "229 A  242",
+        "descricao": "VAF 2 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "26",
+        "colunas": "243 A 250",
+        "descricao": "DATA BASE  (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "27",
+        "colunas": "251 A 258",
+        "descricao": "DATA POSIÇÃO DA NOVAÇÃO  OU DA BAIXA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "259 A 262",
+        "descricao": "RNV ou  RCV ou  RCNP ou  SM (sem manifestação).",
+        "tamanho": "004",
+        "formato": "X (4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "263 A 270",
+        "descricao": "DATA RNV / RCV / RCNP (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "30",
+        "colunas": "271 A 274",
+        "descricao": "AUDI (auditado)   ou  NAUD (não auditado)",
+        "tamanho": "004",
+        "formato": "X (4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "275 A 276",
+        "descricao": "CODIGO GIFUS DE ANALISE",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "32",
+        "colunas": "277 A 286",
+        "descricao": "PRÉ-NOVADO OU ZERADO OU PRÉ-BAIXA",
+        "tamanho": "010",
+        "formato": "X (10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "33",
+        "colunas": "287 A 291",
+        "descricao": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+        "tamanho": "005",
+        "formato": "X(5)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "34",
+        "colunas": "292 A 299",
+        "descricao": "DATA PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "35",
+        "colunas": "300 A 307",
+        "descricao": "DATA TÉRMINO ANÁLISE ESPERADA",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "36",
+        "colunas": "308 A 318",
+        "descricao": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+        "tamanho": "011",
+        "formato": "X(11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "37",
+        "colunas": "319 A 319",
+        "descricao": "STATUS DO RECURSO",
+        "tamanho": "001",
+        "formato": "X (1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "38",
+        "colunas": "320 A 327",
+        "descricao": "DATA STATUS",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "39",
+        "colunas": "328 A 328",
+        "descricao": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "40",
+        "colunas": "329 A 343",
+        "descricao": "VLR. PERDA DE JUROS",
+        "tamanho": "015",
+        "formato": "9(13)V99",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "41",
+        "colunas": "344 A 344",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "42",
+        "colunas": "345 A 345",
+        "descricao": "INDICATIVO DE VAF3 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "43",
+        "colunas": "346 A 346",
+        "descricao": "INDICATIVO DE VAF4 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "44",
+        "colunas": "347 A 354",
+        "descricao": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "45",
+        "colunas": "355 A 362",
+        "descricao": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "46",
+        "colunas": "363 A 370",
+        "descricao": "ÚLTIMA DATA DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "47",
+        "colunas": "371 A 372",
+        "descricao": "CONTROLE ADMINISTRADORA FCVS",
+        "tamanho": "002",
+        "formato": "9(2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "48",
+        "colunas": "373 A 374",
+        "descricao": "CONTROLE ADMINISTRADORA FCVS",
+        "tamanho": "002",
+        "formato": "9(2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "49",
+        "colunas": "375 A 500",
+        "descricao": "VAGO",
+        "tamanho": "126",
+        "formato": "X(126)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "nan",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "nan",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 3",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  031",
+        "descricao": "SEQUENCIAL = 2",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "032  A  331",
+        "descricao": "VALOR DEDUZIDO – MOEDA 1 a 20",
+        "tamanho": "300",
+        "formato": "nan",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": ". SINAL (branco para valor “+” ou “zero”  e “-“ para valor negativo)",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": ". VALOR",
+        "tamanho": "014",
+        "formato": "9(12)V99",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "(OCORRE ATE 20 VEZES)",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "09",
+        "colunas": "332  A  500",
+        "descricao": "VAGO",
+        "tamanho": "169",
+        "formato": "X(169)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  },
+  "TR4": {
+    "nome": "TR4",
+    "descricao": "Tipo de Registro TR4",
+    "total_campos": 90,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 4",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  031",
+        "descricao": "SEQUENCIAL = 1",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "032  A  071",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "072  A  082",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "083  A  090",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "091  A  130",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "131  A  135",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "136  A  145",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "146  A  147",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "148  A  149",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "150  A  155",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "99V9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "156  A  161",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "99V9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "162  A  167",
+        "descricao": "TAXA DE JUROS DA MP 1520",
+        "tamanho": "006",
+        "formato": "X(6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "168  A  170",
+        "descricao": "TIPO DE EVENTO",
+        "tamanho": "003",
+        "formato": "X (3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "171  A  178",
+        "descricao": "DATA DO EVENTO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "179  A  186",
+        "descricao": "DATA HABILITACAO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "187  A  200",
+        "descricao": "VAF 1 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "201  A  214",
+        "descricao": "VAF 2 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "215  A  228",
+        "descricao": "VAF 3 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "229  A  242",
+        "descricao": "VAF 1 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "26",
+        "colunas": "243  A  256",
+        "descricao": "VAF 2 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "27",
+        "colunas": "257  A  270",
+        "descricao": "VAF 3 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "271  A  278",
+        "descricao": "DATA BASE  (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "279  A  293",
+        "descricao": "VAF 3 NA DATA DO POSICIONAMENTO MENSAL DO SALDO",
+        "tamanho": "015",
+        "formato": "X(15)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "30",
+        "colunas": "294  A  308",
+        "descricao": "VAF 4 NA DATA DO POSICIONAMENTO MENSAL DO SALDO",
+        "tamanho": "015",
+        "formato": "X(15)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "309  A  316",
+        "descricao": "DATA POSIÇÃO DA NOVAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "32",
+        "colunas": "317  A  321",
+        "descricao": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+        "tamanho": "005",
+        "formato": "X(5)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "33",
+        "colunas": "322  A  329",
+        "descricao": "DATA  PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "34",
+        "colunas": "330  A  344",
+        "descricao": "VAF4 RESSARCIDO A PARTIR DE 01/01/1997",
+        "tamanho": "015",
+        "formato": "X(15)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "35",
+        "colunas": "345  A  355",
+        "descricao": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+        "tamanho": "011",
+        "formato": "X(11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "36",
+        "colunas": "356  A  356",
+        "descricao": "STATUS RECURSO",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "37",
+        "colunas": "357  A  364",
+        "descricao": "DATA RECURSO",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "38",
+        "colunas": "365  A  365",
+        "descricao": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "39",
+        "colunas": "366  A  380",
+        "descricao": "VLR. PERDA DE JUROS",
+        "tamanho": "015",
+        "formato": "9(13)V99",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "40",
+        "colunas": "381  A  381",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "41",
+        "colunas": "382  A  389",
+        "descricao": "DATA DA NOVAÇÃO VAF3",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "42",
+        "colunas": "390 A 390",
+        "descricao": "SITUAÇÃO DA NOVAÇÃO",
+        "tamanho": "001",
+        "formato": "X(01)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"0\" - TÍTULOS BAIXADOS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"1\" - EM PROCESSO DE NOVAÇÃO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"  \" - SEM PROCESSO DE NOVAÇÃO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "43",
+        "colunas": "391  A  398",
+        "descricao": "DATA DA NOVAÇÃO VAF4",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "44",
+        "colunas": "399 A 399",
+        "descricao": "SITUAÇÃO DA NOVAÇÃO",
+        "tamanho": "001",
+        "formato": "X(01)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"0\" - TÍTULOS BAIXADOS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"1\" - EM PROCESSO DE NOVAÇÃO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"  \" - SEM PROCESSO DE NOVAÇÃO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "45",
+        "colunas": "400 A 400",
+        "descricao": "INDICATIVO DE VAF3 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "46",
+        "colunas": "401 A 401",
+        "descricao": "INDICATIVO DE VAF4 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "47",
+        "colunas": "402 A 409",
+        "descricao": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "48",
+        "colunas": "410 A 417",
+        "descricao": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "49",
+        "colunas": "418 A 418",
+        "descricao": "NOVAÇÃO VAF1e2",
+        "tamanho": "1",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S=NOVAÇÃO DE VAF1e2 REALIZADA NO MÊS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N=SEM NOVAÇÃO DE VAF1e2 NO MÊS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "50",
+        "colunas": "419 A 419",
+        "descricao": "NOVAÇÃO VAF3",
+        "tamanho": "1",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S=NOVAÇÃO DE VAF3 REALIZADA NO MÊS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N=SEM NOVAÇÃO DE VAF3 NO MÊS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "51",
+        "colunas": "420 A 420",
+        "descricao": "NOVAÇÃO VAF4",
+        "tamanho": "1",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S=NOVAÇÃO DE VAF4 REALIZADA NO MÊS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N=SEM NOVAÇÃO DE VAF4 NO MÊS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "52",
+        "colunas": "421 A 421",
+        "descricao": "FORMA DE QUITAÇÃO DO VAF1/2",
+        "tamanho": "1",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NOVADOS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - BAIXADOS TOTALMENTE DEDUZIDOS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - BAIXADOS SALDO NULO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "53",
+        "colunas": "422 A 500",
+        "descricao": "VAGO",
+        "tamanho": "079",
+        "formato": "X(79)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "nan",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "nan",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 4",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  031",
+        "descricao": "SEQUENCIAL = 2",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "032  A  331",
+        "descricao": "VALOR DEDUZIDO – MOEDA 1 a 20",
+        "tamanho": "300",
+        "formato": "nan",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": ". SINAL (branco para valor “+” ou “zero”  e “-“ para valor negativo)",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": ". VALOR",
+        "tamanho": "014",
+        "formato": "9(12)V99",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "(OCORRE ATE 20 VEZES)",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "09",
+        "colunas": "332  A  500",
+        "descricao": "VAGO",
+        "tamanho": "169",
+        "formato": "X(169)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  },
+  "TR5": {
+    "nome": "TR5",
+    "descricao": "Tipo de Registro TR5",
+    "total_campos": 50,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 5",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  070",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "071  A  081",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "082  A  089",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "090  A  129",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "130  A  134",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "135  A  144",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "145  A  146",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "147  A  148",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "149  A  154",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "X (6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "155  A  160",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "X (6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "161  A  162",
+        "descricao": "CODIGO SITUACAO DO CONTRATO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "163  A  232",
+        "descricao": "DESCRICAO SITUACAO DO CONTRATO",
+        "tamanho": "070",
+        "formato": "X (70)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "233  A  235",
+        "descricao": "TIPO DE EVENTO",
+        "tamanho": "003",
+        "formato": "X (3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "236  A  243",
+        "descricao": "DATA DO EVENTO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "244  A  257",
+        "descricao": "VAF 1 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "258  A  271",
+        "descricao": "VAF 2 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "272  A  285",
+        "descricao": "VAF 3 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "286  A  293",
+        "descricao": "DATA HABILITACAO  (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "294  A  333",
+        "descricao": "MOTIVO DA NEGATIVA DE COBERTURA",
+        "tamanho": "040",
+        "formato": "X(40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "26",
+        "colunas": "334  A  338",
+        "descricao": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+        "tamanho": "005",
+        "formato": "X(05)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "27",
+        "colunas": "339  A  346",
+        "descricao": "DATA PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "347  A  350",
+        "descricao": "RNV ou  RCV ou  RCNP ou  SM (sem manifestação).",
+        "tamanho": "004",
+        "formato": "X(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "351  A  358",
+        "descricao": "DATA RNV / RCV / RCNP (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "30",
+        "colunas": "359  A  362",
+        "descricao": "AUDI (auditado)   ou  NAUD (não auditado)",
+        "tamanho": "004",
+        "formato": "X(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "363  A  370",
+        "descricao": "DATA TÉRMINO ANÁLISE ESPERADA",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "32",
+        "colunas": "371  A  371",
+        "descricao": "STATUS RECURSOS",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "33",
+        "colunas": "372  A  379",
+        "descricao": "DATA STATUS",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "34",
+        "colunas": "380  A  380",
+        "descricao": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "35",
+        "colunas": "381  A  381",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "40",
+        "colunas": "382 A 382",
+        "descricao": "INDICATIVO DE VAF3 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "41",
+        "colunas": "383 A 383",
+        "descricao": "INDICATIVO DE VAF4 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "42",
+        "colunas": "384 A 391",
+        "descricao": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "43",
+        "colunas": "392 A 399",
+        "descricao": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "44",
+        "colunas": "400 A 407",
+        "descricao": "ÚLTIMA DATA DE MARCAÇÃO DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "45",
+        "colunas": "408 a 415",
+        "descricao": "DATA POSICIONAMENTO DA BAIXA",
+        "tamanho": "008",
+        "formato": "X(08)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "46",
+        "colunas": "416 A 500",
+        "descricao": "VAGO",
+        "tamanho": "085",
+        "formato": "X(85)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  },
+  "TR6": {
+    "nome": "TR6",
+    "descricao": "Tipo de Registro TR6",
+    "total_campos": 46,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 6",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  070",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "071  A  081",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "082  A  089",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "090  A  129",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "130  A  134",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "135  A  144",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "145  A  146",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "147  A  148",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "149  A  154",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "X (6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "155  A  160",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "X (6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "161  A  166",
+        "descricao": "TAXA DE JUROS DA MP 1520",
+        "tamanho": "006",
+        "formato": "9 (2)V(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "167  A  169",
+        "descricao": "TIPO DO EVENTO",
+        "tamanho": "003",
+        "formato": "X(3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "170  A  177",
+        "descricao": "DATA DO EVENTO",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "178  A  185",
+        "descricao": "DATA HABILITAÇÃO",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "186  A  199",
+        "descricao": "VAF 1 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "200  A  213",
+        "descricao": "VAF 2 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "214  A  227",
+        "descricao": "VAF 3 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "228  A  241",
+        "descricao": "VALOR A CRÉDITO DO FCVS",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "242  A  249",
+        "descricao": "DATA BASE",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "26",
+        "colunas": "250  A  257",
+        "descricao": "DATA TÉRMINO DE ANÁLISE",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "27",
+        "colunas": "258  A  261",
+        "descricao": "MANIFESTAÇÃO",
+        "tamanho": "004",
+        "formato": "X(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "262  A  269",
+        "descricao": "DATA DE MANIFESTAÇÃO",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "270  A  273",
+        "descricao": "INDICADOR DE AUDITORIA (AUDI/NAUD)",
+        "tamanho": "004",
+        "formato": "X(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "30",
+        "colunas": "274  A  275",
+        "descricao": "CÓDIGO DA GIFUS DE ANÁLISE",
+        "tamanho": "002",
+        "formato": "X(2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "276  A  283",
+        "descricao": "DATA POSIÇÃO DA NOVAÇÃO",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "32",
+        "colunas": "284  A  288",
+        "descricao": "PERCENTUAL DE PARTICIPAÇÃO DO FCVS",
+        "tamanho": "005",
+        "formato": "X(5)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "33",
+        "colunas": "289  A  296",
+        "descricao": "DATA PROCESSAMENTO HABILITAÇÃO",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "34",
+        "colunas": "297  A  307",
+        "descricao": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+        "tamanho": "011",
+        "formato": "X(11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "35",
+        "colunas": "308  A  308",
+        "descricao": "STATUS RECURSO",
+        "tamanho": "001",
+        "formato": "X (1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "36",
+        "colunas": "309  A  316",
+        "descricao": "DATA STATUS",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "37",
+        "colunas": "317  A  317",
+        "descricao": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "38",
+        "colunas": "318  A  332",
+        "descricao": "VALOR PERDA DE JUROS",
+        "tamanho": "015",
+        "formato": "9(13)V(99)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "39",
+        "colunas": "333  A  333",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "40",
+        "colunas": "334 A 341",
+        "descricao": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "41",
+        "colunas": "342 A 349",
+        "descricao": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "42",
+        "colunas": "350  A  500",
+        "descricao": "VAGO",
+        "tamanho": "151",
+        "formato": "X(151)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  },
+  "TR7": {
+    "nome": "TR7",
+    "descricao": "Tipo de Registro TR7",
+    "total_campos": 66,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 7",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  070",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "071  A  081",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "082  A  089",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "090  A  129",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "130  A  134",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "135  A  144",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "145  A  146",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "147  A  148",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "149  A  154",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "99v9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "155  A  160",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "99v9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "161  A  166",
+        "descricao": "TAXA DE JUROS DA MP 1520",
+        "tamanho": "006",
+        "formato": "99v9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "167 A 168",
+        "descricao": "CODIGO SITUACAO DO CONTRATO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "169 A 238",
+        "descricao": "DESCRICAO SITUACAO DO CONTRATO",
+        "tamanho": "070",
+        "formato": "X (70)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "239 A 241",
+        "descricao": "TIPO DE EVENTO",
+        "tamanho": "003",
+        "formato": "X (3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "242 A 249",
+        "descricao": "DATA DO EVENTO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "250 A 257",
+        "descricao": "DATA HABILITACAO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "258 A 271",
+        "descricao": "VAF 3 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "272 A 285",
+        "descricao": "VAF 3 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "286 A 293",
+        "descricao": "DATA BASE  (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "26",
+        "colunas": "294 A 308",
+        "descricao": "VAF 3 NA DATA DO POSICIONAMENTO MENSAL DO SALDO",
+        "tamanho": "015",
+        "formato": "X(15)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "27",
+        "colunas": "309 A 323",
+        "descricao": "VAF 4 NA DATA DO POSICIONAMENTO MENSAL DO SALDO",
+        "tamanho": "015",
+        "formato": "X(15)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "324 A 331",
+        "descricao": "DATA TERMINO DE ANALISE ESPERADA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "332 A 335",
+        "descricao": "RNV ou RCV ou RCNP ou SM (sem manifestação).",
+        "tamanho": "004",
+        "formato": "X(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "30",
+        "colunas": "336 A 343",
+        "descricao": "DATA RNV / RCV / RCNP (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "344 A 347",
+        "descricao": "AUDI (auditado)   ou    NAUD (não auditado)",
+        "tamanho": "004",
+        "formato": "X(4)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "32",
+        "colunas": "348 A 349",
+        "descricao": "CODIGO DA GIFUS DE ANALISE",
+        "tamanho": "002",
+        "formato": "X(2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "33",
+        "colunas": "350 A 354",
+        "descricao": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+        "tamanho": "005",
+        "formato": "X(5)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "34",
+        "colunas": "355 A 362",
+        "descricao": "DATA PROC.HABILITAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "35",
+        "colunas": "363 A 377",
+        "descricao": "VAF4 RESSARCIDO A PARTIR DE 01/01/1997",
+        "tamanho": "015",
+        "formato": "X(15)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "36",
+        "colunas": "378 A 388",
+        "descricao": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+        "tamanho": "011",
+        "formato": "X(11)",
+        "tipo": "ALFUNUMÉRICO"
+      },
+      {
+        "seq": "37",
+        "colunas": "389 A 389",
+        "descricao": "STATUS  DO RECURSO",
+        "tamanho": "001",
+        "formato": "X (1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "38",
+        "colunas": "390 A 397",
+        "descricao": "DATA STATUS",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "39",
+        "colunas": "398 A 398",
+        "descricao": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "40",
+        "colunas": "399 A 399",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "41",
+        "colunas": "400 A 407",
+        "descricao": "DATA DA NOVAÇÃO VAF3",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "42",
+        "colunas": "408 A 408",
+        "descricao": "SITUAÇÃO DA NOVAÇÃO",
+        "tamanho": "001",
+        "formato": "X(01)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"0\" - TÍTULOS BAIXADOS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"1\" - EM PROCESSO DE NOVAÇÃO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"  \" - SEM PROCESSO DE NOVAÇÃO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "43",
+        "colunas": "409 A 416",
+        "descricao": "DATA DA NOVAÇÃO VAF4",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "44",
+        "colunas": "417 A 417",
+        "descricao": "SITUAÇÃO DA NOVAÇÃO",
+        "tamanho": "001",
+        "formato": "X(01)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"0\" - TÍTULOS BAIXADOS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"1\" - EM PROCESSO DE NOVAÇÃO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "\"  \" - SEM PROCESSO DE NOVAÇÃO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "45",
+        "colunas": "418 A 421",
+        "descricao": "INDICATIVO DE LOCALIZAÇÃO DO VAF1/2",
+        "tamanho": "nan",
+        "formato": "X(04)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "TR2 - HOMOLOGADOS EM RESSARCIMENTO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "TR3 - ENCERRADOS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "TR4 - NOVADOS NO MÊS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "TR5 - HOMOLOGADOS SEM RESSACIMENTO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "TR8 - BAIXADOS TOTALMENTE DEDUZIDOS",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "TR9 - BAIXADOS SALDO NULO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "'     ' - SEM CORRESPONDÊNCIA - VAF1/VAF2 QUITADO",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "46",
+        "colunas": "422 A 429",
+        "descricao": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "47",
+        "colunas": "430 A 437",
+        "descricao": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "48",
+        "colunas": "438 A 445",
+        "descricao": "ÚLTIMA DATA DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "49",
+        "colunas": "446 A 500",
+        "descricao": "VAGO",
+        "tamanho": "055",
+        "formato": "X(55)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  },
+  "TR8": {
+    "nome": "TR8",
+    "descricao": "Tipo de Registro TR8",
+    "total_campos": 62,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 8",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  031",
+        "descricao": "SEQUENCIAL = 1",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "032  A  071",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "072  A  082",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "083  A  090",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "091  A  130",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "131  A  135",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "136  A  145",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "146  A  147",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "148  A  149",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "150  A  155",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "99v9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "156  A  161",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "99v9(4)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "162  A  167",
+        "descricao": "TAXA DE JUROS DA MP 1520",
+        "tamanho": "006",
+        "formato": "X(6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "168  A  170",
+        "descricao": "TIPO DE EVENTO",
+        "tamanho": "003",
+        "formato": "X (3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "171  A  178",
+        "descricao": "DATA DO EVENTO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "179  A  186",
+        "descricao": "DATA HABILITACAO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "187  A  200",
+        "descricao": "VAF 1 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "201  A  214",
+        "descricao": "VAF 2 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "215  A  228",
+        "descricao": "VAF 1 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "229  A  242",
+        "descricao": "VAF 2 APURADO PELO SIFCVS",
+        "tamanho": "014",
+        "formato": "X (14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "26",
+        "colunas": "243  A  250",
+        "descricao": "DATA BASE  (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "27",
+        "colunas": "251  A  258",
+        "descricao": "DATA POSIÇÃO DA BAIXA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "259  A  263",
+        "descricao": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+        "tamanho": "005",
+        "formato": "X(5)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "264  A  271",
+        "descricao": "DATA  PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "30",
+        "colunas": "272  A  282",
+        "descricao": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+        "tamanho": "011",
+        "formato": "X(11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "283  A  283",
+        "descricao": "STATUS RECURSO",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "32",
+        "colunas": "284  A  291",
+        "descricao": "DATA RECURSO",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "33",
+        "colunas": "292  A  292",
+        "descricao": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "34",
+        "colunas": "293  A  307",
+        "descricao": "VLR. PERDA DE JUROS",
+        "tamanho": "015",
+        "formato": "9(13)V99",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "35",
+        "colunas": "308  A  308",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "36",
+        "colunas": "309  A  309",
+        "descricao": "INDICATIVO DE VAF3 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "37",
+        "colunas": "310  A  310",
+        "descricao": "INDICATIVO DE VAF4 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "38",
+        "colunas": "311 A 318",
+        "descricao": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "39",
+        "colunas": "319 A 326",
+        "descricao": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "40",
+        "colunas": "327 A 500",
+        "descricao": "VAGO",
+        "tamanho": "174",
+        "formato": "X(174)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "nan",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "nan",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 8",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  031",
+        "descricao": "SEQUENCIAL = 2",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "032  A  331",
+        "descricao": "VALOR DEDUZIDO – MOEDA 1 a 20",
+        "tamanho": "300",
+        "formato": "nan",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": ". SINAL (branco para valor “+” ou “zero”  e “-“ para valor negativo)",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": ". VALOR",
+        "tamanho": "014",
+        "formato": "9(12)V99",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "(OCORRE ATE 20 VEZES)",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "09",
+        "colunas": "332  A  500",
+        "descricao": "VAGO",
+        "tamanho": "169",
+        "formato": "X(169)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  },
+  "TR9": {
+    "nome": "TR9",
+    "descricao": "Tipo de Registro TR9",
+    "total_campos": 47,
+    "campos": [
+      {
+        "seq": "01",
+        "colunas": "001  A  001",
+        "descricao": "TIPO DE REGISTRO = 9",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "02",
+        "colunas": "002  A  006",
+        "descricao": "MATRICULA DO AGENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "03",
+        "colunas": "007  A  011",
+        "descricao": "AGENTE CESSIONÁRIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "04",
+        "colunas": "012  A  016",
+        "descricao": "AGENTE CEDENTE",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "05",
+        "colunas": "017  A  029",
+        "descricao": "NÚMERO DO CONTRATO",
+        "tamanho": "013",
+        "formato": "X (13)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "06",
+        "colunas": "030  A  030",
+        "descricao": "GRAU DE HIPOTECA DO CONTRATO",
+        "tamanho": "001",
+        "formato": "9 (1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "07",
+        "colunas": "031  A  070",
+        "descricao": "NOME DO MUTUÁRIO",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "08",
+        "colunas": "071  A  081",
+        "descricao": "CPF",
+        "tamanho": "011",
+        "formato": "X (11)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "09",
+        "colunas": "082  A  089",
+        "descricao": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "10",
+        "colunas": "090  A  129",
+        "descricao": "ENDEREÇO DO IMOVEL",
+        "tamanho": "040",
+        "formato": "X (40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "11",
+        "colunas": "130  A  134",
+        "descricao": "CODIGO DO MUNICIPIO",
+        "tamanho": "005",
+        "formato": "9 (5)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "12",
+        "colunas": "135  A  144",
+        "descricao": "NOME DO MUNICIPIO",
+        "tamanho": "010",
+        "formato": "X(10)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "13",
+        "colunas": "145  A  146",
+        "descricao": "ORIGEM DE RECURSO",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "14",
+        "colunas": "147  A  148",
+        "descricao": "IM",
+        "tamanho": "002",
+        "formato": "X (2)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "15",
+        "colunas": "149  A  154",
+        "descricao": "TAXA DE JUROS CONTRATUAL",
+        "tamanho": "006",
+        "formato": "X (6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "16",
+        "colunas": "155  A  160",
+        "descricao": "TAXA DE JUROS NO EVENTO",
+        "tamanho": "006",
+        "formato": "X (6)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "17",
+        "colunas": "161  A  162",
+        "descricao": "CODIGO SITUACAO DO CONTRATO",
+        "tamanho": "002",
+        "formato": "9 (2)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "18",
+        "colunas": "163  A  232",
+        "descricao": "DESCRICAO SITUACAO DO CONTRATO",
+        "tamanho": "070",
+        "formato": "X (70)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "19",
+        "colunas": "233  A  235",
+        "descricao": "TIPO DE EVENTO",
+        "tamanho": "003",
+        "formato": "X (3)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "20",
+        "colunas": "236  A  243",
+        "descricao": "DATA DO EVENTO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "21",
+        "colunas": "244  A  257",
+        "descricao": "VAF 1 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "22",
+        "colunas": "258  A  271",
+        "descricao": "VAF 2 INFORMADO PELO AGENTE",
+        "tamanho": "014",
+        "formato": "X(14)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "23",
+        "colunas": "272  A  279",
+        "descricao": "DATA HABILITACAO  (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X (8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "24",
+        "colunas": "280  A  319",
+        "descricao": "MOTIVO DA NEGATIVA DE COBERTURA",
+        "tamanho": "040",
+        "formato": "X(40)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "25",
+        "colunas": "320  A  324",
+        "descricao": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+        "tamanho": "005",
+        "formato": "X(05)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "26",
+        "colunas": "325  A  332",
+        "descricao": "DATA PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "27",
+        "colunas": "333  A  340",
+        "descricao": "DATA RCV",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "28",
+        "colunas": "341  A  348",
+        "descricao": "DATA TÉRMINO ANÁLISE ESPERADA",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "29",
+        "colunas": "349  A  349",
+        "descricao": "STATUS RECURSOS",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "30",
+        "colunas": "350  A  357",
+        "descricao": "DATA STATUS DO RECURSO",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "31",
+        "colunas": "358  A  358",
+        "descricao": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "32",
+        "colunas": "359  A  366",
+        "descricao": "DATA POSICIONAMENTO BAIXA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "33",
+        "colunas": "367  A  367",
+        "descricao": "SITUAÇÃO DE ANÁLISE ATUAL",
+        "tamanho": "001",
+        "formato": "9(1)",
+        "tipo": "NUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "34",
+        "colunas": "368  A  368",
+        "descricao": "INDICATIVO DE VAF3 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "35",
+        "colunas": "369  A  369",
+        "descricao": "INDICATIVO DE VAF4 NO TR7",
+        "tamanho": "001",
+        "formato": "X(1)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "S - EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "nan",
+        "colunas": "nan",
+        "descricao": "N - NÃO EXISTE REGISTRO NO TR7",
+        "tamanho": "nan",
+        "formato": "nan",
+        "tipo": "nan"
+      },
+      {
+        "seq": "36",
+        "colunas": "370  A  377",
+        "descricao": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "37",
+        "colunas": "378  A  385",
+        "descricao": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "38",
+        "colunas": "386  A  393",
+        "descricao": "ÚLTIMA DATA DE MARCAÇÃO DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+        "tamanho": "008",
+        "formato": "X(8)",
+        "tipo": "ALFANUMÉRICO"
+      },
+      {
+        "seq": "39",
+        "colunas": "394  A  500",
+        "descricao": "VAGO",
+        "tamanho": "107",
+        "formato": "X(107)",
+        "tipo": "ALFANUMÉRICO"
+      }
+    ]
+  }
+}

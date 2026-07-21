@@ -1,0 +1,543 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}FCVS - Saldo Residual - CoFluhab{% endblock %}
+
+{% block content %}
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .stat-card {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        border-left: 4px solid #2a5298;
+    }
+    
+    .stat-card.primary {
+        border-left-color: #2a5298;
+    }
+    
+    .stat-card.success {
+        border-left-color: #4caf50;
+    }
+    
+    .stat-card.warning {
+        border-left-color: #ff9800;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+        color: #7f8c8d;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+    
+    .filters-section {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        margin-bottom: 24px;
+    }
+    
+    .filters-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .filter-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .filter-group select,
+    .filter-group input {
+        padding: 10px 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+    
+    .filter-group select:focus,
+    .filter-group input:focus {
+        outline: none;
+        border-color: #2a5298;
+    }
+    
+    .filters-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #2a5298, #1e3c72);
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(42,82,152,0.4);
+    }
+    
+    .btn-secondary {
+        background: #ecf0f1;
+        color: #2c3e50;
+    }
+    
+    .btn-secondary:hover {
+        background: #bdc3c7;
+    }
+    
+    .table-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+    
+    .table-header {
+        padding: 20px 24px;
+        background: linear-gradient(135deg, #2a5298, #1e3c72);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .table-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+    
+    .table-fcvs {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .table-fcvs thead {
+        background: #f8f9fa;
+    }
+    
+    .table-fcvs th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        color: #2c3e50;
+        border-bottom: 2px solid #e0e0e0;
+        font-size: 13px;
+    }
+    
+    .table-fcvs td {
+        padding: 16px;
+        border-bottom: 1px solid #ecf0f1;
+        font-size: 14px;
+    }
+    
+    .table-fcvs tbody tr:hover {
+        background: #f8f9fa;
+    }
+    
+    .badge {
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    
+    .badge-conjunto {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+    
+    .saldo-positivo {
+        color: #4caf50;
+        font-weight: 700;
+    }
+    
+    .saldo-alto {
+        color: #ff9800;
+        font-weight: 700;
+    }
+    
+    .saldo-critico {
+        color: #f44336;
+        font-weight: 700;
+    }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 24px;
+        background: white;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    .pagination a,
+    .pagination span {
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: 500;
+    }
+    
+    .pagination a:hover {
+        background: #ecf0f1;
+    }
+    
+    .pagination .current {
+        background: #2a5298;
+        color: white;
+    }
+    
+    .empty-state {
+        padding: 60px 24px;
+        text-align: center;
+        color: #7f8c8d;
+    }
+    
+    .empty-state-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+    }
+    
+    .conjunto-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .conjunto-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        border-left: 4px solid #9b59b6;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .conjunto-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(155,89,182,0.3);
+        border-left-width: 6px;
+    }
+    
+    .conjunto-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+    
+    .conjunto-codigo {
+        font-size: 16px;
+        font-weight: 700;
+        color: #9b59b6;
+    }
+    
+    .conjunto-badge {
+        background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+    
+    .conjunto-stat {
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .conjunto-stat-label {
+        font-size: 12px;
+        color: #7f8c8d;
+        font-weight: 500;
+    }
+    
+    .conjunto-stat-value {
+        font-size: 15px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+    
+    .conjunto-stat-value.fcvs-value {
+        color: #e74c3c;
+    }
+</style>
+
+<div class="page-header">
+    <h1 class="page-title">💵 FCVS - Saldo Residual dos Contratos</h1>
+    <p style="color: #7f8c8d; margin-top: 8px;">
+        Acompanhamento dos saldos devedores residuais (FCVS) de todos os contratos
+    </p>
+</div>
+
+{% if not analisar_conjunto %}
+<div style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 30px;">
+    <div style="margin-bottom: 12px; text-align: center;">
+        <span style="font-size: 48px;">📊</span>
+    </div>
+    <h3 style="color: #2c3e50; margin-bottom: 12px; text-align: center;">Resumo por Conjunto</h3>
+    <p style="color: #7f8c8d; margin-bottom: 20px; text-align: center;">
+        Clique em um conjunto para visualizar estatísticas detalhadas de FCVS
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; max-width: 1000px; margin: 0 auto;">
+        {% for conjunto in conjuntos %}
+        <a href="?analisar_conjunto={{ conjunto.conjunto }}{% if codigo_contrato_filtro %}&codigo_contrato={{ codigo_contrato_filtro }}{% endif %}{% if tipo_analise %}&tipo_analise={{ tipo_analise }}{% endif %}" 
+           style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; padding: 16px; border-radius: 10px; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s; display: block; box-shadow: 0 2px 8px rgba(155,89,182,0.3);"
+           onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 16px rgba(155,89,182,0.5)'"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(155,89,182,0.3)'">
+            🏘️ Conjunto {{ conjunto.conjunto }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if resumo_conjunto_analisado %}
+<div style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 30px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="color: #2c3e50; font-size: 20px; font-weight: 700; margin: 0;">
+            📊 Resumo do Conjunto {{ resumo_conjunto_analisado.conjunto }}
+        </h2>
+        <a href="?" class="btn btn-secondary" style="text-decoration: none; padding: 8px 16px;">
+            ← Voltar para lista de conjuntos
+        </a>
+    </div>
+    
+    <div class="conjunto-cards">
+        <div class="conjunto-card" style="cursor: default;" onmouseover="" onmouseout="">
+            <div class="conjunto-card-header">
+                <div class="conjunto-codigo">🏘️ Conjunto {{ resumo_conjunto_analisado.conjunto }}</div>
+                <div class="conjunto-badge">{{ resumo_conjunto_analisado.contratos_analisados }} contrato(s)</div>
+            </div>
+            
+            <div class="conjunto-stat">
+                <span class="conjunto-stat-label">💰 FCVS Total</span>
+                <span class="conjunto-stat-value fcvs-value">R$ {{ resumo_conjunto_analisado.total_fcvs|floatformat:2 }}</span>
+            </div>
+            
+            <div class="conjunto-stat">
+                <span class="conjunto-stat-label">📝 Contribuição FCVS</span>
+                <span class="conjunto-stat-value">R$ {{ resumo_conjunto_analisado.total_contribuicao_fcvs|floatformat:2 }}</span>
+            </div>
+            
+            <div class="conjunto-stat">
+                <span class="conjunto-stat-label">📝 Contribuição FCVS</span>
+                <span class="conjunto-stat-value">R$ {{ resumo_conjunto_analisado.total_contribuicao_fcvs|floatformat:2 }}</span>
+            </div>
+            
+            <div class="conjunto-stat">
+                <span class="conjunto-stat-label">✅ Com FCVS</span>
+                <span class="conjunto-stat-value">{{ resumo_conjunto_analisado.contratos_com_fcvs }}</span>
+            </div>
+            
+            <div class="conjunto-stat">
+                <span class="conjunto-stat-label">📊 Média FCVS</span>
+                <span class="conjunto-stat-value">R$ {{ resumo_conjunto_analisado.media_fcvs|floatformat:2 }}</span>
+            </div>
+            
+            <div class="conjunto-stat">
+                <span class="conjunto-stat-label">⚠️ Anomalias</span>
+                <span class="conjunto-stat-value">{{ resumo_conjunto_analisado.anomalias }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="stats-grid">
+    <div class="stat-card primary">
+        <div class="stat-label">💼 Total de Contratos</div>
+        <div class="stat-value">{{ total }}</div>
+    </div>
+    
+    <div class="stat-card success">
+        <div class="stat-label">💰 Contribuição FCVS</div>
+        <div class="stat-value">R$ {{ total_contribuicao_fcvs|floatformat:2 }}</div>
+    </div>
+    
+    <div class="stat-card warning">
+        <div class="stat-label">📈 FCVS Estimado</div>
+        <div class="stat-value">R$ {{ total_fcvs_estimado|floatformat:2 }}</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-label">🔥 Período Crítico</div>
+        <div class="stat-value">{{ total_contratos_periodo_critico }}</div>
+    </div>
+</div>
+
+<div class="filters-section">
+    <form method="get" action="{% url 'fcvs' %}">
+        <div class="filters-grid">
+            <div class="filter-group">
+                <label for="tipo_analise">📊 Tipo de Análise:</label>
+                <select name="tipo_analise" id="tipo_analise">
+                    <option value="todos" {% if tipo_analise == 'todos' %}selected{% endif %}>Todos os contratos</option>
+                    <option value="com_fcvs" {% if tipo_analise == 'com_fcvs' %}selected{% endif %}>Apenas com FCVS</option>
+                    <option value="anomalias" {% if tipo_analise == 'anomalias' %}selected{% endif %}>Anomalias detectadas</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="conjunto">🏘️ Conjunto:</label>
+                <select name="conjunto" id="conjunto">
+                    <option value="">Todos os conjuntos</option>
+                    {% for conjunto in conjuntos %}
+                        <option value="{{ conjunto.conjunto }}" {% if conjunto_filtro == conjunto.conjunto %}selected{% endif %}>
+                            {{ conjunto.conjunto }} - {{ conjunto.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="codigo_contrato">🔍 Nº Contrato:</label>
+                <input type="text" 
+                       name="codigo_contrato" 
+                       id="codigo_contrato" 
+                       placeholder="Digite o código..."
+                       value="{{ codigo_contrato_filtro }}">
+            </div>
+        </div>
+        
+        <div class="filters-actions">
+            <button type="submit" class="btn btn-primary">🔍 Filtrar</button>
+            <a href="{% url 'fcvs' %}" class="btn btn-secondary">🔄 Limpar</a>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="table-container">
+    <div class="table-header">
+        <div class="table-title">📋 Lista de Contratos</div>
+        <div style="font-size: 13px;">
+            Exibindo {{ contratos|length }} de {{ total }} contratos
+        </div>
+    </div>
+    
+    {% if contratos %}
+    <table class="table-fcvs">
+        <thead>
+            <tr>
+                <th>Conjunto</th>
+                <th>Nº Contrato</th>
+                <th>Mutuário</th>
+                <th style="text-align: right;">Contribuição FCVS</th>
+                <th style="text-align: right;">FCVS Estimado</th>
+                <th style="text-align: center;">Período Crítico</th>
+                <th style="text-align: center;">Anomalias</th>
+                <th style="text-align: center;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in contratos %}
+            <tr>
+                <td>
+                    <span class="badge badge-conjunto">
+                        {{ item.conjunto }}
+                    </span>
+                </td>
+                <td>
+                    <strong>{{ item.codigo_contrato }}</strong>
+                </td>
+                <td>
+                    {{ item.mutuario|default:"Sem mutuário" }}
+                </td>
+                <td style="text-align: right;">
+                    {% if item.contribuicao_fcvs > 0 %}
+                        <span class="saldo-positivo">R$ {{ item.contribuicao_fcvs|floatformat:2 }}</span>
+                    {% else %}
+                        <span style="color: #7f8c8d;">R$ 0,00</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: right;">
+                    {% if item.fcvs_estimado > 0 %}
+                        <span class="saldo-alto">R$ {{ item.fcvs_estimado|floatformat:2 }}</span>
+                    {% else %}
+                        <span style="color: #7f8c8d;">R$ 0,00</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: center;">
+                    {% if item.periodo_critico %}
+                        <span class="badge" style="background: #ffebee; color: #c62828;">🔥 Sim</span>
+                    {% else %}
+                        <span style="color: #7f8c8d;">-</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: center;">
+                    {% if item.anomalias > 0 %}
+                        <span class="badge" style="background: #fff3e0; color: #f57c00;">⚠️ {{ item.anomalias }}</span>
+                    {% else %}
+                        <span style="color: #7f8c8d;">-</span>
+                    {% endif %}
+                </td>
+                <td style="text-align: center;">
+                    <a href="{% url 'contrato_detail' item.contrato_id %}" 
+                       style="color: #2a5298; text-decoration: none; font-weight: 600;"
+                       title="Ver detalhes do contrato">
+                        👁️ Ver
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <h3>Nenhum contrato encontrado</h3>
+        <p>Tente ajustar os filtros ou selecionar outro tipo de análise</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

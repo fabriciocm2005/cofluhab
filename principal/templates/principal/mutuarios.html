@@ -1,0 +1,230 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Mutuários - CoFluhab{% endblock %}
+
+{% block content %}
+<style>
+    .search-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .search-title {
+        color: white;
+        font-size: 24px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    .search-filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .filter-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+        font-size: 13px;
+    }
+    .filter-group input {
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+    .filter-group input:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+    .search-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        justify-content: center;
+    }
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .btn-search {
+        background: #4caf50;
+        color: white;
+    }
+    .btn-search:hover {
+        background: #45a049;
+        transform: translateY(-2px);
+    }
+    .btn-clear {
+        background: #f44336;
+        color: white;
+    }
+    .btn-clear:hover {
+        background: #da190b;
+        transform: translateY(-2px);
+    }
+    .results-info {
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        border-left: 4px solid #2196F3;
+    }
+    .results-info strong {
+        color: #1976d2;
+    }
+    .mutuarios-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .mutuarios-table th {
+        background: linear-gradient(to bottom, #1976d2, #1565c0);
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+    .mutuarios-table td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+    .mutuarios-table tbody tr:hover {
+        background: #f5f5f5;
+        cursor: pointer;
+    }
+    .mutuarios-table a {
+        color: #1976d2;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .mutuarios-table a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="search-container">
+    <h2 class="search-title">🔍 Pesquisar Mutuários</h2>
+    <form method="GET" action="{% url 'mutuarios' %}">
+        <div class="search-filters">
+            <div class="filter-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="{{ busca_nome }}" placeholder="Digite o nome...">
+            </div>
+            <div class="filter-group">
+                <label for="codigo">Conjunto:</label>
+                <input type="text" id="codigo" name="codigo" value="{{ busca_codigo }}" placeholder="Ex: 010, 011...">
+            </div>
+            <div class="filter-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" value="{{ busca_cpf }}" placeholder="Digite o CPF...">
+            </div>
+        </div>
+        <div class="search-actions">
+            <button type="submit" class="btn btn-search">🔎 Buscar</button>
+            <a href="{% url 'mutuarios' %}" class="btn btn-clear">🗑️ Limpar Filtros</a>
+        </div>
+    </form>
+</div>
+
+<div class="results-info">
+    <strong>📊 Resultados:</strong> Exibindo {{ mutuarios|length }} de {{ total_filtrado }} mutuários
+    {% if page_obj %}
+    | <strong>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</strong>
+    {% endif %}
+    {% if busca_nome or busca_codigo or busca_cpf %}
+    | <strong>Filtros ativos:</strong>
+    {% if busca_nome %}<span style="background: #4caf50; color: white; padding: 3px 8px; border-radius: 3px; margin-left: 5px;">Nome: {{ busca_nome }}</span>{% endif %}
+    {% if busca_codigo %}<span style="background: #2196F3; color: white; padding: 3px 8px; border-radius: 3px; margin-left: 5px;">Conjunto: {{ busca_codigo }}</span>{% endif %}
+    {% if busca_cpf %}<span style="background: #ff9800; color: white; padding: 3px 8px; border-radius: 3px; margin-left: 5px;">CPF: {{ busca_cpf }}</span>{% endif %}
+    {% endif %}
+</div>
+
+{% if mutuarios %}
+    <table class="mutuarios-table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Conjunto</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>Renda</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for m in mutuarios %}
+            <tr>
+                <td><strong>{{ m.codigo }}</strong></td>
+                <td><a href="{% url 'mutuario_detail' m.codigo %}">{{ m.nome }}</a></td>
+                <td>{{ m.cpf|default:"-" }}</td>
+                <td>{{ m.conjunto }}</td>
+                <td>{{ m.endereco }} {{ m.numero|default:"" }}</td>
+                <td>{{ m.cidade|default:"-" }}</td>
+                <td>R$ {{ m.renda|floatformat:2|default:"0,00" }}</td>
+                <td><a href="{% url 'mutuario_detail' m.codigo %}" style="background: #1976d2; color: white; padding: 5px 12px; border-radius: 4px; text-decoration: none; font-size: 12px;">Ver Detalhes</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Paginação -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div style="margin: 30px 0; display: flex; justify-content: center; align-items: center; gap: 10px;">
+        {% if page_obj.has_previous %}
+            <a href="?pagina=1{% if busca_nome %}&nome={{ busca_nome }}{% endif %}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_cpf %}&cpf={{ busca_cpf }}{% endif %}{% if busca %}&q={{ busca }}{% endif %}" 
+               style="padding: 10px 15px; background: #1976d2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                « Primeira
+            </a>
+            <a href="?pagina={{ page_obj.previous_page_number }}{% if busca_nome %}&nome={{ busca_nome }}{% endif %}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_cpf %}&cpf={{ busca_cpf }}{% endif %}{% if busca %}&q={{ busca }}{% endif %}" 
+               style="padding: 10px 15px; background: #1976d2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                ‹ Anterior
+            </a>
+        {% endif %}
+        
+        <span style="padding: 10px 20px; background: #f5f5f5; border-radius: 5px; font-weight: bold;">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+        
+        {% if page_obj.has_next %}
+            <a href="?pagina={{ page_obj.next_page_number }}{% if busca_nome %}&nome={{ busca_nome }}{% endif %}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_cpf %}&cpf={{ busca_cpf }}{% endif %}{% if busca %}&q={{ busca }}{% endif %}" 
+               style="padding: 10px 15px; background: #1976d2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                Próxima ›
+            </a>
+            <a href="?pagina={{ page_obj.paginator.num_pages }}{% if busca_nome %}&nome={{ busca_nome }}{% endif %}{% if busca_codigo %}&codigo={{ busca_codigo }}{% endif %}{% if busca_cpf %}&cpf={{ busca_cpf }}{% endif %}{% if busca %}&q={{ busca }}{% endif %}" 
+               style="padding: 10px 15px; background: #1976d2; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                Última »
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
+{% else %}
+    <div style="background: #fff3cd; padding: 20px; border-radius: 6px; text-align: center; border-left: 4px solid #ff9800;">
+        <p style="margin: 0; font-size: 16px;">⚠️ Nenhum mutuário encontrado com os filtros aplicados.</p>
+    </div>
+{% endif %}
+
+<p style="margin-top: 25px; text-align: center;">
+    <a href="{% url 'index' %}" style="color: #1976d2; text-decoration: none; font-weight: bold;">← Voltar ao Início</a>
+</p>
+{% endblock %}

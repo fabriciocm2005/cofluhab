@@ -1,0 +1,394 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Editar Contrato - {{ contrato.codigo }}{% endblock %}
+
+{% block content %}
+<style>
+    .form-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    .form-group input:focus {
+        outline: none;
+        border-color: #1976d2;
+        box-shadow: 0 0 5px rgba(25,118,210,0.3);
+    }
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .form-actions {
+        margin-top: 30px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+    .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-primary {
+        background: #1976d2;
+        color: white;
+    }
+    .btn-primary:hover {
+        background: #1565c0;
+    }
+    .btn-secondary {
+        background: #757575;
+        color: white;
+    }
+    .btn-secondary:hover {
+        background: #616161;
+    }
+    .section-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #1976d2;
+        margin: 30px 0 15px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e0e0e0;
+    }
+    .alert-info {
+        background: #e3f2fd;
+        border-left: 4px solid #1976d2;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+    .field-error {
+        margin-top: 6px;
+        color: #b71c1c;
+        font-size: 12px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="form-container">
+    <h2>✏️ Editar Contrato</h2>
+    <p><strong>Código do Contrato:</strong> {{ contrato.codigo }}</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="section-title">Dados do Contrato</div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="conjunto">Conjunto</label>
+                <input type="text" id="conjunto" name="conjunto" value="{{ contrato.conjunto|default:'' }}" required>
+                {% for erro in field_errors.conjunto %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="cod_imovel">Código do Imóvel</label>
+                <input type="text" id="cod_imovel" name="cod_imovel" value="{{ contrato.cod_imovel|default:'' }}">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ocorrencia">Ocorrência</label>
+                <input type="text" id="ocorrencia" name="ocorrencia" value="{{ contrato.ocorrencia|default:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="lote">Lote</label>
+                <input type="text" id="lote" name="lote" value="{{ contrato.lote|default:'' }}">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="chave">Chave</label>
+                <input type="text" id="chave" name="chave" value="{{ contrato.chave|default:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="sinal">Sinal</label>
+                <input type="text" id="sinal" name="sinal" value="{{ contrato.sinal|default:'' }}">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="data_contrato">Data do Contrato</label>
+                <input type="date" id="data_contrato" name="data_contrato" value="{{ contrato.data_contrato|date:'Y-m-d'|default:'' }}">
+                {% for erro in field_errors.data_contrato %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="data_primeiro_venc">Data do 1º Vencimento</label>
+                <input type="date" id="data_primeiro_venc" name="data_primeiro_venc" value="{{ contrato.data_primeiro_venc|date:'Y-m-d'|default:'' }}">
+                {% for erro in field_errors.data_primeiro_venc %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+        
+        <div class="section-title">Condições Financeiras</div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="sa">Sistema de Amortização (SA)</label>
+                <input type="text" id="sa" name="sa" value="{{ contrato.sa|default:'' }}" placeholder="Ex: SAC, PRICE" required>
+                {% for erro in field_errors.sa %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="tx_juros">Taxa de Juros (%)</label>
+                <input type="number" step="0.01" id="tx_juros" name="tx_juros" value="{{ contrato.tx_juros|default:'' }}" required>
+                {% for erro in field_errors.tx_juros %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="prazo">Prazo (meses)</label>
+                <input type="number" id="prazo" name="prazo" value="{{ contrato.prazo|default:'' }}" required>
+                {% for erro in field_errors.prazo %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="cat_prof">Categoria Profissional</label>
+                <input type="text" id="cat_prof" name="cat_prof" value="{{ contrato.cat_prof|default:'' }}">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="pr">Programa (PR)</label>
+            <input type="text" id="pr" name="pr" value="{{ contrato.pr|default:'' }}">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="vlfinanc">Valor do Financiamento</label>
+                <input type="text" id="vlfinanc" name="vlfinanc" value="{{ contrato.vlfinanc|default:'' }}" placeholder="Ex: 145000,50" required>
+                {% for erro in field_errors.vlfinanc %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="vlprop">Valor do Imóvel</label>
+                <input type="text" id="vlprop" name="vlprop" value="{{ contrato.vlprop|default:'' }}" placeholder="Ex: 180000,00">
+                {% for erro in field_errors.vlprop %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="prestacao_inicial">Prestação Inicial</label>
+            <input type="text" id="prestacao_inicial" name="prestacao_inicial" value="{{ contrato.prestacao_inicial|default:'' }}" placeholder="Ex: 1250,123456">
+            {% for erro in field_errors.prestacao_inicial %}<div class="field-error">{{ erro }}</div>{% endfor %}
+        </div>
+        
+        {% if mutuario %}
+        <div class="section-title">Dados do Mutuário (Opcional)</div>
+        
+        <div class="alert-info">
+            <strong>ℹ️ Informação:</strong> Estes dados também podem ser editados na página do mutuário.
+        </div>
+        
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="atualizar_mutuario" name="atualizar_mutuario" value="sim" {% if atualizar_mutuario_checked %}checked{% endif %}>
+                Atualizar também os dados do mutuário vinculado
+            </label>
+            {% for erro in field_errors.atualizar_mutuario %}<div class="field-error">{{ erro }}</div>{% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="mutuario_nome">Nome do Mutuário</label>
+            <input type="text" id="mutuario_nome" name="mutuario_nome" value="{{ mutuario.nome|default:'' }}" data-mutuario-required="1">
+            {% for erro in field_errors.mutuario_nome %}<div class="field-error">{{ erro }}</div>{% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="mutuario_cpf">CPF do Mutuário</label>
+            <input type="text" id="mutuario_cpf" name="mutuario_cpf" value="{{ mutuario.cpf|default:'' }}" data-mutuario-required="1" maxlength="14" inputmode="numeric" autocomplete="off">
+            {% for erro in field_errors.mutuario_cpf %}<div class="field-error">{{ erro }}</div>{% endfor %}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="mutuario_ident">Identidade (RG)</label>
+                <input type="text" id="mutuario_ident" name="mutuario_ident" value="{{ mutuario.ident|default:'' }}" data-mutuario-required="1">
+                {% for erro in field_errors.mutuario_ident %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="mutuario_orgao">Órgão Expedidor</label>
+                <input type="text" id="mutuario_orgao" name="mutuario_orgao" value="{{ mutuario.orgao|default:'' }}">
+                {% for erro in field_errors.mutuario_orgao %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="mutuario_dtnasc">Data de Nascimento</label>
+                <input type="date" id="mutuario_dtnasc" name="mutuario_dtnasc" value="{{ mutuario.dtnasc|date:'Y-m-d'|default:'' }}">
+                {% for erro in field_errors.mutuario_dtnasc %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="mutuario_tipoimovel">Tipo de Imóvel</label>
+                <input type="text" id="mutuario_tipoimovel" name="mutuario_tipoimovel" value="{{ mutuario.tipoimovel|default:'' }}">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="mutuario_renda">Renda</label>
+                <input type="text" id="mutuario_renda" name="mutuario_renda" value="{{ mutuario.renda|default:'' }}" placeholder="Ex: 3200,00">
+                {% for erro in field_errors.mutuario_renda %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="mutuario_crenda">Complemento de Renda</label>
+                <input type="text" id="mutuario_crenda" name="mutuario_crenda" value="{{ mutuario.crenda|default:'' }}" placeholder="Ex: 800,00">
+                {% for erro in field_errors.mutuario_crenda %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="mutuario_endereco">Logradouro</label>
+                <input type="text" id="mutuario_endereco" name="mutuario_endereco" value="{{ mutuario.endereco|default:'' }}" data-mutuario-required="1">
+                {% for erro in field_errors.mutuario_endereco %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="mutuario_numero">Número</label>
+                <input type="text" id="mutuario_numero" name="mutuario_numero" value="{{ mutuario.numero|default:'' }}">
+                {% for erro in field_errors.mutuario_numero %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="mutuario_compl">Complemento</label>
+            <input type="text" id="mutuario_compl" name="mutuario_compl" value="{{ mutuario.compl|default:'' }}">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="mutuario_bairro">Bairro</label>
+                <input type="text" id="mutuario_bairro" name="mutuario_bairro" value="{{ mutuario.bairro|default:'' }}">
+                {% for erro in field_errors.mutuario_bairro %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="mutuario_cidade">Cidade</label>
+                <input type="text" id="mutuario_cidade" name="mutuario_cidade" value="{{ mutuario.cidade|default:'' }}" data-mutuario-required="1">
+                {% for erro in field_errors.mutuario_cidade %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="mutuario_uf">UF</label>
+                <input type="text" id="mutuario_uf" name="mutuario_uf" maxlength="2" value="{{ mutuario.uf|default:'' }}" data-mutuario-required="1" autocomplete="off">
+                {% for erro in field_errors.mutuario_uf %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="mutuario_cep">CEP</label>
+                <input type="text" id="mutuario_cep" name="mutuario_cep" value="{{ mutuario.cep|default:'' }}" maxlength="9" inputmode="numeric" autocomplete="off">
+                {% for erro in field_errors.mutuario_cep %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="mutuario_telefone">Telefone</label>
+                <input type="text" id="mutuario_telefone" name="mutuario_telefone" value="{{ mutuario.telefone|default:'' }}" maxlength="15" inputmode="numeric" autocomplete="off">
+                {% for erro in field_errors.mutuario_telefone %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="mutuario_email">E-mail</label>
+                <input type="email" id="mutuario_email" name="mutuario_email" value="{{ mutuario.email|default:'' }}">
+                {% for erro in field_errors.mutuario_email %}<div class="field-error">{{ erro }}</div>{% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="form-actions">
+            <a href="{% url 'contrato_detail' contrato.id %}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">💾 Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    (function () {
+        const checkbox = document.getElementById('atualizar_mutuario');
+        if (!checkbox) {
+            return;
+        }
+
+        const mutuarioRequiredFields = document.querySelectorAll('[data-mutuario-required="1"]');
+
+        function syncRequired() {
+            const mustRequire = checkbox.checked;
+            mutuarioRequiredFields.forEach((input) => {
+                input.required = mustRequire;
+            });
+        }
+
+        const cpfInput = document.getElementById('mutuario_cpf');
+        if (cpfInput) {
+            cpfInput.addEventListener('input', function () {
+                let value = this.value.replace(/\D/g, '').slice(0, 11);
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                this.value = value;
+            });
+        }
+
+        const cepInput = document.getElementById('mutuario_cep');
+        if (cepInput) {
+            cepInput.addEventListener('input', function () {
+                let value = this.value.replace(/\D/g, '').slice(0, 8);
+                if (value.length > 5) {
+                    value = value.slice(0, 5) + '-' + value.slice(5);
+                }
+                this.value = value;
+            });
+        }
+
+        const ufInput = document.getElementById('mutuario_uf');
+        if (ufInput) {
+            ufInput.addEventListener('input', function () {
+                this.value = this.value.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 2);
+            });
+        }
+
+        const telefoneInput = document.getElementById('mutuario_telefone');
+        if (telefoneInput) {
+            telefoneInput.addEventListener('input', function () {
+                let value = this.value.replace(/\D/g, '').slice(0, 11);
+                if (value.length > 10) {
+                    value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+                } else {
+                    value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+                }
+                this.value = value.replace(/-$/, '');
+            });
+        }
+
+        checkbox.addEventListener('change', syncRequired);
+        syncRequired();
+    })();
+</script>
+{% endblock %}

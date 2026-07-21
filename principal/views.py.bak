@@ -1,0 +1,99 @@
+# principal/views.py
+
+# principal/views.py
+
+from django.shortcuts import render
+# Importamos o Model Cliente 
+from .models import Cliente 
+
+def index(request):
+    titulo_pagina = "Dashboard CoFluhab"
+    saudacao = "Bem-vindo ao CoFluhab!"
+
+    # 1. BUSCAR TODOS OS CLIENTES NO BANCO DE DADOS
+    # O .all() retorna um QuerySet com todos os objetos Cliente
+    lista_clientes = Cliente.objects.all() 
+    
+    # Conteúdo antigo (vamos mantê-lo por enquanto)
+    lista_de_tarefas = [
+        'Configurar o Banco de Dados',
+        'Criar Templates',
+        'Aprender Django Views'
+    ]
+    
+    usuario_logado = True
+
+    contexto = {
+        'titulo': titulo_pagina,
+        'mensagem': saudacao,
+        'tarefas': lista_de_tarefas, 
+        'usuario_logado': usuario_logado,
+        # 2. ENVIAR A LISTA DE CLIENTES PARA O TEMPLATE
+        'clientes': lista_clientes, 
+    }
+    
+    return render(request, 'principal/index.html', contexto)
+
+# View para página de clientes
+def clientes(request):
+    lista_clientes = Cliente.objects.all()
+    contexto = {
+        'clientes': lista_clientes,
+    }
+    return render(request, 'principal/clientes.html', contexto)
+
+# Listagem de Conjuntos
+from .models import ConjuntoHabitacional, Mutuario, Endereco, Movimentacao
+
+def conjuntos(request):
+    qs = ConjuntoHabitacional.objects.all()
+    return render(request, 'principal/conjuntos.html', {'conjuntos': qs})
+
+def mutuarios(request):
+    qs = Mutuario.objects.all().order_by('codigo')
+    return render(request, 'principal/mutuarios.html', {'mutuarios': qs})
+
+def enderecos(request):
+    qs = Endereco.objects.all()
+    return render(request, 'principal/enderecos.html', {'enderecos': qs})
+
+def movimentacoes(request):
+    qs = Movimentacao.objects.all().order_by('-data')
+    return render(request, 'principal/movimentacoes.html', {'movimentacoes': qs})
+
+
+def mutuario_detail(request, codigo):
+    # Try to find Mutuario by codigo (as string). Fall back to first match.
+    mut = Mutuario.objects.filter(codigo=str(codigo)).first()
+    if not mut:
+        # Also try by pk if codigo was numeric
+        try:
+            mut = Mutuario.objects.get(pk=int(codigo))
+        except Exception:
+            mut = None
+
+    movimentacoes_qs = Movimentacao.objects.none()
+    endereco_match = None
+    if mut:
+        # Match movimentacoes by codimovel and conjunto when available
+        filtro = {}
+        if mut.codimovel:
+            filtro['codimovel'] = mut.codimovel
+        if mut.conjunto:
+            filtro['conjunto'] = mut.conjunto
+        if filtro:
+            movimentacoes_qs = Movimentacao.objects.filter(**filtro).order_by('-data')
+
+        # Try to find an Endereco that looks similar to mut.endereco or by cep
+        if mut.endereco:
+            # Try exact contains on endereco field
+            endereco_match = Endereco.objects.filter(endereco__icontains=mut.endereco[:40]).first()
+        if not endereco_match and hasattr(mut, 'cep') and mut.cep:
+            endereco_match = Endereco.objects.filter(cep__icontains=mut.cep).first()
+
+    contexto = {
+        'mutuario': mut,
+        'movimentacoes': movimentacoes_qs,
+        'endereco_match': endereco_match,
+    }
+    return render(request, 'principal/mutuario_detail.html', contexto)

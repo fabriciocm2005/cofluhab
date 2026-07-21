@@ -1,0 +1,233 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Débito de Prestações - Contrato {{ contrato.codigo }} - CoFluhab{% endblock %}
+
+{% block content %}
+<style>
+    .header-info {
+        background: linear-gradient(135deg, #e53935 0%, #d32f2f 100%);
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .header-info h2 {
+        margin: 0 0 10px 0;
+        font-size: 24px;
+    }
+    .info-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .info-item {
+        background: rgba(255,255,255,0.1);
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .info-label {
+        font-size: 12px;
+        opacity: 0.9;
+    }
+    .info-value {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+    .filtro-data {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .filtro-data label {
+        font-weight: bold;
+    }
+    .filtro-data input {
+        padding: 8px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    .filtro-data button {
+        padding: 8px 20px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .filtro-data button:hover {
+        background: #45a049;
+    }
+    .debito-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+    .debito-table th {
+        background: linear-gradient(to bottom, #d32f2f, #c62828);
+        color: white;
+        padding: 12px 8px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 13px;
+    }
+    .debito-table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid #f0f0f0;
+        text-align: center;
+        font-size: 13px;
+    }
+    .debito-table tr:hover {
+        background: #ffebee;
+    }
+    .debito-table tfoot td {
+        background: #f5f5f5;
+        font-weight: bold;
+        padding: 15px 8px;
+        border-top: 2px solid #d32f2f;
+    }
+    .nota-calculo {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-size: 13px;
+        color: #0d47a1;
+    }
+    .valor-destaque {
+        color: #d32f2f;
+        font-weight: bold;
+    }
+    .btn-voltar {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #666;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    .btn-voltar:hover {
+        background: #555;
+    }
+    .alert-info {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+</style>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+    <a href="{% url 'contrato_detail' contrato.id %}" class="btn-voltar">← Voltar ao Contrato</a>
+    <a href="?exportar=excel&ate_data={{ ate_data|date:'Y-m-d' }}" class="btn-voltar" style="background: #28a745;">📥 Exportar Excel</a>
+</div>
+
+<div class="header-info">
+    <h2>💰 Débito de Prestações</h2>
+    <div class="info-row">
+        <div class="info-item">
+            <div class="info-label">Contrato</div>
+            <div class="info-value">{{ contrato.codigo }}</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Conjunto</div>
+            <div class="info-value">{{ contrato.conjunto }}</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Parcelas em Aberto</div>
+            <div class="info-value">{{ total_parcelas_aberto }}</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">Taxa de Mora</div>
+            <div class="info-value">{{ taxa_mora|floatformat:4 }}% ao dia</div>
+        </div>
+    </div>
+</div>
+
+<div class="alert-info">
+    <strong>ℹ️ Informação:</strong> Este relatório mostra as parcelas em aberto (não pagas) com cálculo de mora 
+    baseado nos dias de atraso até a data especificada.
+</div>
+
+<div class="nota-calculo">
+    <strong>📋 Nota sobre o Cálculo:</strong> O valor do <strong>Encargo Mensal</strong> utiliza o campo <code>vlautent</code> 
+    quando disponível. Caso contrário, soma os componentes (juros+amort+seguro+tca+fcvs+em+rp) aplicando o conversor monetário 
+    quando necessário. A mora é calculada como 0,0333% ao dia (1% ao mês) sobre o encargo multiplicado pelos dias em atraso.
+</div>
+
+<div class="filtro-data">
+    <form method="get" style="display: flex; align-items: center; gap: 15px; width: 100%;">
+        <label>📅 Calcular mora até:</label>
+        <input type="date" name="ate_data" value="{{ ate_data|date:'Y-m-d' }}">
+        <button type="submit">🔍 Atualizar</button>
+    </form>
+</div>
+
+<table class="debito-table">
+    <thead>
+        <tr>
+            <th>Parcela</th>
+            <th>Vencimento</th>
+            <th>Dias Atraso</th>
+            <th>Enc. Mensal</th>
+            <th>Mora Total</th>
+            <th>TOTAL</th>
+            <th>Acumulado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in parcelas %}
+        <tr>
+            <td><strong>{{ p.nmens }}</strong></td>
+            <td>{{ p.dtvenc|date:'d/m/Y' }}</td>
+            <td {% if p.dias_atraso > 0 %}class="valor-destaque"{% endif %}>
+                {{ p.dias_atraso }}
+            </td>
+            <td>R$ {{ p.encargo_mensal|floatformat:2 }}</td>
+            <td class="valor-destaque">R$ {{ p.mora_total|floatformat:2 }}</td>
+            <td><strong>R$ {{ p.total|floatformat:2 }}</strong></td>
+            <td style="background: #e8f5e9;"><strong>R$ {{ p.acumulado|floatformat:2 }}</strong></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" style="text-align: center; padding: 30px; color: #666;">
+                ✅ Nenhuma parcela em aberto! Contrato em dia.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% if parcelas %}
+    <tfoot>
+        <tr>
+            <td colspan="3" style="text-align: right;">TOTAIS:</td>
+            <td><strong>R$ {{ encargo_total_geral|floatformat:2 }}</strong></td>
+            <td class="valor-destaque"><strong>R$ {{ mora_total_geral|floatformat:2 }}</strong></td>
+            <td><strong>R$ {{ debito_total|floatformat:2 }}</strong></td>
+            <td></td>
+        </tr>
+    </tfoot>
+    {% endif %}
+</table>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'contrato_detail' contrato.id %}" class="btn-voltar">← Voltar ao Contrato</a>
+</div>
+
+{% endblock %}

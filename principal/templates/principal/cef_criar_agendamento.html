@@ -1,0 +1,208 @@
+{% extends 'principal/base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📅 Criar Agendamento</h1>
+    <p class="page-subtitle">Configure envios automáticos para a CEF</p>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+    <!-- Formulário -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Configurar Agendamento</h2>
+        </div>
+        <form method="POST" style="padding: 20px;">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                    Nome do Agendamento *
+                </label>
+                <input type="text" 
+                       name="nome" 
+                       class="form-control" 
+                       placeholder="Ex: Envio Mensal FH1 Contratos Ativos"
+                       required>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                    Descrição
+                </label>
+                <textarea name="descricao" 
+                          class="form-control" 
+                          rows="3"
+                          placeholder="Descreva o propósito deste agendamento..."></textarea>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                    Tipo de Envio *
+                </label>
+                <select name="tipo_envio" class="form-control" required>
+                    <option value="">Selecione...</option>
+                    <option value="FH1">FH1 - Ficha de Habitação</option>
+                    <option value="RCV">RCV - Receita</option>
+                    <option value="DOSSIE">Dossiê Completo</option>
+                    <option value="CADMUT">Cadastro de Mutuários</option>
+                    <option value="COMPLEMENTAR">Documentação Complementar</option>
+                </select>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                    Frequência *
+                </label>
+                <select name="frequencia" class="form-control" onchange="atualizarProximaExecucao()" required>
+                    <option value="">Selecione...</option>
+                    <option value="UNICO">🔸 Único (executar apenas uma vez)</option>
+                    <option value="DIARIO">📆 Diário</option>
+                    <option value="SEMANAL">📅 Semanal</option>
+                    <option value="MENSAL">📊 Mensal</option>
+                </select>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                    Data/Hora da Primeira Execução *
+                </label>
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+                    <input type="date" 
+                           name="data_execucao" 
+                           class="form-control"
+                           required>
+                    <input type="time" 
+                           name="hora_execucao" 
+                           class="form-control"
+                           value="09:00"
+                           required>
+                </div>
+                <small style="color: #6b7280; font-size: 12px; display: block; margin-top: 5px;">
+                    Para agendamentos recorrentes, esta será a primeira execução
+                </small>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">
+                    Filtros de Contratos (JSON)
+                </label>
+                <textarea name="filtros_contratos" 
+                          class="form-control" 
+                          rows="4"
+                          placeholder='{"status": "ativo", "conjunto__nome__icontains": "Residencial"}'
+                          style="font-family: monospace; font-size: 13px;"></textarea>
+                <small style="color: #6b7280; font-size: 12px; display: block; margin-top: 5px;">
+                    Opcional: Filtros Django ORM em formato JSON para selecionar contratos específicos
+                </small>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <input type="checkbox" name="ativo" checked>
+                    <span style="font-weight: 500;">Ativar agendamento imediatamente</span>
+                </label>
+            </div>
+            
+            <div style="display: flex; gap: 10px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                <button type="submit" class="btn btn-primary">
+                    💾 Criar Agendamento
+                </button>
+                <a href="{% url 'listar_agendamentos' %}" class="btn" style="background: #6b7280; color: white;">
+                    ✖️ Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Ajuda e Exemplos -->
+    <div>
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header">
+                <h2>💡 Exemplos de Filtros</h2>
+            </div>
+            <div style="padding: 15px;">
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Todos os contratos ativos:</div>
+                    <code style="background: #f3f4f6; padding: 8px; border-radius: 4px; display: block; font-size: 11px;">
+                        {"status": "ativo"}
+                    </code>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Conjunto específico:</div>
+                    <code style="background: #f3f4f6; padding: 8px; border-radius: 4px; display: block; font-size: 11px;">
+                        {"conjunto__nome__icontains": "Residencial"}
+                    </code>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Contratos com débito:</div>
+                    <code style="background: #f3f4f6; padding: 8px; border-radius: 4px; display: block; font-size: 11px;">
+                        {"saldo_devedor__gt": 0}
+                    </code>
+                </div>
+                
+                <div>
+                    <div style="font-weight: 600; margin-bottom: 5px;">Múltiplos filtros:</div>
+                    <code style="background: #f3f4f6; padding: 8px; border-radius: 4px; display: block; font-size: 11px; white-space: pre-wrap;">
+{
+  "status": "ativo",
+  "saldo_devedor__gt": 0,
+  "conjunto__id": 5
+}
+                    </code>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>ℹ️ Sobre Agendamentos</h2>
+            </div>
+            <div style="padding: 15px; font-size: 14px;">
+                <div style="margin-bottom: 12px;">
+                    <strong>📆 Diário:</strong> Executa todos os dias no horário especificado
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <strong>📅 Semanal:</strong> Executa uma vez por semana no mesmo dia/horário
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <strong>📊 Mensal:</strong> Executa uma vez por mês no mesmo dia/horário
+                </div>
+                <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; border-radius: 4px; margin-top: 15px;">
+                    <strong>⚠️ Atenção:</strong> Certifique-se de que as credenciais CEF estão configuradas antes de criar agendamentos automáticos.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function atualizarProximaExecucao() {
+    const frequencia = document.querySelector('select[name="frequencia"]').value;
+    const dataInput = document.querySelector('input[name="data_execucao"]');
+    
+    if (!dataInput.value) {
+        const hoje = new Date();
+        hoje.setDate(hoje.getDate() + 1); // Amanhã
+        dataInput.value = hoje.toISOString().split('T')[0];
+    }
+}
+
+// Validar JSON dos filtros
+document.querySelector('form')?.addEventListener('submit', function(e) {
+    const filtrosInput = document.querySelector('textarea[name="filtros_contratos"]');
+    
+    if (filtrosInput.value.trim()) {
+        try {
+            JSON.parse(filtrosInput.value);
+        } catch (error) {
+            e.preventDefault();
+            alert('❌ Erro no JSON dos filtros:\n' + error.message);
+            filtrosInput.focus();
+        }
+    }
+});
+</script>
+{% endblock %}

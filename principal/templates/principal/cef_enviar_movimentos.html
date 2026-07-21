@@ -1,0 +1,597 @@
+{% extends 'principal/base.html' %}
+{% load static %}
+
+{% block title %}Envio de Movimentos - CEF{% endblock %}
+
+{% block content %}
+<style>
+    .envio-container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 30px;
+    }
+    
+    .page-title {
+        font-size: 28px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .form-section {
+        margin-bottom: 25px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+    }
+    
+    .form-section label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    .form-section select,
+    .form-section input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+    
+    .form-section select:focus,
+    .form-section input[type="file"]:focus {
+        border-color: #667eea;
+        outline: none;
+    }
+    
+    .checkbox-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .checkbox-section input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    
+    .checkbox-section label {
+        margin: 0;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    
+    .upload-area {
+        border: 2px dashed #667eea;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background: white;
+        transition: all 0.3s;
+    }
+    
+    .upload-area:hover {
+        border-color: #764ba2;
+        background: #f8f9ff;
+    }
+    
+    .upload-area i {
+        font-size: 48px;
+        color: #667eea;
+        margin-bottom: 10px;
+    }
+    
+    .upload-area p {
+        color: #666;
+        margin: 5px 0;
+    }
+    
+    .file-selected {
+        background: #e8f5e9;
+        border-color: #4caf50;
+        padding: 10px;
+        border-radius: 6px;
+        margin-top: 10px;
+        display: none;
+    }
+    
+    .file-selected.show {
+        display: block;
+    }
+    
+    .file-selected i {
+        color: #4caf50;
+    }
+    
+    .btn-enviar {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s;
+        margin-top: 20px;
+    }
+    
+    .btn-enviar:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-enviar:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+    }
+    
+    .resultado-container {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 8px;
+        display: none;
+    }
+    
+    .resultado-container.show {
+        display: block;
+    }
+    
+    .resultado-sucesso {
+        background: #e8f5e9;
+        border: 2px solid #4caf50;
+    }
+    
+    .resultado-erro {
+        background: #ffebee;
+        border: 2px solid #f44336;
+    }
+    
+    .resultado-container h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    
+    .detalhes-envio {
+        background: white;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 15px;
+    }
+    
+    .detalhes-envio .detalhe-item {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .detalhes-envio .detalhe-item:last-child {
+        border-bottom: none;
+    }
+    
+    .detalhes-envio .detalhe-label {
+        font-weight: 600;
+        color: #666;
+    }
+    
+    .detalhes-envio .detalhe-valor {
+        color: #333;
+    }
+    
+    .criticas-container {
+        margin-top: 15px;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    .critica-item {
+        background: white;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        border-left: 4px solid #f44336;
+    }
+    
+    .critica-item .critica-header {
+        font-weight: 600;
+        color: #f44336;
+        margin-bottom: 5px;
+    }
+    
+    .critica-item .critica-desc {
+        color: #666;
+        font-size: 14px;
+    }
+    
+    .info-box {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 20px;
+    }
+    
+    .info-box h4 {
+        margin-top: 0;
+        color: #1976d2;
+    }
+    
+    .info-box ul {
+        margin: 10px 0;
+        padding-left: 20px;
+    }
+    
+    .info-box li {
+        color: #555;
+        margin: 5px 0;
+    }
+    
+    .hidden {
+        display: none;
+    }
+</style>
+
+<div class="envio-container">
+    <h1 class="page-title">📤 Envio de Movimentos</h1>
+
+    {% if remessa_context %}
+    <div class="alert alert-info" style="margin-bottom: 20px;">
+        <strong>Remessa #{{ remessa_context.id }}</strong> ({{ remessa_context.status_label }})
+        | Tipo: {{ remessa_context.tipo_envio }}
+        | Lote: {{ remessa_context.numero_lote|default:'-' }}
+        | Registros: {{ remessa_context.total_fichas }}
+        <br>
+        <a href="{{ remessa_context.download_dados_url }}" target="_blank">Baixar arquivo DADOS da remessa</a>
+    </div>
+    {% endif %}
+    
+    <form id="formEnvio" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if remessa_context %}
+        <input type="hidden" name="remessa_id" value="{{ remessa_context.id }}">
+        {% endif %}
+        
+        <!-- Produto -->
+        <div class="form-section">
+            <label for="produto">Produto *</label>
+            <select id="produto" name="produto" required>
+                <option value="">Selecione...</option>
+                <option value="FCVS">FCVS</option>
+                <option value="CADMUT">CADMUT</option>
+            </select>
+        </div>
+        
+        <!-- Tipo de Movimento -->
+        <div class="form-section">
+            <label for="tipo_movimento">Tipo de Movimento *</label>
+            <select id="tipo_movimento" name="tipo_movimento" required disabled>
+                <option value="">Selecione um produto primeiro...</option>
+            </select>
+            
+            <div id="checkbox_fh2_fh3" class="checkbox-section hidden">
+                <input type="checkbox" id="possui_fh2_fh3" name="possui_fh2_fh3">
+                <label for="possui_fh2_fh3">Possui FH2/FH3</label>
+            </div>
+        </div>
+        
+        <!-- Arquivo de Header (somente FCVS FH1/FH2/FH3) -->
+        <div id="section_header" class="form-section hidden">
+            <label for="arquivo_header">Arquivo de Header *</label>
+            <div class="upload-area" id="upload_header">
+                <i class="fas fa-file-upload"></i>
+                <p><strong>Selecionar apenas arquivos .txt</strong></p>
+                <p>Clique para selecionar ou arraste o arquivo</p>
+            </div>
+            <input type="file" id="arquivo_header" name="arquivo_header" accept=".txt" style="display:none;">
+            <div id="file_selected_header" class="file-selected">
+                <i class="fas fa-check-circle"></i>
+                <span id="filename_header"></span>
+            </div>
+        </div>
+        
+        <!-- Arquivo de Dados -->
+        <div id="section_dados" class="form-section hidden">
+            <label for="arquivo_dados">Arquivo de Dados *</label>
+            <div class="upload-area" id="upload_dados">
+                <i class="fas fa-file-upload"></i>
+                <p><strong>Selecionar apenas arquivos .txt</strong></p>
+                <p>Clique para selecionar ou arraste o arquivo</p>
+            </div>
+            <input type="file" id="arquivo_dados" name="arquivo_dados" accept=".txt" style="display:none;">
+            <div id="file_selected_dados" class="file-selected">
+                <i class="fas fa-check-circle"></i>
+                <span id="filename_dados"></span>
+            </div>
+        </div>
+        
+        <button type="submit" id="btn_enviar" class="btn-enviar" disabled>
+            <i class="fas fa-paper-plane"></i> Enviar Arquivos
+        </button>
+    </form>
+    
+    <!-- Resultado -->
+    <div id="resultado" class="resultado-container">
+        <h3 id="resultado_titulo"></h3>
+        <p id="resultado_mensagem"></p>
+        
+        <div id="detalhes_envio" class="detalhes-envio"></div>
+        <div id="criticas_container" class="criticas-container"></div>
+    </div>
+    
+    <!-- Informações -->
+    <div class="info-box">
+        <h4><i class="fas fa-info-circle"></i> Informações</h4>
+        <ul>
+            <li><strong>FCVS - FH1/FH2/FH3:</strong> Requer Arquivo de Header + Arquivo de Dados</li>
+            <li><strong>FCVS - RCV/RNV:</strong> Requer apenas Arquivo de Dados</li>
+            <li><strong>RNV Simplificado:</strong> no portal, o envio é de 1 arquivo TXT (dados). Se vier de remessa gerada, o sistema pode usar esse arquivo automaticamente.</li>
+            <li><strong>CADMUT:</strong> Requer apenas Arquivo de Dados</li>
+            <li><strong>Formato:</strong> Todos os arquivos devem ser .txt sem compactação</li>
+            <li><strong>Nomenclatura:</strong> Arquivos podem ter qualquer nome</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const produtoSelect = document.getElementById('produto');
+    const tipoMovimentoSelect = document.getElementById('tipo_movimento');
+    const checkboxFH2FH3 = document.getElementById('checkbox_fh2_fh3');
+    const sectionHeader = document.getElementById('section_header');
+    const sectionDados = document.getElementById('section_dados');
+    const btnEnviar = document.getElementById('btn_enviar');
+    
+    // Mapas de tipos de movimento
+    const tiposMovimento = {
+        'FCVS': [
+            {value: 'FH1', label: 'FH1 - Ficha para Habilitação ao FCVS'},
+            {value: 'FH2', label: 'FH2 - Ficha para Habilitação ao FCVS'},
+            {value: 'FH3', label: 'FH3 - Ficha para Habilitação ao FCVS'},
+            {value: 'RCV', label: 'RCV - Relação de Contratos Validados'},
+            {value: 'RNV', label: 'RNV - Relação de Contratos Não Validados'}
+        ],
+        'CADMUT': [
+            {value: 'CADMUT0', label: 'CADMUT0 - Cadastramento de Contratos'},
+            {value: 'CADMUT1', label: 'CADMUT1 - Acerto de Contratos em Crítica'}
+        ]
+    };
+
+    const preProduto = '{{ preselect_produto|default:"" }}';
+    const preTipo = '{{ preselect_tipo_movimento|default:"" }}';
+    
+    // Atualizar tipo de movimento ao mudar produto
+    produtoSelect.addEventListener('change', function() {
+        const produto = this.value;
+        tipoMovimentoSelect.innerHTML = '<option value="">Selecione...</option>';
+        tipoMovimentoSelect.disabled = !produto;
+        
+        if (produto && tiposMovimento[produto]) {
+            tiposMovimento[produto].forEach(tipo => {
+                const option = document.createElement('option');
+                option.value = tipo.value;
+                option.textContent = tipo.label;
+                tipoMovimentoSelect.appendChild(option);
+            });
+        }
+        
+        // Limpar campos
+        checkboxFH2FH3.classList.add('hidden');
+        sectionHeader.classList.add('hidden');
+        sectionDados.classList.add('hidden');
+        btnEnviar.disabled = true;
+    });
+    
+    // Atualizar interface ao mudar tipo de movimento
+    tipoMovimentoSelect.addEventListener('change', function() {
+        const tipoMovimento = this.value;
+        const produto = produtoSelect.value;
+        
+        checkboxFH2FH3.classList.add('hidden');
+        sectionHeader.classList.add('hidden');
+        sectionDados.classList.add('hidden');
+        
+        if (produto === 'FCVS' && ['FH1', 'FH2', 'FH3'].includes(tipoMovimento)) {
+            checkboxFH2FH3.classList.remove('hidden');
+            sectionHeader.classList.remove('hidden');
+            sectionDados.classList.remove('hidden');
+        } else if (tipoMovimento) {
+            sectionDados.classList.remove('hidden');
+        }
+        
+        validarFormulario();
+    });
+
+    if (preProduto && tiposMovimento[preProduto]) {
+        produtoSelect.value = preProduto;
+        produtoSelect.dispatchEvent(new Event('change'));
+
+        if (preTipo) {
+            tipoMovimentoSelect.value = preTipo;
+            tipoMovimentoSelect.dispatchEvent(new Event('change'));
+        }
+    }
+    
+    // Upload de arquivos
+    setupFileUpload('header');
+    setupFileUpload('dados');
+    
+    function setupFileUpload(tipo) {
+        const uploadArea = document.getElementById(`upload_${tipo}`);
+        const fileInput = document.getElementById(`arquivo_${tipo}`);
+        const fileSelected = document.getElementById(`file_selected_${tipo}`);
+        const filename = document.getElementById(`filename_${tipo}`);
+        
+        if (!uploadArea || !fileInput) return;
+        
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#764ba2';
+            uploadArea.style.background = '#f8f9ff';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#667eea';
+            uploadArea.style.background = 'white';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#667eea';
+            uploadArea.style.background = 'white';
+            
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                mostrarArquivoSelecionado(tipo);
+            }
+        });
+        
+        fileInput.addEventListener('change', () => mostrarArquivoSelecionado(tipo));
+    }
+    
+    function mostrarArquivoSelecionado(tipo) {
+        const fileInput = document.getElementById(`arquivo_${tipo}`);
+        const fileSelected = document.getElementById(`file_selected_${tipo}`);
+        const filename = document.getElementById(`filename_${tipo}`);
+        
+        if (fileInput.files.length > 0) {
+            filename.textContent = fileInput.files[0].name;
+            fileSelected.classList.add('show');
+        } else {
+            fileSelected.classList.remove('show');
+        }
+        
+        validarFormulario();
+    }
+    
+    function validarFormulario() {
+        const produto = produtoSelect.value;
+        const tipoMovimento = tipoMovimentoSelect.value;
+        const arquivoDados = document.getElementById('arquivo_dados').files.length > 0;
+        const arquivoHeader = document.getElementById('arquivo_header').files.length > 0;
+        
+        let valido = produto && tipoMovimento && arquivoDados;
+        
+        if (produto === 'FCVS' && ['FH1', 'FH2', 'FH3'].includes(tipoMovimento)) {
+            valido = valido && arquivoHeader;
+        }
+        
+        btnEnviar.disabled = !valido;
+    }
+    
+    // Submissão do formulário
+    const form = document.getElementById('formEnvio');
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        btnEnviar.disabled = true;
+        btnEnviar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        
+        const formData = new FormData(form);
+        
+        try {
+            const response = await fetch('', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            });
+            
+            const resultado = await response.json();
+            mostrarResultado(resultado);
+            
+        } catch (error) {
+            mostrarResultado({
+                sucesso: false,
+                mensagem: 'Erro ao enviar: ' + error.message
+            });
+        } finally {
+            btnEnviar.disabled = false;
+            btnEnviar.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Arquivos';
+        }
+    });
+    
+    function mostrarResultado(resultado) {
+        const container = document.getElementById('resultado');
+        const titulo = document.getElementById('resultado_titulo');
+        const mensagem = document.getElementById('resultado_mensagem');
+        const detalhesDiv = document.getElementById('detalhes_envio');
+        const criticasDiv = document.getElementById('criticas_container');
+        
+        container.className = 'resultado-container show';
+        container.classList.add(resultado.sucesso ? 'resultado-sucesso' : 'resultado-erro');
+        
+        titulo.innerHTML = resultado.sucesso ? 
+            '<i class="fas fa-check-circle"></i> Sucesso!' : 
+            '<i class="fas fa-exclamation-circle"></i> Erro';
+        
+        mensagem.textContent = resultado.mensagem;
+        
+        // Mostrar detalhes
+        detalhesDiv.innerHTML = '';
+        if (resultado.detalhes && Object.keys(resultado.detalhes).length > 0) {
+            for (const [key, value] of Object.entries(resultado.detalhes)) {
+                const item = document.createElement('div');
+                item.className = 'detalhe-item';
+                item.innerHTML = `
+                    <span class="detalhe-label">${formatarLabel(key)}:</span>
+                    <span class="detalhe-valor">${value}</span>
+                `;
+                detalhesDiv.appendChild(item);
+            }
+        }
+        
+        // Mostrar críticas
+        criticasDiv.innerHTML = '';
+        if (resultado.criticas && resultado.criticas.length > 0) {
+            resultado.criticas.forEach(critica => {
+                const item = document.createElement('div');
+                item.className = 'critica-item';
+                item.innerHTML = `
+                    <div class="critica-header">
+                        Linha ${critica.linha} (${critica.arquivo}) - Código: ${critica.codigo}
+                    </div>
+                    <div class="critica-desc">${critica.descricao}</div>
+                `;
+                criticasDiv.appendChild(item);
+            });
+        }
+        
+        // Scroll suave até o resultado
+        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    function formatarLabel(key) {
+        const labels = {
+            'envio_id': 'ID do Envio',
+            'ufs': 'UFS',
+            'matricula': 'Matrícula',
+            'numero_lote': 'Número do Lote',
+            'qtd_registros': 'Qtd. Registros',
+            'data_geracao': 'Data Geração',
+            'total_linhas_dados': 'Total Linhas',
+            'possui_fh2_fh3': 'Possui FH2/FH3'
+        };
+        return labels[key] || key;
+    }
+});
+</script>
+{% endblock %}

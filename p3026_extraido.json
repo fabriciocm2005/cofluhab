@@ -1,0 +1,4620 @@
+{
+  "TR1": [
+    {
+      "FCVS3026   ": " TR1 (ou D1) – CONTRATOS HABILITADOS NÃO HOMOLOGADOS  ",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026   ": "SEQ.",
+      "Unnamed: 1": "COLUNAS",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026   ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 1",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026   ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026   ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026   ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026   ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026   ": "07",
+      "Unnamed: 1": "031  A  070",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": "08",
+      "Unnamed: 1": "071  A  081",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": "09",
+      "Unnamed: 1": "082  A  089",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 10,
+      "Unnamed: 1": "090  A  129",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 11,
+      "Unnamed: 1": "130  A  134",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X (5)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 12,
+      "Unnamed: 1": "135  A  144",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 13,
+      "Unnamed: 1": "145  A  146",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 14,
+      "Unnamed: 1": "147  A  148",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 15,
+      "Unnamed: 1": "149  A  154",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X (6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 16,
+      "Unnamed: 1": "155  A  160",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X (6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 17,
+      "Unnamed: 1": "161  A  162",
+      "Unnamed: 2": "CODIGO SITUACAO DO CONTRATO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 18,
+      "Unnamed: 1": "163  A  232",
+      "Unnamed: 2": "DESCRICAO SITUACAO DO CONTRATO",
+      "Unnamed: 3": "070",
+      "Unnamed: 4": "X (70)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 19,
+      "Unnamed: 1": "233  A  235",
+      "Unnamed: 2": "TIPO DE EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X (3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 20,
+      "Unnamed: 1": "236  A  243",
+      "Unnamed: 2": "DATA DO EVENTO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 21,
+      "Unnamed: 1": "244  A  257",
+      "Unnamed: 2": "VAF 1 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 22,
+      "Unnamed: 1": "258  A  271",
+      "Unnamed: 2": "VAF 2 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 23,
+      "Unnamed: 1": "272  A  285",
+      "Unnamed: 2": "VAF 3 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 24,
+      "Unnamed: 1": "286  A  293",
+      "Unnamed: 2": "DATA HABILITACAO  (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 25,
+      "Unnamed: 1": "294  A  294",
+      "Unnamed: 2": "DOCUMENTACAO ",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026   ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 – NÃO ENTREGUE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026   ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 – ENTREGUE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026   ": 26,
+      "Unnamed: 1": "295  A  302",
+      "Unnamed: 2": "DATA PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 27,
+      "Unnamed: 1": "303  A  310",
+      "Unnamed: 2": "DATA DA ENTREGA AO A .F.",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 28,
+      "Unnamed: 1": "311  A  318",
+      "Unnamed: 2": "DATA PRAZO AGENTE",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 29,
+      "Unnamed: 1": "319  A  319",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026   ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026   ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026   ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026   ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026   ": 30,
+      "Unnamed: 1": "320 A 327",
+      "Unnamed: 2": "ÚLTIMA DATA DE MARCAÇÃO DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026   ": 31,
+      "Unnamed: 1": "328  A  500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": 173,
+      "Unnamed: 4": "X(173)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ],
+  "TR2": [
+    {
+      "FCVS3026    ": " TR2 (ou D2) – CONTRATOS COM RESPONSABILIDADE DO FCVS - VALORES VAF1/2 - SEQUENCIAL 01",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "SEQ.",
+      "Unnamed: 1": "COLUNA",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026    ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 2",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "07",
+      "Unnamed: 1": "031  A  031",
+      "Unnamed: 2": "SEQUENCIAL = 1",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "08",
+      "Unnamed: 1": "032  A  071",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "09",
+      "Unnamed: 1": "072  A  082",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 10,
+      "Unnamed: 1": "083  A  090",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 11,
+      "Unnamed: 1": "091  A  130",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 12,
+      "Unnamed: 1": "131  A  135",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 13,
+      "Unnamed: 1": "136  A  145",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 14,
+      "Unnamed: 1": "146  A  147",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 15,
+      "Unnamed: 1": "148  A  149",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 16,
+      "Unnamed: 1": "150  A  155",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99V9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 17,
+      "Unnamed: 1": "156  A  161",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99V9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 18,
+      "Unnamed: 1": "162  A  167",
+      "Unnamed: 2": "TAXA DE JUROS DA MP 1520",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99V9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 19,
+      "Unnamed: 1": "168  A  170",
+      "Unnamed: 2": "TIPO DE EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X (3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 20,
+      "Unnamed: 1": "171  A  178",
+      "Unnamed: 2": "DATA DO EVENTO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 21,
+      "Unnamed: 1": "179  A  186",
+      "Unnamed: 2": "DATA HABILITACAO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 22,
+      "Unnamed: 1": "187  A  200",
+      "Unnamed: 2": "VAF 1 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 23,
+      "Unnamed: 1": "201  A  214",
+      "Unnamed: 2": "VAF 2 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 24,
+      "Unnamed: 1": "215  A  228",
+      "Unnamed: 2": "VAF 3 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 25,
+      "Unnamed: 1": "229  A  242",
+      "Unnamed: 2": "VAF 1 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 26,
+      "Unnamed: 1": "243  A  256",
+      "Unnamed: 2": "VAF 2 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 28,
+      "Unnamed: 1": "257  A  264",
+      "Unnamed: 2": "DATA BASE  (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 29,
+      "Unnamed: 1": "265  A  272",
+      "Unnamed: 2": "DATA TERMINO DE ANALISE ESPERADA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 30,
+      "Unnamed: 1": "273  A  274",
+      "Unnamed: 2": "DESTINO PAGAMENTO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9(2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 31,
+      "Unnamed: 1": "275  A  276",
+      "Unnamed: 2": "DESTINO COMPLEMENTAR",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9(2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 32,
+      "Unnamed: 1": "277  A  291",
+      "Unnamed: 2": "SALDO VENCIDO LÍQUIDO",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "9(13)V99",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 33,
+      "Unnamed: 1": "292  A  306",
+      "Unnamed: 2": "SALDO VINCENDO LÍQUIDO",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "9(13)V99",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 34,
+      "Unnamed: 1": "307  A  321",
+      "Unnamed: 2": "SALDO TOTAL (VENCIDO + VINCENDO) LÍQUIDO",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "9(13)V99",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 35,
+      "Unnamed: 1": "322  A  325",
+      "Unnamed: 2": "RNV ou RCV ou RCNP ou SM (sem manifestação).",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X(4)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 36,
+      "Unnamed: 1": "326  A  333",
+      "Unnamed: 2": "DATA RNV / RCV / RCNP (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 37,
+      "Unnamed: 1": "334  A  337",
+      "Unnamed: 2": "AUDI (auditado)   ou    NAUD (não auditado) ",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X(4) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 38,
+      "Unnamed: 1": "338  A  339",
+      "Unnamed: 2": "CODIGO DA GIFUS DE ANALISE",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X(2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 39,
+      "Unnamed: 1": "340  A  347",
+      "Unnamed: 2": "DATA  NOVAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 40,
+      "Unnamed: 1": "348  A  352",
+      "Unnamed: 2": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X(5)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 41,
+      "Unnamed: 1": "353  A  360",
+      "Unnamed: 2": "DATA PROC.HABILITAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 42,
+      "Unnamed: 1": "361  A  371",
+      "Unnamed: 2": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X(11)",
+      "Unnamed: 5": "ALFUNUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 43,
+      "Unnamed: 1": "372  A  372",
+      "Unnamed: 2": "STATUS  DO RECURSO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X (1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 44,
+      "Unnamed: 1": "373  A  380",
+      "Unnamed: 2": "DATA STATUS",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 45,
+      "Unnamed: 1": "381  A  381",
+      "Unnamed: 2": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 46,
+      "Unnamed: 1": "382  A  396",
+      "Unnamed: 2": "VLR. PERDA DE JUROS",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "9(13)V99",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 47,
+      "Unnamed: 1": "397  A  397",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 48,
+      "Unnamed: 1": "398 A 398",
+      "Unnamed: 2": "INDICATIVO DE VAF3 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 49,
+      "Unnamed: 1": "399 A 399",
+      "Unnamed: 2": "INDICATIVO DE VAF4 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 50,
+      "Unnamed: 1": "400 A 407",
+      "Unnamed: 2": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 51,
+      "Unnamed: 1": "408 A 415",
+      "Unnamed: 2": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 52,
+      "Unnamed: 1": "416 A 423",
+      "Unnamed: 2": "ÚLTIMA DATA DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 53,
+      "Unnamed: 1": "424 A 425",
+      "Unnamed: 2": "CONTROLE ADMINISTRADORA FCVS",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9(2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 54,
+      "Unnamed: 1": "426 A 427",
+      "Unnamed: 2": "CONTROLE ADMINISTRADORA FCVS",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9(2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 55,
+      "Unnamed: 1": "428 A 500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "073",
+      "Unnamed: 4": "X(73)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "FCVS3026     ",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": " TR2 (ou D2) – CONTRATOS COM RESPONSABILIDADE DO FCVS - VALORES VAF1/2 - SEQUENCIAL 02",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "SEQ.",
+      "Unnamed: 1": " ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026    ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 2",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "07",
+      "Unnamed: 1": "031  A  031",
+      "Unnamed: 2": "SEQUENCIAL = 2",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "08",
+      "Unnamed: 1": "032  A  331",
+      "Unnamed: 2": "VALOR DEDUZIDO – MOEDA 1 a 20",
+      "Unnamed: 3": 300,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": ". SINAL (branco para valor “+” ou “zero”  e “-“ para  valor negativo)",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": ". VALOR",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "9(12)V99",
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": " (OCORRE ATE 20 VEZES)",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "09",
+      "Unnamed: 1": "332  A  500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": 169,
+      "Unnamed: 4": "X(169)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ],
+  "TR3": [
+    {
+      "FCVS3026 ": " TR3 (ou D3) – CONTRATOS COM VAF1/2 ZERADOS POR DEDUÇÕES - SEQUENCIAL 01",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026 ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 3",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "07",
+      "Unnamed: 1": "031  A  031",
+      "Unnamed: 2": "SEQUENCIAL = 1",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "08",
+      "Unnamed: 1": "032  A  071",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "09",
+      "Unnamed: 1": "072  A  082",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 10,
+      "Unnamed: 1": "083  A  090",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 11,
+      "Unnamed: 1": "091  A  130",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 12,
+      "Unnamed: 1": "131  A  135",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 13,
+      "Unnamed: 1": "136  A  145",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 14,
+      "Unnamed: 1": "146  A  147",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 15,
+      "Unnamed: 1": "148  A  149",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 16,
+      "Unnamed: 1": "150  A  155",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99V9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 17,
+      "Unnamed: 1": "156  A  161",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99V9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 18,
+      "Unnamed: 1": "162  A  167",
+      "Unnamed: 2": "TAXA DE JUROS DA MP 1520",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X(6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 19,
+      "Unnamed: 1": "168  A  170",
+      "Unnamed: 2": "TIPO DE EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X (3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 20,
+      "Unnamed: 1": "171  A  178",
+      "Unnamed: 2": "DATA DO EVENTO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 21,
+      "Unnamed: 1": "179  A  186",
+      "Unnamed: 2": "DATA HABILITACAO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 22,
+      "Unnamed: 1": "187  A  200",
+      "Unnamed: 2": "VAF 1 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 23,
+      "Unnamed: 1": "201  A  214",
+      "Unnamed: 2": "VAF 2 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 24,
+      "Unnamed: 1": "215  A 228",
+      "Unnamed: 2": "VAF 1 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 25,
+      "Unnamed: 1": "229 A  242",
+      "Unnamed: 2": "VAF 2 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 26,
+      "Unnamed: 1": "243 A 250",
+      "Unnamed: 2": "DATA BASE  (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 27,
+      "Unnamed: 1": "251 A 258",
+      "Unnamed: 2": "DATA POSIÇÃO DA NOVAÇÃO  OU DA BAIXA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 28,
+      "Unnamed: 1": "259 A 262",
+      "Unnamed: 2": "RNV ou  RCV ou  RCNP ou  SM (sem manifestação).",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X (4)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 29,
+      "Unnamed: 1": "263 A 270",
+      "Unnamed: 2": "DATA RNV / RCV / RCNP (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 30,
+      "Unnamed: 1": "271 A 274",
+      "Unnamed: 2": "AUDI (auditado)   ou  NAUD (não auditado) ",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X (4) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 31,
+      "Unnamed: 1": "275 A 276",
+      "Unnamed: 2": "CODIGO GIFUS DE ANALISE",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 32,
+      "Unnamed: 1": "277 A 286",
+      "Unnamed: 2": "PRÉ-NOVADO OU ZERADO OU PRÉ-BAIXA",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X (10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 33,
+      "Unnamed: 1": "287 A 291",
+      "Unnamed: 2": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X(5)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 34,
+      "Unnamed: 1": "292 A 299",
+      "Unnamed: 2": "DATA PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 35,
+      "Unnamed: 1": "300 A 307",
+      "Unnamed: 2": "DATA TÉRMINO ANÁLISE ESPERADA  ",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 36,
+      "Unnamed: 1": "308 A 318",
+      "Unnamed: 2": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X(11)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 37,
+      "Unnamed: 1": "319 A 319",
+      "Unnamed: 2": "STATUS DO RECURSO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X (1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 38,
+      "Unnamed: 1": "320 A 327",
+      "Unnamed: 2": "DATA STATUS",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 39,
+      "Unnamed: 1": "328 A 328",
+      "Unnamed: 2": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 40,
+      "Unnamed: 1": "329 A 343",
+      "Unnamed: 2": "VLR. PERDA DE JUROS",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "9(13)V99",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 41,
+      "Unnamed: 1": "344 A 344",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": 42,
+      "Unnamed: 1": "345 A 345",
+      "Unnamed: 2": "INDICATIVO DE VAF3 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": 43,
+      "Unnamed: 1": "346 A 346",
+      "Unnamed: 2": "INDICATIVO DE VAF4 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": 44,
+      "Unnamed: 1": "347 A 354",
+      "Unnamed: 2": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 45,
+      "Unnamed: 1": "355 A 362",
+      "Unnamed: 2": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 46,
+      "Unnamed: 1": "363 A 370",
+      "Unnamed: 2": "ÚLTIMA DATA DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 47,
+      "Unnamed: 1": "371 A 372",
+      "Unnamed: 2": "CONTROLE ADMINISTRADORA FCVS",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9(2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 48,
+      "Unnamed: 1": "373 A 374",
+      "Unnamed: 2": "CONTROLE ADMINISTRADORA FCVS",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9(2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": 49,
+      "Unnamed: 1": "375 A 500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "126",
+      "Unnamed: 4": "X(126)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": "FCVS3026     ",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": " TR3 (ou D3) – CONTRATOS COM VAF1/2 ZERADOS POR DEDUÇÕES - SEQUENCIAL 02",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026 ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 3",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "07",
+      "Unnamed: 1": "031  A  031",
+      "Unnamed: 2": "SEQUENCIAL = 2",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026 ": "08",
+      "Unnamed: 1": "032  A  331",
+      "Unnamed: 2": "VALOR DEDUZIDO – MOEDA 1 a 20",
+      "Unnamed: 3": 300,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": ". SINAL (branco para valor “+” ou “zero”  e “-“ para valor negativo)",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": ". VALOR",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "9(12)V99",
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": " (OCORRE ATE 20 VEZES)",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026 ": "09",
+      "Unnamed: 1": "332  A  500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": 169,
+      "Unnamed: 4": "X(169)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ],
+  "TR4": [
+    {
+      "FCVS3026    ": " TR4 (ou D4) – CONTRATOS COM RESPONSABILIDADE DO FCVS EXTINTA NO MÊS - NOVAÇÃO SEQUENCIAL 01",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026    ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 4",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "07",
+      "Unnamed: 1": "031  A  031",
+      "Unnamed: 2": "SEQUENCIAL = 1",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "08",
+      "Unnamed: 1": "032  A  071",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "09",
+      "Unnamed: 1": "072  A  082",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 10,
+      "Unnamed: 1": "083  A  090",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 11,
+      "Unnamed: 1": "091  A  130",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 12,
+      "Unnamed: 1": "131  A  135",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 13,
+      "Unnamed: 1": "136  A  145",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 14,
+      "Unnamed: 1": "146  A  147",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 15,
+      "Unnamed: 1": "148  A  149",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 16,
+      "Unnamed: 1": "150  A  155",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99V9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 17,
+      "Unnamed: 1": "156  A  161",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99V9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 18,
+      "Unnamed: 1": "162  A  167",
+      "Unnamed: 2": "TAXA DE JUROS DA MP 1520",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X(6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 19,
+      "Unnamed: 1": "168  A  170",
+      "Unnamed: 2": "TIPO DE EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X (3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 20,
+      "Unnamed: 1": "171  A  178",
+      "Unnamed: 2": "DATA DO EVENTO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 21,
+      "Unnamed: 1": "179  A  186",
+      "Unnamed: 2": "DATA HABILITACAO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 22,
+      "Unnamed: 1": "187  A  200",
+      "Unnamed: 2": "VAF 1 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 23,
+      "Unnamed: 1": "201  A  214",
+      "Unnamed: 2": "VAF 2 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 24,
+      "Unnamed: 1": "215  A  228",
+      "Unnamed: 2": "VAF 3 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 25,
+      "Unnamed: 1": "229  A  242",
+      "Unnamed: 2": "VAF 1 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 26,
+      "Unnamed: 1": "243  A  256",
+      "Unnamed: 2": "VAF 2 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 27,
+      "Unnamed: 1": "257  A  270",
+      "Unnamed: 2": "VAF 3 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 28,
+      "Unnamed: 1": "271  A  278",
+      "Unnamed: 2": "DATA BASE  (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 29,
+      "Unnamed: 1": "279  A  293",
+      "Unnamed: 2": "VAF 3 NA DATA DO POSICIONAMENTO MENSAL DO SALDO",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "X(15)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 30,
+      "Unnamed: 1": "294  A  308",
+      "Unnamed: 2": "VAF 4 NA DATA DO POSICIONAMENTO MENSAL DO SALDO",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "X(15)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 31,
+      "Unnamed: 1": "309  A  316",
+      "Unnamed: 2": "DATA POSIÇÃO DA NOVAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 32,
+      "Unnamed: 1": "317  A  321",
+      "Unnamed: 2": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X(5)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 33,
+      "Unnamed: 1": "322  A  329",
+      "Unnamed: 2": "DATA  PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 34,
+      "Unnamed: 1": "330  A  344",
+      "Unnamed: 2": "VAF4 RESSARCIDO A PARTIR DE 01/01/1997",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "X(15)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 35,
+      "Unnamed: 1": "345  A  355",
+      "Unnamed: 2": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X(11)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 36,
+      "Unnamed: 1": "356  A  356",
+      "Unnamed: 2": "STATUS RECURSO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 37,
+      "Unnamed: 1": "357  A  364",
+      "Unnamed: 2": "DATA RECURSO",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 38,
+      "Unnamed: 1": "365  A  365",
+      "Unnamed: 2": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 39,
+      "Unnamed: 1": "366  A  380",
+      "Unnamed: 2": "VLR. PERDA DE JUROS",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "9(13)V99",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 40,
+      "Unnamed: 1": "381  A  381",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 41,
+      "Unnamed: 1": "382  A  389",
+      "Unnamed: 2": "DATA DA NOVAÇÃO VAF3",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 42,
+      "Unnamed: 1": "390 A 390",
+      "Unnamed: 2": "SITUAÇÃO DA NOVAÇÃO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(01)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"0\" - TÍTULOS BAIXADOS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"1\" - EM PROCESSO DE NOVAÇÃO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"  \" - SEM PROCESSO DE NOVAÇÃO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 43,
+      "Unnamed: 1": "391  A  398",
+      "Unnamed: 2": "DATA DA NOVAÇÃO VAF4",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 44,
+      "Unnamed: 1": "399 A 399",
+      "Unnamed: 2": "SITUAÇÃO DA NOVAÇÃO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(01)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"0\" - TÍTULOS BAIXADOS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"1\" - EM PROCESSO DE NOVAÇÃO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"  \" - SEM PROCESSO DE NOVAÇÃO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 45,
+      "Unnamed: 1": "400 A 400",
+      "Unnamed: 2": "INDICATIVO DE VAF3 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 46,
+      "Unnamed: 1": "401 A 401",
+      "Unnamed: 2": "INDICATIVO DE VAF4 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 47,
+      "Unnamed: 1": "402 A 409",
+      "Unnamed: 2": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 48,
+      "Unnamed: 1": "410 A 417",
+      "Unnamed: 2": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 49,
+      "Unnamed: 1": "418 A 418",
+      "Unnamed: 2": "NOVAÇÃO VAF1e2",
+      "Unnamed: 3": "1",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S=NOVAÇÃO DE VAF1e2 REALIZADA NO MÊS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N=SEM NOVAÇÃO DE VAF1e2 NO MÊS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 50,
+      "Unnamed: 1": "419 A 419",
+      "Unnamed: 2": "NOVAÇÃO VAF3",
+      "Unnamed: 3": "1",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S=NOVAÇÃO DE VAF3 REALIZADA NO MÊS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N=SEM NOVAÇÃO DE VAF3 NO MÊS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 51,
+      "Unnamed: 1": "420 A 420",
+      "Unnamed: 2": "NOVAÇÃO VAF4",
+      "Unnamed: 3": "1",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S=NOVAÇÃO DE VAF4 REALIZADA NO MÊS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N=SEM NOVAÇÃO DE VAF4 NO MÊS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 52,
+      "Unnamed: 1": "421 A 421",
+      "Unnamed: 2": "FORMA DE QUITAÇÃO DO VAF1/2",
+      "Unnamed: 3": "1",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NOVADOS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - BAIXADOS TOTALMENTE DEDUZIDOS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - BAIXADOS SALDO NULO ",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 53,
+      "Unnamed: 1": "422 A 500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "079",
+      "Unnamed: 4": "X(79)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "FCVS3026     ",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": " TR4 (ou D4) – CONTRATOS COM RESPONSABILIDADE DO FCVS VAF1/2 EXTINTA NO MÊS - NOVAÇÃO SEQUENCIAL 02",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026    ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 4",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "07",
+      "Unnamed: 1": "031  A  031",
+      "Unnamed: 2": "SEQUENCIAL = 2",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "08",
+      "Unnamed: 1": "032  A  331",
+      "Unnamed: 2": "VALOR DEDUZIDO – MOEDA 1 a 20",
+      "Unnamed: 3": "300",
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": ". SINAL (branco para valor “+” ou “zero”  e “-“ para valor negativo)",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": ". VALOR",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "9(12)V99",
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": " (OCORRE ATE 20 VEZES)",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "09",
+      "Unnamed: 1": "332  A  500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "169",
+      "Unnamed: 4": "X(169)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ],
+  "TR5": [
+    {
+      "FCVS3026    ": " TR5 (ou D5) – CONTRATOS SEM RESPONSABILIDADE DO FCVS COM VALORES VAF1/2",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026    ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 5",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "07",
+      "Unnamed: 1": "031  A  070",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "08",
+      "Unnamed: 1": "071  A  081",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "09",
+      "Unnamed: 1": "082  A  089",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 10,
+      "Unnamed: 1": "090  A  129",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 11,
+      "Unnamed: 1": "130  A  134",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 12,
+      "Unnamed: 1": "135  A  144",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 13,
+      "Unnamed: 1": "145  A  146",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 14,
+      "Unnamed: 1": "147  A  148",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 15,
+      "Unnamed: 1": "149  A  154",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X (6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 16,
+      "Unnamed: 1": "155  A  160",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X (6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 17,
+      "Unnamed: 1": "161  A  162",
+      "Unnamed: 2": "CODIGO SITUACAO DO CONTRATO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 18,
+      "Unnamed: 1": "163  A  232",
+      "Unnamed: 2": "DESCRICAO SITUACAO DO CONTRATO",
+      "Unnamed: 3": "070",
+      "Unnamed: 4": "X (70)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 19,
+      "Unnamed: 1": "233  A  235",
+      "Unnamed: 2": "TIPO DE EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X (3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 20,
+      "Unnamed: 1": "236  A  243",
+      "Unnamed: 2": "DATA DO EVENTO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 21,
+      "Unnamed: 1": "244  A  257",
+      "Unnamed: 2": "VAF 1 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 22,
+      "Unnamed: 1": "258  A  271",
+      "Unnamed: 2": "VAF 2 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 23,
+      "Unnamed: 1": "272  A  285",
+      "Unnamed: 2": "VAF 3 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 24,
+      "Unnamed: 1": "286  A  293",
+      "Unnamed: 2": "DATA HABILITACAO  (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 25,
+      "Unnamed: 1": "294  A  333",
+      "Unnamed: 2": "MOTIVO DA NEGATIVA DE COBERTURA",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X(40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 26,
+      "Unnamed: 1": "334  A  338",
+      "Unnamed: 2": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X(05)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 27,
+      "Unnamed: 1": "339  A  346",
+      "Unnamed: 2": "DATA PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 28,
+      "Unnamed: 1": "347  A  350",
+      "Unnamed: 2": "RNV ou  RCV ou  RCNP ou  SM (sem manifestação).",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X(4)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 29,
+      "Unnamed: 1": "351  A  358",
+      "Unnamed: 2": "DATA RNV / RCV / RCNP (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 30,
+      "Unnamed: 1": "359  A  362",
+      "Unnamed: 2": "AUDI (auditado)   ou  NAUD (não auditado) ",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X(4)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 31,
+      "Unnamed: 1": "363  A  370",
+      "Unnamed: 2": "DATA TÉRMINO ANÁLISE ESPERADA",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 32,
+      "Unnamed: 1": "371  A  371",
+      "Unnamed: 2": "STATUS RECURSOS ",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 33,
+      "Unnamed: 1": "372  A  379",
+      "Unnamed: 2": "DATA STATUS",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 34,
+      "Unnamed: 1": "380  A  380",
+      "Unnamed: 2": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 35,
+      "Unnamed: 1": "381  A  381",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 40,
+      "Unnamed: 1": "382 A 382",
+      "Unnamed: 2": "INDICATIVO DE VAF3 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 41,
+      "Unnamed: 1": "383 A 383",
+      "Unnamed: 2": "INDICATIVO DE VAF4 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 42,
+      "Unnamed: 1": "384 A 391",
+      "Unnamed: 2": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 43,
+      "Unnamed: 1": "392 A 399",
+      "Unnamed: 2": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 44,
+      "Unnamed: 1": "400 A 407",
+      "Unnamed: 2": "ÚLTIMA DATA DE MARCAÇÃO DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 45,
+      "Unnamed: 1": "408 a 415",
+      "Unnamed: 2": "DATA POSICIONAMENTO DA BAIXA",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(08)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 46,
+      "Unnamed: 1": "416 A 500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "085",
+      "Unnamed: 4": "X(85)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ],
+  "TR6": [
+    {
+      "FCVS3026     ": " TR6 (ou D6) –  CONTRATOS COM SALDO REVERTIDO EM DEDUÇÃO",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026     ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 6",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "07",
+      "Unnamed: 1": "031  A  070",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "08",
+      "Unnamed: 1": "071  A  081",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "09",
+      "Unnamed: 1": "082  A  089",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 10,
+      "Unnamed: 1": "090  A  129",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 11,
+      "Unnamed: 1": "130  A  134",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 12,
+      "Unnamed: 1": "135  A  144",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 13,
+      "Unnamed: 1": "145  A  146",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 14,
+      "Unnamed: 1": "147  A  148",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 15,
+      "Unnamed: 1": "149  A  154",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X (6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 16,
+      "Unnamed: 1": "155  A  160",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X (6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 17,
+      "Unnamed: 1": "161  A  166",
+      "Unnamed: 2": "TAXA DE JUROS DA MP 1520",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "9 (2)V(4)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 18,
+      "Unnamed: 1": "167  A  169",
+      "Unnamed: 2": "TIPO DO EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X(3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 19,
+      "Unnamed: 1": "170  A  177",
+      "Unnamed: 2": "DATA DO EVENTO",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 20,
+      "Unnamed: 1": "178  A  185",
+      "Unnamed: 2": "DATA HABILITAÇÃO",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 21,
+      "Unnamed: 1": "186  A  199",
+      "Unnamed: 2": "VAF 1 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 22,
+      "Unnamed: 1": "200  A  213",
+      "Unnamed: 2": "VAF 2 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 23,
+      "Unnamed: 1": "214  A  227",
+      "Unnamed: 2": "VAF 3 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 24,
+      "Unnamed: 1": "228  A  241",
+      "Unnamed: 2": "VALOR A CRÉDITO DO FCVS ",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 25,
+      "Unnamed: 1": "242  A  249",
+      "Unnamed: 2": "DATA BASE",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 26,
+      "Unnamed: 1": "250  A  257",
+      "Unnamed: 2": "DATA TÉRMINO DE ANÁLISE",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 27,
+      "Unnamed: 1": "258  A  261",
+      "Unnamed: 2": "MANIFESTAÇÃO",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X(4)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 28,
+      "Unnamed: 1": "262  A  269",
+      "Unnamed: 2": "DATA DE MANIFESTAÇÃO",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 29,
+      "Unnamed: 1": "270  A  273",
+      "Unnamed: 2": "INDICADOR DE AUDITORIA (AUDI/NAUD)",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X(4)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 30,
+      "Unnamed: 1": "274  A  275",
+      "Unnamed: 2": "CÓDIGO DA GIFUS DE ANÁLISE ",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X(2) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 31,
+      "Unnamed: 1": "276  A  283",
+      "Unnamed: 2": "DATA POSIÇÃO DA NOVAÇÃO",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 32,
+      "Unnamed: 1": "284  A  288",
+      "Unnamed: 2": "PERCENTUAL DE PARTICIPAÇÃO DO FCVS",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X(5)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 33,
+      "Unnamed: 1": "289  A  296",
+      "Unnamed: 2": "DATA PROCESSAMENTO HABILITAÇÃO",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 34,
+      "Unnamed: 1": "297  A  307",
+      "Unnamed: 2": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X(11)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 35,
+      "Unnamed: 1": "308  A  308",
+      "Unnamed: 2": "STATUS RECURSO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X (1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 36,
+      "Unnamed: 1": "309  A  316",
+      "Unnamed: 2": "DATA STATUS",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 37,
+      "Unnamed: 1": "317  A  317",
+      "Unnamed: 2": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 38,
+      "Unnamed: 1": "318  A  332",
+      "Unnamed: 2": "VALOR PERDA DE JUROS",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "9(13)V(99)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 39,
+      "Unnamed: 1": "333  A  333",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": 40,
+      "Unnamed: 1": "334 A 341",
+      "Unnamed: 2": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 41,
+      "Unnamed: 1": "342 A 349",
+      "Unnamed: 2": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 42,
+      "Unnamed: 1": "350  A  500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "151",
+      "Unnamed: 4": "X(151)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ],
+  "TR7": [
+    {
+      "FCVS3026     ": " TR7 (ou D7) – CONTRATOS COM RESPONSABILIDADE DO FCVS - VALORES VAF3/4  ",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026     ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "07",
+      "Unnamed: 1": "031  A  070",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "08",
+      "Unnamed: 1": "071  A  081",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": "09",
+      "Unnamed: 1": "082  A  089",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 10,
+      "Unnamed: 1": "090  A  129",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 11,
+      "Unnamed: 1": "130  A  134",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 12,
+      "Unnamed: 1": "135  A  144",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 13,
+      "Unnamed: 1": "145  A  146",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 14,
+      "Unnamed: 1": "147  A  148",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 15,
+      "Unnamed: 1": "149  A  154",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99v9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 16,
+      "Unnamed: 1": "155  A  160",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99v9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 17,
+      "Unnamed: 1": "161  A  166",
+      "Unnamed: 2": "TAXA DE JUROS DA MP 1520",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99v9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 18,
+      "Unnamed: 1": "167 A 168",
+      "Unnamed: 2": "CODIGO SITUACAO DO CONTRATO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 19,
+      "Unnamed: 1": "169 A 238",
+      "Unnamed: 2": "DESCRICAO SITUACAO DO CONTRATO",
+      "Unnamed: 3": "070",
+      "Unnamed: 4": "X (70)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 20,
+      "Unnamed: 1": "239 A 241",
+      "Unnamed: 2": "TIPO DE EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X (3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 21,
+      "Unnamed: 1": "242 A 249",
+      "Unnamed: 2": "DATA DO EVENTO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 22,
+      "Unnamed: 1": "250 A 257",
+      "Unnamed: 2": "DATA HABILITACAO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 23,
+      "Unnamed: 1": "258 A 271",
+      "Unnamed: 2": "VAF 3 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 24,
+      "Unnamed: 1": "272 A 285",
+      "Unnamed: 2": "VAF 3 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 25,
+      "Unnamed: 1": "286 A 293",
+      "Unnamed: 2": "DATA BASE  (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 26,
+      "Unnamed: 1": "294 A 308",
+      "Unnamed: 2": "VAF 3 NA DATA DO POSICIONAMENTO MENSAL DO SALDO",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "X(15)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 27,
+      "Unnamed: 1": "309 A 323",
+      "Unnamed: 2": "VAF 4 NA DATA DO POSICIONAMENTO MENSAL DO SALDO",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "X(15)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 28,
+      "Unnamed: 1": "324 A 331",
+      "Unnamed: 2": "DATA TERMINO DE ANALISE ESPERADA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 29,
+      "Unnamed: 1": "332 A 335",
+      "Unnamed: 2": "RNV ou RCV ou RCNP ou SM (sem manifestação).",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X(4)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 30,
+      "Unnamed: 1": "336 A 343",
+      "Unnamed: 2": "DATA RNV / RCV / RCNP (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 31,
+      "Unnamed: 1": "344 A 347",
+      "Unnamed: 2": "AUDI (auditado)   ou    NAUD (não auditado) ",
+      "Unnamed: 3": "004",
+      "Unnamed: 4": "X(4) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 32,
+      "Unnamed: 1": "348 A 349",
+      "Unnamed: 2": "CODIGO DA GIFUS DE ANALISE",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X(2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 33,
+      "Unnamed: 1": "350 A 354",
+      "Unnamed: 2": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X(5)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 34,
+      "Unnamed: 1": "355 A 362",
+      "Unnamed: 2": "DATA PROC.HABILITAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 35,
+      "Unnamed: 1": "363 A 377",
+      "Unnamed: 2": "VAF4 RESSARCIDO A PARTIR DE 01/01/1997",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "X(15)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 36,
+      "Unnamed: 1": "378 A 388",
+      "Unnamed: 2": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X(11)",
+      "Unnamed: 5": "ALFUNUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 37,
+      "Unnamed: 1": "389 A 389",
+      "Unnamed: 2": "STATUS  DO RECURSO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X (1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 38,
+      "Unnamed: 1": "390 A 397",
+      "Unnamed: 2": "DATA STATUS",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 39,
+      "Unnamed: 1": "398 A 398",
+      "Unnamed: 2": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 40,
+      "Unnamed: 1": "399 A 399",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": 41,
+      "Unnamed: 1": "400 A 407",
+      "Unnamed: 2": "DATA DA NOVAÇÃO VAF3",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 42,
+      "Unnamed: 1": "408 A 408",
+      "Unnamed: 2": "SITUAÇÃO DA NOVAÇÃO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(01)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"0\" - TÍTULOS BAIXADOS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"1\" - EM PROCESSO DE NOVAÇÃO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"  \" - SEM PROCESSO DE NOVAÇÃO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": 43,
+      "Unnamed: 1": "409 A 416",
+      "Unnamed: 2": "DATA DA NOVAÇÃO VAF4",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 44,
+      "Unnamed: 1": "417 A 417",
+      "Unnamed: 2": "SITUAÇÃO DA NOVAÇÃO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(01)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"0\" - TÍTULOS BAIXADOS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"1\" - EM PROCESSO DE NOVAÇÃO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "\"  \" - SEM PROCESSO DE NOVAÇÃO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": 45,
+      "Unnamed: 1": "418 A 421",
+      "Unnamed: 2": "INDICATIVO DE LOCALIZAÇÃO DO VAF1/2",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": "X(04)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "TR2 - HOMOLOGADOS EM RESSARCIMENTO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "TR3 - ENCERRADOS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "TR4 - NOVADOS NO MÊS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "TR5 - HOMOLOGADOS SEM RESSACIMENTO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "TR8 - BAIXADOS TOTALMENTE DEDUZIDOS",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "TR9 - BAIXADOS SALDO NULO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": " '     ' - SEM CORRESPONDÊNCIA - VAF1/VAF2 QUITADO",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026     ": 46,
+      "Unnamed: 1": "422 A 429",
+      "Unnamed: 2": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 47,
+      "Unnamed: 1": "430 A 437",
+      "Unnamed: 2": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 48,
+      "Unnamed: 1": "438 A 445",
+      "Unnamed: 2": "ÚLTIMA DATA DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026     ": 49,
+      "Unnamed: 1": "446 A 500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "055",
+      "Unnamed: 4": "X(55)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ],
+  "TR8": [
+    {
+      "FCVS3026    ": " TR8 (ou D8) – CONTRATOS COM RESPONSABILIDADE DO FCVS VAF1/2 EXTINTA NO MÊS -                                 BAIXA DE CONTRATOS TOTALMENTE DEDUZIDOS - SEQUENCIAL 01",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026    ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 8",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "07",
+      "Unnamed: 1": "031  A  031",
+      "Unnamed: 2": "SEQUENCIAL = 1",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "08",
+      "Unnamed: 1": "032  A  071",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "09",
+      "Unnamed: 1": "072  A  082",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 10,
+      "Unnamed: 1": "083  A  090",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 11,
+      "Unnamed: 1": "091  A  130",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 12,
+      "Unnamed: 1": "131  A  135",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 13,
+      "Unnamed: 1": "136  A  145",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 14,
+      "Unnamed: 1": "146  A  147",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 15,
+      "Unnamed: 1": "148  A  149",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 16,
+      "Unnamed: 1": "150  A  155",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99v9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 17,
+      "Unnamed: 1": "156  A  161",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "99v9(4)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 18,
+      "Unnamed: 1": "162  A  167",
+      "Unnamed: 2": "TAXA DE JUROS DA MP 1520",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X(6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 19,
+      "Unnamed: 1": "168  A  170",
+      "Unnamed: 2": "TIPO DE EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X (3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 20,
+      "Unnamed: 1": "171  A  178",
+      "Unnamed: 2": "DATA DO EVENTO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 21,
+      "Unnamed: 1": "179  A  186",
+      "Unnamed: 2": "DATA HABILITACAO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 22,
+      "Unnamed: 1": "187  A  200",
+      "Unnamed: 2": "VAF 1 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 23,
+      "Unnamed: 1": "201  A  214",
+      "Unnamed: 2": "VAF 2 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 24,
+      "Unnamed: 1": "215  A  228",
+      "Unnamed: 2": "VAF 1 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 25,
+      "Unnamed: 1": "229  A  242",
+      "Unnamed: 2": "VAF 2 APURADO PELO SIFCVS",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X (14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 26,
+      "Unnamed: 1": "243  A  250",
+      "Unnamed: 2": "DATA BASE  (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 27,
+      "Unnamed: 1": "251  A  258",
+      "Unnamed: 2": "DATA POSIÇÃO DA BAIXA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 28,
+      "Unnamed: 1": "259  A  263",
+      "Unnamed: 2": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X(5)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 29,
+      "Unnamed: 1": "264  A  271",
+      "Unnamed: 2": "DATA  PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 30,
+      "Unnamed: 1": "272  A  282",
+      "Unnamed: 2": "JUROS DO AGENTE FINANCEIRO A PARTIR DE 01/01/1997",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X(11)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 31,
+      "Unnamed: 1": "283  A  283",
+      "Unnamed: 2": "STATUS RECURSO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 32,
+      "Unnamed: 1": "284  A  291",
+      "Unnamed: 2": "DATA RECURSO",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 33,
+      "Unnamed: 1": "292  A  292",
+      "Unnamed: 2": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 34,
+      "Unnamed: 1": "293  A  307",
+      "Unnamed: 2": "VLR. PERDA DE JUROS",
+      "Unnamed: 3": "015",
+      "Unnamed: 4": "9(13)V99",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 35,
+      "Unnamed: 1": "308  A  308",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 36,
+      "Unnamed: 1": "309  A  309",
+      "Unnamed: 2": "INDICATIVO DE VAF3 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 37,
+      "Unnamed: 1": "310  A  310",
+      "Unnamed: 2": "INDICATIVO DE VAF4 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 38,
+      "Unnamed: 1": "311 A 318",
+      "Unnamed: 2": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 39,
+      "Unnamed: 1": "319 A 326",
+      "Unnamed: 2": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 40,
+      "Unnamed: 1": "327 A 500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "174",
+      "Unnamed: 4": "X(174)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "FCVS3026     ",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": " TR8 (ou D8) – CONTRATOS COM RESPONSABILIDADE DO FCVS VAF1/2 EXTINTA NO MÊS -                                 BAIXA DE CONTRATOS TOTALMENTE DEDUZIDOS - SEQUENCIAL 02",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO SUCINTA",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026    ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 8",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "07",
+      "Unnamed: 1": "031  A  031",
+      "Unnamed: 2": "SEQUENCIAL = 2",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "08",
+      "Unnamed: 1": "032  A  331",
+      "Unnamed: 2": "VALOR DEDUZIDO – MOEDA 1 a 20",
+      "Unnamed: 3": "300",
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": ". SINAL (branco para valor “+” ou “zero”  e “-“ para valor negativo)",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": ". VALOR",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "9(12)V99",
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": " (OCORRE ATE 20 VEZES)",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "09",
+      "Unnamed: 1": "332  A  500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "169",
+      "Unnamed: 4": "X(169)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ],
+  "TR9": [
+    {
+      "FCVS3026    ": " TR9 (ou D9) – CONTRATOS BAIXADOS POR NEGATIVA DE COBERTURA OU SALDO NULO",
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": NaN,
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": "SEQ.",
+      "Unnamed: 1": "POSIÇÃO ",
+      "Unnamed: 2": "DESCRIÇÃO",
+      "Unnamed: 3": "TAMANHO",
+      "Unnamed: 4": "FORMATO",
+      "Unnamed: 5": "TIPO"
+    },
+    {
+      "FCVS3026    ": "01",
+      "Unnamed: 1": "001  A  001",
+      "Unnamed: 2": "TIPO DE REGISTRO = 9",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "02",
+      "Unnamed: 1": "002  A  006",
+      "Unnamed: 2": "MATRICULA DO AGENTE",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "03",
+      "Unnamed: 1": "007  A  011",
+      "Unnamed: 2": "AGENTE CESSIONÁRIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "04",
+      "Unnamed: 1": "012  A  016",
+      "Unnamed: 2": "AGENTE CEDENTE ",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "05",
+      "Unnamed: 1": "017  A  029",
+      "Unnamed: 2": "NÚMERO DO CONTRATO",
+      "Unnamed: 3": "013",
+      "Unnamed: 4": "X (13)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "06",
+      "Unnamed: 1": "030  A  030",
+      "Unnamed: 2": "GRAU DE HIPOTECA DO CONTRATO",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9 (1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "07",
+      "Unnamed: 1": "031  A  070",
+      "Unnamed: 2": "NOME DO MUTUÁRIO",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "08",
+      "Unnamed: 1": "071  A  081",
+      "Unnamed: 2": "CPF",
+      "Unnamed: 3": "011",
+      "Unnamed: 4": "X (11) ",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": "09",
+      "Unnamed: 1": "082  A  089",
+      "Unnamed: 2": "DATA ASSINATURA CONTRATO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 10,
+      "Unnamed: 1": "090  A  129",
+      "Unnamed: 2": "ENDEREÇO DO IMOVEL",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X (40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 11,
+      "Unnamed: 1": "130  A  134",
+      "Unnamed: 2": "CODIGO DO MUNICIPIO",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "9 (5)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 12,
+      "Unnamed: 1": "135  A  144",
+      "Unnamed: 2": "NOME DO MUNICIPIO",
+      "Unnamed: 3": "010",
+      "Unnamed: 4": "X(10)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 13,
+      "Unnamed: 1": "145  A  146",
+      "Unnamed: 2": "ORIGEM DE RECURSO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 14,
+      "Unnamed: 1": "147  A  148",
+      "Unnamed: 2": "IM",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "X (2)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 15,
+      "Unnamed: 1": "149  A  154",
+      "Unnamed: 2": "TAXA DE JUROS CONTRATUAL",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X (6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 16,
+      "Unnamed: 1": "155  A  160",
+      "Unnamed: 2": "TAXA DE JUROS NO EVENTO",
+      "Unnamed: 3": "006",
+      "Unnamed: 4": "X (6)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 17,
+      "Unnamed: 1": "161  A  162",
+      "Unnamed: 2": "CODIGO SITUACAO DO CONTRATO",
+      "Unnamed: 3": "002",
+      "Unnamed: 4": "9 (2)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 18,
+      "Unnamed: 1": "163  A  232",
+      "Unnamed: 2": "DESCRICAO SITUACAO DO CONTRATO",
+      "Unnamed: 3": "070",
+      "Unnamed: 4": "X (70)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 19,
+      "Unnamed: 1": "233  A  235",
+      "Unnamed: 2": "TIPO DE EVENTO",
+      "Unnamed: 3": "003",
+      "Unnamed: 4": "X (3)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 20,
+      "Unnamed: 1": "236  A  243",
+      "Unnamed: 2": "DATA DO EVENTO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 21,
+      "Unnamed: 1": "244  A  257",
+      "Unnamed: 2": "VAF 1 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 22,
+      "Unnamed: 1": "258  A  271",
+      "Unnamed: 2": "VAF 2 INFORMADO PELO AGENTE",
+      "Unnamed: 3": "014",
+      "Unnamed: 4": "X(14)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 23,
+      "Unnamed: 1": "272  A  279",
+      "Unnamed: 2": "DATA HABILITACAO  (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X (8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 24,
+      "Unnamed: 1": "280  A  319",
+      "Unnamed: 2": "MOTIVO DA NEGATIVA DE COBERTURA",
+      "Unnamed: 3": "040",
+      "Unnamed: 4": "X(40)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 25,
+      "Unnamed: 1": "320  A  324",
+      "Unnamed: 2": "PERCENTUAL PARTICIPAÇÃO DO FCVS",
+      "Unnamed: 3": "005",
+      "Unnamed: 4": "X(05)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 26,
+      "Unnamed: 1": "325  A  332",
+      "Unnamed: 2": "DATA PROCESSAMENTO HABILITAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 27,
+      "Unnamed: 1": "333  A  340",
+      "Unnamed: 2": "DATA RCV",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 28,
+      "Unnamed: 1": "341  A  348",
+      "Unnamed: 2": "DATA TÉRMINO ANÁLISE ESPERADA",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 29,
+      "Unnamed: 1": "349  A  349",
+      "Unnamed: 2": "STATUS RECURSOS ",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 30,
+      "Unnamed: 1": "350  A  357",
+      "Unnamed: 2": "DATA STATUS DO RECURSO",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 31,
+      "Unnamed: 1": "358  A  358",
+      "Unnamed: 2": "TERMO DE ANUÊNCIA ‘S’ OU ‘N’",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 32,
+      "Unnamed: 1": "359  A  366",
+      "Unnamed: 2": "DATA POSICIONAMENTO BAIXA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 33,
+      "Unnamed: 1": "367  A  367",
+      "Unnamed: 2": "SITUAÇÃO DE ANÁLISE ATUAL",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "9(1)",
+      "Unnamed: 5": "NUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "0 - NÃO HOMOLOGADO SEM INÍCIO DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "1 - NÃO HOMOLOGADO EM FASE DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "2 - HOMOLOGADO SEM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "3 - HOMOLOGADO COM REABERTURA DE ANÁLISE",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 34,
+      "Unnamed: 1": "368  A  368",
+      "Unnamed: 2": "INDICATIVO DE VAF3 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 35,
+      "Unnamed: 1": "369  A  369",
+      "Unnamed: 2": "INDICATIVO DE VAF4 NO TR7",
+      "Unnamed: 3": "001",
+      "Unnamed: 4": "X(1)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "S - EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": NaN,
+      "Unnamed: 1": NaN,
+      "Unnamed: 2": "N - NÃO EXISTE REGISTRO NO TR7",
+      "Unnamed: 3": NaN,
+      "Unnamed: 4": NaN,
+      "Unnamed: 5": NaN
+    },
+    {
+      "FCVS3026    ": 36,
+      "Unnamed: 1": "370  A  377",
+      "Unnamed: 2": "ÚLTIMA DATA DE HOMOLOGAÇÃO (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 37,
+      "Unnamed: 1": "378  A  385",
+      "Unnamed: 2": "ÚLTIMA DATA DE AUDITORIA (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 38,
+      "Unnamed: 1": "386  A  393",
+      "Unnamed: 2": "ÚLTIMA DATA DE MARCAÇÃO DE NEGOCIAÇÃO - TRANSFERÊNCIA DE TITULARIDADE (DDMMAAAA)",
+      "Unnamed: 3": "008",
+      "Unnamed: 4": "X(8)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    },
+    {
+      "FCVS3026    ": 39,
+      "Unnamed: 1": "394  A  500",
+      "Unnamed: 2": "VAGO",
+      "Unnamed: 3": "107",
+      "Unnamed: 4": "X(107)",
+      "Unnamed: 5": "ALFANUMÉRICO"
+    }
+  ]
+}

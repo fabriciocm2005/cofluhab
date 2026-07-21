@@ -1,0 +1,20 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Clientes - CoFluhab{% endblock %}
+
+{% block content %}
+    <h2>Clientes</h2>
+    {% if clientes %}
+        <ul>
+        {% for cliente in clientes %}
+            <li>
+                <strong>Nome:</strong> {{ cliente.nome_completo }}<br>
+                <strong>CPF:</strong> {{ cliente.cpf }}<br>
+                <strong>Status:</strong> {% if cliente.aprovado %}Aprovado{% else %}Em análise{% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum cliente cadastrado.</p>
+    {% endif %}
+{% endblock %}

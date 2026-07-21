@@ -1,0 +1,273 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Upload de Relatórios CEF{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>📂 Upload de Relatórios CEF</h2>
+            <p class="text-muted">Envie arquivos de retorno/relatórios mesmo sem extensão (.txt).</p>
+            <p class="mb-3">
+                <a href="{% url 'listar_retornos_cef' %}" class="btn btn-outline-secondary btn-sm">← Voltar para Retornos CEF</a>
+            </p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">📤 Envio de Arquivos</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="arquivos">Selecione um ou mais arquivos:</label>
+                            <input type="file" name="arquivos" id="arquivos" class="form-control-file" multiple required>
+                            <small class="form-text text-muted">
+                                Padrões aceitos automaticamente: CADMUT1, M3026xx e Sxxxxxx.
+                            </small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-cogs"></i> Processar Upload
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">ℹ️ Como funciona</h6>
+                </div>
+                <div class="card-body small">
+                    <ul class="mb-0">
+                        <li>Detecta o tipo pelo nome do arquivo (ex.: MICP.FCVS.M302612...)</li>
+                        <li>Processa M3026xx com parser P3026 v2</li>
+                        <li>Processa CADMUT1 com interpretador CADMUT</li>
+                        <li>Processa Sxxxxxx como relatório textual com totalizadores</li>
+                        <li>Se não reconhecer, aplica fallback FCVS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            {% if resultados %}
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">📊 Resumo do Processamento</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <h4 class="text-primary">{{ total_arquivos }}</h4>
+                            <p class="text-muted">Arquivos enviados</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="text-success">{{ processados_ok }}</h4>
+                            <p class="text-muted">Processados com sucesso</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="text-danger">{{ processados_erro }}</h4>
+                            <p class="text-muted">Com erro</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="{% url 'exportar_relatorios_cef_csv' %}" class="btn btn-outline-success btn-sm mr-2">
+                        ⬇️ Exportar CSV Detalhado
+                    </a>
+                    <a href="{% url 'exportar_relatorios_cef_csv' %}?somente_baixa=1" class="btn btn-outline-warning btn-sm">
+                        ⬇️ Exportar CSV Baixa Confiança
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">🧾 Detalhes por Arquivo</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Arquivo</th>
+                                    <th>Código</th>
+                                    <th>Interpretação Manual</th>
+                                    <th>Fonte Manual</th>
+                                    <th>Ação Recomendada</th>
+                                    <th>Conferência</th>
+                                    <th>Tipo</th>
+                                    <th>Status</th>
+                                    <th>Resumo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in resultados %}
+                                <tr>
+                                    <td>{{ item.arquivo }}</td>
+                                    <td><code>{{ item.codigo }}</code></td>
+                                    <td><small>{{ item.interpretacao_manual }}</small></td>
+                                    <td><small>{{ item.fonte_manual }}</small></td>
+                                    <td><small>{{ item.acao_recomendada }}</small></td>
+                                    <td>
+                                        <small>
+                                            Alta: {{ item.confianca_resumo.alta }}<br>
+                                            Média: {{ item.confianca_resumo.media }}<br>
+                                            Baixa: {{ item.confianca_resumo.baixa }}
+                                            {% if item.alertas_leitura %}
+                                                <br><span class="text-warning">Alertas: {{ item.alertas_leitura }}</span>
+                                            {% endif %}
+                                        </small>
+                                    </td>
+                                    <td>{{ item.tipo_detectado }}</td>
+                                    <td>
+                                        {% if item.status == 'OK' %}
+                                            <span class="badge badge-success">OK</span>
+                                        {% else %}
+                                            <span class="badge badge-danger">ERRO</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if item.status == 'OK' %}
+                                            {% if item.resumo.linhas_total %}
+                                                Linhas: {{ item.resumo.linhas_total }}
+                                            {% endif %}
+                                            {% if item.resumo.movimentos %}
+                                                <br>Mov.: {{ item.resumo.movimentos }}
+                                            {% endif %}
+                                            {% if item.resumo.rejeitados %}
+                                                <br>Rej.: {{ item.resumo.rejeitados }}
+                                            {% endif %}
+                                            {% if item.resumo.totalizadores_encontrados %}
+                                                <br>Totalizadores: {{ item.resumo.totalizadores_encontrados }}
+                                            {% endif %}
+                                            {% if item.resumo.avisos_parser %}
+                                                <br>Avisos parser: {{ item.resumo.avisos_parser }}
+                                            {% endif %}
+                                            {% if item.resumo.primeiro_aviso %}
+                                                <br><small class="text-muted">{{ item.resumo.primeiro_aviso }}</small>
+                                            {% endif %}
+                                        {% else %}
+                                            {{ item.detalhes }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {% if detalhes_p3026_preview %}
+            <div class="card mt-3 border-info">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">📌 Painel P3026 (Homologação / Manifestação / Crédito) - amostra até 300 linhas</h6>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Arquivo</th>
+                                    <th>TR</th>
+                                    <th>Contrato</th>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>Manifestação</th>
+                                    <th>Data</th>
+                                    <th>Homologação</th>
+                                    <th>Crédito</th>
+                                    <th>Situação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in detalhes_p3026_preview %}
+                                <tr>
+                                    <td>{{ row.arquivo }}</td>
+                                    <td>{{ row.tipo_linha }}</td>
+                                    <td>{{ row.numero_contrato }}</td>
+                                    <td>{{ row.nome }}</td>
+                                    <td>{{ row.cpf }}</td>
+                                    <td>{{ row.manifestacao }}</td>
+                                    <td>{{ row.data_manifestacao }}</td>
+                                    <td>
+                                        {{ row.status_homologacao }}
+                                        {% if row.situacao_analise %}
+                                            <br><small class="text-muted">sit: {{ row.situacao_analise }}</small>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ row.valor_credito }}</td>
+                                    <td><small>{{ row.descricao_situacao }}</small></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if detalhes_baixa %}
+            <div class="card mt-3 border-warning">
+                <div class="card-header bg-warning">
+                    <h6 class="mb-0">⚠️ Amostra de Linhas com Baixa Confiança (até 200)</h6>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Arquivo</th>
+                                    <th>Código</th>
+                                    <th>Linha</th>
+                                    <th>Contrato</th>
+                                    <th>CPF</th>
+                                    <th>Alerta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in detalhes_baixa %}
+                                <tr>
+                                    <td>{{ row.arquivo }}</td>
+                                    <td>{{ row.codigo }}</td>
+                                    <td>{{ row.indice_linha }}</td>
+                                    <td>{{ row.numero_contrato }}</td>
+                                    <td>{{ row.cpf }}</td>
+                                    <td><small>{{ row.alerta_leitura }}</small></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <h4 class="text-muted">Nenhum arquivo processado ainda</h4>
+                    <p class="text-muted mb-0">Selecione os arquivos e clique em Processar Upload.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

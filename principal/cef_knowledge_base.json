@@ -1,0 +1,36 @@
+{
+  "criado_em": "2026-01-23T19:47:56.849216",
+  "manuais": [
+    {
+      "nome": "Anexos-do-Roteiro-de-Analise-do-FCVS.pdf",
+      "tipo": "roteiro",
+      "topicos_encontrados": [],
+      "descricao": "Roteiro de Análise e Anexos"
+    },
+    {
+      "nome": "Leiautes_Movim_CADMUT - 2025.pdf",
+      "tipo": "cadmut_layouts",
+      "topicos_encontrados": [],
+      "descricao": "Layouts de Cadastro de Mutuários"
+    },
+    {
+      "nome": "Leiautes_Movim_FCVS - 2025 - V2.pdf",
+      "tipo": "fcvs_layouts",
+      "topicos_encontrados": [],
+      "descricao": "Layouts de Movimentação FCVS"
+    },
+    {
+      "nome": "Manual_SIWFC_MAR_2025.pdf",
+      "tipo": "web",
+      "topicos_encontrados": [],
+      "descricao": "Manual do Sistema Web de Integração"
+    }
+  ],
+  "topicos": {
+    "autenticacao": [],
+    "layouts": [],
+    "endpoints": [],
+    "processos": [],
+    "erros_comuns": []
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "tamanho_real": 424,
+  "tamanho_gerado": 424,
+  "campos_documentados_ok": 16,
+  "campos_documentados_diff": 9,
+  "campos_extras_ok": 4,
+  "campos_extras_diff": 20,
+  "total_diferencas_byte": 149,
+  "taxa_acerto": 40.816326530612244,
+  "perfeito": false
+}

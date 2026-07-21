@@ -1,0 +1,400 @@
+{% extends "principal/base.html" %}
+{% load static %}
+
+{% block title %}Formulário FH1 Completo - FCVS{% endblock %}
+
+{% block content %}
+<style>
+    @media print {
+        .no-print { display: none !important; }
+        body { margin: 0; padding: 20px; }
+        .fh1-oficial { box-shadow: none; }
+    }
+    
+    .fh1-oficial {
+        max-width: 210mm;
+        margin: 20px auto;
+        background: white;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.15);
+        font-family: 'Courier New', monospace;
+        font-size: 11pt;
+        line-height: 1.4;
+    }
+    
+    .fh1-titulo {
+        text-align: center;
+        border: 3px double #000;
+        padding: 15px;
+        margin-bottom: 30px;
+    }
+    
+    .fh1-titulo h1 {
+        margin: 0;
+        font-size: 18pt;
+        font-weight: bold;
+    }
+    
+    .fh1-titulo p {
+        margin: 5px 0 0 0;
+        font-size: 12pt;
+    }
+    
+    .fh1-secao {
+        margin-bottom: 25px;
+        page-break-inside: avoid;
+    }
+    
+    .fh1-secao-titulo {
+        background: #f0f0f0;
+        padding: 8px 12px;
+        font-weight: bold;
+        font-size: 12pt;
+        border-left: 4px solid #2a5298;
+        margin-bottom: 15px;
+    }
+    
+    .fh1-campo {
+        display: flex;
+        margin-bottom: 12px;
+        border-bottom: 1px dotted #ccc;
+        padding-bottom: 8px;
+    }
+    
+    .fh1-campo-label {
+        font-weight: bold;
+        width: 200px;
+        flex-shrink: 0;
+    }
+    
+    .fh1-campo-valor {
+        flex-grow: 1;
+    }
+    
+    .fh1-tabela {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+    }
+    
+    .fh1-tabela th {
+        background: #2a5298;
+        color: white;
+        padding: 10px;
+        text-align: left;
+        font-weight: bold;
+        border: 1px solid #000;
+    }
+    
+    .fh1-tabela td {
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+    
+    .fh1-tabela tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+    
+    .fh1-assinatura {
+        margin-top: 50px;
+        page-break-inside: avoid;
+    }
+    
+    .fh1-linha-assinatura {
+        border-top: 2px solid #000;
+        width: 300px;
+        margin: 40px auto 5px auto;
+        text-align: center;
+    }
+    
+    .fh1-texto-assinatura {
+        font-size: 10pt;
+        text-align: center;
+        margin-top: 5px;
+    }
+    
+    .fh1-destaque {
+        background: #fff3cd;
+        padding: 15px;
+        border-left: 4px solid #ffc107;
+        margin: 15px 0;
+    }
+    
+    .fh1-btn-print {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 16px;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(231,76,60,0.3);
+        z-index: 1000;
+    }
+    
+    .fh1-btn-print:hover {
+        background: linear-gradient(135deg, #c0392b, #a93226);
+        transform: scale(1.05);
+    }
+</style>
+
+<button onclick="window.print()" class="fh1-btn-print no-print">🖨️ Imprimir</button>
+
+<div class="fh1-oficial">
+    <!-- TÍTULO -->
+    <div class="fh1-titulo">
+        <h1>FORMULÁRIO FH1</h1>
+        <p>FICHA PARA HABILITAÇÃO AO FCVS</p>
+        <p style="font-size: 10pt; margin-top: 10px;">
+            Fundo de Compensação de Variações Salariais<br>
+            Resolução CMN nº 2.099/94
+        </p>
+    </div>
+    
+    <!-- SEÇÃO I: IDENTIFICAÇÃO DO AGENTE FINANCEIRO -->
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">I. IDENTIFICAÇÃO DO AGENTE FINANCEIRO</div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">AGENTE FINANCEIRO:</div>
+            <div class="fh1-campo-valor">COFLUHAB - CIA FLUMINENSE DE HABITAÇÃO</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">DATA DE EMISSÃO:</div>
+            <div class="fh1-campo-valor">{{ data_emissao|date:"d/m/Y" }}</div>
+        </div>
+    </div>
+    
+    <!-- SEÇÃO II: IDENTIFICAÇÃO DO MUTUÁRIO -->
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">II. IDENTIFICAÇÃO DO MUTUÁRIO</div>
+        {% if mutuario %}
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">NOME:</div>
+            <div class="fh1-campo-valor">{{ mutuario.nome|upper }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">CPF:</div>
+            <div class="fh1-campo-valor">{{ mutuario.cpf }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">IDENTIDADE:</div>
+            <div class="fh1-campo-valor">{{ mutuario.identidade }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">DATA DE NASCIMENTO:</div>
+            <div class="fh1-campo-valor">{{ mutuario.data_nascimento|date:"d/m/Y"|default:"Não informado" }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">ÓRGÃO EXPEDIDOR:</div>
+            <div class="fh1-campo-valor">{{ mutuario.orgao|default:"Não informado" }}</div>
+        </div>
+        {% else %}
+        <div class="fh1-campo">
+            <div class="fh1-campo-valor" style="color: #e74c3c;">⚠️ Mutuário não identificado no sistema</div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- SEÇÃO III: IDENTIFICAÇÃO DO CONTRATO -->
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">III. IDENTIFICAÇÃO DO CONTRATO</div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">NÚMERO DO CONTRATO:</div>
+            <div class="fh1-campo-valor">{{ contrato.codigo }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">CONJUNTO HABITACIONAL:</div>
+            <div class="fh1-campo-valor">{{ conjunto.nome|default:contrato.conjunto }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">DATA DO CONTRATO:</div>
+            <div class="fh1-campo-valor">{{ contrato.data_contrato|date:"d/m/Y"|default:"Não informado" }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">PRAZO:</div>
+            <div class="fh1-campo-valor">{{ contrato.prazo }} meses</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">TOTAL DE PARCELAS:</div>
+            <div class="fh1-campo-valor">{{ total_parcelas }}</div>
+        </div>
+    </div>
+    
+    <!-- SEÇÃO IV: LOCALIZAÇÃO DO IMÓVEL -->
+    {% if endereco %}
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">IV. LOCALIZAÇÃO DO IMÓVEL</div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">ENDEREÇO:</div>
+            <div class="fh1-campo-valor">{{ endereco.logradouro|upper }}</div>
+        </div>
+        {% if endereco.complemento %}
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">COMPLEMENTO:</div>
+            <div class="fh1-campo-valor">{{ endereco.complemento|upper }}</div>
+        </div>
+        {% endif %}
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">BAIRRO:</div>
+            <div class="fh1-campo-valor">{{ endereco.bairro|upper }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">CIDADE/UF:</div>
+            <div class="fh1-campo-valor">{{ endereco.cidade|upper }}/{{ endereco.uf|upper }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">CEP:</div>
+            <div class="fh1-campo-valor">{{ endereco.cep }}</div>
+        </div>
+        {% if endereco.codigo_imovel %}
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">CÓDIGO DO IMÓVEL:</div>
+            <div class="fh1-campo-valor">{{ endereco.codigo_imovel }}</div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <!-- SEÇÃO V: SITUAÇÃO FINANCEIRA -->
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">V. SITUAÇÃO FINANCEIRA</div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">SALDO INICIAL:</div>
+            <div class="fh1-campo-valor">R$ {{ saldo_inicial|floatformat:2|default:"0.00" }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">SALDO ATUAL:</div>
+            <div class="fh1-campo-valor">R$ {{ saldo_atual|floatformat:2 }}</div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">FCVS RESIDUAL:</div>
+            <div class="fh1-campo-valor" style="font-weight: bold; color: #e74c3c; font-size: 13pt;">
+                R$ {{ fcvs_residual|floatformat:2 }}
+            </div>
+        </div>
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">ANOMALIAS DETECTADAS:</div>
+            <div class="fh1-campo-valor">{{ anomalias }} ocorrências de amortização negativa</div>
+        </div>
+        {% if periodo_inicio and periodo_fim %}
+        <div class="fh1-campo">
+            <div class="fh1-campo-label">PERÍODO DO CONTRATO:</div>
+            <div class="fh1-campo-valor">{{ periodo_inicio }} até {{ periodo_fim }}</div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- HISTÓRICO DE ANOMALIAS (TOP 10) -->
+    {% if anomalias_top10 %}
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">VI. HISTÓRICO DE ANOMALIAS (TOP 10 MAIORES CRESCIMENTOS)</div>
+        <table class="fh1-tabela">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">#</th>
+                    <th style="width: 15%;">Mês</th>
+                    <th style="width: 25%;">Data</th>
+                    <th style="width: 50%;">Crescimento do Saldo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for anomalia in anomalias_top10 %}
+                <tr>
+                    <td style="text-align: center;">{{ forloop.counter }}</td>
+                    <td>Mês {{ anomalia.mes }}</td>
+                    <td>{{ anomalia.data|date:"m/Y" }}</td>
+                    <td>R$ {{ anomalia.crescimento|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    
+    <!-- FUNDAMENTAÇÃO JURÍDICA -->
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">VII. FUNDAMENTAÇÃO JURÍDICA</div>
+        <div style="text-align: justify; line-height: 1.6;">
+            <p><strong>1.</strong> O contrato foi celebrado durante período de hiperinflação (1984-1994), quando vigoravam os planos de correção monetária do Sistema Financeiro da Habitação (SFH).</p>
+            
+            <p><strong>2.</strong> Foram detectadas <strong>{{ anomalias }} ocorrências</strong> de amortização negativa, indicando que o saldo devedor cresceu mesmo após pagamento de parcelas.</p>
+            
+            <p><strong>3.</strong> O saldo residual de FCVS não foi devidamente compensado ao final do contrato, permanecendo débito de <strong>R$ {{ fcvs_residual|floatformat:2 }}</strong>.</p>
+            
+            <p><strong>4.</strong> Há direito à habilitação ao FCVS conforme:</p>
+            <ul style="margin-left: 30px;">
+                <li>Resolução CMN nº 2.099/94</li>
+                <li>Lei nº 10.150/2000 (Conversão da MP 2.062/2000)</li>
+                <li>Circular BACEN nº 2.964/2000</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- RECOMENDAÇÕES -->
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">VIII. RECOMENDAÇÕES</div>
+        <div class="fh1-destaque">
+            <p><strong>📋 Próximas Ações Recomendadas:</strong></p>
+            <ol style="margin-left: 20px; line-height: 1.8;">
+                <li>Solicitar auditoria técnica à Caixa Econômica Federal</li>
+                <li>Apresentar este formulário como anexo ao processo de habilitação</li>
+                <li>Requerer a quitação do saldo residual de FCVS identificado</li>
+                <li>Em caso de negativa, ingressar com ação judicial fundamentada</li>
+            </ol>
+        </div>
+    </div>
+    
+    <!-- DECLARAÇÕES -->
+    <div class="fh1-secao">
+        <div class="fh1-secao-titulo">IX. DECLARAÇÕES</div>
+        <div style="text-align: justify; line-height: 1.6; font-size: 10pt;">
+            <p>Declaro, para os devidos fins, que as informações contidas neste formulário são verdadeiras e podem ser comprovadas mediante apresentação dos documentos originais do contrato de financiamento habitacional.</p>
+            
+            <p>Declaro ainda que o mutuário acima identificado tem direito à habilitação ao FCVS nos termos da legislação vigente, tendo sido detectadas irregularidades no cálculo do saldo devedor durante o período de vigência do contrato.</p>
+        </div>
+    </div>
+    
+    <!-- ASSINATURAS -->
+    <div class="fh1-assinatura">
+        <div class="fh1-secao-titulo">X. ASSINATURAS</div>
+        
+        <div style="margin-top: 60px;">
+            <div class="fh1-linha-assinatura"></div>
+            <div class="fh1-texto-assinatura">
+                <strong>Responsável Técnico - COFLUHAB</strong><br>
+                CIA FLUMINENSE DE HABITAÇÃO
+            </div>
+        </div>
+        
+        <div style="margin-top: 80px;">
+            <div class="fh1-linha-assinatura"></div>
+            <div class="fh1-texto-assinatura">
+                <strong>Mutuário</strong><br>
+                {% if mutuario %}{{ mutuario.nome|upper }}{% else %}[NOME DO MUTUÁRIO]{% endif %}<br>
+                {% if mutuario %}CPF: {{ mutuario.cpf }}{% endif %}
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; text-align: center; font-size: 10pt;">
+            <p>DATA: ____/____/______</p>
+        </div>
+    </div>
+    
+    <!-- RODAPÉ -->
+    <div style="margin-top: 40px; border-top: 2px solid #000; padding-top: 15px; text-align: center; font-size: 9pt;">
+        <p style="margin: 0;">
+            <strong>FORMULÁRIO FH1 - HABILITAÇÃO AO FCVS</strong><br>
+            Gerado em {{ data_emissao|date:"d/m/Y" }} às {{ data_emissao|time:"H:i" }}<br>
+            Contrato: {{ contrato.codigo }} | Conjunto: {{ contrato.conjunto }}
+        </p>
+    </div>
+</div>
+
+<div class="no-print" style="text-align: center; margin: 30px 0;">
+    <a href="{% url 'contrato_detail' contrato.pk %}" class="btn btn-secondary">← Voltar ao Contrato</a>
+</div>
+
+{% endblock %}
