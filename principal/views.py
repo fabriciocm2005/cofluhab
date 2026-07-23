@@ -7605,11 +7605,13 @@ def fcvs_contribuicao(request):
         base_qs.values_list('dtvenc__year', flat=True).distinct().order_by('dtvenc__year')
     )
     if anos_com_dados:
-        ano_max_base = max(anos_com_dados)
-        ano_final = max(ano_atual, ano_max_base)
+        # Exibe somente anos que realmente possuem FCVS>0 no banco carregado.
+        anos_disponiveis = anos_com_dados
+        if ano not in anos_disponiveis:
+            anos_ate_selecao = [y for y in anos_disponiveis if y <= ano]
+            ano = (anos_ate_selecao[-1] if anos_ate_selecao else anos_disponiveis[-1])
     else:
-        ano_final = ano_atual
-    anos_disponiveis = list(range(2000, ano_final + 1))
+        anos_disponiveis = list(range(2000, ano_atual + 1))
 
     compute_mensal = modo == 'mensal' or (exportar in ('csv', 'excel') and modo == 'mensal')
     compute_trimestral = False
