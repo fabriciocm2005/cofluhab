@@ -3192,22 +3192,35 @@ def contratos(request):
     mapeamento = {}
     mutuario_ids = []
     if contratos_ids:
-        # Buscar mapeamento contrato -> mutuário na conexão ativa do Django
-        placeholders = ','.join(['%s'] * len(contratos_ids))
-        sql = f"""
-            SELECT contrato_id, mutuario_id
-            FROM contrato_mutuario_map
-            WHERE contrato_id IN ({placeholders})
-        """
-        with connection.cursor() as cur:
-            cur.execute(sql, contratos_ids)
-            rows = cur.fetchall()
+        try:
+            # Buscar mapeamento contrato -> mutuário na conexão ativa do Django
+            placeholders = ','.join(['%s'] * len(contratos_ids))
+            sql = f"""
+                SELECT contrato_id, mutuario_id
+                FROM contrato_mutuario_map
+                WHERE contrato_id IN ({placeholders})
+            """
+            with connection.cursor() as cur:
+                cur.execute(sql, contratos_ids)
+                rows = cur.fetchall()
 
-        for contrato_id, mutuario_id in rows:
-            if contrato_id not in mapeamento:
-                mapeamento[contrato_id] = []
-            mapeamento[contrato_id].append(mutuario_id)
-            mutuario_ids.append(mutuario_id)
+            for contrato_id, mutuario_id in rows:
+                if contrato_id not in mapeamento:
+                    mapeamento[contrato_id] = []
+                mapeamento[contrato_id].append(mutuario_id)
+                mutuario_ids.append(mutuario_id)
+        except Exception:
+            # Em produção (Postgres) pode não existir tabela auxiliar de mapeamento.
+            # Fallback: vincula por código do contrato = código do mutuário.
+            codigos_contrato = [c.codigo for c in page_obj if c.codigo]
+            if codigos_contrato:
+                fallback_mutuarios = Mutuario.objects.filter(codigo__in=codigos_contrato).only('id', 'codigo')
+                por_codigo = {m.codigo: m.id for m in fallback_mutuarios}
+                for c in page_obj:
+                    mid = por_codigo.get(c.codigo)
+                    if mid:
+                        mapeamento[c.id] = [mid]
+                        mutuario_ids.append(mid)
     
     # Buscar mutuários de uma vez
     mutuarios_dict = {}
