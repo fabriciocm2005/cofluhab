@@ -3152,20 +3152,21 @@ def contratos(request):
         # Buscar mutuários por nome ou código
         mutuarios = Mutuario.objects.filter(Q(nome__icontains=busca) | Q(codigo__icontains=busca))
         
-        # Pegar IDs dos contratos vinculados a esses mutuários
-        db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'db.sqlite3')
         contrato_ids = []
         try:
-            conn = sqlite3.connect(db_path)
-            cur = conn.cursor()
-            for mut in mutuarios:
-                cur.execute("SELECT contrato_id FROM contrato_mutuario_map WHERE mutuario_id=?", (mut.id,))
-                contrato_ids.extend([row[0] for row in cur.fetchall()])
+            mut_ids = [m.id for m in mutuarios]
+            if mut_ids:
+                placeholders = ','.join(['%s'] * len(mut_ids))
+                sql = f"""
+                    SELECT DISTINCT contrato_id
+                    FROM contrato_mutuario_map
+                    WHERE mutuario_id IN ({placeholders})
+                """
+                with connection.cursor() as cur:
+                    cur.execute(sql, mut_ids)
+                    contrato_ids = [row[0] for row in cur.fetchall()]
         except Exception as e:
             print(f"Erro ao buscar contratos por mutuário: {e}")
-        finally:
-            if 'conn' in locals():
-                conn.close()
         
         # Combinar resultados
         if contrato_ids:
@@ -3184,28 +3185,29 @@ def contratos(request):
     
     # Adicionar total de parcelas, saldo atual e dados do mutuário
     contratos_list = []
-    db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'db.sqlite3')
     
     # Buscar mutuários vinculados aos contratos via mapeamento
     contratos_ids = [c.id for c in page_obj]
     
-    # Buscar mapeamento contrato -> mutuário
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
-    cur.execute("""
-        SELECT contrato_id, mutuario_id 
-        FROM contrato_mutuario_map 
-        WHERE contrato_id IN ({})
-    """.format(','.join('?' * len(contratos_ids))), contratos_ids)
-    
     mapeamento = {}
     mutuario_ids = []
-    for contrato_id, mutuario_id in cur.fetchall():
-        if contrato_id not in mapeamento:
-            mapeamento[contrato_id] = []
-        mapeamento[contrato_id].append(mutuario_id)
-        mutuario_ids.append(mutuario_id)
-    conn.close()
+    if contratos_ids:
+        # Buscar mapeamento contrato -> mutuário na conexão ativa do Django
+        placeholders = ','.join(['%s'] * len(contratos_ids))
+        sql = f"""
+            SELECT contrato_id, mutuario_id
+            FROM contrato_mutuario_map
+            WHERE contrato_id IN ({placeholders})
+        """
+        with connection.cursor() as cur:
+            cur.execute(sql, contratos_ids)
+            rows = cur.fetchall()
+
+        for contrato_id, mutuario_id in rows:
+            if contrato_id not in mapeamento:
+                mapeamento[contrato_id] = []
+            mapeamento[contrato_id].append(mutuario_id)
+            mutuario_ids.append(mutuario_id)
     
     # Buscar mutuários de uma vez
     mutuarios_dict = {}
