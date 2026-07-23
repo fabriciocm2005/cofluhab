@@ -3,6 +3,7 @@ from openpyxl import Workbook
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse, FileResponse, Http404
+from django.db import connection
 from .models import (Cliente, ConjuntoHabitacional, Mutuario, Endereco,
                      Movimentacao, Contrato, ParcelaContrato, AtendimentoCRM,
                      ValidacaoAI, AprendizadoAI)
@@ -2871,6 +2872,9 @@ def mutuarios(request):
     busca_cpf = request.GET.get('cpf', '')
     pagina = request.GET.get('pagina', 1)
     
+    # Base dos mutuários (portável para SQLite/Postgres)
+    qs = Mutuario.objects.all().select_related('conjunto_fk', 'endereco_fk')
+
     # Buscar contratos (não mutuários diretamente)
     contratos_qs = Contrato.objects.all()
     
@@ -2881,23 +2885,27 @@ def mutuarios(request):
     
     # Buscar IDs dos contratos filtrados
     contratos_ids = list(contratos_qs.values_list('id', flat=True))
-    
-    if not contratos_ids:
-        # Sem contratos, retornar vazio
-        qs = Mutuario.objects.none()
-    else:
-        # Buscar mutuários vinculados aos contratos filtrados
-        conn = sqlite3.connect(r'C:\Users\fabri\cofluhab\cofluhab\db.sqlite3')
-        cur = conn.cursor()
-        cur.execute("""
-            SELECT DISTINCT mutuario_id 
-            FROM contrato_mutuario_map 
-            WHERE contrato_id IN ({})
-        """.format(','.join('?' * len(contratos_ids))), contratos_ids)
-        mutuario_ids_com_contrato = [row[0] for row in cur.fetchall()]
-        conn.close()
-        
-        qs = Mutuario.objects.filter(id__in=mutuario_ids_com_contrato).select_related('conjunto_fk', 'endereco_fk')
+
+    if busca_codigo:
+        if not contratos_ids:
+            qs = Mutuario.objects.none()
+        else:
+            # Usa a conexão padrão do Django para funcionar em qualquer banco.
+            try:
+                placeholders = ','.join(['%s'] * len(contratos_ids))
+                sql = f"""
+                    SELECT DISTINCT mutuario_id
+                    FROM contrato_mutuario_map
+                    WHERE contrato_id IN ({placeholders})
+                """
+                with connection.cursor() as cur:
+                    cur.execute(sql, contratos_ids)
+                    mutuario_ids_com_contrato = [row[0] for row in cur.fetchall()]
+
+                qs = qs.filter(id__in=mutuario_ids_com_contrato)
+            except Exception:
+                # Fallback seguro caso tabela de mapeamento não exista no ambiente.
+                qs = qs.filter(conjunto=conjunto_normalizado)
     
     # Filtro por nome (já filtrou contratos por conjunto acima)
     if busca_nome:
