@@ -7648,7 +7648,7 @@ def fcvs_contribuicao(request):
     mensal_por_contrato = []
     if compute_mensal:
         mensal_por_contrato = list(
-            mensal_qs.values('contrato__codigo', 'contrato__conjunto')
+            mensal_qs.values('contrato_id', 'contrato__codigo', 'contrato__conjunto')
             .annotate(
                 total_fcvs=Sum('fcvs'),
                 total_parcelas=Count('id'),

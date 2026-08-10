@@ -29,7 +29,7 @@
     </form>
 
     <div style="margin-top: 12px; color:#64748b; font-size:13px;">
-        Tela simples e leve: sem detalhamento de contratos nesta pagina.
+        Tela simples e leve: clique no numero de contratos para abrir a listagem detalhada daquele periodo.
     </div>
 </div>
 
@@ -90,7 +90,13 @@
             <tr>
                 <td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ item.mes_nome }}</td>
                 <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">R$ {{ item.total_fcvs|floatformat:2 }}</td>
-                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">{{ item.total_contratos }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">
+                    {% if item.total_contratos > 0 %}
+                    <a href="?ano={{ ano }}&periodicidade={{ periodicidade }}&modo=mensal&mes={{ item.mes_numero }}" style="color:#1d4ed8; text-decoration:underline; font-weight:600;">{{ item.total_contratos }}</a>
+                    {% else %}
+                    {{ item.total_contratos }}
+                    {% endif %}
+                </td>
                 <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">{{ item.total_parcelas }}</td>
             </tr>
             {% endfor %}
@@ -106,5 +112,56 @@
         </tbody>
     </table>
 </div>
+
+{% if modo == 'mensal' %}
+<div class="card" style="margin-bottom:20px; overflow:auto;">
+    <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;">
+        <h3 style="margin:0;">Contratos com contribuicao FCVS em {{ mes_nome_selecionado }} / {{ ano }}</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a href="?ano={{ ano }}&periodicidade={{ periodicidade }}&modo=mensal&mes={{ mes }}&exportar=csv" class="btn-secondary" style="text-decoration:none;">Exportar CSV</a>
+            <a href="?ano={{ ano }}&periodicidade={{ periodicidade }}&modo=mensal&mes={{ mes }}&exportar=excel" class="btn-secondary" style="text-decoration:none;">Exportar Excel</a>
+            <a href="?ano={{ ano }}&periodicidade={{ periodicidade }}" class="btn-secondary" style="text-decoration:none;">Voltar ao resumo</a>
+        </div>
+    </div>
+
+    <div style="margin-bottom:10px; color:#475569;">
+        Total mensal: <strong>R$ {{ total_mensal|floatformat:2 }}</strong>
+        | Contratos: <strong>{{ mensal_por_contrato|length }}</strong>
+    </div>
+
+    <table style="width:100%; border-collapse:collapse; min-width:760px;">
+        <thead>
+            <tr style="background:#f8fafc; text-align:left;">
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0;">Contrato</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0;">Conjunto</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">Contribuicao FCVS</th>
+                <th style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">Parcelas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in mensal_por_contrato %}
+            <tr>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7;">
+                    <a href="/contrato/{{ item.contrato_id }}/" style="color:#1d4ed8; text-decoration:underline;">{{ item.contrato__codigo }}</a>
+                </td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ item.contrato__conjunto }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">R$ {{ item.total_fcvs|floatformat:2 }}</td>
+                <td style="padding:8px; border-bottom:1px solid #eef2f7; text-align:right;">{{ item.total_parcelas }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="padding:16px; text-align:center; color:#64748b;">Sem contratos com contribuicao FCVS nesse periodo.</td>
+            </tr>
+            {% endfor %}
+            <tr style="background:#f1f5f9; font-weight:700;">
+                <td style="padding:8px; border-top:2px solid #cbd5e1;">TOTAL</td>
+                <td style="padding:8px; border-top:2px solid #cbd5e1;"></td>
+                <td style="padding:8px; border-top:2px solid #cbd5e1; text-align:right;">R$ {{ total_mensal|floatformat:2 }}</td>
+                <td style="padding:8px; border-top:2px solid #cbd5e1;"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endif %}
 {% endblock %}
 
