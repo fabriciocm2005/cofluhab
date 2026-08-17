@@ -7621,7 +7621,8 @@ def fcvs_contribuicao(request):
     base_qs = ParcelaContrato.objects.filter(
         dtvenc__isnull=False,
         dtvenc__year__gte=2000,
-        fcvs__gt=0,
+        fcvs__isnull=False,
+        fcvs__gte=0,
     ).select_related('contrato')
 
     anos_com_dados = list(
