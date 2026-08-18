@@ -1,11 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from decimal import Decimal
-from datetime import date
+from datetime import date, datetime
 from io import BytesIO, StringIO
 from zipfile import ZIP_DEFLATED, ZipFile
 import csv
 import json
+import urllib.parse
+import urllib.request
 from pathlib import Path
 from datetime import date
 from django.db.models import OuterRef, Subquery
@@ -62,12 +64,29 @@ def _historical_indices():
                 key, value = line.strip().split(",", 1)
                 result[key] = Decimal(value)
     except Exception:
-        return {}
+        result = {}
     return result
 
 
+def _tr_indices_bcb(start_year, end_year):
+    params = urllib.parse.urlencode({
+        "formato": "json",
+        "dataInicial": f"01/07/{start_year}",
+        "dataFinal": f"30/06/{end_year}",
+    })
+    url = f"https://api.bcb.gov.br/dados/serie/bcdata.sgs.188/dados?{params}"
+    try:
+        with urllib.request.urlopen(url, timeout=20) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        return {
+            datetime.strptime(item["data"], "%d/%m/%Y").strftime("%Y-%m"): Decimal(item["valor"].replace(",", ".")) / Decimal("100")
+            for item in payload
+        }
+    except Exception:
+        return {}
 def _future_factor_from_2019(target_year):
     indices = _historical_indices()
+    indices.update(_tr_indices_bcb(2019, target_year))
     factor = Decimal("1")
     for year in range(2019, target_year + 1):
         first_month = 7 if year == 2019 else 1
@@ -182,11 +201,20 @@ def _generate_lq_package(request):
         writer.writerow(("contrato", "campo", "observacao"))
         writer.writerows(exceptions)
         archive.writestr(f"{matricula}_EXCECOES.csv", issue_file.getvalue())
-        archive.writestr(
-            "LEIA-ME.txt",
-            ("Pacote ESTIMADO de avaliacao atuarial FCVS, reconstruido a partir da posicao 2019 " if estimated else "Pacote preliminar de avaliacao atuarial FCVS. ")
-            + "Conferir o arquivo de excecoes antes do envio a CAIXA.\n",
-        )
+        if estimated:
+            readme = (
+                f"PROJECAO MONETARIA FCVS - exercicio {target_year}\n"
+                "Base: arquivo LQ de 2019, por contrato.\n"
+                f"Fator acumulado de indices mensais de julho/2019 a junho/{target_year}: {estimate_factor}\n"
+                "Esta projecao atualiza valores historicos e nao substitui a posicao oficial da CAIXA.\n"
+                "Conferir o arquivo de excecoes e reconciliar com a CAIXA antes do envio.\n"
+            )
+        else:
+            readme = (
+                "Pacote preliminar de avaliacao atuarial FCVS.\n"
+                "Conferir o arquivo de excecoes antes do envio a CAIXA.\n"
+            )
+        archive.writestr("LEIA-ME.txt", readme)
     response = HttpResponse(package.getvalue(), content_type="application/zip")
     response["Content-Disposition"] = f'attachment; filename="{matricula}_ATUARIAL_{target_year}.zip"'
     return response
