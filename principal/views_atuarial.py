@@ -6,7 +6,7 @@ from io import BytesIO, StringIO
 from zipfile import ZIP_DEFLATED, ZipFile
 import csv
 from pathlib import Path
-from django.db.models import Prefetch
+from django.db.models import OuterRef, Subquery
 
 from .atuarial import LAYOUTS, analyze_file, build_liquidated_line, build_summary_line, parse_line
 from .models import Contrato, Mutuario, ParcelaContrato
@@ -59,12 +59,13 @@ def _generate_lq_package(request):
     historical = _historical_lq(request.FILES.get("historico_lq"))
     municipality_map = _municipality_map()
     mutuarios = {str(m.codimovel).strip(): m for m in Mutuario.objects.all() if m.codimovel}
-    contracts = Contrato.objects.prefetch_related(
-        Prefetch(
-            "parcelas",
-            queryset=ParcelaContrato.objects.order_by("-nmens"),
-            to_attr="atuarial_parcelas",
-        )
+    latest_parcela = ParcelaContrato.objects.filter(
+        contrato_id=OuterRef("pk")
+    ).order_by("-nmens")
+    contracts = Contrato.objects.annotate(
+        atuarial_sddev=Subquery(latest_parcela.values("sddev")[:1]),
+        atuarial_dtpgto=Subquery(latest_parcela.values("dtpgto")[:1]),
+        atuarial_dtvenc=Subquery(latest_parcela.values("dtvenc")[:1]),
     ).order_by("id")
 
     lines = []
@@ -74,13 +75,13 @@ def _generate_lq_package(request):
         key = str(int(key_digits)) if key_digits else ""
         old = historical.get(key, {})
         mutuario = mutuarios.get(str(contract.cod_imovel).strip())
-        parcelas_atuariais = getattr(contract, "atuarial_parcelas", [])
-        last = parcelas_atuariais[0] if parcelas_atuariais else None
-        event_date = (last.dtpgto if last and last.dtpgto and last.dtpgto.year > 1900 else last.dtvenc if last else None)
+        dtpgto = contract.atuarial_dtpgto
+        dtvenc = contract.atuarial_dtvenc
+        event_date = dtpgto if dtpgto and dtpgto.year > 1900 else dtvenc
         if not event_date:
             event_date = contract.data_contrato
             exceptions.append((contract.codigo, "data_evento", "sem pagamento/vencimento; usado data do contrato"))
-        saldo = last.sddev if last and last.sddev is not None else None
+        saldo = contract.atuarial_sddev
         if saldo is None and old.get("sd_pos_cont", "").isdigit():
             saldo = Decimal(old["sd_pos_cont"]) / Decimal("100")
             exceptions.append((contract.codigo, "sd_pos_cont", "saldo reaproveitado do LQ historico"))
