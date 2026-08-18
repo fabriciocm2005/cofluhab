@@ -57,7 +57,7 @@ LIQUIDATED_FIELDS = (
     FieldSpec(5, "data_evento", 17, 24, "date_yyyymmdd"),
     FieldSpec(6, "numero_contrato", 25, 37, "text"),
     FieldSpec(7, "hipoteca", 38, 38, "numeric"),
-    FieldSpec(8, "sd_pos_cont", 39, 47, "numeric", 2),
+    FieldSpec(8, "sd_pos_cont", 39, 47, "numeric_or_erro", 2),
     FieldSpec(9, "sd_fcvs_lei_10150", 48, 48, "numeric"),
     FieldSpec(10, "taxa_juros", 49, 54, "numeric", 4),
     FieldSpec(11, "uf", 55, 56, "text"),
@@ -97,6 +97,8 @@ def _validate_value(field: FieldSpec, value: str) -> str | None:
         return None
     if field.kind == "numeric" and not value.isdigit():
         return "deve conter apenas digitos"
+    if field.kind == "numeric_or_erro" and not (value.isdigit() or "ERRO" in value.upper()):
+        return "deve conter apenas digitos ou o marcador ERRO"
     if field.kind == "date_yyyymm" and not re.fullmatch(r"\d{6}", value):
         return "deve estar no formato AAAAMM"
     if field.kind == "date_yyyymmdd" and not re.fullmatch(r"\d{8}", value):
@@ -173,6 +175,7 @@ def analyze_file(filename: str, content: bytes) -> dict:
 
     records = []
     errors = []
+    warnings = []
     for number, line in enumerate(lines, 1):
         if layout == "RR":
             values, line_errors = parse_summary_line(line)
@@ -182,6 +185,11 @@ def analyze_file(filename: str, content: bytes) -> dict:
             errors.append({"line": number, "messages": line_errors})
         else:
             records.append(values)
+            if "ERRO" in line.upper():
+                warnings.append({
+                    "line": number,
+                    "messages": ["registro preservado com marcador historico ERRO no arquivo"],
+                })
 
     return {
         "filename": filename,
@@ -193,4 +201,5 @@ def analyze_file(filename: str, content: bytes) -> dict:
         "invalid_lines": len(lines) - len(records),
         "records": records[:25],
         "errors": errors[:100],
+        "warnings": warnings[:100],
     }

@@ -29,6 +29,7 @@ def relatorio_atuarial_fcvs(request):
                             "line": 0,
                             "messages": ["arquivo maior que 20 MB"],
                         }],
+                        "warnings": [],
                     })
                     continue
                 analyses.append(analyze_file(arquivo.name, arquivo.read()))

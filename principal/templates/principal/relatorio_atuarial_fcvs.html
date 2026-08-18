@@ -58,6 +58,13 @@
         </ul>
     </details>
     {% endif %}
+    {% if result.warnings %}
+    <details open style="margin-bottom:12px;"><summary style="cursor:pointer; font-weight:600; color:#a16207;">Avisos preservados do arquivo</summary>
+        <ul style="color:#a16207;">
+        {% for warning in result.warnings %}<li>Linha {{ warning.line }}: {{ warning.messages|join:', ' }}</li>{% endfor %}
+        </ul>
+    </details>
+    {% endif %}
     {% if result.records %}
     <details><summary style="cursor:pointer; font-weight:600;">Ver primeiras linhas interpretadas</summary>
         <table style="width:100%; border-collapse:collapse; min-width:900px; margin-top:10px;">
