@@ -74,7 +74,8 @@ def _generate_lq_package(request):
         key = str(int(key_digits)) if key_digits else ""
         old = historical.get(key, {})
         mutuario = mutuarios.get(str(contract.cod_imovel).strip())
-        last = getattr(contract, "atuarial_parcelas", [None])[0]
+        parcelas_atuariais = getattr(contract, "atuarial_parcelas", [])
+        last = parcelas_atuariais[0] if parcelas_atuariais else None
         event_date = (last.dtpgto if last and last.dtpgto and last.dtpgto.year > 1900 else last.dtvenc if last else None)
         if not event_date:
             event_date = contract.data_contrato
