@@ -268,9 +268,6 @@
             <a href="{% url 'upload_contrato_pdf' %}" class="nav-link" style="background: rgba(34, 197, 94, 0.2); border-bottom-color: #22c55e;">
                 <span>🤖</span> OCR Cadastro
             </a>
-            <a href="{% url 'painel_qualidade' %}" class="nav-link" style="background: rgba(168, 85, 247, 0.2); border-bottom-color: #a855f7;">
-                <span>🔍</span> Qualidade
-            </a>
             <a href="{% url 'contratos_sem_mutuario' %}" class="nav-link alert">
                 <span>⚠️</span> Sem Mutuário
             </a>
@@ -335,6 +332,9 @@
                     </a>
                     <a href="{% url 'fcvs_contribuicao' %}">
                         <span>🧮</span> FCVS Contribuicao Mes/Ano
+                    </a>
+                    <a href="{% url 'relatorio_atuarial_fcvs' %}">
+                        <span>📈</span> Relatorio Atuarial FCVS
                     </a>
                     <a href="{% url 'carteira_fcvs' %}">
                         <span>📊</span> Carteira FCVS
@@ -403,15 +403,6 @@
                 </div>
             </div>
             
-            <a href="{% url 'testar_ai_agents' %}" class="nav-link" style="background: rgba(102, 126, 234, 0.2); border-bottom-color: #667eea;">
-                <span>🤖</span> AI Agents
-            </a>
-            <a href="{% url 'validacoes_ai' %}" class="nav-link" style="background: rgba(16, 185, 129, 0.2); border-bottom-color: #10b981;">
-                <span>📊</span> Validações AI
-            </a>
-            <a href="{% url 'aprendizados_ai' %}" class="nav-link" style="background: rgba(139, 92, 246, 0.2); border-bottom-color: #8b5cf6;">
-                <span>🧠</span> Aprendizados AI
-            </a>
         </nav>
     </header>
 

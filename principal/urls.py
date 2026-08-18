@@ -6,6 +6,7 @@ from . import views_validators
 from . import views_cef
 from . import views_ocr
 from . import views_qualidade
+from . import views_atuarial
 
 urlpatterns = [
     # Quando a URL for a raiz do App, chama a função 'index'
@@ -40,6 +41,7 @@ urlpatterns = [
     path('seguro/relatorio-dividas/exportar-excel/', views.relatorio_divida_seguro, name='exportar_excel_resumo_seguro'),
     path('fcvs/', views.fcvs, name='fcvs'),
     path('fcvs/contribuicao/', views.fcvs_contribuicao, name='fcvs_contribuicao'),
+    path('fcvs/relatorio-atuarial/', views_atuarial.relatorio_atuarial_fcvs, name='relatorio_atuarial_fcvs'),
     path('relatorio-caixa/', views.relatorio_caixa, name='relatorio_caixa'),
     path('contrato/<int:pk>/relatorio-fh1/', views.relatorio_fh1, name='relatorio_fh1'),
     path('contrato/<int:pk>/fh1-completo/', views.fh1_completo, name='fh1_completo'),

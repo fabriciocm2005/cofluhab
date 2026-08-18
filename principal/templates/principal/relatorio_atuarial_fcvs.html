@@ -1,0 +1,78 @@
+{% extends 'principal/base.html' %}
+
+{% block title %}Relatorio Atuarial FCVS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Relatorio Atuarial FCVS</h1>
+    <p class="page-subtitle">Interprete arquivos historicos e valide os layouts posicionais usados na avaliacao anual do FCVS.</p>
+</div>
+
+<div class="card" style="margin-bottom:20px; border-left:4px solid #2563eb;">
+    <h3 style="margin-bottom:8px;">Obrigacao anual</h3>
+    <p style="margin:0; color:#475569;">
+        O manual determina informacoes posicionadas em 30 de junho, encaminhadas anualmente ate 31 de agosto.
+        Esta ferramenta valida e interpreta os arquivos; o envio a CAIXA continua dependendo da conferencia e do canal oficial.
+    </p>
+</div>
+
+<div class="card" style="margin-bottom:20px;">
+    <h2 style="margin-bottom:8px;">Interpretar arquivos TXT existentes</h2>
+    <p style="color:#64748b; margin-top:0;">Envie um ou varios arquivos historicos. A leitura usa as posicoes oficiais e aceita o resumo legado de 20 caracteres.</p>
+    <form method="post" enctype="multipart/form-data" style="display:flex; gap:12px; align-items:end; flex-wrap:wrap;">
+        {% csrf_token %}
+        <div style="flex:1; min-width:280px;">
+            <label for="arquivos" style="display:block; font-weight:600; margin-bottom:6px;">Arquivos .txt</label>
+            <input id="arquivos" type="file" name="arquivos" accept=".txt,.ret,.dat" multiple style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;">
+        </div>
+        <button type="submit" class="btn-primary">Interpretar arquivos</button>
+    </form>
+    {% if upload_error %}<p style="color:#b91c1c; margin-bottom:0;">{{ upload_error }}</p>{% endif %}
+</div>
+
+<div class="card" style="margin-bottom:20px; overflow:auto;">
+    <h2 style="margin-bottom:10px;">Layouts reconhecidos</h2>
+    <table style="width:100%; border-collapse:collapse; min-width:700px;">
+        <thead><tr style="background:#f8fafc; text-align:left;"><th style="padding:8px;">Codigo</th><th style="padding:8px;">Tipo</th><th style="padding:8px;">Tamanho</th><th style="padding:8px;">Campos</th></tr></thead>
+        <tbody>
+        {% for codigo, layout in layouts.items %}
+        <tr><td style="padding:8px; border-bottom:1px solid #eef2f7; font-weight:600;">{{ codigo }}</td><td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ layout.label }}</td><td style="padding:8px; border-bottom:1px solid #eef2f7;">{% if layout.length %}{{ layout.length }} caracteres{% else %}20/22/24/25 caracteres{% endif %}</td><td style="padding:8px; border-bottom:1px solid #eef2f7;">{{ layout.fields|length }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% for result in analyses %}
+<div class="card" style="margin-bottom:20px; overflow:auto; border-left:4px solid {% if result.invalid_lines %}#dc2626{% else %}#16a34a{% endif %};">
+    <h2 style="margin-bottom:6px;">{{ result.filename }}</h2>
+    <p style="margin:0 0 12px; color:#475569;">{{ result.label }}{% if result.line_length %} | {{ result.line_length }} caracteres por linha{% endif %}</p>
+    <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:12px;">
+        <strong>Linhas: {{ result.total_lines }}</strong>
+        <strong style="color:#166534;">Validas: {{ result.valid_lines }}</strong>
+        <strong style="color:#b91c1c;">Com erro: {{ result.invalid_lines }}</strong>
+    </div>
+    {% if result.errors %}
+    <details open style="margin-bottom:12px;"><summary style="cursor:pointer; font-weight:600; color:#b91c1c;">Ver erros</summary>
+        <ul style="color:#b91c1c;">
+        {% for error in result.errors %}<li>Linha {{ error.line }}: {{ error.messages|join:', ' }}</li>{% endfor %}
+        </ul>
+    </details>
+    {% endif %}
+    {% if result.records %}
+    <details><summary style="cursor:pointer; font-weight:600;">Ver primeiras linhas interpretadas</summary>
+        <table style="width:100%; border-collapse:collapse; min-width:900px; margin-top:10px;">
+            <thead><tr style="background:#f8fafc; text-align:left;"><th style="padding:7px;">Linha</th>{% for key, value in result.records.0.items %}<th style="padding:7px;">{{ key }}</th>{% endfor %}</tr></thead>
+            <tbody>{% for record in result.records %}<tr><td style="padding:7px; border-bottom:1px solid #eef2f7;">{{ forloop.counter }}</td>{% for key, value in record.items %}<td style="padding:7px; border-bottom:1px solid #eef2f7; white-space:nowrap;">{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+        </table>
+    </details>
+    {% endif %}
+</div>
+{% empty %}
+<div class="card" style="margin-bottom:20px;"><p style="margin:0; color:#64748b;">Nenhum arquivo interpretado nesta sessao.</p></div>
+{% endfor %}
+
+<div class="card" style="border-left:4px solid #f59e0b;">
+    <h2 style="margin-bottom:8px;">Construcao do pacote para envio</h2>
+    <p style="margin:0; color:#475569;">A geracao automatica dos arquivos sera liberada depois da conferencia dos campos de cadastro que nao existem no modelo atual, como hipoteca, plano, ST/RJ/RR, indice, saldos atuariais, seguros e codigo do municipio. O sistema nao gera um arquivo de envio com campos inventados.</p>
+</div>
+{% endblock %}
