@@ -30,11 +30,11 @@
 
 <div class="card" style="margin-bottom:20px; border-left:4px solid #16a34a;">
     <h2 style="margin-bottom:8px;">Construir arquivo LQ 2026</h2>
-    <p style="color:#475569; margin-top:0;">Gera um pacote preliminar usando a base atual. O LQ, o arquivo resumo e a lista de excecoes serao entregues em ZIP.</p>
+    <p style="color:#475569; margin-top:0;">2026 usa a Carteira FCVS atual. 2020, 2021 e 2022 usam o LQ de 2019 como base e aplicam os indices historicos; esses pacotes ficam marcados como <strong>ESTIMADOS</strong>.</p>
     <form method="post" enctype="multipart/form-data" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; align-items:end;">
         {% csrf_token %}
         <input type="hidden" name="acao" value="gerar_lq">
-        <div><label for="ano-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Ano</label><input id="ano-geracao" name="ano" value="2026" maxlength="4" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"></div>
+        <div><label for="ano-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Ano</label><select id="ano-geracao" name="ano" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option>2020</option><option>2021</option><option>2022</option><option selected>2026</option></select></div>
         <div><label for="matricula-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Matricula AF</label><input id="matricula-geracao" name="matricula" value="000442" maxlength="6" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"></div>
         <div><label for="fgts-geracao" style="display:block; font-weight:600; margin-bottom:6px;">FGTS</label><select id="fgts-geracao" name="fgts" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option value="1">1 - FGTS</option><option value="2" selected>2 - Demais operacoes</option></select></div>
         <div><label for="hipoteca-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Hipoteca</label><select id="hipoteca-geracao" name="hipoteca" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option value="1" selected>1 - Primeira</option><option value="2">2 - Segunda</option></select></div>

@@ -7,6 +7,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import csv
 import json
 from pathlib import Path
+from datetime import date
 from django.db.models import OuterRef, Subquery
 
 from .atuarial import LAYOUTS, analyze_file, build_liquidated_line, build_summary_line, parse_line
@@ -51,6 +52,31 @@ def _historical_lq(upload):
     return records
 
 
+def _historical_indices():
+    path = Path(__file__).resolve().parent / "indices_historicos.csv"
+    result = {}
+    try:
+        with path.open(encoding="utf-8") as handle:
+            next(handle, None)
+            for line in handle:
+                key, value = line.strip().split(",", 1)
+                result[key] = Decimal(value)
+    except Exception:
+        return {}
+    return result
+
+
+def _future_factor_from_2019(target_year):
+    indices = _historical_indices()
+    factor = Decimal("1")
+    for year in range(2019, target_year + 1):
+        first_month = 7 if year == 2019 else 1
+        last_month = 6 if year == target_year else 12
+        for month in range(first_month, last_month + 1):
+            factor *= Decimal("1") + indices.get(f"{year:04d}-{month:02d}", Decimal("0"))
+    return factor
+
+
 def _fcvs_residual_cache():
     path = Path(__file__).resolve().parent.parent / "fcvs_dashboard_cache.json"
     try:
@@ -65,13 +91,18 @@ def _fcvs_residual_cache():
 
 
 def _generate_lq_package(request):
-    position = f"{request.POST.get('ano', '2026')}06"
+    target_year = int(request.POST.get("ano", "2026"))
+    position = f"{target_year}06"
     matricula = _digits(request.POST.get("matricula", "000442"))[-6:].zfill(6)
     fgts = request.POST.get("fgts", "2")
     hipoteca = request.POST.get("hipoteca", "1")
     lei = request.POST.get("lei_10150", "2")
     historical = _historical_lq(request.FILES.get("historico_lq"))
     residual_cache = _fcvs_residual_cache()
+    estimated = target_year < 2026
+    estimate_factor = _future_factor_from_2019(target_year) if estimated else Decimal("1")
+    if estimated and not historical:
+        return HttpResponse("Para gerar 2020-2022, envie o arquivo LQ de 2019.", status=400, content_type="text/plain")
     municipality_map = _municipality_map()
     mutuarios = {str(m.codimovel).strip(): m for m in Mutuario.objects.all() if m.codimovel}
     latest_parcela = ParcelaContrato.objects.filter(
@@ -97,6 +128,13 @@ def _generate_lq_package(request):
             event_date = contract.data_contrato
             exceptions.append((contract.codigo, "data_evento", "sem pagamento/vencimento; usado data do contrato"))
         saldo = residual_cache.get(contract.id)
+        if estimated:
+            saldo = Decimal("0")
+            if old.get("sd_pos_cont", "").isdigit():
+                saldo = (Decimal(old["sd_pos_cont"]) / Decimal("100")) * estimate_factor
+                exceptions.append((contract.codigo, "origem", f"estimado a partir do LQ 2019; fator acumulado {estimate_factor}"))
+            else:
+                exceptions.append((contract.codigo, "origem", "sem saldo numerico no LQ 2019; gerado como zero"))
         if saldo is None:
             saldo = Decimal("0")
             exceptions.append((contract.codigo, "sd_pos_cont", "residuo FCVS ausente na cache da Carteira FCVS; gerado como zero"))
@@ -146,8 +184,8 @@ def _generate_lq_package(request):
         archive.writestr(f"{matricula}_EXCECOES.csv", issue_file.getvalue())
         archive.writestr(
             "LEIA-ME.txt",
-            "Pacote preliminar de avaliacao atuarial FCVS. "
-            "Conferir o arquivo de excecoes antes do envio a CAIXA.\n",
+            ("Pacote ESTIMADO de avaliacao atuarial FCVS, reconstruido a partir da posicao 2019 " if estimated else "Pacote preliminar de avaliacao atuarial FCVS. ")
+            + "Conferir o arquivo de excecoes antes do envio a CAIXA.\n",
         )
     response = HttpResponse(package.getvalue(), content_type="application/zip")
     response["Content-Disposition"] = f'attachment; filename="{matricula}_ATUARIAL_2026.zip"'
