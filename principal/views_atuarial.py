@@ -5,6 +5,7 @@ from datetime import date
 from io import BytesIO, StringIO
 from zipfile import ZIP_DEFLATED, ZipFile
 import csv
+import json
 from pathlib import Path
 from django.db.models import OuterRef, Subquery
 
@@ -50,6 +51,19 @@ def _historical_lq(upload):
     return records
 
 
+def _fcvs_residual_cache():
+    path = Path(__file__).resolve().parent.parent / "fcvs_dashboard_cache.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {
+        int(item["id"]): Decimal(str(item.get("fcvs_residual", 0)))
+        for item in data.get("contratos", [])
+        if item.get("id") is not None
+    }
+
+
 def _generate_lq_package(request):
     position = f"{request.POST.get('ano', '2026')}06"
     matricula = _digits(request.POST.get("matricula", "000442"))[-6:].zfill(6)
@@ -57,6 +71,7 @@ def _generate_lq_package(request):
     hipoteca = request.POST.get("hipoteca", "1")
     lei = request.POST.get("lei_10150", "2")
     historical = _historical_lq(request.FILES.get("historico_lq"))
+    residual_cache = _fcvs_residual_cache()
     municipality_map = _municipality_map()
     mutuarios = {str(m.codimovel).strip(): m for m in Mutuario.objects.all() if m.codimovel}
     latest_parcela = ParcelaContrato.objects.filter(
@@ -81,13 +96,13 @@ def _generate_lq_package(request):
         if not event_date:
             event_date = contract.data_contrato
             exceptions.append((contract.codigo, "data_evento", "sem pagamento/vencimento; usado data do contrato"))
-        saldo = contract.atuarial_sddev
-        if saldo is None and old.get("sd_pos_cont", "").isdigit():
-            saldo = Decimal(old["sd_pos_cont"]) / Decimal("100")
-            exceptions.append((contract.codigo, "sd_pos_cont", "saldo reaproveitado do LQ historico"))
+        saldo = residual_cache.get(contract.id)
         if saldo is None:
             saldo = Decimal("0")
-            exceptions.append((contract.codigo, "sd_pos_cont", "saldo ausente; gerado como zero"))
+            exceptions.append((contract.codigo, "sd_pos_cont", "residuo FCVS ausente na cache da Carteira FCVS; gerado como zero"))
+        elif saldo <= Decimal("100"):
+            exceptions.append((contract.codigo, "sd_pos_cont", "residuo FCVS abaixo do corte de R$ 100 da Carteira FCVS; gerado como zero"))
+            saldo = Decimal("0")
         if saldo < 0:
             exceptions.append((contract.codigo, "sd_pos_cont", f"saldo original negativo {saldo}; convertido para positivo"))
         saldo_para_arquivo = abs(saldo)
