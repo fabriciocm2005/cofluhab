@@ -28,6 +28,22 @@
     </p>
 </div>
 
+<div class="card" style="margin-bottom:20px; border-left:4px solid #16a34a;">
+    <h2 style="margin-bottom:8px;">Construir arquivo LQ 2026</h2>
+    <p style="color:#475569; margin-top:0;">Gera um pacote preliminar usando a base atual. O LQ, o arquivo resumo e a lista de excecoes serao entregues em ZIP.</p>
+    <form method="post" enctype="multipart/form-data" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; align-items:end;">
+        {% csrf_token %}
+        <input type="hidden" name="acao" value="gerar_lq">
+        <div><label for="ano-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Ano</label><input id="ano-geracao" name="ano" value="2026" maxlength="4" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"></div>
+        <div><label for="matricula-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Matricula AF</label><input id="matricula-geracao" name="matricula" value="000442" maxlength="6" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"></div>
+        <div><label for="fgts-geracao" style="display:block; font-weight:600; margin-bottom:6px;">FGTS</label><select id="fgts-geracao" name="fgts" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option value="1">1 - FGTS</option><option value="2" selected>2 - Demais operacoes</option></select></div>
+        <div><label for="hipoteca-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Hipoteca</label><select id="hipoteca-geracao" name="hipoteca" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option value="1" selected>1 - Primeira</option><option value="2">2 - Segunda</option></select></div>
+        <div><label for="lei-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Ajuste Lei 10.150</label><select id="lei-geracao" name="lei_10150" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option value="1">1 - Contempla ajuste</option><option value="2" selected>2 - Nao contempla</option></select></div>
+        <div><label for="historico-lq" style="display:block; font-weight:600; margin-bottom:6px;">LQ antigo (opcional)</label><input id="historico-lq" type="file" name="historico_lq" accept=".txt,.ret,.dat" style="width:100%; padding:7px; border:1px solid #cbd5e1; border-radius:8px;"></div>
+        <button type="submit" class="btn-primary">Gerar pacote LQ 2026</button>
+    </form>
+</div>
+
 <div class="card" style="margin-bottom:20px;">
     <h2 style="margin-bottom:8px;">Interpretar arquivos TXT existentes</h2>
     <p style="color:#64748b; margin-top:0;">Envie um ou varios arquivos historicos. A leitura usa as posicoes oficiais e aceita o resumo legado de 20 caracteres.</p>

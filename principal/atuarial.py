@@ -210,3 +210,50 @@ def analyze_file(filename: str, content: bytes) -> dict:
         "warnings": warnings[:100],
         "total_sd_pos_cont": total_sd_pos_cont,
     }
+
+
+def format_fixed_numeric(value, width: int, decimals: int = 0) -> str:
+    """Formata numero sem separador, com casas decimais implicitas."""
+    number = abs(Decimal(str(value or 0)))
+    scaled = int((number * (Decimal("10") ** decimals)).quantize(Decimal("1")))
+    result = str(scaled).zfill(width)
+    if len(result) > width:
+        raise ValueError(f"valor {value} excede campo de {width} posicoes")
+    return result
+
+
+def build_liquidated_line(values: dict) -> str:
+    fields = (
+        ("data_posicao", 6, 0, "numeric"),
+        ("matricula_af", 6, 0, "numeric"),
+        ("fgts", 1, 0, "numeric"),
+        ("tipo_evento", 3, 0, "text"),
+        ("data_evento", 8, 0, "numeric"),
+        ("numero_contrato", 13, 0, "numeric"),
+        ("hipoteca", 1, 0, "numeric"),
+        ("sd_pos_cont", 9, 2, "numeric"),
+        ("sd_fcvs_lei_10150", 1, 0, "numeric"),
+        ("taxa_juros", 6, 4, "numeric"),
+        ("uf", 2, 0, "text"),
+        ("codigo_municipio", 5, 0, "numeric"),
+        ("data_contrato", 8, 0, "numeric"),
+        ("cpf", 11, 0, "numeric"),
+    )
+    chunks = []
+    for name, width, decimals, kind in fields:
+        value = values.get(name, "")
+        if kind == "text":
+            chunks.append(str(value or "").strip().ljust(width)[:width])
+        else:
+            chunks.append(format_fixed_numeric(value, width, decimals))
+    line = "".join(chunks)
+    if len(line) != 80:
+        raise ValueError(f"linha LQ gerada com {len(line)} caracteres")
+    return line
+
+
+def build_summary_line(position: str, matricula: str, code: str, count: int) -> str:
+    line = f"{position}{str(matricula).zfill(6)}1{code}{str(count).zfill(8)}"
+    if len(line) != 22:
+        raise ValueError(f"linha RR gerada com {len(line)} caracteres")
+    return line
