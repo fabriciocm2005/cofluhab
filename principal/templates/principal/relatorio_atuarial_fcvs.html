@@ -8,6 +8,18 @@
     <p class="page-subtitle">Interprete arquivos historicos e valide os layouts posicionais usados na avaliacao anual do FCVS.</p>
 </div>
 
+{% if analyses %}
+<div class="card" style="margin-bottom:20px; border-left:4px solid #16a34a;">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div>
+            <h2 style="margin:0 0 6px;">Saldo FCVS apurado da carteira</h2>
+            <p style="margin:0; color:#64748b;">Soma dos campos <strong>SD POS CONT</strong> numericos dos arquivos interpretados. Registros marcados com ERRO aparecem como avisos e nao entram nesta soma.</p>
+        </div>
+        <strong style="font-size:28px; color:#166534; white-space:nowrap;">R$ {{ total_sd_pos_cont|floatformat:2 }}</strong>
+    </div>
+</div>
+{% endif %}
+
 <div class="card" style="margin-bottom:20px; border-left:4px solid #2563eb;">
     <h3 style="margin-bottom:8px;">Obrigacao anual</h3>
     <p style="margin:0; color:#475569;">

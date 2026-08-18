@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from decimal import Decimal
 
 from .atuarial import LAYOUTS, analyze_file
 
@@ -34,8 +35,14 @@ def relatorio_atuarial_fcvs(request):
                     continue
                 analyses.append(analyze_file(arquivo.name, arquivo.read()))
 
+    total_sd_pos_cont = sum(
+        (result.get("total_sd_pos_cont", Decimal("0")) for result in analyses),
+        Decimal("0"),
+    )
+
     return render(request, "principal/relatorio_atuarial_fcvs.html", {
         "analyses": analyses,
         "upload_error": upload_error,
         "layouts": LAYOUTS,
+        "total_sd_pos_cont": total_sd_pos_cont,
     })

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from decimal import Decimal
 from pathlib import Path
 import re
 from typing import Iterable
@@ -176,6 +177,7 @@ def analyze_file(filename: str, content: bytes) -> dict:
     records = []
     errors = []
     warnings = []
+    total_sd_pos_cont = Decimal("0")
     for number, line in enumerate(lines, 1):
         if layout == "RR":
             values, line_errors = parse_summary_line(line)
@@ -185,6 +187,10 @@ def analyze_file(filename: str, content: bytes) -> dict:
             errors.append({"line": number, "messages": line_errors})
         else:
             records.append(values)
+            if layout in ("LQ", "LNPH", "RNV"):
+                raw_sd = values.get("sd_pos_cont", "")
+                if raw_sd.isdigit():
+                    total_sd_pos_cont += Decimal(raw_sd) / Decimal("100")
             if "ERRO" in line.upper():
                 warnings.append({
                     "line": number,
@@ -202,4 +208,5 @@ def analyze_file(filename: str, content: bytes) -> dict:
         "records": records[:25],
         "errors": errors[:100],
         "warnings": warnings[:100],
+        "total_sd_pos_cont": total_sd_pos_cont,
     }
