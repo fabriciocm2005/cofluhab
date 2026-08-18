@@ -86,6 +86,12 @@ def detect_layout(filename: str, line_lengths: Iterable[int]) -> str | None:
             return suffix
 
     lengths = set(line_lengths)
+    if "LQ" in stem and lengths == {80}:
+        return "LQ"
+    if "RNV" in stem and lengths == {80}:
+        return "RNV"
+    if "LNPH" in stem and lengths == {80}:
+        return "LNPH"
     if lengths == {142}:
         return "AT"
     if lengths == {20}:

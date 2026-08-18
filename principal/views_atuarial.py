@@ -96,6 +96,18 @@ def _future_factor_from_2019(target_year):
     return factor
 
 
+def _backcast_factor_to_2026(target_year):
+    indices = _historical_indices()
+    indices.update(_tr_indices_bcb(target_year, 2026))
+    factor = Decimal("1")
+    for year in range(target_year, 2027):
+        first_month = 7 if year == target_year else 1
+        last_month = 6 if year == 2026 else 12
+        for month in range(first_month, last_month + 1):
+            factor *= Decimal("1") + indices.get(f"{year:04d}-{month:02d}", Decimal("0"))
+    return factor
+
+
 def _fcvs_residual_cache():
     path = Path(__file__).resolve().parent.parent / "fcvs_dashboard_cache.json"
     try:
@@ -119,9 +131,7 @@ def _generate_lq_package(request):
     historical = _historical_lq(request.FILES.get("historico_lq"))
     residual_cache = _fcvs_residual_cache()
     estimated = target_year < 2026
-    estimate_factor = _future_factor_from_2019(target_year) if estimated else Decimal("1")
-    if estimated and not historical:
-        return HttpResponse("Para gerar 2020-2022, envie o arquivo LQ de 2019.", status=400, content_type="text/plain")
+    estimate_factor = _backcast_factor_to_2026(target_year) if estimated else Decimal("1")
     municipality_map = _municipality_map()
     mutuarios = {str(m.codimovel).strip(): m for m in Mutuario.objects.all() if m.codimovel}
     latest_parcela = ParcelaContrato.objects.filter(
@@ -148,12 +158,8 @@ def _generate_lq_package(request):
             exceptions.append((contract.codigo, "data_evento", "sem pagamento/vencimento; usado data do contrato"))
         saldo = residual_cache.get(contract.id)
         if estimated:
-            saldo = Decimal("0")
-            if old.get("sd_pos_cont", "").isdigit():
-                saldo = (Decimal(old["sd_pos_cont"]) / Decimal("100")) * estimate_factor
-                exceptions.append((contract.codigo, "origem", f"estimado a partir do LQ 2019; fator acumulado {estimate_factor}"))
-            else:
-                exceptions.append((contract.codigo, "origem", "sem saldo numerico no LQ 2019; gerado como zero"))
+            saldo = (saldo or Decimal("0")) / estimate_factor
+            exceptions.append((contract.codigo, "origem", f"reconstruido a partir do banco e deflacionado desde 2026; fator TR {estimate_factor}"))
         if saldo is None:
             saldo = Decimal("0")
             exceptions.append((contract.codigo, "sd_pos_cont", "residuo FCVS ausente na cache da Carteira FCVS; gerado como zero"))

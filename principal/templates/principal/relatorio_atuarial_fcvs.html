@@ -29,8 +29,8 @@
 </div>
 
 <div class="card" style="margin-bottom:20px; border-left:4px solid #16a34a;">
-    <h2 style="margin-bottom:8px;">Construir arquivo LQ 2026</h2>
-    <p style="color:#475569; margin-top:0;">2026 usa a Carteira FCVS atual. 2020, 2021 e 2022 usam o LQ de 2019 como base e aplicam os indices historicos; esses pacotes ficam marcados como <strong>ESTIMADOS</strong>.</p>
+    <h2 style="margin-bottom:8px;">Construir pacote atuarial</h2>
+    <p style="color:#475569; margin-top:0;">2026 usa a Carteira FCVS atual. 2020, 2021 e 2022 usam o LQ de 2019 como base e aplicam os indices historicos em uma <strong>projecao monetaria auditavel</strong>, sem alterar a carteira de contratos.</p>
     <form method="post" enctype="multipart/form-data" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; align-items:end;">
         {% csrf_token %}
         <input type="hidden" name="acao" value="gerar_lq">
