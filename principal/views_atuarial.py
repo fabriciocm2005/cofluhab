@@ -188,7 +188,7 @@ def _generate_lq_package(request):
             + "Conferir o arquivo de excecoes antes do envio a CAIXA.\n",
         )
     response = HttpResponse(package.getvalue(), content_type="application/zip")
-    response["Content-Disposition"] = f'attachment; filename="{matricula}_ATUARIAL_2026.zip"'
+    response["Content-Disposition"] = f'attachment; filename="{matricula}_ATUARIAL_{target_year}.zip"'
     return response
 
 
