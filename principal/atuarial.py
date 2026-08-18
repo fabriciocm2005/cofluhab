@@ -244,6 +244,8 @@ def build_liquidated_line(values: dict) -> str:
         value = values.get(name, "")
         if kind == "text":
             chunks.append(str(value or "").strip().ljust(width)[:width])
+        elif name == "sd_pos_cont" and isinstance(value, str) and value.endswith("ERRO") and len(value) == width:
+            chunks.append(value)
         else:
             chunks.append(format_fixed_numeric(value, width, decimals))
     line = "".join(chunks)

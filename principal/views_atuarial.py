@@ -90,6 +90,11 @@ def _generate_lq_package(request):
             exceptions.append((contract.codigo, "sd_pos_cont", "saldo ausente; gerado como zero"))
         if saldo < 0:
             exceptions.append((contract.codigo, "sd_pos_cont", f"saldo original negativo {saldo}; convertido para positivo"))
+        saldo_para_arquivo = abs(saldo)
+        saldo_escalado = int((saldo_para_arquivo * Decimal("100")).quantize(Decimal("1")))
+        if len(str(saldo_escalado)) > 9:
+            exceptions.append((contract.codigo, "sd_pos_cont", f"saldo positivo {saldo_para_arquivo} excede o campo LQ; marcado como ERRO"))
+            saldo_para_arquivo = str(saldo_escalado)[:5] + "ERRO"
         municipality = municipality_map.get(key) or old.get("codigo_municipio", "")
         if not municipality:
             exceptions.append((contract.codigo, "codigo_municipio", "nao localizado"))
@@ -104,7 +109,7 @@ def _generate_lq_package(request):
             "data_evento": _date_text(event_date),
             "numero_contrato": key_digits or old.get("numero_contrato", "0"),
             "hipoteca": hipoteca,
-            "sd_pos_cont": abs(saldo),
+            "sd_pos_cont": saldo_para_arquivo,
             "sd_fcvs_lei_10150": lei,
             "taxa_juros": contract.tx_juros if contract.tx_juros is not None else Decimal(old.get("taxa_juros", "0")) / Decimal("10000"),
             "uf": (mutuario.uf if mutuario else old.get("uf", "")),
