@@ -33,15 +33,36 @@
     <p style="color:#475569; margin-top:0;">2026 usa a Carteira FCVS atual. 2020, 2021 e 2022 usam o LQ de 2019 como base e aplicam os indices historicos em uma <strong>projecao monetaria auditavel</strong>, sem alterar a carteira de contratos.</p>
     <form method="post" enctype="multipart/form-data" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; align-items:end;">
         {% csrf_token %}
-        <input type="hidden" name="acao" value="gerar_lq">
+        <input type="hidden" name="acao" value="{% if actuarial_preview %}gerar_lq{% else %}previsualizar_lq{% endif %}">
         <div><label for="ano-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Ano</label><select id="ano-geracao" name="ano" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option>2020</option><option>2021</option><option>2022</option><option selected>2026</option></select></div>
         <div><label for="matricula-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Matricula AF</label><input id="matricula-geracao" name="matricula" value="000442" maxlength="6" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"></div>
         <div><label for="fgts-geracao" style="display:block; font-weight:600; margin-bottom:6px;">FGTS</label><select id="fgts-geracao" name="fgts" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option value="1">1 - FGTS</option><option value="2" selected>2 - Demais operacoes</option></select></div>
         <div><label for="hipoteca-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Hipoteca</label><select id="hipoteca-geracao" name="hipoteca" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option value="1" selected>1 - Primeira</option><option value="2">2 - Segunda</option></select></div>
         <div><label for="lei-geracao" style="display:block; font-weight:600; margin-bottom:6px;">Ajuste Lei 10.150</label><select id="lei-geracao" name="lei_10150" style="width:100%; padding:9px; border:1px solid #cbd5e1; border-radius:8px;"><option value="1">1 - Contempla ajuste</option><option value="2" selected>2 - Nao contempla</option></select></div>
         <div><label for="historico-lq" style="display:block; font-weight:600; margin-bottom:6px;">LQ antigo (opcional)</label><input id="historico-lq" type="file" name="historico_lq" accept=".txt,.ret,.dat" style="width:100%; padding:7px; border:1px solid #cbd5e1; border-radius:8px;"></div>
-        <button type="submit" class="btn-primary">Gerar pacote LQ do ano selecionado</button>
+        <button type="submit" class="btn-primary">{% if actuarial_preview %}Gerar pacote LQ do ano selecionado{% else %}Apurar saldo antes de gerar{% endif %}</button>
     </form>
+    {% if actuarial_preview %}
+    <div style="margin-top:20px; padding:18px; border:1px solid #86efac; border-left:5px solid #16a34a; border-radius:10px; background:#f0fdf4;">
+        <div style="display:flex; justify-content:space-between; align-items:end; gap:16px; flex-wrap:wrap;">
+            <div>
+                <h3 style="margin:0 0 6px; color:#166534;">Resumo do saldo FCVS</h3>
+                <p style="margin:0; color:#475569;">Posicao atuarial: <strong>{{ actuarial_preview.position }}</strong></p>
+            </div>
+            <strong style="font-size:28px; color:#166534; white-space:nowrap;">R$ {{ actuarial_preview.total|floatformat:2 }}</strong>
+        </div>
+        <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:14px; color:#475569;">
+            <span>Contratos com saldo: <strong>{{ actuarial_preview.contracts_with_residual }}</strong></span>
+            <span>Sem saldo na cache: <strong>{{ actuarial_preview.contracts_without_residual }}</strong></span>
+            <span>Abaixo de R$ 100: <strong>{{ actuarial_preview.below_cutoff }}</strong></span>
+        </div>
+        {% if actuarial_preview.estimated %}
+        <p style="margin:14px 0 0; color:#92400e;">Este valor e uma projecao para {{ actuarial_preview.year }}, com fator acumulado de indices ate 2026: <strong>{{ actuarial_preview.factor }}</strong>.</p>
+        {% else %}
+        <p style="margin:14px 0 0; color:#166534;">Este valor usa a Carteira FCVS atual, sem projecao monetaria.</p>
+        {% endif %}
+    </div>
+    {% endif %}
 </div>
 
 <div class="card" style="margin-bottom:20px;">
@@ -108,6 +129,6 @@
 
 <div class="card" style="border-left:4px solid #f59e0b;">
     <h2 style="margin-bottom:8px;">Construcao do pacote para envio</h2>
-    <p style="margin:0; color:#475569;">A geracao automatica dos arquivos sera liberada depois da conferencia dos campos de cadastro que nao existem no modelo atual, como hipoteca, plano, ST/RJ/RR, indice, saldos atuariais, seguros e codigo do municipio. O sistema nao gera um arquivo de envio com campos inventados.</p>
+    <p style="margin:0; color:#475569;">O pacote e gerado depois da exibicao do resumo do saldo. Confira as excecoes e os campos de cadastro que nao existem no modelo atual, como hipoteca, plano, ST/RJ/RR, indice, saldos atuariais, seguros e codigo do municipio, antes do envio oficial.</p>
 </div>
 {% endblock %}

@@ -121,6 +121,35 @@ def _fcvs_residual_cache():
     }
 
 
+def _actuarial_balance(target_year):
+    residual_cache = _fcvs_residual_cache()
+    estimated = target_year < 2026
+    estimate_factor = _backcast_factor_to_2026(target_year) if estimated else Decimal("1")
+    total = Decimal("0")
+    contracts_with_residual = 0
+    below_cutoff = 0
+
+    for contract_id, residual in residual_cache.items():
+        if estimated:
+            residual /= estimate_factor
+        if residual <= Decimal("100"):
+            below_cutoff += 1
+            continue
+        contracts_with_residual += 1
+        total += abs(residual)
+
+    return {
+        "year": target_year,
+        "position": f"30/06/{target_year}",
+        "total": total,
+        "contracts_with_residual": contracts_with_residual,
+        "contracts_without_residual": max(Contrato.objects.count() - len(residual_cache), 0),
+        "below_cutoff": below_cutoff,
+        "factor": estimate_factor,
+        "estimated": estimated,
+    }
+
+
 def _generate_lq_package(request):
     target_year = int(request.POST.get("ano", "2026"))
     position = f"{target_year}06"
@@ -229,10 +258,13 @@ def _generate_lq_package(request):
 def relatorio_atuarial_fcvs(request):
     analyses = []
     upload_error = None
+    actuarial_preview = None
 
     if request.method == "POST":
         if request.POST.get("acao") == "gerar_lq":
             return _generate_lq_package(request)
+        if request.POST.get("acao") == "previsualizar_lq":
+            actuarial_preview = _actuarial_balance(int(request.POST.get("ano", "2026")))
         arquivos = request.FILES.getlist("arquivos")
         if not arquivos:
             upload_error = "Selecione pelo menos um arquivo TXT."
@@ -266,4 +298,5 @@ def relatorio_atuarial_fcvs(request):
         "upload_error": upload_error,
         "layouts": LAYOUTS,
         "total_sd_pos_cont": total_sd_pos_cont,
+        "actuarial_preview": actuarial_preview,
     })

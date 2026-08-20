@@ -235,7 +235,7 @@ def build_liquidated_line(values: dict) -> str:
         ("fgts", 1, 0, "numeric"),
         ("tipo_evento", 3, 0, "text"),
         ("data_evento", 8, 0, "numeric"),
-        ("numero_contrato", 13, 0, "numeric"),
+        ("numero_contrato", 13, 0, "text"),
         ("hipoteca", 1, 0, "numeric"),
         ("sd_pos_cont", 9, 2, "numeric"),
         ("sd_fcvs_lei_10150", 1, 0, "numeric"),
