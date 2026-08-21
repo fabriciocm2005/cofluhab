@@ -91,11 +91,16 @@
     }
     .contratos-table {
         width: 100%;
+        min-width: 1450px;
         border-collapse: collapse;
         background: white;
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         border-radius: 8px;
         overflow: hidden;
+    }
+    .contratos-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
     }
     .contratos-table th {
         background: linear-gradient(to bottom, #1976d2, #1565c0);
@@ -183,6 +188,7 @@
 </div>
 
 {% if contratos %}
+    <div class="contratos-table-wrapper">
     <table class="contratos-table">
         <thead>
             <tr>
@@ -200,6 +206,12 @@
                 <th style="text-align: center;">Ações</th>
             </tr>
         </thead>
+        <tbody>
+        {% for contrato in contratos %}
+            <tr>
+                <td><strong>{{ contrato.codigo }}</strong></td>
+                <td>
+                    {% if contrato.mutuario_nome %}
                 <td>
                     {% if contrato.data_contrato %}
                         {{ contrato.data_contrato|date:"d/m/Y" }}
@@ -214,12 +226,6 @@
                         <span style="color: #999;">-</span>
                     {% endif %}
                 </td>
-        <tbody>
-        {% for contrato in contratos %}
-            <tr>
-                <td><strong>{{ contrato.codigo }}</strong></td>
-                <td>
-                    {% if contrato.mutuario_nome %}
                         {{ contrato.mutuario_nome }}
                     {% else %}
                         <span class="sem-cadastro">(sem cadastro)</span>
@@ -265,6 +271,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
     
     <!-- Paginação -->
     {% if page_obj.paginator.num_pages > 1 %}
