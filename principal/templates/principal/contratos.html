@@ -191,6 +191,8 @@
                 <th>CPF</th>
                 <th>Conjunto</th>
                 <th>Ocorrência</th>
+                <th>Data do Contrato</th>
+                <th>Data Última Parcela</th>
                 <th>Endereço</th>
                 <th>Cidade</th>
                 <th style="text-align: center;">Total Parcelas</th>
@@ -198,6 +200,20 @@
                 <th style="text-align: center;">Ações</th>
             </tr>
         </thead>
+                <td>
+                    {% if contrato.data_contrato %}
+                        {{ contrato.data_contrato|date:"d/m/Y" }}
+                    {% else %}
+                        <span style="color: #999;">-</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if contrato.data_ultima_parcela %}
+                        {{ contrato.data_ultima_parcela|date:"d/m/Y" }}
+                    {% else %}
+                        <span style="color: #999;">-</span>
+                    {% endif %}
+                </td>
         <tbody>
         {% for contrato in contratos %}
             <tr>

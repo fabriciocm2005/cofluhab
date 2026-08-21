@@ -3240,15 +3240,20 @@ def contratos(request):
     for c_id in contratos_ids:
         stats = parcelas_map.get(c_id)
         if stats:
-            ultima = ParcelaContrato.objects.filter(contrato_id=c_id, nmens=stats['max_nmens']).only('sddev').first()
+            ultima = ParcelaContrato.objects.filter(contrato_id=c_id, nmens=stats['max_nmens']).only('sddev', 'dtvenc').first()
             if ultima:
-                ultimas_parcelas[c_id] = ultima.sddev
+                ultimas_parcelas[c_id] = {
+                    'saldo': ultima.sddev,
+                    'data_vencimento': ultima.dtvenc,
+                }
     
     for c in page_obj:
         # Usar estatísticas já calculadas
         stats = parcelas_map.get(c.id, {})
         c.total_parcelas = stats.get('total', 0)
-        c.saldo_atual = ultimas_parcelas.get(c.id, 0)
+        ultima = ultimas_parcelas.get(c.id, {})
+        c.saldo_atual = ultima.get('saldo', 0)
+        c.data_ultima_parcela = ultima.get('data_vencimento')
         
         # Buscar mutuário principal vinculado ao contrato
         mutuario_ids_contrato = mapeamento.get(c.id, [])
