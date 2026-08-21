@@ -212,20 +212,6 @@
                 <td><strong>{{ contrato.codigo }}</strong></td>
                 <td>
                     {% if contrato.mutuario_nome %}
-                <td>
-                    {% if contrato.data_contrato %}
-                        {{ contrato.data_contrato|date:"d/m/Y" }}
-                    {% else %}
-                        <span style="color: #999;">-</span>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if contrato.data_ultima_parcela %}
-                        {{ contrato.data_ultima_parcela|date:"d/m/Y" }}
-                    {% else %}
-                        <span style="color: #999;">-</span>
-                    {% endif %}
-                </td>
                         {{ contrato.mutuario_nome }}
                     {% else %}
                         <span class="sem-cadastro">(sem cadastro)</span>
@@ -240,6 +226,20 @@
                 </td>
                 <td>{{ contrato.conjunto }}</td>
                 <td><span style="background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 3px; font-size: 0.85em;">{{ contrato.ocorrencia|default:"-" }}</span></td>
+                <td>
+                    {% if contrato.data_contrato %}
+                        {{ contrato.data_contrato|date:"d/m/Y" }}
+                    {% else %}
+                        <span style="color: #999;">-</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if contrato.data_ultima_parcela %}
+                        {{ contrato.data_ultima_parcela|date:"d/m/Y" }}
+                    {% else %}
+                        <span style="color: #999;">-</span>
+                    {% endif %}
+                </td>
                 <td>
                     {% if contrato.mutuario_endereco %}
                         {{ contrato.mutuario_endereco }}, {{ contrato.mutuario_numero|default:"S/N" }}
