@@ -79,6 +79,14 @@
         background: #da190b;
         transform: translateY(-2px);
     }
+    .btn-export {
+        background: #217346;
+        color: white;
+    }
+    .btn-export:hover {
+        background: #1a5c38;
+        transform: translateY(-2px);
+    }
     .results-info {
         background: #e3f2fd;
         padding: 15px;
@@ -170,6 +178,7 @@
         <div class="search-actions">
             <button type="submit" class="btn btn-search">🔎 Buscar</button>
             <a href="{% url 'contratos' %}" class="btn btn-clear">🗑️ Limpar Filtros</a>
+            <a href="{% url 'exportar_contratos_excel' %}?codigo={{ busca_codigo }}&conjunto={{ busca_conjunto }}&q={{ busca }}" class="btn btn-export">📊 Exportar Excel</a>
         </div>
     </form>
 </div>

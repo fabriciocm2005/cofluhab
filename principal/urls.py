@@ -20,6 +20,7 @@ urlpatterns = [
     path('enderecos/', views.enderecos, name='enderecos'),
     path('movimentacoes/', views.movimentacoes, name='movimentacoes'),
     path('contratos/', views.contratos, name='contratos'),
+    path('contratos/exportar-excel/', views.exportar_contratos_excel, name='exportar_contratos_excel'),
     path('contrato/<int:pk>/', views.contrato_detail, name='contrato_detail'),
     path('contrato/<int:pk>/crm/adicionar/', views.adicionar_atendimento_crm, name='adicionar_atendimento_crm'),
     path('contrato/<int:pk>/crm/importar/', views.importar_atendimentos_crm, name='importar_atendimentos_crm'),

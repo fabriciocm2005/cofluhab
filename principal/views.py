@@ -3128,30 +3128,24 @@ def movimentacoes(request):
     qs = qs.order_by('-data')[:200]
     return render(request, 'principal/movimentacoes.html', {'movimentacoes': qs, 'busca': busca, 'total': Movimentacao.objects.count()})
 
-def contratos(request):
+def _contratos_filtrados(request):
+    """Aplica os filtros de busca/código/conjunto da tela de Contratos e retorna o queryset ordenado."""
     busca = request.GET.get('q', '')
     busca_codigo = request.GET.get('codigo', '')
     busca_conjunto = request.GET.get('conjunto', '')
-    pagina = request.GET.get('pagina', 1)
-    
+
     qs = Contrato.objects.all()
-    
-    # Filtro por código do contrato
+
     if busca_codigo:
         qs = qs.filter(codigo__icontains=busca_codigo)
-    
-    # Filtro por conjunto
+
     if busca_conjunto:
         qs = qs.filter(conjunto__icontains=busca_conjunto)
-    
-    # Busca geral (código, conjunto ou nome do mutuário)
+
     if busca:
-        # Buscar contratos por código ou conjunto
         contratos_codigo = qs.filter(Q(codigo__icontains=busca) | Q(conjunto__icontains=busca))
-        
-        # Buscar mutuários por nome ou código
         mutuarios = Mutuario.objects.filter(Q(nome__icontains=busca) | Q(codigo__icontains=busca))
-        
+
         contrato_ids = []
         try:
             mut_ids = [m.id for m in mutuarios]
@@ -3167,33 +3161,25 @@ def contratos(request):
                     contrato_ids = [row[0] for row in cur.fetchall()]
         except Exception as e:
             print(f"Erro ao buscar contratos por mutuário: {e}")
-        
-        # Combinar resultados
+
         if contrato_ids:
             contratos_mutuario = Contrato.objects.filter(id__in=contrato_ids)
             qs = (contratos_codigo | contratos_mutuario).distinct()
         else:
             qs = contratos_codigo
-    
-    # Ordenar e contar total antes da paginação
+
     qs = qs.order_by('codigo')
-    total_contratos = qs.count()
-    
-    # Paginação: 200 contratos por página
-    paginator = Paginator(qs, 200)
-    page_obj = paginator.get_page(pagina)
-    
-    # Adicionar total de parcelas, saldo atual e dados do mutuário
-    contratos_list = []
-    
-    # Buscar mutuários vinculados aos contratos via mapeamento
-    contratos_ids = [c.id for c in page_obj]
-    
+    return qs, busca, busca_codigo, busca_conjunto
+
+
+def _enriquecer_contratos(contratos_qs_ou_lista):
+    """Anexa total de parcelas, saldo/data da última parcela e dados do mutuário a cada contrato."""
+    contratos_ids = [c.id for c in contratos_qs_ou_lista]
+
     mapeamento = {}
     mutuario_ids = []
     if contratos_ids:
         try:
-            # Buscar mapeamento contrato -> mutuário na conexão ativa do Django
             placeholders = ','.join(['%s'] * len(contratos_ids))
             sql = f"""
                 SELECT contrato_id, mutuario_id
@@ -3212,30 +3198,27 @@ def contratos(request):
         except Exception:
             # Em produção (Postgres) pode não existir tabela auxiliar de mapeamento.
             # Fallback: vincula por código do contrato = código do mutuário.
-            codigos_contrato = [c.codigo for c in page_obj if c.codigo]
+            codigos_contrato = [c.codigo for c in contratos_qs_ou_lista if c.codigo]
             if codigos_contrato:
                 fallback_mutuarios = Mutuario.objects.filter(codigo__in=codigos_contrato).only('id', 'codigo')
                 por_codigo = {m.codigo: m.id for m in fallback_mutuarios}
-                for c in page_obj:
+                for c in contratos_qs_ou_lista:
                     mid = por_codigo.get(c.codigo)
                     if mid:
                         mapeamento[c.id] = [mid]
                         mutuario_ids.append(mid)
-    
-    # Buscar mutuários de uma vez
+
     mutuarios_dict = {}
     if mutuario_ids:
         mutuarios = Mutuario.objects.filter(id__in=mutuario_ids).select_related('endereco_fk')
         mutuarios_dict = {m.id: m for m in mutuarios}
-    
-    # Buscar estatísticas de parcelas de uma vez
+
     parcelas_stats = ParcelaContrato.objects.filter(contrato_id__in=contratos_ids).values('contrato_id').annotate(
         total=Count('id'),
         max_nmens=Max('nmens')
     )
     parcelas_map = {p['contrato_id']: p for p in parcelas_stats}
-    
-    # Buscar últimas parcelas para pegar saldo devedor
+
     ultimas_parcelas = {}
     for c_id in contratos_ids:
         stats = parcelas_map.get(c_id)
@@ -3246,23 +3229,21 @@ def contratos(request):
                     'saldo': ultima.sddev,
                     'data_vencimento': ultima.dtvenc,
                 }
-    
-    for c in page_obj:
-        # Usar estatísticas já calculadas
+
+    contratos_list = []
+    for c in contratos_qs_ou_lista:
         stats = parcelas_map.get(c.id, {})
         c.total_parcelas = stats.get('total', 0)
         ultima = ultimas_parcelas.get(c.id, {})
         c.saldo_atual = ultima.get('saldo', 0)
         c.data_ultima_parcela = ultima.get('data_vencimento')
-        
-        # Buscar mutuário principal vinculado ao contrato
+
         mutuario_ids_contrato = mapeamento.get(c.id, [])
         mutuario = mutuarios_dict.get(mutuario_ids_contrato[0]) if mutuario_ids_contrato else None
-        
+
         c.mutuario_nome = mutuario.nome if mutuario else None
         c.mutuario_cpf = mutuario.cpf if mutuario else None
-        
-        # Buscar endereço do FK
+
         if mutuario and mutuario.endereco_fk:
             c.mutuario_endereco = mutuario.endereco_fk.endereco or mutuario.endereco
             c.mutuario_numero = mutuario.endereco_fk.numero or mutuario.numero
@@ -3271,9 +3252,21 @@ def contratos(request):
             c.mutuario_endereco = mutuario.endereco if mutuario else None
             c.mutuario_numero = mutuario.numero if mutuario else None
             c.mutuario_cidade = mutuario.cidade if mutuario else None
-        
+
         contratos_list.append(c)
-    
+
+    return contratos_list
+
+
+def contratos(request):
+    pagina = request.GET.get('pagina', 1)
+    qs, busca, busca_codigo, busca_conjunto = _contratos_filtrados(request)
+    total_contratos = qs.count()
+
+    paginator = Paginator(qs, 200)
+    page_obj = paginator.get_page(pagina)
+    contratos_list = _enriquecer_contratos(list(page_obj))
+
     return render(request, 'principal/contratos.html', {
         'contratos': contratos_list, 
         'page_obj': page_obj,
@@ -3283,6 +3276,47 @@ def contratos(request):
         'total': Contrato.objects.count(),
         'total_filtrado': total_contratos
     })
+
+
+def exportar_contratos_excel(request):
+    """Exporta para Excel todos os contratos que atendem aos filtros atuais da tela de Contratos."""
+    from openpyxl import Workbook
+
+    qs, busca, busca_codigo, busca_conjunto = _contratos_filtrados(request)
+    contratos_list = _enriquecer_contratos(list(qs))
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Contratos'
+    ws.append([
+        'Código', 'Nome', 'CPF', 'Conjunto', 'Ocorrência', 'Data do Contrato',
+        'Data Última Parcela', 'Endereço', 'Cidade', 'Total Parcelas', 'Saldo Devedor',
+    ])
+
+    for c in contratos_list:
+        endereco = c.mutuario_endereco or ''
+        if endereco and c.mutuario_numero:
+            endereco = f"{endereco}, {c.mutuario_numero}"
+        ws.append([
+            c.codigo,
+            c.mutuario_nome or '(sem cadastro)',
+            c.mutuario_cpf or '',
+            c.conjunto,
+            c.ocorrencia or '',
+            c.data_contrato.strftime('%d/%m/%Y') if c.data_contrato else '',
+            c.data_ultima_parcela.strftime('%d/%m/%Y') if c.data_ultima_parcela else '',
+            endereco,
+            c.mutuario_cidade or '',
+            c.total_parcelas,
+            float(c.saldo_atual or 0),
+        ])
+
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = f'attachment; filename="contratos_{date.today().strftime("%Y%m%d")}.xlsx"'
+    wb.save(response)
+    return response
 
 def contrato_detail(request, pk):
     contrato = get_object_or_404(Contrato, pk=pk)
