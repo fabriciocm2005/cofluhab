@@ -39,7 +39,7 @@
                             <label for="arquivos">Selecione um ou mais arquivos:</label>
                             <input type="file" name="arquivos" id="arquivos" class="form-control-file" multiple required>
                             <small class="form-text text-muted">
-                                Padrões aceitos automaticamente: CADMUT1, M3026xx e Sxxxxxx.
+                                Padrões aceitos automaticamente: CADMUT1, M3026xx, P3026 (FCV.*.P3026.*) e Sxxxxxx.
                             </small>
                         </div>
 
@@ -56,8 +56,8 @@
                 </div>
                 <div class="card-body small">
                     <ul class="mb-0">
-                        <li>Detecta o tipo pelo nome do arquivo (ex.: MICP.FCVS.M302612...)</li>
-                        <li>Processa M3026xx com parser P3026 v2</li>
+                        <li>Detecta o tipo pelo nome do arquivo (ex.: MICP.FCVS.M302612... ou FCV.RJ.BQA1.P3026...)</li>
+                        <li>Processa M3026xx e P3026 com parser P3026 v2</li>
                         <li>Processa CADMUT1 com interpretador CADMUT</li>
                         <li>Processa Sxxxxxx como relatório textual com totalizadores</li>
                         <li>Se não reconhecer, aplica fallback FCVS</li>
@@ -174,6 +174,48 @@
                     </div>
                 </div>
             </div>
+
+            {% if resumo_p3026_agrupado %}
+            <div class="card mt-3 border-success">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">📊 Resumo P3026 por tipo de registro (o que a CEF analisou)</h6>
+                </div>
+                <div class="card-body">
+                    {% for grupo in resumo_p3026_agrupado %}
+                    <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                        <strong>{{ grupo.arquivo }} — {{ grupo.rotulo_tr }}</strong>
+                        <span class="badge badge-secondary">{{ grupo.total }} contrato(s)</span>
+                        <div class="row mt-2">
+                            <div class="col-md-4">
+                                <small class="text-muted">Situação do contrato</small>
+                                <ul class="mb-0 small">
+                                    {% for descricao, qtd in grupo.situacoes %}
+                                    <li>{{ descricao }}: <strong>{{ qtd }}</strong></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <small class="text-muted">Manifestação (RCV/RNV/SM)</small>
+                                <ul class="mb-0 small">
+                                    {% for tipo, qtd in grupo.manifestacoes %}
+                                    <li>{{ tipo }}: <strong>{{ qtd }}</strong></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <small class="text-muted">Situação de homologação</small>
+                                <ul class="mb-0 small">
+                                    {% for status, qtd in grupo.homologacao %}
+                                    <li>{{ status }}: <strong>{{ qtd }}</strong></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
 
             {% if detalhes_p3026_preview %}
             <div class="card mt-3 border-info">

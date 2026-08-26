@@ -2370,7 +2370,7 @@ def processar_relatorios_cef_upload(request):
                         }
                         detalhes_arquivos.extend(_detalhes_cadmut1(temp_path, arquivo.name, codigo))
 
-                    elif codigo.startswith('M3026'):
+                    elif codigo.startswith('M3026') or codigo.startswith('P3026'):
                         arquivo_p3026, erros = parser_p3026.parse_arquivo(temp_path)
                         total_registros = len(arquivo_p3026.registros) if arquivo_p3026 else 0
                         resultado['tipo_detectado'] = 'M3026xx / P3026'
@@ -2506,9 +2506,70 @@ def processar_relatorios_cef_upload(request):
         'processados_erro': processados_erro,
         'detalhes_baixa': detalhes_baixa,
         'detalhes_p3026_preview': detalhes_p3026_preview,
+        'resumo_p3026_agrupado': _resumo_p3026_agrupado(detalhes_arquivos),
     }
 
     return render(request, 'principal/cef_upload_relatorios.html', context)
+
+
+def _resumo_p3026_agrupado(detalhes_arquivos: List[dict]) -> List[dict]:
+    """Agrupa as linhas P3026/M3026xx ja detalhadas por arquivo + tipo de registro (TR),
+    contando situacao do contrato, manifestacao (RCV/RNV/SM) e status de homologacao.
+    """
+    rotulos_tr = {
+        '1': 'TR1 - Habilitados nao homologados',
+        '2': 'TR2 - Responsabilidade de replanejamento',
+        '3': 'TR3 - Responsabilidade de alteracao cadastral',
+        '4': 'TR4 - Responsabilidade de outra natureza',
+        '5': 'TR5 - Responsabilidade associada a cobertura',
+        '6': 'TR6 - Responsabilidade por incidir evento',
+        '7': 'TR7 - Quitados / em ressarcimento',
+        '8': 'TR8 - Cancelados',
+    }
+
+    grupos = {}
+    ordem = []
+    for row in detalhes_arquivos:
+        tipo_linha = str(row.get('tipo_linha', '') or '')
+        if tipo_linha not in rotulos_tr:
+            continue
+        chave = (row.get('arquivo', ''), tipo_linha)
+        if chave not in grupos:
+            grupos[chave] = {
+                'arquivo': row.get('arquivo', ''),
+                'tr': tipo_linha,
+                'rotulo_tr': rotulos_tr[tipo_linha],
+                'total': 0,
+                'situacoes': Counter(),
+                'manifestacoes': Counter(),
+                'homologacao': Counter(),
+            }
+            ordem.append(chave)
+        grupo = grupos[chave]
+        grupo['total'] += 1
+        desc_sit = (row.get('descricao_situacao') or '').strip()
+        if desc_sit:
+            grupo['situacoes'][desc_sit] += 1
+        manifestacao = (row.get('manifestacao') or '').strip()
+        if manifestacao:
+            grupo['manifestacoes'][manifestacao] += 1
+        status_homologacao = (row.get('status_homologacao') or '').strip()
+        if status_homologacao:
+            grupo['homologacao'][status_homologacao] += 1
+
+    resumo = []
+    for chave in ordem:
+        grupo = grupos[chave]
+        resumo.append({
+            'arquivo': grupo['arquivo'],
+            'tr': grupo['tr'],
+            'rotulo_tr': grupo['rotulo_tr'],
+            'total': grupo['total'],
+            'situacoes': grupo['situacoes'].most_common(),
+            'manifestacoes': grupo['manifestacoes'].most_common(),
+            'homologacao': grupo['homologacao'].most_common(),
+        })
+    return resumo
 
 
 def exportar_relatorios_cef_csv(request):
