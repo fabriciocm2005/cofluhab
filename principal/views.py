@@ -2849,18 +2849,47 @@ def clientes(request):
     return render(request, 'principal/clientes.html', {'clientes': lista_clientes})
 
 def conjuntos(request):
+    # O cadastro legado pode estar ausente/incompleto no PostgreSQL de produção.
+    # Monta a relação a partir dos conjuntos que existem nos contratos e mutuários,
+    # preservando os nomes do cadastro quando disponíveis.
+    nomes_por_conjunto = {
+        str(conj.conjunto).strip(): conj.nome
+        for conj in ConjuntoHabitacional.objects.all().order_by('conjunto')
+        if str(conj.conjunto or '').strip().isdigit()
+    }
+    codigos = {
+        str(codigo).strip()
+        for codigo in Contrato.objects.exclude(conjunto='').values_list('conjunto', flat=True)
+        if str(codigo or '').strip().isdigit()
+    }
+    codigos.update(
+        str(codigo).strip()
+        for codigo in Mutuario.objects.exclude(conjunto='').values_list('conjunto', flat=True)
+        if str(codigo or '').strip().isdigit()
+    )
+
+    contratos_por_conjunto = {
+        row['conjunto']: row['total']
+        for row in Contrato.objects.exclude(conjunto='').values('conjunto').annotate(total=Count('id'))
+        if str(row['conjunto'] or '').strip().isdigit()
+    }
+    mutuarios_por_conjunto = {
+        row['conjunto']: row['total']
+        for row in Mutuario.objects.exclude(conjunto='').values('conjunto').annotate(total=Count('id'))
+        if str(row['conjunto'] or '').strip().isdigit()
+    }
+
     conjuntos_list = []
-    
-    for conj in ConjuntoHabitacional.objects.all().order_by('conjunto'):
-        # Contar contratos pelo campo conjunto (string)
-        qtd_contratos = Contrato.objects.filter(conjunto=conj.conjunto).count()
-        
+    for codigo in sorted(codigos, key=lambda value: str(value)):
+        codigo = str(codigo).strip()
+        if not codigo:
+            continue
         conjuntos_list.append({
-            'conjunto': conj.conjunto,
-            'nome': conj.nome,
-            'contrato': conj.contrato,
-            'qtd_contratos': qtd_contratos,
-            'qtd_mutuarios': qtd_contratos  # Sempre igual ao número de contratos (1 para 1)
+            'conjunto': codigo,
+            'nome': nomes_por_conjunto.get(codigo, ''),
+            'contrato': '',
+            'qtd_contratos': contratos_por_conjunto.get(codigo, 0),
+            'qtd_mutuarios': mutuarios_por_conjunto.get(codigo, 0),
         })
     
     return render(request, 'principal/conjuntos.html', {'conjuntos': conjuntos_list})
