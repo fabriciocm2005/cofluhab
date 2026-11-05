@@ -7373,15 +7373,8 @@ def amortizacao_negativa(request):
     return render(request, 'principal/amortizacao_negativa.html', context)
 
 
-def relatorio_debitos(request):
-    """Relatório de débitos por conjunto habitacional"""
-    conjunto_filtro = request.GET.get('conjunto', '')
-    ordenar_por = request.GET.get('ordenar', 'parcelas')  # 'parcelas' ou 'valor'
-    
-    contratos_debito = []
-    
-
 def _parse_decimal_br(texto):
+    """Converte valores monetários no formato brasileiro para Decimal."""
     texto = (texto or '').strip()
     if not texto:
         return Decimal('0')
@@ -7390,87 +7383,186 @@ def _parse_decimal_br(texto):
     except Exception:
         return Decimal('0')
 
-    # Filtrar contratos por conjunto se fornecido
+
+def relatorio_debitos(request):
+    """Relatório de débitos por conjunto habitacional."""
+    from django.utils import timezone
+
+    conjunto_filtro = request.GET.get('conjunto', '').strip()
+    codigo_contrato_filtro = request.GET.get('codigo_contrato', '').strip()
+    ordenar_por = request.GET.get('ordenar', 'conjunto')
+    ate_data = timezone.localdate()
+    taxa_mora_dia = Decimal('0.000333')  # 0,0333% ao dia, como informado na tela.
+
+    nomes_por_conjunto = {
+        str(conj.conjunto).strip(): conj.nome
+        for conj in ConjuntoHabitacional.objects.all().order_by('conjunto')
+        if str(conj.conjunto or '').strip().isdigit()
+    }
+    codigos_conjunto = {
+        str(codigo).strip()
+        for codigo in Contrato.objects.exclude(conjunto='').values_list('conjunto', flat=True)
+        if str(codigo or '').strip().isdigit()
+    }
+    codigos_conjunto.update(
+        str(codigo).strip()
+        for codigo in Mutuario.objects.exclude(conjunto='').values_list('conjunto', flat=True)
+        if str(codigo or '').strip().isdigit()
+    )
+    conjuntos = [
+        {'conjunto': codigo, 'nome': nomes_por_conjunto.get(codigo, '')}
+        for codigo in sorted(codigos_conjunto)
+    ]
+
+    contratos_qs = Contrato.objects.all()
     if conjunto_filtro:
-        contratos_qs = Contrato.objects.filter(conjunto=conjunto_filtro)
+        contratos_qs = contratos_qs.filter(conjunto=conjunto_filtro)
+    if codigo_contrato_filtro:
+        contratos_qs = contratos_qs.filter(codigo__icontains=codigo_contrato_filtro)
+
+    # Agrega as parcelas abertas por contrato e vencimento para calcular a mora
+    # de cada mês corretamente, sem depender de contrato_mutuario_map/SQLite.
+    encargo_parcela = Case(
+        When(vlautent__gt=0, then=F('vlautent')),
+        default=(
+            Coalesce(F('juros'), Value(Decimal('0')))
+            + Coalesce(F('amort'), Value(Decimal('0')))
+            + Coalesce(F('seguro'), Value(Decimal('0')))
+            + Coalesce(F('tca'), Value(Decimal('0')))
+            + Coalesce(F('fcvs'), Value(Decimal('0')))
+            + Coalesce(F('em'), Value(Decimal('0')))
+            + Coalesce(F('rp'), Value(Decimal('0')))
+        ),
+        output_field=DecimalField(max_digits=24, decimal_places=2),
+    )
+    parcelas_abertas = list(
+        ParcelaContrato.objects.filter(
+            contrato__in=contratos_qs,
+            dtpgto__isnull=True,
+        ).values('contrato_id', 'dtvenc').annotate(
+            qtd_parcelas=Count('id'),
+            encargo_total=Sum(encargo_parcela),
+        ).order_by('contrato_id', 'dtvenc')
+    )
+    resumo_por_contrato = {}
+    for parcela in parcelas_abertas:
+        resumo = resumo_por_contrato.setdefault(parcela['contrato_id'], {
+            'qtd_parcelas': 0,
+            'encargo_total': Decimal('0'),
+            'mora_total': Decimal('0'),
+            'primeira_vencida': None,
+        })
+        encargo = Decimal(str(parcela['encargo_total'] or 0))
+        vencimento = parcela['dtvenc']
+        dias_atraso = max((ate_data - vencimento).days, 0) if vencimento else 0
+        resumo['qtd_parcelas'] += parcela['qtd_parcelas']
+        resumo['encargo_total'] += encargo
+        resumo['mora_total'] += encargo * taxa_mora_dia * dias_atraso
+        if dias_atraso and (
+            resumo['primeira_vencida'] is None or vencimento < resumo['primeira_vencida']
+        ):
+            resumo['primeira_vencida'] = vencimento
+
+    if resumo_por_contrato:
+        contratos_qs = contratos_qs.filter(id__in=list(resumo_por_contrato))
     else:
-        contratos_qs = Contrato.objects.all()
-    
-    # Limitar para performance (processar em lotes)
-    contratos_qs = contratos_qs[:500]
-    
+        contratos_qs = contratos_qs.none()
+
+    codigos_contrato = list(contratos_qs.values_list('codigo', flat=True))
+    mutuarios_por_codigo = {}
+    for mutuario in Mutuario.objects.filter(codigo__in=codigos_contrato).order_by('id'):
+        mutuarios_por_codigo.setdefault(mutuario.codigo, mutuario)
+
+    mutuarios_por_conjunto = {}
+    for mutuario in Mutuario.objects.filter(conjunto__in=codigos_conjunto).order_by('id'):
+        mutuarios_por_conjunto.setdefault(mutuario.conjunto, mutuario)
+
+    contratos_debito = []
+    estatisticas_conjunto = {}
     for contrato in contratos_qs:
-        # Buscar parcelas em aberto (não pagas)
-        parcelas_abertas = ParcelaContrato.objects.filter(
-            contrato=contrato, 
-            dtpgto__isnull=True
-        ).order_by('dtvenc')
-        
-        if parcelas_abertas.count() > 0:
-            # Calcular total do débito
-            total_debito = Decimal('0')
-            for p in parcelas_abertas:
-                if p.vlautent:
-                    total_debito += p.vlautent
-                else:
-                    # Somar componentes se vlautent não existir
-                    if p.juros: total_debito += p.juros
-                    if p.amort: total_debito += p.amort
-                    if p.seguro: total_debito += p.seguro
-                    if p.tca: total_debito += p.tca
-            
-            # Buscar mutuário
-            db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'db.sqlite3')
-            mutuario = None
-            try:
-                conn = sqlite3.connect(db_path)
-                cur = conn.cursor()
-                cur.execute("SELECT mutuario_id FROM contrato_mutuario_map WHERE contrato_id = ?", (contrato.id,))
-                result = cur.fetchone()
-                if result:
-                    mutuario = Mutuario.objects.get(id=result[0])
-                conn.close()
-            except:
-                pass
-            
-            contratos_debito.append({
-                'contrato': contrato,
-                'mutuario': mutuario,
-                'parcelas_abertas': parcelas_abertas.count(),
-                'total_debito': total_debito,
-                'primeira_vencida': parcelas_abertas.first()
-            })
-    
-    # Ordenar
+        resumo = resumo_por_contrato[contrato.id]
+        encargo_total = resumo['encargo_total']
+        mora_total = resumo['mora_total']
+        total_debito = (encargo_total + mora_total).quantize(Decimal('0.01'))
+        mutuario = (mutuarios_por_codigo.get(contrato.codigo)
+                    or mutuarios_por_conjunto.get(contrato.conjunto))
+        item = {
+            'contrato': contrato,
+            'conjunto': contrato.conjunto,
+            'mutuario': mutuario,
+            'telefone': getattr(mutuario, 'telefone', '') if mutuario else '',
+            'email': getattr(mutuario, 'email', '') if mutuario else '',
+            'qtd_parcelas': resumo['qtd_parcelas'],
+            'parcelas_abertas': resumo['qtd_parcelas'],
+            'encargo_total': encargo_total,
+            'mora_total': mora_total,
+            'total_debito': total_debito,
+            'primeira_vencida': resumo['primeira_vencida'],
+        }
+        contratos_debito.append(item)
+
+        stats = estatisticas_conjunto.setdefault(contrato.conjunto, {
+            'nome': nomes_por_conjunto.get(contrato.conjunto, ''),
+            'qtd_contratos': 0,
+            'total_debito': Decimal('0'),
+        })
+        stats['qtd_contratos'] += 1
+        stats['total_debito'] += total_debito
+
     if ordenar_por == 'valor':
-        contratos_debito.sort(key=lambda x: x['total_debito'], reverse=True)
+        contratos_debito.sort(key=lambda item: item['total_debito'], reverse=True)
+    elif ordenar_por == 'nome':
+        contratos_debito.sort(key=lambda item: (item['mutuario'].nome if item['mutuario'] else '').casefold())
+    elif ordenar_por == 'conjunto':
+        contratos_debito.sort(key=lambda item: (str(item['conjunto']), str(item['contrato'].codigo)))
     else:
-        contratos_debito.sort(key=lambda x: x['parcelas_abertas'], reverse=True)
-    
-    # Calcular estatísticas
+        ordenar_por = 'parcelas'
+        contratos_debito.sort(key=lambda item: item['parcelas_abertas'], reverse=True)
+
     total_contratos_debito = len(contratos_debito)
-    total_geral_debito = sum([c['total_debito'] for c in contratos_debito])
-    
-    # Paginação
-    paginator = Paginator(contratos_debito, 50)
-    page_obj = paginator.get_page(request.GET.get('pagina', 1))
-    
-    # Buscar lista de conjuntos para filtro
-    conjuntos = ConjuntoHabitacional.objects.all().order_by('conjunto')
-    
+    total_geral_debito = sum(
+        (item['total_debito'] for item in contratos_debito), Decimal('0')
+    )
+
+    if request.GET.get('exportar', '').lower() == 'excel':
+        wb = Workbook()
+        ws = wb.active
+        ws.title = 'Debitos por Conjunto'
+        ws.append([
+            'Conjunto', 'Contrato', 'Mutuário', 'CPF', 'Telefone', 'E-mail',
+            'Parcelas em aberto', 'Primeiro vencimento em atraso',
+            'Encargos', 'Mora', 'Total do débito',
+        ])
+        for item in contratos_debito:
+            mutuario = item['mutuario']
+            ws.append([
+                item['conjunto'], item['contrato'].codigo,
+                mutuario.nome if mutuario else '', mutuario.cpf if mutuario else '',
+                item['telefone'], item['email'], item['qtd_parcelas'],
+                item['primeira_vencida'].strftime('%d/%m/%Y') if item['primeira_vencida'] else '',
+                float(item['encargo_total']), float(item['mora_total']), float(item['total_debito']),
+            ])
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = (
+            f'attachment; filename="relatorio_debitos_{ate_data.strftime("%Y%m%d")}.xlsx"'
+        )
+        wb.save(response)
+        return response
+
+    page_obj = Paginator(contratos_debito, 50).get_page(request.GET.get('page', request.GET.get('pagina', 1)))
     context = {
+        'ate_data': ate_data,
         'contratos_debito': page_obj,
-        'page_obj': page_obj,
         'total_contratos_debito': total_contratos_debito,
         'total_geral_debito': total_geral_debito,
+        'estatisticas_conjunto': estatisticas_conjunto,
         'conjuntos': conjuntos,
         'conjunto_filtro': conjunto_filtro,
+        'codigo_contrato_filtro': codigo_contrato_filtro,
         'ordenar_por': ordenar_por,
-        'stats': {
-            'total_contratos': total_contratos_debito,
-            'total_debito': total_geral_debito,
-            'media_debito': total_geral_debito / total_contratos_debito if total_contratos_debito > 0 else 0
-        }
+        'taxa_mora_dia': taxa_mora_dia,
     }
     return render(request, 'principal/relatorio_debitos.html', context)
 
